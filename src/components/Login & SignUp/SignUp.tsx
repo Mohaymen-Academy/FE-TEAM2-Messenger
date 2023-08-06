@@ -1,41 +1,27 @@
-import React from 'react'
+import Button from "../ui/button/Button";
 
 const SignUp = () => {
   return (
-      <div className='flex flex-col gap-2 justify-center items-center bg-gray-400 p-8'>
-
-      <p className='text-3xl'>Team 3 Messenger</p>
-      <p className='text-xl'>Create an account</p>
-      <div className='flex flex-col gap-2'>
-      <input
-        id='email'
-        type='email'
-        placeholder='Email'
-      />
-      <input
-        id='username'
-        placeholder='Username'
-      />
-      <input
-        id='password'
-        type='password'
-        placeholder='Password'
-      />
+    <form className="flex flex-col gap-4 justify-center items-center bg-teal-400 p-16 rounded-2xl">
+      <p className="text-3xl">پیام رسان مرام</p>
+      <p className="text-xl">ایجاد حساب کاربری</p>
+      <div className="flex flex-col gap-2">
+        <input id="email" type="email" placeholder="Email" />
+        <input id="username" placeholder="Username" />
+        <input id="password" type="password" placeholder="Password" />
       </div>
-      
-      <button>Sign Up</button>
-      <p className='text-4xl py-2'>OR</p>
-      
-      <button>Sign Up With Google</button>
-      <p className='text-sm py-2'>
-        Already have an account?
-        <span
-          className='hover:underline ml-1 cursor-pointer'>
-          Log in
-        </span>
-      </p>
-    </div>
-  )
-}
 
-export default SignUp
+      <Button>ثبت نام</Button>
+
+      <Button>ثبت نام با حساب گوگل</Button>
+      <p className="text-sm py-2 ">
+        حساب کاربری دارید ؟
+        <Button variant="link" size="sm">
+          وارد شوید
+        </Button>
+      </p>
+    </form>
+  );
+};
+
+export default SignUp;

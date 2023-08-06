@@ -1,10 +1,11 @@
+import Button from "../ui/button/Button"
 
 
 const Login = () => {
   return (
-     <div className='flex flex-col gap-2 justify-center items-center bg-gray-400 p-8'>
-      <p className='text-3xl'>ChetChat Messenger</p>
-      <p className='text-lg pb-2'>Log in to your account</p>
+     <div className='flex flex-col gap-4 justify-center items-center bg-gray-400 p-16 rounded-2xl'>
+      <p className='text-3xl'>پیام رسان مرام</p>
+      <p className='text-lg pb-2'>وارد شدن به حساب کاربری</p>
       <div className='flex flex-col gap-2'>
       <input
         id='userMail'
@@ -17,14 +18,13 @@ const Login = () => {
         placeholder='Password'
       />
       </div>
-        <button>Log in</button>
-
-      <p className='text-sm py-2'>
-        Don't have an account?
-        <span
-          className='hover:underline ml-1 cursor-pointer'>
-          Sign Up
-        </span>
+        <Button size="lg" >Log in</Button >
+      <p className='text-sm py-2 '>
+       حساب کاربری نداری داداش ؟
+        <Button size="sm" variant="link"
+          >
+          ثبت نام
+        </Button>
       </p>
     </div>
   )
