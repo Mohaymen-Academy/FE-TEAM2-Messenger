@@ -8,7 +8,7 @@ interface FeedWrapperProps {
 
 const FeedWrapper: React.FC<FeedWrapperProps> = ({ userId }) => {
   return (
-    <div className="w-full flex flex-col bg-light dark:bg-dark">
+    <div className="w-full flex flex-col">
       <>
         <div className="flex overflow-hidden justify-end h-[0px] flex-grow flex-col ">
           <Messages conversationId="12" userId={userId} />
