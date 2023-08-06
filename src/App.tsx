@@ -6,9 +6,11 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <p className="bg-slate-600">
-      <IconButton />
-    </p>
+    <div className="dark">
+      <p className="bg-slate-600 dark:bg-red-300">
+        <IconButton />
+      </p>
+    </div>
   );
 }
 
