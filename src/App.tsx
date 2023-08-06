@@ -1,12 +1,19 @@
+
 import { Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
+import ThemeToggle from "./components/ThemeToggle";
+import Paragraph from "./components/ui/paragraph/Paragraph";
 import Chat from "./pages/chat/Chat";
 import Auth from "./pages/auth/Auth";
 import SignUp from "./components/Login & SignUp/SignUp";
 
-function App() {
-  return (
 
-    <div className="dark">
+function App() {
+  const { theme } = useSelector((store) => store.app);
+
+  return (
+     <div className={`${theme}`}>
+      <ThemeToggle />
       <Routes >
         <Route path="/Chat" element={<Chat />}/>
         <Route path="/Auth" element={<Auth/>}>
