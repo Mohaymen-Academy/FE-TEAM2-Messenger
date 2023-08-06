@@ -5,8 +5,10 @@ function App() {
   
 
   return (
-    <div>
-      <Chat/>
+    <div className="dark">
+      <p className="bg-slate-600 dark:bg-red-300">
+        <IconButton />
+      </p>
     </div>
   );
 }
