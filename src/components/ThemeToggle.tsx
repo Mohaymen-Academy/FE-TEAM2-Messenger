@@ -13,8 +13,8 @@ const ThemeToggle = () => {
       onClick={() => dispatch(toggleTheme())}
       className="group absolute top-4 left-4"
     >
-      <BiSun className="rotate-0 w-6 h-6 scale-100 transition-all duration-300 dark:hover dark:-rotate-90 dark:scale-0 " />
-      <BiMoon className="absolute w-6 h-6 rotate-90 scale-0 transition-all duration-300  dark:rotate-0 dark:scale-100 dark:group-hover:text-gray-200" />
+      <BiSun className="rotate-0 icon scale-100 transition-all duration-300 dark:hover dark:-rotate-90 dark:scale-0 " />
+      <BiMoon className="absolute icon rotate-90 scale-0 transition-all duration-300  dark:rotate-0 dark:scale-100" />
       <span className="sr-only">Toggle theme</span>
     </Button>
   );

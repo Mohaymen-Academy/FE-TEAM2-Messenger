@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .icon {
+    @apply w-6 h-6 dark:group-hover:text-gray-200;
+  }
+}
