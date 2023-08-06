@@ -6,12 +6,11 @@ import Auth from "./pages/auth/Auth";
 import SignUp from "./components/Login & SignUp/SignUp";
 import Login from "./components/Login & SignUp/Login";
 
-
 function App() {
   const { theme } = useSelector((store) => store.app);
 
   return (
-     <div className={`${theme}`}>
+    <div className={`${theme}`}>
       <ThemeToggle />
       <Routes >
         <Route path="/Chat" element={<Chat />}/>
