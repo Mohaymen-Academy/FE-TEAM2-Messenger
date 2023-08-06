@@ -1,15 +1,16 @@
-import { useState } from "react";
-// import IconButton from "./components/ui/iconButton/IconButton";
-import IconButton from "@/ui/iconButton/IconButton";
+import { useSelector } from "react-redux";
+import ThemeToggle from "./components/ThemeToggle";
+import Paragraph from "./components/ui/paragraph/Paragraph";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const { theme } = useSelector((store) => store.app);
 
   return (
-    <div className="dark">
-      <p className="bg-slate-600 dark:bg-red-300">
-        <IconButton />
-      </p>
+    <div className={`${theme}`}>
+      <div className="bg-gray-200 dark:bg-slate-900 w-screen h-screen">
+        {/* An absolute positioned element for development */}
+        <ThemeToggle />
+      </div>
     </div>
   );
 }
