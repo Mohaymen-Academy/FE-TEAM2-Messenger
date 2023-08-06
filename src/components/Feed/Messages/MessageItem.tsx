@@ -1,83 +1,57 @@
-import { Avatar, Box, Stack, Flex, Text, useColorMode } from '@chakra-ui/react';
-import { MessagePopulated } from '../../../../../../backend/src/util/types';
-import { formatRelative } from 'date-fns';
-import enUS from 'date-fns/locale/en-US';
-
 interface MessageItemProps {
-  message: MessagePopulated;
+  message: string;
   sentByCurrentUser: boolean;
 }
 
-const formatRelativeLocale = {
-  lastWeek: "eee 'at' p",
-  yesterday: "'Yesteryear at' p",
-  today: 'p',
-  other: 'MM/dd/yy',
-};
-
-const MessageItem: React.FC<MessageItemProps> = ({
-  message,
-  sentByCurrentUser,
-}) => {
+const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser }) => {
   return (
-    <Stack
-      direction='row'
+    <div
       className={`
+      flex-row
         p-4
         gap-4
       hover:bg-white/20
-        justify-${sentByCurrentUser ? 'start' : 'end'}
-    `}>
+        justify-${sentByCurrentUser ? "start" : "end"}
+    `}
+    >
       {!sentByCurrentUser && (
-        <Flex className='items-end'>
-          <Avatar
-            size='sm'
-            name={message.sender?.username ? message.sender.username : 'USER'}
-          />
-        </Flex>
+        <div className="flex items-end">
+          {/* <Avatar size="sm" name={message.sender?.username ? message.sender.username : "USER"} /> */}
+          <div className="w-12 h-12 rounded-full">A</div>
+        </div>
       )}
-      <Stack className='gap-1 w-full'>
-        <Stack
-          direction='row'
+      <div className="flex flex-col gap-1 w-full">
+        <div
           className={`
+          flex
           items-center
-          justify-${sentByCurrentUser ? 'end' : 'start'}
-        `}>
-          {!sentByCurrentUser && (
-            <Text className='font-bold text-left'>
-              {message.sender?.username}
-            </Text>
-          )}
-          <Text className='text-sm text-white/70'>
-            {formatRelative(new Date(message.createdAt), new Date(), {
-              locale: {
-                ...enUS,
-                formatRelative: (token) =>
-                  formatRelativeLocale[
-                    token as keyof typeof formatRelativeLocale
-                  ],
-              },
-            })}
-          </Text>
-        </Stack>
-        <Flex
+          justify-${sentByCurrentUser ? "end" : "start"}
+        `}
+        >
+          {!sentByCurrentUser && <p className="font-bold text-left">abolfazl</p>}
+          <p className="text-sm text-white/70">1402/10/12</p>
+        </div>
+        <div
           className={`
-          justify-${sentByCurrentUser ? 'end' : 'start'}
-          `}>
-          <Box
+          flex 
+          justify-${sentByCurrentUser ? "end" : "start"}
+          `}
+        >
+          <div
             className={`
-              ${sentByCurrentUser ? 'bg-blue-600' : 'bg-white/20'}
+              ${sentByCurrentUser ? "bg-blue-600" : "bg-white/20"}
               px-3
               py-2
               rounded-2xl
               max-w-[350px]
               
-           `}>
-            <Text color='white'>{message.body}</Text>
-          </Box>
-        </Flex>
-      </Stack>
-    </Stack>
+           `}
+          >
+            <p className="text-white">سلام بر تو ای </p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
