@@ -1,1 +1,1 @@
-# FE-TEAM2-Messenger
+# A messaging app
