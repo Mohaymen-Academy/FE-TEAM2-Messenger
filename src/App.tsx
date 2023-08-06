@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div className={`${theme}`}>
-      <div className="bg-gray-200 dark:bg-slate-900 w-screen h-screen">
+      <div className="bg-white-200 dark:bg-slate-900 w-screen h-screen">
         {/* An absolute positioned element for development */}
         <Chat />
         <ThemeToggle />
