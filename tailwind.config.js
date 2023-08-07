@@ -10,6 +10,14 @@ export default {
         darkIcons: "url('/src/assets/img/bgIconsDark.png')",
         lightIcons: "url('/src/assets/img/bgIconsLight.png')",
       },
+      backgroundColor: {
+        primary: {
+          
+        },
+        secondary: {
+
+        },
+      },
     },
   },
   plugins: [],
