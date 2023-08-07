@@ -22,6 +22,47 @@ const Messages: React.FC<MessagesProps> = ({}) => {
           <MessageItem key={msg.id} message={msg} sentByCurrentUser={msg.sender?.id === userId} />
         ))} */}
         <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem message={"سلام"} sentByCurrentUser={false} />
       </div>
     </div>
   );

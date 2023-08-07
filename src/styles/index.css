@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --text-primary-light: #0f172a;
+    --text-primary-dark: #e2e8f0;
+    --text-secondary-light: #1e293b;
+    --text-secondary-dark: #cbd5e1;
+    --text-blue: #67e8f9;
+    --bg-primary-light: 
+    --bg-primary-dark: 
+    --bg-secondary-light:
+    --bg-secondary-dark:
+  }
+}
 @layer components {
   .icon {
     @apply w-6 h-6 dark:group-hover:text-gray-200;

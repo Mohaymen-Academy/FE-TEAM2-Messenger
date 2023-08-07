@@ -20,8 +20,6 @@ function App() {
 
   return (
     <div className={`${theme}`}>
-      <ThemeToggle />
-
       <Routes>
         <Route path="/chat" element={<Chat />} />
         <Route path="/auth" element={<Auth />}>
