@@ -45,7 +45,7 @@ const TextArea = () => {
       </label>
       <div
         className={merge(
-          "flex gap-1 px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700 items-center",
+          "flex gap-1 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 items-center",
           textareaHeight !== "auto" && "items-end"
         )}
       >

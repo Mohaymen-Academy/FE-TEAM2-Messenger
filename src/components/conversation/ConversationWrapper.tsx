@@ -1,7 +1,3 @@
-"use client";
-// import { MoonLoader } from "react-spinners";
-// import toast from "react-hot-toast";
-import { BiCommentAdd } from "react-icons/bi";
 import ConversationList from "./ConversationList";
 import ThemeToggle from "./ThemeToggle";
 
@@ -9,7 +5,7 @@ interface ConversationWrapperProps {}
 
 const ConversationWrapper: React.FC<ConversationWrapperProps> = ({}) => {
   return (
-    <div className="w-full md:w-2/4 dark:bg-black/40 bg-white/50  backdrop-blur-[5px] flex flex-col relative shadow-lg rounded-l-3xl">
+    <div className="w-full md:w-2/4 bg-gradient-to-tl from-[#a1a58bc8] dark:to-gray-800 dark:from-slate-900 from-10% to-[#8eb79899]  backdrop-blur-[5px] flex flex-col relative shadow-2xl shadow-lime-950 dark:shadow-neutral-800 rounded-l-3xl">
       <div className="flex flex-col h-full">
         <div className="p-2">
           <ThemeToggle />

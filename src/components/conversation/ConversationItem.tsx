@@ -2,6 +2,7 @@ import { FaDotCircle } from "react-icons/fa";
 import { useState } from "react";
 import { FiEdit3 } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
+import Paragraph from "../ui/paragraph/Paragraph";
 
 interface ConversationItemProps {
   conversation: any;
@@ -20,7 +21,8 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const conversationLatestMessage = conversation?.latestMessage?.body || "No messages yet";
+  const conversationLatestMessage =
+    conversation?.latestMessage?.body || "No messages yet";
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
@@ -46,18 +48,23 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
           <FaDotCircle color="#00ff0090" />
         </div>
       )}
-      <div className="w-12 h12 bg-red-200">A</div>
+      <div className="w-12 h12 bg-red-200 ">A</div>
       <div className="w-full">
         <div className="flex items-center justify-between whitespace-nowrap w-full">
-          <p className="text-white font-semibold xl:w-[12vw] md:w-[16vw] w-[65vw] overflow-hidden text-ellipsis">
-            abolfazl, ali, bagher
+          <Paragraph className="xl:w-[12vw] md:w-[16vw] w-[65vw] overflow-hidden text-ellipsis">
+            ابوالفصل علی ممد
+          </Paragraph>
+          <p className="text-[0.75rem] text-neutral-200 whitespace-nowrap">
+            1402.12.30
           </p>
-          <p className="text-[0.75rem] text-neutral-200 whitespace-nowrap">1402.12.30</p>
         </div>
 
-        <p className="text-neutral-200 text-sm whitespace-nowrap xl:w-[12vw] md:w-[16vw] w-[70vw] overflow-hidden text-ellipsis">
+        <Paragraph
+          size={"sm"}
+          className="whitespace-nowrap xl:w-[12vw] md:w-[16vw] w-[70vw] overflow-hidden text-ellipsis"
+        >
           {conversationLatestMessage}
-        </p>
+        </Paragraph>
       </div>
     </div>
   );
