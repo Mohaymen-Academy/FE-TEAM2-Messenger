@@ -42,7 +42,7 @@ const Chat: React.FC<ChatProps> = ({}) => {
             flex-col
             overflow-hidden'>
       <Header />
-      <Flex className='h-full'>
+      <Flex className='h-full bg-zinc-900'>
         <ConversationWrapper />
         <FeedWrapper />
       </Flex>

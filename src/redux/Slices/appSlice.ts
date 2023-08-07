@@ -1,20 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { store } from "./store";
+
+export type appSliceType = {
+  theme: string;
+};
 
 const initialState = {
   theme: "light",
 };
 
-const settingsSlice = createSlice({
+const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
-    toggleTheme(state) {
+    toggleTheme: (state: appSliceType) => {
       state.theme = state.theme === "light" ? "dark" : "light";
     },
   },
 });
 
-export const { toggleTheme } = settingsSlice.actions;
+export const { toggleTheme } = appSlice.actions;
 
-export default settingsSlice.reducer;
+export default appSlice.reducer;
