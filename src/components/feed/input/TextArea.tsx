@@ -4,7 +4,8 @@ import { IoMdImages } from "react-icons/io";
 import { BsEmojiLaughing, BsFillSendFill } from "react-icons/bs";
 import { ChangeEvent, useState } from "react";
 import { merge } from "@/utils/merge";
-import EmojiPicker from "emoji-picker-react";
+import Emoji from "./Emoji";
+import clsx from "clsx";
 
 const TextArea = () => {
   const {
@@ -16,6 +17,7 @@ const TextArea = () => {
   });
 
   const [textareaHeight, setTextAreaHeight] = useState("auto");
+  const [showEmoji, setShowEmoji] = useState(false);
 
   const handleTextAreaInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { scrollHeight, clientHeight } = event.target;
@@ -25,8 +27,19 @@ const TextArea = () => {
     setTextAreaHeight(newHeight);
   };
 
+  const handleShowEmoji = () => {
+    setShowEmoji((previousShowEmoji) => !previousShowEmoji);
+  };
+
   return (
-    <>
+    <div className="relative">
+      <Emoji
+        className={clsx(
+          "absolute bottom-20 hidd transition-all  duration-200 overflow-hidden h-0 w-0",
+          { "h-[435px] w-[352px]": showEmoji }
+        )}
+      />
+
       <label htmlFor="chat" className="sr-only">
         Your message
       </label>
@@ -41,7 +54,12 @@ const TextArea = () => {
           <span className="sr-only">Upload image</span>
         </Button>
 
-        <Button variant="ghost" size="sm" className="group">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="group"
+          onClick={handleShowEmoji}
+        >
           <BsEmojiLaughing className="icon w-5 h-5" />
           <span className="sr-only">Add emoji</span>
         </Button>
@@ -62,7 +80,7 @@ const TextArea = () => {
           <span className="sr-only">Send message</span>
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 
