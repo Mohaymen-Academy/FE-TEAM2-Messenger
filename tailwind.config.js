@@ -5,8 +5,10 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        light: "url('/src/assets/img/lightBg.svg')",
-        dark: "url('/src/assets/img/darkBg.svg')",
+        lightGradient: "url('/src/assets/img/lightGradient.svg')",
+        darkBg: "url('/src/assets/img/darkBg.svg')",
+        darkIcons: "url('/src/assets/img/bgIconsDark.png')",
+        lightIcons: "url('/src/assets/img/bgIconsLight.png')",
       },
     },
   },

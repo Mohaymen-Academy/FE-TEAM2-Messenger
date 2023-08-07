@@ -1,5 +1,5 @@
 import { FieldValues, useForm } from "react-hook-form";
-import Button from "../ui/button/Button";
+import Button from "@/ui/button/Button";
 import { IoMdImages } from "react-icons/io";
 import { BsEmojiLaughing, BsFillSendFill } from "react-icons/bs";
 import { ChangeEvent, useState } from "react";
