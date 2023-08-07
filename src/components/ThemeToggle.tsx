@@ -11,7 +11,7 @@ const ThemeToggle = () => {
       variant="ghost"
       size="sm"
       onClick={() => dispatch(toggleTheme())}
-      className="group absolute top-4 left-4"
+      className="group absolute top-4 left-4 z-50"
     >
       <BiSun className="rotate-0 icon scale-100 transition-all duration-300 dark:hover dark:-rotate-90 dark:scale-0 " />
       <BiMoon className="absolute icon rotate-90 scale-0 transition-all duration-300  dark:rotate-0 dark:scale-100" />

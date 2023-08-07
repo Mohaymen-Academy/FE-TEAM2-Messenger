@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { RiSendPlaneFill } from "react-icons/ri";
+import TextArea from "@/components/input/TextArea";
 
 interface MessageInputProps {}
 
@@ -17,7 +18,7 @@ const MessageInput: React.FC<MessageInputProps> = ({}) => {
           onSubmitHandler();
         }}
       >
-        <input />
+        <TextArea />
       </form>
     </div>
   );

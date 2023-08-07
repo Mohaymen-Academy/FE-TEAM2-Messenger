@@ -3,6 +3,8 @@ import Button from "../ui/button/Button";
 import { IoMdImages } from "react-icons/io";
 import { BsEmojiLaughing, BsFillSendFill } from "react-icons/bs";
 import { ChangeEvent, useState } from "react";
+import { merge } from "@/utils/merge";
+import EmojiPicker from "emoji-picker-react";
 
 const TextArea = () => {
   const {
@@ -28,7 +30,12 @@ const TextArea = () => {
       <label htmlFor="chat" className="sr-only">
         Your message
       </label>
-      <div className="flex gap-1 items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700 mt-20">
+      <div
+        className={merge(
+          "flex gap-1 px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700 items-center",
+          textareaHeight !== "auto" && "items-end"
+        )}
+      >
         <Button variant="ghost" size="sm" className="group">
           <IoMdImages className="icon" />
           <span className="sr-only">Upload image</span>
