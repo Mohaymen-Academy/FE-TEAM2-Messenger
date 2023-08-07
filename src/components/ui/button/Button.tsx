@@ -15,7 +15,7 @@ export const buttonVariants = cva(
         link: "bg-transparent underline-offset-4 hover:underline text-slate-900 dark:text-slate-100",
       },
       size: {
-        default: "h-10 p-3",
+        default: "h-10",
         sm: "h-9 px-2 rounded-md",
         lg: "h-11 px-8 rounded-md",
       },
@@ -23,7 +23,6 @@ export const buttonVariants = cva(
     defaultVariants: {
       variant: "default",
       size: "default",
-      // square: "default",
     },
   }
 );
@@ -44,7 +43,6 @@ const Button: React.FC<ButtonProps> = forwardRef<
       className={merge(
         buttonVariants({
           variant,
-          // square,
           size,
           className,
         })
