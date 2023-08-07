@@ -1,6 +1,5 @@
-"use client";
-import MessageInput from "./Messages/MessageInput";
-import Messages from "./Messages/Messages";
+import MessageInput from "./messages/MessageInput";
+import Messages from "./messages/Messages";
 
 interface FeedWrapperProps {
   userId: string;

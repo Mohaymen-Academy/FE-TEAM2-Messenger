@@ -1,12 +1,11 @@
-
-import { Outlet } from 'react-router-dom'
+import { Outlet } from "react-router-dom";
 
 const Auth = () => {
   return (
     <div className="grid place-items-center min-h-screen">
-        <Outlet/>
+      <Outlet />
     </div>
-  )
-}
+  );
+};
 
-export default Auth
+export default Auth;

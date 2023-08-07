@@ -11,6 +11,7 @@ const Login = () => {
         <input id="userMail" type="text" placeholder="Email or Username" />
         <input id="password" type="password" placeholder="Password" />
       </div>
+
       <Button
         onClick={() => {
           navigate("/chat");

@@ -1,4 +1,4 @@
-import ConversationItem from "./conversationItem";
+import ConversationItem from "./ConversationItem";
 
 interface ConversationListProps {}
 

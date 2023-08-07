@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .icon {
+    @apply w-6 h-6 dark:group-hover:text-gray-200;
+  }
+}
 /* width */
 ::-webkit-scrollbar {
   width: 8px;

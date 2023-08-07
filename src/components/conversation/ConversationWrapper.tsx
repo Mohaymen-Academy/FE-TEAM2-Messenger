@@ -3,7 +3,7 @@
 // import toast from "react-hot-toast";
 import { BiCommentAdd } from "react-icons/bi";
 import ConversationList from "./ConversationList";
-import ThemeToggle from "../ThemeToggle";
+import ThemeToggle from "./ThemeToggle";
 
 interface ConversationWrapperProps {}
 
