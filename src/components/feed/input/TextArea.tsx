@@ -32,11 +32,11 @@ const TextArea = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative mt-[700px]">
       <Emoji
         className={clsx(
-          "absolute bottom-20 hidd transition-all  duration-200 overflow-hidden h-0 w-0",
-          { "h-[435px] w-[352px]": showEmoji }
+          "absolute bottom-20 hidd transition-all duration-300 font-normal overflow-hidden h-0 w-0 opacity-0",
+          { "h-[435px] w-[352px] opacity-1": showEmoji }
         )}
       />
 
@@ -69,9 +69,9 @@ const TextArea = () => {
           rows={1}
           style={{ height: textareaHeight }}
           onInput={handleTextAreaInput}
-          className="block mx-2 px-3 py-2.5 w-full text-base text-gray-900 bg-white ring-1 ring-white
-          dark:ring-gray-800 dark:focus:ring-blue-400 rounded-lg border border-gray-300 
-           focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-400 dark:text-white outline-none resize-none leading-6"
+          className={merge(
+            "mx-2 px-3 py-2.5 w-full text-base text-gray-900 bg-white ring-1 ring-white dark:ring-gray-800 dark:focus:ring-blue-400 rounded-lg border border-gray-300 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-400 dark:text-white outline-none resize-none leading-6"
+          )}
           placeholder="ارسال پیام ..."
         ></textarea>
 
