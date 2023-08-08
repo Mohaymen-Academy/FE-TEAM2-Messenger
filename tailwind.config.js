@@ -9,6 +9,9 @@ export default {
         darkBg: "url('/src/assets/img/darkBg.svg')",
         darkIcons: "url('/src/assets/img/bgIconsDark.png')",
         lightIcons: "url('/src/assets/img/bgIconsLight.png')",
+        pattern: "url('/src/assets/img/bgPattern.svg')",
+        pattern2: "url('/src/assets/img/bgPattern2.svg')",
+        pattern3: "url('/src/assets/img/bgPattern3.svg')",
       },
       backgroundColor: {
         primary: {},
