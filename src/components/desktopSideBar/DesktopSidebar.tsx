@@ -8,13 +8,19 @@ import {
   BsFillPersonFill,
 } from "react-icons/bs";
 import { MdLogout } from "react-icons/md";
-import { FiSettings } from "react-icons/fi";
+import { FiEdit2, FiSettings } from "react-icons/fi";
 import { AiFillCaretRight } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { setSection } from "@/redux/Slices/conversationSlice";
 import Avatar from "../ui/avatar/Avatar";
 import test from "../../assets/img/darkBg.svg";
 
 const DesktopSidebar = () => {
   const [show, setShow] = useState(true);
+  const dispatch = useDispatch();
+  const onEditClickHandler = () => {
+    dispatch(setSection({ selectedState: "pvCreate" }));
+  };
   return (
     <div
       style={{ padding: show ? "0.5rem" : "0rem" }}
@@ -46,8 +52,12 @@ const DesktopSidebar = () => {
           </Button>
         </div>
         <div className="flex flex-col gap-4">
-          <Button variant="ghost" className="text-3xl w-14 h-14">
-            <FiSettings />
+          <Button
+            onClick={onEditClickHandler}
+            variant="ghost"
+            className="text-3xl w-14 h-14"
+          >
+            <FiEdit2 />
           </Button>
           <Button variant="ghost" className="text-3xl w-14 h-14">
             <MdLogout />

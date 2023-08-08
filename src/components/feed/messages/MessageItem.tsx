@@ -1,15 +1,17 @@
 import Avatar from "@/components/ui/avatar/Avatar";
 import Paragraph from "@/components/ui/paragraph/Paragraph";
 import clsx from "clsx";
-import avatar from "../../../assets/img/lightBg.svg"
-
+import avatar from "../../../assets/img/avatar.jpg";
 
 interface MessageItemProps {
   message: string;
   sentByCurrentUser: boolean;
 }
 
-const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser }) => {
+const MessageItem: React.FC<MessageItemProps> = ({
+  message,
+  sentByCurrentUser,
+}) => {
   return (
     <div
       className={`
@@ -21,8 +23,7 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser })
     >
       {!sentByCurrentUser && (
         <div className="flex justify-end ">
-          {/* <Avatar size="sm" name={message.sender?.username ? message.sender.username : "USER"} /> */}
-          <Avatar imgSrc={avatar} className="mb-3 " />
+          <Avatar imgSrc={avatar} className="mb-3" isOnline />
         </div>
       )}
       <div className="flex flex-col gap-1 w-full">
@@ -36,7 +37,7 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser })
           
         `}
         >
-          {!sentByCurrentUser &&  (
+          {!sentByCurrentUser && (
             <Paragraph className="font-bold text-left">abolfazl</Paragraph>
           )}
           <Paragraph size={"xs"} className="text-sm text-gray-950">
@@ -50,18 +51,17 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser })
           `}
         >
           <div
-            className={clsx(
-              "px-3 py-2  max-w-[350px] rounded-b-3xl",
-              {
-                "rounded-l-3xl": sentByCurrentUser,
-                "rounded-r-3xl": !sentByCurrentUser,
-                "bg-blue-500" : sentByCurrentUser,
-                "bg-teal-400" : !sentByCurrentUser,
-                "dark:bg-gray-700" : !sentByCurrentUser
-              }
-            )}
+            className={clsx("px-3 py-2  max-w-[350px] rounded-b-3xl", {
+              "rounded-l-3xl": sentByCurrentUser,
+              "rounded-r-3xl": !sentByCurrentUser,
+              "bg-blue-500": sentByCurrentUser,
+              "bg-teal-400": !sentByCurrentUser,
+              "dark:bg-gray-700": !sentByCurrentUser,
+            })}
           >
-            <Paragraph size={"sm"} className="text-white m-0">سلام بر تو ای </Paragraph>
+            <Paragraph size={"sm"} className="text-white m-0">
+              سلام بر تو ای{" "}
+            </Paragraph>
           </div>
         </div>
       </div>

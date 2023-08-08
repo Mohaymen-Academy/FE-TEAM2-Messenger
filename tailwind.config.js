@@ -11,14 +11,11 @@ export default {
         lightIcons: "url('/src/assets/img/bgIconsLight.png')",
       },
       backgroundColor: {
-        primary: {
-          
-        },
-        secondary: {
-
-        },
+        primary: {},
+        secondary: {},
       },
     },
   },
+  // safelist: ["opacity-100", "scale-100"],
   plugins: [],
 };
