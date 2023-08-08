@@ -28,8 +28,8 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({}) => {
           users={[
             { name: "ابوالفضل" },
             { name: "غلی" },
-            { name: "بهروز مادر خراب" },
-            { name: "فاطمه مادر خراب" },
+            { name: "بهروز" },
+            { name: "فاطمه " },
           ]}
         />
       </ConversationSectionWrapper>
