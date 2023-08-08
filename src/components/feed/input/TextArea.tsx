@@ -32,7 +32,7 @@ const TextArea = () => {
   };
 
   return (
-    <div className="relative mt-[700px]">
+    <div className="relative">
       <Emoji
         className={clsx(
           "absolute bottom-20 hidd transition-all duration-300 font-normal overflow-hidden h-0 w-0 opacity-0",

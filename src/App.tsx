@@ -13,13 +13,8 @@ import FloatingLabelInput from "./components/auth/input/FloatingLabelInput";
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
 
-  // useEffect(() => {
-  //   navigate("/auth/login");
-  // }, []);
-
   return (
     <div className={`${theme}`}>
-      <ThemeToggle />
       <Routes>
         <Route path="/chat" element={<Chat />} />
         <Route path="/auth" element={<Auth />}>
