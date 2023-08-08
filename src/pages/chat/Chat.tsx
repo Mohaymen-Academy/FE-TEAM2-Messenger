@@ -1,5 +1,4 @@
 import ConversationWrapper from "@/components/conversation/ConversationWrapper";
-import DesktopSidebar from "@/components/desktopSideBar/DesktopSidebar";
 import FeedWrapper from "@/components/feed/FeedWrapper";
 
 const Chat = () => {
@@ -8,7 +7,6 @@ const Chat = () => {
       <div className="flex h-screen">
         <ConversationWrapper />
         <FeedWrapper userId="232" />
-        <DesktopSidebar />
       </div>
     </div>
   );

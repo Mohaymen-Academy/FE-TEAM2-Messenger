@@ -1,8 +1,7 @@
 import { FaDotCircle } from "react-icons/fa";
 import { useState } from "react";
-import { FiEdit3 } from "react-icons/fi";
-import { RiDeleteBinLine } from "react-icons/ri";
 import Paragraph from "../ui/paragraph/Paragraph";
+import { useNavigate, createSearchParams } from "react-router-dom";
 
 interface ConversationItemProps {
   conversation: any;
@@ -20,13 +19,19 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   onDeleteConversation,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const conversationLatestMessage =
     conversation?.latestMessage?.body || "No messages yet";
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
-      // onClickConversation(conversation.id, hasSeenLatestMassage);
+      navigate({
+        pathname: "/chat",
+        search: createSearchParams({
+          conversationId: "111111",
+        }).toString(),
+      });
     } else if (event.type === "contextmenu") {
       event.preventDefault();
       setMenuOpen(true);

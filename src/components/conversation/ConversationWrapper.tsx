@@ -1,12 +1,21 @@
+import { useSearchParams } from "react-router-dom";
 import DesktopSidebar from "../desktopSideBar/DesktopSidebar";
 import ConversationList from "./ConversationList";
-import ThemeToggle from "./ThemeToggle";
+import { clsx } from "clsx";
 
 interface ConversationWrapperProps {}
 
 const ConversationWrapper: React.FC<ConversationWrapperProps> = ({}) => {
+  const [URLSearchParams] = useSearchParams();
+  const selectedConversation = URLSearchParams.get("conversationId");
   return (
-    <div className="w-full md:w-2/4 bg-gray-50 dark:bg-slate-700  backdrop-blur-[5px] flex flex-col relative shadow-2xl shadow-lime-950 dark:shadow-neutral-800 rounded-l-3xl">
+    <div
+      className={clsx(
+        "w-full bg-gray-50 dark:bg-slate-700 backdrop-blur-[5px] flex flex-col relative shadow-2xl shadow-lime-950 dark:shadow-neutral-800/50 rounded-l-none md:rounded-l-3xl transition md:opacity-100 md:scale-100",
+        { "opacity-0 scale-75": selectedConversation }
+      )}
+    >
+      {/* <div className="w-full bg-gray-50 dark:bg-slate-700 backdrop-blur-[5px] flex flex-col relative shadow-2xl shadow-lime-950 dark:shadow-neutral-800 rounded-l-3xl"></div> */}
       <div className="flex h-full">
         <DesktopSidebar />
         <div className="flex flex-col h-full w-full">
