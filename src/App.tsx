@@ -11,10 +11,6 @@ import { StoreStateTypes } from "./utils/types";
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
 
-  // useEffect(() => {
-  //   navigate("/auth/login");
-  // }, []);
-
   return (
     <div className={`${theme}`}>
       <Routes>

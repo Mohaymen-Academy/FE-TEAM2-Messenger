@@ -42,7 +42,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     <div
       onClick={handleClick}
       onContextMenu={handleClick}
-      className={`flex p-3 my-2 cursor-pointer hover:bg-black/20 rounded-md w-full relative ${
+      className={`flex p-3 my-2 cursor-pointer hover:bg-black/20 rounded-xl w-full relative ${
         isSelected && "bg-black/20"
       }
       items-center
