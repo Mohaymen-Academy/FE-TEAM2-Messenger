@@ -7,6 +7,8 @@ import Login from "./components/auth/Login";
 
 import Emoji from "./components/feed/input/Emoji";
 import { StoreStateTypes } from "./utils/types";
+import ThemeToggle from "./components/conversation/ThemeToggle";
+import FloatingLabelInput from "./components/auth/input/FloatingLabelInput";
 
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
@@ -19,7 +21,7 @@ function App() {
           <Route index path="login" element={<Login />} />
           <Route path="sign-up" element={<SignUp />} />
         </Route>
-        <Route path="test" element={<Emoji />} />
+        {/* <Route path="test" element={<FloatingLabelInput label="salam" />} /> */}
       </Routes>
     </div>
   );
