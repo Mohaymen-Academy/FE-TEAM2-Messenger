@@ -24,6 +24,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           })
         )}
         {...props}
+        type={type}
       >
         {children}
       </input>
