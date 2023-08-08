@@ -1,8 +1,9 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import appReducer from "./Slices/appSlice";
+import { appSliceReducer, conversationSliceReducer } from "./Slices";
 
 const rootReducer = combineReducers({
-  app: appReducer,
+  conversation: conversationSliceReducer,
+  app: appSliceReducer,
 });
 
 export default rootReducer;
