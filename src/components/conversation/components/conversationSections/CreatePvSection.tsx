@@ -6,10 +6,12 @@ type CreatePvSectionProps = {
 };
 
 type UserItemProps = {
-  users: User[];
+  user: User;
 };
 
-const UserItem: React.FC<UserItemProps> = () => {};
+const UserItem: React.FC<UserItemProps> = ({ user }) => {
+  return <div className="bg-slate-500">{user.name}</div>;
+};
 
 const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
   return (
@@ -17,7 +19,7 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
       <div className="w-full">search bar goes here</div>
       <div className="w-full h-full">
         {users.map((user) => (
-          <userItem />
+          <UserItem user={user} />
         ))}
       </div>
     </div>

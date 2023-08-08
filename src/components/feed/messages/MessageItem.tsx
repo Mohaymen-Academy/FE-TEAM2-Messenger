@@ -1,3 +1,9 @@
+import Avatar from "@/components/ui/avatar/Avatar";
+import Paragraph from "@/components/ui/paragraph/Paragraph";
+import clsx from "clsx";
+import avatar from "../../../assets/img/lightBg.svg"
+
+
 interface MessageItemProps {
   message: string;
   sentByCurrentUser: boolean;
@@ -10,14 +16,13 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser })
       flex-row
         p-4
         gap-4
-      hover:bg-white/20
-        justify-${sentByCurrentUser ? "start" : "end"}
+        justify-${sentByCurrentUser ? "end" : "start"}
     `}
     >
       {!sentByCurrentUser && (
-        <div className="flex items-end">
+        <div className="flex justify-end ">
           {/* <Avatar size="sm" name={message.sender?.username ? message.sender.username : "USER"} /> */}
-          <div className="w-12 h-12 rounded-full">A</div>
+          <Avatar imgSrc={avatar} className="mb-3 " />
         </div>
       )}
       <div className="flex flex-col gap-1 w-full">
@@ -25,29 +30,38 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser })
           className={`
           flex
           items-center
-          justify-${sentByCurrentUser ? "end" : "start"}
+          gap-2
+          justify-${sentByCurrentUser ? "start" : "end"}
+          ${!sentByCurrentUser && "flex-row-reverse self-end"}
+          
         `}
         >
-          {!sentByCurrentUser && <p className="font-bold text-left">abolfazl</p>}
-          <p className="text-sm text-white/70">1402/10/12</p>
+          {!sentByCurrentUser &&  (
+            <Paragraph className="font-bold text-left">abolfazl</Paragraph>
+          )}
+          <Paragraph size={"xs"} className="text-sm text-gray-950">
+            1402/10/12
+          </Paragraph>
         </div>
         <div
           className={`
           flex 
-          justify-${sentByCurrentUser ? "end" : "start"}
+          justify-${sentByCurrentUser ? "start" : "end"}
           `}
         >
           <div
-            className={`
-              ${sentByCurrentUser ? "bg-blue-600" : "bg-white/20"}
-              px-3
-              py-2
-              rounded-2xl
-              max-w-[350px]
-              
-           `}
+            className={clsx(
+              "px-3 py-2  max-w-[350px] rounded-b-3xl",
+              {
+                "rounded-l-3xl": sentByCurrentUser,
+                "rounded-r-3xl": !sentByCurrentUser,
+                "bg-blue-500" : sentByCurrentUser,
+                "bg-teal-400" : !sentByCurrentUser,
+                "dark:bg-gray-700" : !sentByCurrentUser
+              }
+            )}
           >
-            <p className="text-white">سلام بر تو ای </p>
+            <Paragraph size={"sm"} className="text-white m-0">سلام بر تو ای </Paragraph>
           </div>
         </div>
       </div>

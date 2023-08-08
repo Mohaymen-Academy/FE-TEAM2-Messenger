@@ -5,7 +5,7 @@ import { clsx } from "clsx";
 import { useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import ConversationSectionWrapper from "./components/conversationSections/ConversationSectionWrapper";
-import CreatePvSection from "./components/conversationSections/createPvSection";
+import CreatePvSection from "./components/conversationSections/CreatePvSection";
 
 interface ConversationWrapperProps {}
 
