@@ -1,5 +1,5 @@
 import { VariantProps, cva } from "class-variance-authority";
-import React, { ButtonHTMLAttributes, forwardRef } from "react";
+import React, { ButtonHTMLAttributes, Ref, forwardRef } from "react";
 import { merge } from "@/utils/merge";
 import { ClipLoader } from "react-spinners";
 
@@ -31,30 +31,30 @@ interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   isLoading?: boolean;
+  ref?: Ref<HTMLButtonElement>;
 }
 
-const Button: React.FC<ButtonProps> = forwardRef<
-  HTMLButtonElement,
-  ButtonProps
->(({ className, children, variant, isLoading, size, ...props }, ref) => {
-  return (
-    <button
-      ref={ref}
-      className={merge(
-        buttonVariants({
-          variant,
-          size,
-          className,
-        })
-      )}
-      disabled={isLoading}
-      {...props}
-    >
-      {isLoading ? <ClipLoader /> : null}
-      {children}
-    </button>
-  );
-});
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, children, variant, isLoading, size, ...props }, ref) => {
+    return (
+      <button
+        ref={ref}
+        className={merge(
+          buttonVariants({
+            variant,
+            size,
+            className,
+          })
+        )}
+        disabled={isLoading}
+        {...props}
+      >
+        {isLoading ? <ClipLoader /> : null}
+        {children}
+      </button>
+    );
+  }
+);
 
 Button.displayName = "Button";
 

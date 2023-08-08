@@ -5,7 +5,7 @@ export type appSliceType = {
 };
 
 const initialState = {
-  theme: "light",
+  theme: "dark",
 };
 
 const appSlice = createSlice({
