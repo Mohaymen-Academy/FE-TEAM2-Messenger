@@ -3,8 +3,8 @@ import FeedWrapper from "@/components/feed/FeedWrapper";
 
 const Chat = () => {
   return (
-    <div className="flex transition-all h-full w-full m-auto rounded-none drop-shadow-2xl flex-col overflow-hidden bg-lightGradient dark:bg-darkBg after:bg-lightIcons dark:after:bg-darkIcons bg-cover after:absolute after:w-full after:h-full after:-z-10  dark:bg-slate-900">
-      <div className="flex h-screen">
+    <div className="flex transition-all h-screen w-screen m-auto rounded-none flex-col overflow-hidden relative before:absolute before:bg-lightGradient dark:before:bg-darkBg before:h-full before:w-full before:bg-cover after:bg-lightIcons dark:after:bg-darkIcons after:h-full after:w-full after:absolute before:z-10 after:z-20">
+      <div className="absolute flex w-full h-full left-0 top-0 z-30">
         <ConversationWrapper />
         <FeedWrapper userId="232" />
       </div>
