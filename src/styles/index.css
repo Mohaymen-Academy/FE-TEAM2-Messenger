@@ -47,11 +47,17 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    overflow: hidden;
+  }
+  html {
+    height: -webkit-fill-available;
+  }
 }
 
-body {
-  overflow: hidden;
-}
 @layer components {
   .icon {
     @apply w-6 h-6 dark:group-hover:text-gray-200;
