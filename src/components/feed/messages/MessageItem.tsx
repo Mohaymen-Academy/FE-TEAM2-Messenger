@@ -1,7 +1,7 @@
 import Avatar from "@/components/ui/avatar/Avatar";
 import Paragraph from "@/components/ui/paragraph/Paragraph";
 import clsx from "clsx";
-import avatar from "../../../assets/img/lightBg.svg"
+import Iris from "../../../assets/img/Iris.svg";
 
 
 interface MessageItemProps {
@@ -22,7 +22,7 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser })
       {!sentByCurrentUser && (
         <div className="flex justify-end ">
           {/* <Avatar size="sm" name={message.sender?.username ? message.sender.username : "USER"} /> */}
-          <Avatar imgSrc={avatar} className="mb-3 " />
+          <Avatar imgSrc={Iris} className="mb-3 " />
         </div>
       )}
       <div className="flex flex-col gap-1 w-full">

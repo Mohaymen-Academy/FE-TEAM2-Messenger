@@ -35,7 +35,7 @@ const DesktopSidebar = () => {
       </div>
       <div className="w-full h-full flex flex-col justify-between overflow-hidden">
         <div className="flex flex-col gap-4">
-          <Button  variant="ghost" className="text-3xl w-14 h-14">
+          <Button variant="ghost" className="text-3xl w-14 h-14">
             <BsFillPersonFill />
           </Button>
           <Button variant="ghost" className="text-3xl w-14 h-14">
