@@ -32,6 +32,7 @@ function App() {
 
   return (
     <div className={`my-trigger ${theme}`}>
+
       <Routes>
         <Route path="/chat" element={<Chat />} />
         <Route path="/auth" element={<Auth />}>

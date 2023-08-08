@@ -14,6 +14,39 @@
     --bg-secondary-light:
     --bg-secondary-dark: */
   }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #f8f8f8;
+    border-radius: 20px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 }
 
 body {
@@ -23,25 +56,4 @@ body {
   .icon {
     @apply w-6 h-6 dark:group-hover:text-gray-200;
   }
-}
-/* width */
-::-webkit-scrollbar {
-  width: 8px;
-}
-/* Track */
-::-webkit-scrollbar-track {
-  background: transparent;
-  margin-bottom: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #f8f8f8;
-  border-radius: 20px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
 }
