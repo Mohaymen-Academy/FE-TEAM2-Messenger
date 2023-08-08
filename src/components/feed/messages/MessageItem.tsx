@@ -1,3 +1,6 @@
+import Avatar from "@/components/ui/avatar/Avatar";
+import Paragraph from "@/components/ui/paragraph/Paragraph";
+
 interface MessageItemProps {
   message: string;
   sentByCurrentUser: boolean;
@@ -17,7 +20,7 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser })
       {!sentByCurrentUser && (
         <div className="flex items-end">
           {/* <Avatar size="sm" name={message.sender?.username ? message.sender.username : "USER"} /> */}
-          <div className="w-12 h-12 rounded-full">A</div>
+          <Avatar className="mb-3"/>
         </div>
       )}
       <div className="flex flex-col gap-1 w-full">
@@ -25,11 +28,12 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser })
           className={`
           flex
           items-center
+          gap-2
           justify-${sentByCurrentUser ? "end" : "start"}
         `}
         >
-          {!sentByCurrentUser && <p className="font-bold text-left">abolfazl</p>}
-          <p className="text-sm text-white/70">1402/10/12</p>
+          {!sentByCurrentUser && <Paragraph className="font-bold text-left">abolfazl</Paragraph>}
+          <Paragraph className="text-sm text-white/70">1402/10/12</Paragraph>
         </div>
         <div
           className={`
@@ -39,10 +43,11 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser })
         >
           <div
             className={`
-              ${sentByCurrentUser ? "bg-blue-600" : "bg-white/20"}
+              ${sentByCurrentUser ? "bg-blue-600" : "bg-white/40"}
               px-3
               py-2
-              rounded-2xl
+              rounded-b-3xl
+              rounded-l-3xl
               max-w-[350px]
               
            `}

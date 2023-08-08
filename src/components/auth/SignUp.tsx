@@ -1,11 +1,16 @@
-import Button from "@/ui/button/Button";
+import { useNavigate } from "react-router-dom";
+import Button from "../ui/button/Button";
+import { FcGoogle } from "react-icons/fc";
+import Paragraph from "../ui/paragraph/Paragraph";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   return (
-    <form className="flex flex-col gap-4 justify-center items-center bg-teal-400 p-16 rounded-2xl">
-      <p className="text-3xl">پیام رسان مرام</p>
-      <p className="text-xl">ایجاد حساب کاربری</p>
-      <div className="flex flex-col gap-2">
+    <form className="dark:text-white flex flex-col gap-3 justify-center items-center bg-gray-400/60 backdrop-blur-sm  rounded-2xl px-16 py-6">
+      <Paragraph className="text-3xl">پیام رسان مرام</Paragraph>
+      <Paragraph className="text-xl">ایجاد حساب کاربری</Paragraph>
+      <div className="flex flex-col gap-4">
         <input id="email" type="email" placeholder="Email" />
         <input id="username" placeholder="Username" />
         <input id="password" type="password" placeholder="Password" />
@@ -13,13 +18,22 @@ const SignUp = () => {
 
       <Button>ثبت نام</Button>
 
-      <Button>ثبت نام با حساب گوگل</Button>
-      <p className="text-sm py-2 ">
+      <Button className="flex gap-2">
+        ثبت نام با حساب گوگل <FcGoogle />{" "}
+      </Button>
+
+      <Paragraph className="text-sm ">
         حساب کاربری دارید ؟
-        <Button variant="link" size="sm">
+        <Button
+          onClick={() => {
+            navigate("/auth/login");
+          }}
+          variant="link"
+          size="sm"
+        >
           وارد شوید
         </Button>
-      </p>
+      </Paragraph>
     </form>
   );
 };

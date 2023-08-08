@@ -1,17 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/button/Button";
+import Paragraph from "../ui/paragraph/Paragraph";
 
 const Login = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col gap-4 justify-center items-center bg-gray-400 p-16 rounded-2xl">
-      <p className="text-3xl">پیام رسان مرام</p>
-      <p className="text-lg pb-2">وارد شدن به حساب کاربری</p>
-      <div className="flex flex-col gap-2">
+    <form className="dark:text-white flex flex-col gap-4 justify-center items-center bg-green-500/80 backdrop-blur-sm px-10 py-6 rounded-2xl dark:bg-slate-900">
+      <Paragraph className="text-4xl">پیام رسان مرام</Paragraph>
+      <Paragraph className="text-lg">وارد شدن به حساب کاربری</Paragraph>
+      <div className="flex flex-col gap-4">
         <input id="userMail" type="text" placeholder="Email or Username" />
         <input id="password" type="password" placeholder="Password" />
       </div>
-
       <Button
         onClick={() => {
           navigate("/chat");
@@ -20,13 +20,17 @@ const Login = () => {
       >
         ورود
       </Button>
-      <p className="text-sm py-2 ">
+      <Paragraph className="text-sm">
         حساب کاربری نداری داداش ؟
-        <Button size="sm" variant="link">
+        <Button
+          onClick={() => navigate("/auth/sign-up")}
+          size="sm"
+          variant="link"
+        >
           ثبت نام
         </Button>
-      </p>
-    </div>
+      </Paragraph>
+    </form>
   );
 };
 
