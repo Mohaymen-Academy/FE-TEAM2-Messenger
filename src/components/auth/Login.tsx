@@ -28,7 +28,7 @@ const Login = () => {
           ورود به حساب کاربری
         </Paragraph>
       </header>
-      <FloatingLabelInput
+      {/* <FloatingLabelInput
         inputID="phone"
         type="tel"
         borderWidth={75}
@@ -36,7 +36,9 @@ const Login = () => {
         dropDown
       >
         <Dropdown items={countries} />
-      </FloatingLabelInput>
+      </FloatingLabelInput> */}
+
+      <ConfirmationInput length={5} />
 
       <Button
         onClick={() => {

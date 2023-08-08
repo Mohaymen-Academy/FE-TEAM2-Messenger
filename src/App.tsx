@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Chat from "./pages/chat/Chat";
@@ -9,13 +10,13 @@ import Emoji from "./components/feed/input/Emoji";
 import { StoreStateTypes } from "./utils/types";
 import ThemeToggle from "./components/conversation/ThemeToggle";
 import FloatingLabelInput from "./components/auth/input/FloatingLabelInput";
+import { useEffect, useState } from "react";
 
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
 
   return (
     <div className={`${theme}`}>
-      <ThemeToggle />
       <Routes>
         <Route path="/chat" element={<Chat />} />
         <Route path="/auth" element={<Auth />}>
