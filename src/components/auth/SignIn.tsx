@@ -88,12 +88,12 @@ const Login = () => {
 
         <Button
           onClick={() => {
-            navigate("/chat");
+            navigate("../../auth/number");
           }}
           size="lg"
           className="text-white"
         >
-          ورود
+          دریافت کد تایید
         </Button>
       </div>
     </div>

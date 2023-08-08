@@ -8,17 +8,18 @@ import { StoreStateTypes } from "./utils/types";
 import ThemeToggle from "./components/conversation/ThemeToggle";
 import FloatingLabelInput from "./components/auth/input/FloatingLabelInput";
 import SignIn from "./components/auth/SignIn";
+import NumberVerification from "./components/auth/NumberVerification";
 
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
 
   return (
     <div className={`${theme}`}>
-      <ThemeToggle />
       <Routes>
         <Route path="/chat" element={<Chat />} />
         <Route path="/auth" element={<Auth />}>
-          <Route index path="sign-in" element={<Login />} />
+          <Route path="sign-in" element={<Login />} />
+          <Route path="number" element={<NumberVerification/>}/>
         </Route>
         {/* <Route path="test" element={<FloatingLabelInput label="salam" />} /> */}
       </Routes>
