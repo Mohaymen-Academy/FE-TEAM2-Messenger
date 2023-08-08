@@ -4,6 +4,18 @@ import Paragraph from "../ui/paragraph/Paragraph";
 import Input from "./input/Input";
 import FloatingLabelInput from "./input/FloatingLabelInput";
 import PhoneNumberInput from "./input/PhoneNumberInput";
+import Dropdown from "./input/DropDown";
+
+const countries = [
+  {
+    dialCode: "98",
+    country: "IR",
+  },
+  {
+    dialCode: "1",
+    country: "US",
+  },
+];
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,7 +30,15 @@ const Login = () => {
         </Paragraph>
       </header>
 
-      <PhoneNumberInput />
+      <FloatingLabelInput
+        inputID="phone"
+        type="tel"
+        borderWidth={75}
+        label="شماره تلفن"
+        dropDown
+      >
+        <Dropdown items={countries} />
+      </FloatingLabelInput>
 
       <Button
         onClick={() => {

@@ -9,11 +9,10 @@
     --text-secondary-light: #1e293b;
     --text-secondary-dark: #cbd5e1;
     --text-blue: #67e8f9;
-    --font-family: "vazir"
-    --bg-primary-light: 
-    --bg-primary-dark: 
+    --bg-primary-light: ;
+    /* --bg-primary-dark: 
     --bg-secondary-light:
-    --bg-secondary-dark:
+    --bg-secondary-dark: */
   }
 }
 @layer components {
@@ -29,6 +28,7 @@
 ::-webkit-scrollbar-track {
   background: transparent;
   margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 /* Handle */
