@@ -11,15 +11,14 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({}) => {
   return (
     <div
       className={clsx(
-        "w-full bg-gray-50 dark:bg-slate-700 backdrop-blur-[5px] flex flex-col relative shadow-2xl shadow-lime-950 dark:shadow-neutral-800/50 rounded-l-none md:rounded-l-3xl transition md:opacity-100 md:scale-100",
+        "w-full md:w-4/5 xl:w-2/5 bg-gray-50 dark:bg-slate-700 backdrop-blur-[5px] flex flex-col relative shadow-2xl shadow-lime-950 dark:shadow-neutral-800/50 rounded-l-none md:rounded-l-3xl transition md:opacity-100 md:scale-100",
         { "opacity-0 scale-75": selectedConversation }
       )}
     >
-      {/* <div className="w-full bg-gray-50 dark:bg-slate-700 backdrop-blur-[5px] flex flex-col relative shadow-2xl shadow-lime-950 dark:shadow-neutral-800 rounded-l-3xl"></div> */}
       <div className="flex h-full">
         <DesktopSidebar />
         <div className="flex flex-col h-full w-full">
-          <div className="h-full overflow-y-auto overflow-x-hidden">
+          <div className="h-full overflow-y-auto overflow-x-hidden px-3">
             <ConversationList />
           </div>
           {/* <div className="flex w-full h-full justify-center items-center">

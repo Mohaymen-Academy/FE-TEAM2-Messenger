@@ -1,14 +1,23 @@
+import ThemeToggle from "@/components/conversation/ThemeToggle";
 import { merge } from "@/utils/merge";
 import { Outlet } from "react-router-dom";
 
 const Auth = () => {
   return (
-    <div
-      className={merge(
-        "grid place-items-center min-h-screen bg-lightGradient dark:bg-darkBg after:bg-lightIcons dark:after:bg-darkIcons bg-cover after:absolute after:w-full after:h-full after:-z-10"
-      )}
-    >
-      <Outlet />
+    <div className="relative">
+      <div className="absolute z-40">
+        <ThemeToggle />
+      </div>
+
+      <div
+        className={merge(
+          "grid place-items-center min-h-screen before:absolute before:bg-lightGradient dark:before:bg-darkBg before:h-full before:w-full before:bg-cover after:bg-lightIcons dark:after:bg-darkIcons after:h-full after:w-full after:absolute before:z-10 after:z-20 relative"
+        )}
+      >
+        <div className="absolute z-30">
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 };
