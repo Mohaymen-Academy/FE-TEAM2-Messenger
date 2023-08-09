@@ -16,11 +16,13 @@ const Avatar: React.FC<AvatarProps> = ({
     <div
       className={merge(
         className,
-        "h-12 w-12 text-center relative bg-orange-300 rounded-full"
+        "w-12 h-12 text-center relative rounded-full bg-red-300"
       )}
       {...props}
     >
-      <div className="absolute w-3 h-3 border rounded-full bg-green-500 top-1 right-1"></div>
+      {isOnline && (
+        <div className="absolute w-3 h-3 border rounded-full bg-green-500 top-0 right-0"></div>
+      )}
       {imgSrc && <img className="rounded-full w-full h-full " src={imgSrc} />}
     </div>
   );

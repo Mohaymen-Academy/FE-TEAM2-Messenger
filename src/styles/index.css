@@ -47,11 +47,17 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    overflow: hidden;
+  }
+  html {
+    height: -webkit-fill-available;
+  }
 }
 
-body {
-  overflow: hidden;
-}
 @layer components {
   .icon {
     @apply w-6 h-6 dark:group-hover:text-gray-200;
@@ -60,4 +66,7 @@ body {
   .sidebar-icon {
     @apply dark:text-gray-100 text-slate-800 group-hover:text-slate-900 dark:group-hover:text-white;
   }
+}
+.filepond--credits {
+  display: none;
 }

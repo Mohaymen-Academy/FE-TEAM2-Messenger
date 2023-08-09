@@ -6,16 +6,19 @@ import { useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import ConversationSectionWrapper from "./components/conversationSections/ConversationSectionWrapper";
 import CreatePvSection from "./components/conversationSections/CreatePvSection";
+import { useState } from "react";
+import SwipeWrapper from "@/ui/SwipeWrapper/SwipeWrapper";
 
 interface ConversationWrapperProps {}
 
 const ConversationWrapper: React.FC<ConversationWrapperProps> = ({}) => {
   const [URLSearchParams] = useSearchParams();
+  const [showSideBar, setShowSideBar] = useState(true);
+
   const selectedConversation = URLSearchParams.get("conversationId");
   const section = useSelector(
     (state: StoreStateTypes) => state.conversation.section
   );
-  console.log(section);
   return (
     <div
       className={clsx(
@@ -34,21 +37,24 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({}) => {
         />
       </ConversationSectionWrapper>
       <ConversationSectionWrapper show={section === "conversations"}>
-        <DesktopSidebar />
-        <div className="flex flex-col h-full w-full">
-          <div className="h-full overflow-y-auto overflow-x-hidden px-3">
-            <ConversationList />
+        <SwipeWrapper
+          id="swipe-conversation-list-section"
+          onSwipeLeft={() => setShowSideBar(true)}
+          onSwipeRight={() => setShowSideBar(false)}
+        >
+          <DesktopSidebar
+            showSideBar={showSideBar}
+            setShowSideBar={setShowSideBar}
+          />
+          <div className="flex flex-col h-full w-full">
+            <div
+              style={{ paddingRight: showSideBar ? "85px" : "0.75rem" }}
+              className="h-full overflow-y-auto overflow-x-hidden px-3 transition-all duration-500"
+            >
+              <ConversationList />
+            </div>
           </div>
-          {/* <div className="flex w-full h-full justify-center items-center">
-          <div
-            // onClick={() => onOpen()}
-            className="flex flex-col justify-center items-center text-xl font-bold cursor-pointer group"
-          >
-            <p>Create a Conversation</p>
-            <BiCommentAdd className="text-[5rem] group-hover:scale-110 transition-all" />
-          </div>
-        </div> */}
-        </div>
+        </SwipeWrapper>
       </ConversationSectionWrapper>
     </div>
   );
