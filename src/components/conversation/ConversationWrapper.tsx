@@ -8,6 +8,7 @@ import ConversationSectionWrapper from "./components/conversationSections/Conver
 import CreatePvSection from "./components/conversationSections/NewChatSection";
 import { useState } from "react";
 import SwipeWrapper from "@/ui/SwipeWrapper/SwipeWrapper";
+import NewGroupChannelSection from "./components/conversationSections/NewGroupChannelSection";
 
 interface ConversationWrapperProps {}
 
@@ -19,6 +20,7 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({}) => {
   const section = useSelector(
     (state: StoreStateTypes) => state.conversation.section
   );
+
   return (
     <div
       className={clsx(
@@ -26,7 +28,10 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({}) => {
         { "opacity-0 scale-75": selectedConversation }
       )}
     >
-      <ConversationSectionWrapper show={section === "pvCreate"}>
+      <ConversationSectionWrapper
+        sectionName={section}
+        show={section === "pvCreate"}
+      >
         <CreatePvSection
           users={[
             { name: "ابوالفضل" },
@@ -36,7 +41,23 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({}) => {
           ]}
         />
       </ConversationSectionWrapper>
-      <ConversationSectionWrapper show={section === "conversations"}>
+      <ConversationSectionWrapper
+        sectionName={section}
+        show={section === "channelCreate" || section === "groupCreate"}
+      >
+        <NewGroupChannelSection
+          users={[
+            { name: "ابوالفضل" },
+            { name: "غلی" },
+            { name: "بهروز" },
+            { name: "فاطمه " },
+          ]}
+        />
+      </ConversationSectionWrapper>
+      <ConversationSectionWrapper
+        sectionName={section}
+        show={section === "conversations"}
+      >
         <SwipeWrapper
           id="swipe-conversation-list-section"
           onSwipeLeft={() => setShowSideBar(true)}
