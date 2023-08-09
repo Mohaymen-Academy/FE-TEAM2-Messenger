@@ -4,6 +4,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      screens: {
+        sm: "600px",
+      },
       backgroundImage: {
         lightGradient: "url('/src/assets/img/lightGradient.svg')",
         darkBg: "url('/src/assets/img/darkBg.svg')",

@@ -1,5 +1,6 @@
 import ConversationWrapper from "@/components/conversation/ConversationWrapper";
 import FeedWrapper from "@/components/feed/FeedWrapper";
+import pattern from "../../assets/img/bgPattern2.webp";
 
 import {
   isAndroid,
@@ -7,22 +8,54 @@ import {
   isMobile,
   isSamsungBrowser,
 } from "react-device-detect";
+import { useSelector } from "react-redux";
+import { StoreStateTypes } from "@/utils/types";
+import { useState } from "react";
+import Button from "@/components/ui/button/Button";
 const Chat = () => {
   const userIsInMobile = (isAndroid || isIOS) && isMobile;
+  const theme = useSelector((store: StoreStateTypes) => store.app.theme);
+  const [showComplete, setShowComplete] = useState(false);
   return (
     <div
       style={{
-        height: isSamsungBrowser
+        height: false
           ? "calc(100vh - 92px)"
-          : userIsInMobile
+          : false
           ? "calc(100vh - 52px)"
           : "100vh",
+        background: `linear-gradient(120deg, ${
+          theme === "dark"
+            ? "rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)"
+            : "rgba(119, 172, 140, 0.8), rgba(215, 219, 185, 0.8)"
+        }), url(${pattern})`,
       }}
-      className="my-element flex transition-all m-auto rounded-none flex-col overflow-hidden relative before:absolute before:bg-lightGradient dark:before:bg-darkBg before:h-full before:w-full before:bg-cover after:bg-pattern2 after:bg-[length:400px] after:opacity-30 dark:after:opacity-10 dark:after:filter dark:after:invert  after:h-full after:w-full after:bg-repeat after:absolute before:z-10 after:z-20 max-w-[1920px]"
+      className="flex transition-all m-auto rounded-none flex-col relative max-w-[1920px] bg-repeat"
     >
-      <div className="absolute flex w-full h-full left-0 top-0 z-30">
+      <div className="flex w-full h-full">
+        <div
+          style={{
+            width: showComplete && 0,
+            minWidth: showComplete && 0,
+          }}
+          className="h-full lg:w-[500px] sm:min-w-[400px] bg-red-400 transition-all duration-1000 relative"
+        >
+          <div className="absolute">
+            <Button onClick={() => setShowComplete(!showComplete)}>
+              showCopmlete
+            </Button>
+          </div>
+        </div>
+        <div className="h-full lg:w-full w-screen sm:min-w-[100vh] bg-green-400 relative">
+          FEEEEEEEEEEEEEEEEED
+          <div className="absolute left-0">FEEEEEEED</div>
+          <Button onClick={() => setShowComplete(!showComplete)}>
+            showCopmlete
+          </Button>
+        </div>
+        {/*         
         <ConversationWrapper />
-        <FeedWrapper userId="232" />
+        <FeedWrapper userId="232" /> */}
       </div>
     </div>
   );
