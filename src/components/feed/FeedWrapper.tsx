@@ -15,7 +15,7 @@ const FeedWrapper: React.FC<FeedWrapperProps> = ({ userId }) => {
   return (
     <div
       className={clsx(
-        "absolute left-[-100%] md:static h-full w-screen flex flex-col transition-[left] bg-black/20 md:bg-transparent dark:bg-transparent",
+        "absolute left-[-100%] md:static h-screen w-screen flex flex-col transition-[left] bg-black/20 md:bg-transparent dark:bg-transparent",
         {
           "left-[0%]": selectedConversation,
         }

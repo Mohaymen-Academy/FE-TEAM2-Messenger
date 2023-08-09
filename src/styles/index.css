@@ -48,11 +48,16 @@
     background: #555;
   }
 }
+
 body {
   overflow: hidden;
 }
 @layer components {
   .icon {
     @apply w-6 h-6 dark:group-hover:text-gray-200;
+  }
+
+  .sidebar-icon {
+    @apply dark:text-gray-100 text-slate-800 group-hover:text-slate-900 dark:group-hover:text-white;
   }
 }
