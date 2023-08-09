@@ -45,7 +45,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     <div
       onClick={handleClick}
       onContextMenu={handleClick}
-      className={`flex justify-between p-3 my-2 cursor-pointer items-center hover:bg-black/20 gap-3 w-full relative rounded-3xl overflow-hidden ${
+      className={`flex justify-between p-3 my-2 cursor-pointer items-center hover:bg-slate-600 gap-3 w-full relative rounded-3xl overflow-hidden ${
         isSelected && "bg-black/20"
       }`}
     >

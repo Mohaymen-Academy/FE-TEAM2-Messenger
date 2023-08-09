@@ -19,6 +19,8 @@
     --bg-secondary: #f3f4f6;
     /* green-500 */
     --bg-online: #22c55e;
+    /* gray-100 */
+    --bg-hover: #f3f4f6;
 
     /* slate-700 */
     --bg-btn: #334155;
@@ -43,6 +45,8 @@
     --bg-primary: #334155;
     /* gray-800 */
     --bg-secondary: #1f2937;
+    /* slate-600 */
+    --bg-hover: #475569;
 
     /* slate-200 */
     --bg-btn: #e2e8f0;
@@ -101,7 +105,4 @@
 }
 
 @layer components {
-}
-.filepond--credits {
-  display: none;
 }

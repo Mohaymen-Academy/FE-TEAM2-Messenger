@@ -7,6 +7,7 @@ import Login from "./components/auth/SignIn";
 import { StoreStateTypes } from "./utils/types";
 import Button from "./components/ui/button/Button";
 import ThemeToggle from "./components/conversation/ThemeToggle";
+import Test from "./components/Test";
 
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
@@ -25,11 +26,13 @@ function App() {
 
   return (
     <div className={`${theme}`}>
+      <ThemeToggle />
       <Routes>
         <Route path="/chat" element={<Chat />} />
         <Route path="/auth" element={<Auth />}>
           <Route index path="sign-in" element={<Login />} />
         </Route>
+        <Route path="/test" element={<Test />} />
       </Routes>
     </div>
   );
