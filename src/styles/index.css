@@ -4,15 +4,57 @@
 
 @layer base {
   :root {
-    --text-primary-light: #0f172a;
-    --text-primary-dark: #e2e8f0;
-    --text-secondary-light: #1e293b;
-    --text-secondary-dark: #cbd5e1;
+    /* slate-900  */
+    --text-primary: #0f172a;
+    /* slate-800 */
+    --text-secondary: #1e293b;
+    /* cyan-300 */
     --text-blue: #67e8f9;
-    --bg-primary-light: ;
-    /* --bg-primary-dark: 
-    --bg-secondary-light:
-    --bg-secondary-dark: */
+    /* white */
+    --text-white: #ffffff;
+
+    /* white */
+    --bg-primary: #fff;
+    /* gray-100 */
+    --bg-secondary: #f3f4f6;
+    /* green-500 */
+    --bg-online: #22c55e;
+
+    /* slate-700 */
+    --bg-btn: #334155;
+    /* slate-800 */
+    --bg-btn-hover: #1e293b;
+    /* slate-200 */
+    --bg-btn-ghost: #e2e8f0;
+
+    /* lime-100 */
+    --bg-msg-current: #ecfccb;
+    /* gray-100 */
+    --bg-msg-other: #f3f4f6;
+  }
+
+  .dark {
+    /* slate-200 */
+    --text-primary: #e2e8f0;
+    /* slate-300 */
+    --text-secondary: #cbd5e1;
+
+    /* slate-700 */
+    --bg-primary: #334155;
+    /* gray-800 */
+    --bg-secondary: #1f2937;
+
+    /* slate-200 */
+    --bg-btn: #e2e8f0;
+    /* slate-100 */
+    --bg-btn-hover: #f1f5f9;
+    /* slate-700 */
+    --bg-btn-ghost: #334155;
+
+    /* sky-600 */
+    --bg-msg-current: #0284c7;
+    /* slate-700 */
+    --bg-msg-other: #334155;
   }
 
   input::-webkit-outer-spin-button,
@@ -59,13 +101,6 @@
 }
 
 @layer components {
-  .icon {
-    @apply w-6 h-6 dark:group-hover:text-gray-200;
-  }
-
-  .sidebar-icon {
-    @apply dark:text-gray-100 text-slate-800 group-hover:text-slate-900 dark:group-hover:text-white;
-  }
 }
 .filepond--credits {
   display: none;

@@ -11,7 +11,7 @@ const ConversationSectionWrapper: React.FC<ConversationSectionWrapperProps> = ({
     <div
       style={{
         opacity: show ? "1" : "0",
-        transform: show ? "translate(0, 0)" : "translate(100%, 0)",
+        transform: show ? "translate(0, 0)" : "translate(200%, 0)",
         scale: show ? "1" : "0.7",
       }}
       className={

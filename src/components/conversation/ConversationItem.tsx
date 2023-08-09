@@ -4,20 +4,21 @@ import Paragraph from "../ui/paragraph/Paragraph";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import Avatar from "../ui/avatar/Avatar";
 import test from "../../assets/img/darkBg.svg";
+import UnreadMesseges from "./components/UnreadMesseges";
 
 interface ConversationItemProps {
   conversation: any;
   onClickConversation: () => void;
   onDeleteConversation: () => void;
   isSelected: boolean;
-  hasSeenLatestMassage: boolean | undefined;
+  unseendMesseges: number;
 }
 
 const ConversationItem: React.FC<ConversationItemProps> = ({
   onClickConversation,
   conversation,
   isSelected,
-  hasSeenLatestMassage,
+  unseendMesseges,
   onDeleteConversation,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -44,23 +45,16 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     <div
       onClick={handleClick}
       onContextMenu={handleClick}
-      className={`flex p-3 my-2 cursor-pointer hover:bg-black/20 gap-3 rounded-sm w-full relative ${
+      className={`flex justify-between p-3 my-2 cursor-pointer items-center hover:bg-black/20 gap-3 w-full relative rounded-3xl overflow-hidden ${
         isSelected && "bg-black/20"
-      }
-      items-center
-      `}
+      }`}
     >
-      {!hasSeenLatestMassage && (
-        <div className="absolute top-1 left-1">
-          <FaDotCircle color="#00ff0090" />
-        </div>
-      )}
-      <div className="w-12 h-12">
+      <div>
         <Avatar imgSrc={test} isOnline={false} />
       </div>
-      <div className="w-10/12">
+      <div className="w-full">
         <div className="flex items-center justify-between whitespace-nowrap w-full">
-          <Paragraph className="xl:w-[12vw] md:w-[16vw] w-[65vw] overflow-hidden font-extrabold text-ellipsis">
+          <Paragraph className="xl:w-[12vw] md:w-[16vw] w-[65vw] overflow-hidden font-extrabold text-ellipsis dark:!text-white !text-slate-800 ml-2">
             ابوالفصل علی ممد
           </Paragraph>
           <Paragraph
@@ -71,12 +65,15 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
           </Paragraph>
         </div>
 
-        <Paragraph
-          size={"sm"}
-          className="whitespace-nowrap xl:w-[12vw] md:w-[16vw] w-[70vw] overflow-hidden text-ellipsis"
-        >
-          {conversationLatestMessage}
-        </Paragraph>
+        <div className="flex justify-between items-center">
+          <Paragraph
+            size={"sm"}
+            // className="whitespace-nowrap xl:w-[12vw] md:w-[16vw] w-[70vw] overflow-hidden text-ellipsis"
+          >
+            {conversationLatestMessage}
+          </Paragraph>
+          {true && <UnreadMesseges unseens={10} />}
+        </div>
       </div>
     </div>
   );

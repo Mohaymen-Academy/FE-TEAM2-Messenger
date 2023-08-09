@@ -1,6 +1,6 @@
 import ConversationWrapper from "@/components/conversation/ConversationWrapper";
 import FeedWrapper from "@/components/feed/FeedWrapper";
-import React from "react";
+
 import {
   isAndroid,
   isIOS,
@@ -18,7 +18,7 @@ const Chat = () => {
           ? "calc(100vh - 52px)"
           : "100vh",
       }}
-      className="my-element flex transition-all m-auto rounded-none flex-col overflow-hidden relative before:absolute before:bg-lightGradient dark:before:bg-darkBg before:h-full before:w-full before:bg-cover  after:h-full after:w-full after:bg-repeat after:absolute before:z-10 after:z-20 max-w-[1920px]"
+      className="my-element flex transition-all m-auto rounded-none flex-col overflow-hidden relative before:absolute before:bg-lightGradient dark:before:bg-darkBg before:h-full before:w-full before:bg-cover after:bg-pattern2 after:bg-[length:400px] after:opacity-30 dark:after:opacity-10 dark:after:filter dark:after:invert  after:h-full after:w-full after:bg-repeat after:absolute before:z-10 after:z-20 max-w-[1920px]"
     >
       <div className="absolute flex w-full h-full left-0 top-0 z-30">
         <ConversationWrapper />

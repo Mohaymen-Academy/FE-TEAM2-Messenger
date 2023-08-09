@@ -29,7 +29,7 @@ const DesktopSidebar = ({
     <div
       style={{ padding: showSideBar ? "1rem 0.5rem 1rem 0.5rem" : "0 0 0 0" }}
       className={clsx(
-        "border-l dark:border-gray-500 items-center shadow-md transition-all duration-500 max-w-[80px] absolute h-full py-5",
+        "bg-gray-100 dark:bg-slate-800 items-center shadow-md transition-all duration-500 max-w-[80px] absolute h-full py-5",
         { "!max-w-[0px]": !showSideBar }
       )}
     >

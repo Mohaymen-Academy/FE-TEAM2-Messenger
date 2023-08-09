@@ -51,7 +51,7 @@ const TextArea = () => {
           textareaHeight !== "auto" && "items-end"
         )}
       >
-        <UploadButton />
+        {/* <UploadButton /> */}
 
         <Button
           variant="ghost"
