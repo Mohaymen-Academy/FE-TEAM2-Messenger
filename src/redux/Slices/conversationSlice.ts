@@ -17,7 +17,7 @@ const conversationSlice = createSlice({
       actions: {
         payload: {
           selectedState:
-            | "groupeCreate"
+            | "groupCreate"
             | "channelCreate"
             | "pvCreate"
             | "conversations";
