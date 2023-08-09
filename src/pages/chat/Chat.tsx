@@ -1,6 +1,6 @@
 import ConversationWrapper from "@/components/conversation/ConversationWrapper";
 import FeedWrapper from "@/components/feed/FeedWrapper";
-import React from "react";
+
 import {
   isAndroid,
   isIOS,
@@ -17,7 +17,6 @@ const Chat = () => {
           : userIsInMobile
           ? "calc(100vh - 52px)"
           : "100vh",
-        // backgroundSize: "50% 50%",
       }}
       className="my-element flex transition-all m-auto rounded-none flex-col overflow-hidden relative before:absolute before:bg-lightGradient dark:before:bg-darkBg before:h-full before:w-full before:bg-cover after:bg-pattern2 after:bg-[length:400px] after:opacity-30 dark:after:opacity-10 dark:after:filter dark:after:invert  after:h-full after:w-full after:bg-repeat after:absolute before:z-10 after:z-20 max-w-[1920px]"
     >

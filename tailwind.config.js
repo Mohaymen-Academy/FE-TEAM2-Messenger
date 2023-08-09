@@ -4,20 +4,6 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      textColor: {
-        primary: "var(--text-primary)",
-        secondary: "var(--text-secondary)",
-        blue: "var(--text-primary-light)",
-      },
-      backgroundColor: {
-        primary: "var(--bg-primary)",
-        secondary: "var(--bg-secondary)",
-        btn: "var(--bg-btn)",
-        "btn-hover": "var(--bg-btn-hover)",
-        "btn-ghost": "var(--bg-btn-ghost)",
-        "msg-current": "var (--bg-msg-current)",
-        "msg-other": "var (--bg-msg-other)",
-      },
       backgroundImage: {
         lightGradient: "url('/src/assets/img/lightGradient.svg')",
         darkBg: "url('/src/assets/img/darkBg.svg')",
@@ -27,9 +13,21 @@ export default {
         pattern2: "url('/src/assets/img/bgPattern2.webp')",
         pattern3: "url('/src/assets/img/bgPattern3.svg')",
       },
+      textColor: {
+        primary: "var(--text-primary)",
+        secondary: "var(--text-secondary)",
+        white: "var(--text-white)",
+        blue: "var(--text-blue)",
+      },
       backgroundColor: {
-        primary: {},
-        secondary: {},
+        primary: "var(--bg-primary)",
+        secondary: "var(--bg-secondary)",
+        online: "var(--bg-online)",
+        btn: "var(--bg-btn)",
+        "btn-hover": "var(--bg-btn-hover)",
+        "btn-ghost": "var(--bg-btn-ghost)",
+        "msg-current": "var (--bg-msg-current)",
+        "msg-other": "var (--bg-msg-other)",
       },
     },
   },

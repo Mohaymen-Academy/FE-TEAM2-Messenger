@@ -24,7 +24,7 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({}) => {
   return (
     <div
       className={clsx(
-        "w-full md:w-4/5 xl:w-2/5 bg-white dark:bg-slate-700 backdrop-blur-[5px] flex flex-col relative shadow-2xl shadow-lime-950 dark:shadow-neutral-800/50 rounded-l-none md:rounded-l-3xl transition md:opacity-100 md:scale-100",
+        "w-full md:w-4/5 max-w-[500px] bg-white dark:bg-slate-700 backdrop-blur-[5px] flex flex-col relative shadow-2xl shadow-lime-950 dark:shadow-neutral-800/50 rounded-l-none md:rounded-l-3xl transition md:opacity-100 md:scale-100",
         { "opacity-0 scale-75": selectedConversation }
       )}
     >
@@ -69,7 +69,7 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({}) => {
           />
           <div className="flex flex-col h-full w-full">
             <div
-              style={{ paddingRight: showSideBar ? "85px" : "0.75rem" }}
+              style={{ paddingRight: showSideBar ? "90px" : "0.75rem" }}
               className="h-full overflow-y-auto overflow-x-hidden px-3 transition-all duration-500"
             >
               <ConversationList />

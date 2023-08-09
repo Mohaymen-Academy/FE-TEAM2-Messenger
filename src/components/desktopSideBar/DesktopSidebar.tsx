@@ -1,5 +1,4 @@
 import Button from "../ui/button/Button";
-import { useState } from "react";
 import { clsx } from "clsx";
 import ThemeToggle from "../conversation/ThemeToggle";
 import {
@@ -8,7 +7,7 @@ import {
   BsFillPersonFill,
 } from "react-icons/bs";
 import { MdLogout } from "react-icons/md";
-import { FiEdit2, FiSettings } from "react-icons/fi";
+import { FiEdit2 } from "react-icons/fi";
 import { AiFillCaretRight } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { setSection } from "@/redux/Slices/conversationSlice";
@@ -50,10 +49,10 @@ const DesktopSidebar = ({
             <BsFillPersonFill />
           </Button>
           <Button variant="ghost" className="text-3xl w-14 h-14">
-            <BsFillPeopleFill />
+            <BsFillPeopleFill className="sidebar-icon" />
           </Button>
           <Button variant="ghost" className="text-3xl w-14 h-14">
-            <BsBroadcastPin />
+            <BsBroadcastPin className="sidebar-icon" />
           </Button>
         </div>
         <div className="flex flex-col gap-4 items-center">
@@ -65,7 +64,7 @@ const DesktopSidebar = ({
             <FiEdit2 />
           </Button>
           <Button variant="ghost" className="text-3xl w-14 h-14">
-            <MdLogout />
+            <MdLogout className="sidebar-icon" />
           </Button>
           <ThemeToggle />
           <Avatar isOnline={false} imgSrc={test} />

@@ -1,12 +1,27 @@
+//@ts-nocheck
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Chat from "./pages/chat/Chat";
 import Auth from "./pages/auth/Auth";
 import Login from "./components/auth/SignIn";
 import { StoreStateTypes } from "./utils/types";
+import Button from "./components/ui/button/Button";
+import ThemeToggle from "./components/conversation/ThemeToggle";
 
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
+  // const scrollProxy = ScrollTrigger.normalizeScroll();
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     ScrollTrigger.normalizeScroll({
+  //       allowNestedScroll: true,
+  //       lockAxis: false,
+  //       momentum: (self) => Math.min(3, self.velocityY / 1000), // dynamically control the duration of the momentum when flick-scrolling
+  //       type: "touch,wheel,pointer", // now the page will be drag-scrollable on desktop because "pointer" is in the list
+  //     });
+  //   }, 500);
+  // }, []);
 
   return (
     <div className={`${theme}`}>

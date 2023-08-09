@@ -6,6 +6,8 @@ import { ChangeEvent, useState } from "react";
 import { merge } from "@/utils/merge";
 import Emoji from "./Emoji";
 import clsx from "clsx";
+import Input from "@/components/auth/input/Input";
+import UploadButton from "./UploadButton";
 
 const TextArea = () => {
   const {
@@ -49,10 +51,7 @@ const TextArea = () => {
           textareaHeight !== "auto" && "items-end"
         )}
       >
-        <Button variant="ghost" size="sm" className="group">
-          <IoMdImages className="icon" />
-          <span className="sr-only">Upload image</span>
-        </Button>
+        {/* <UploadButton /> */}
 
         <Button
           variant="ghost"
