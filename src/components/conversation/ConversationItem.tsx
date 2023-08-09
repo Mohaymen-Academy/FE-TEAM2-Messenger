@@ -3,7 +3,7 @@ import { useState } from "react";
 import Paragraph from "../ui/paragraph/Paragraph";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import Avatar from "../ui/avatar/Avatar";
-import test from "../../assets/img/darkBg.svg"
+import test from "../../assets/img/darkBg.svg";
 
 interface ConversationItemProps {
   conversation: any;
@@ -44,7 +44,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     <div
       onClick={handleClick}
       onContextMenu={handleClick}
-      className={`flex p-3 my-2 cursor-pointer hover:bg-black/20  rounded-sm w-full relative ${
+      className={`flex p-3 my-2 cursor-pointer hover:bg-black/20 gap-3 rounded-sm w-full relative ${
         isSelected && "bg-black/20"
       }
       items-center
@@ -55,14 +55,18 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
           <FaDotCircle color="#00ff0090" />
         </div>
       )}
-      {/* <div className="w-12 h12 bg-red-200 ">A</div> */}
-      <Avatar imgSrc={test} isOnline={false}/>
+      <div className="w-12 h-12">
+        <Avatar imgSrc={test} isOnline={false} />
+      </div>
       <div className="w-10/12">
         <div className="flex items-center justify-between whitespace-nowrap w-full">
           <Paragraph className="xl:w-[12vw] md:w-[16vw] w-[65vw] overflow-hidden font-extrabold text-ellipsis">
-            ابوالفصل علی ممد 
+            ابوالفصل علی ممد
           </Paragraph>
-          <Paragraph size={"xs"} className="text-sm text-neutral-200 whitespace-nowrap">
+          <Paragraph
+            size={"xs"}
+            className="text-sm text-neutral-200 whitespace-nowrap"
+          >
             1402.12.30
           </Paragraph>
         </div>
