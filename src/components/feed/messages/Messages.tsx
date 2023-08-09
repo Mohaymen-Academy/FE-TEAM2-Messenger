@@ -23,7 +23,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
         ))} */}
         <MessageItem message={"سلام"} sentByCurrentUser={true} />
         <MessageItem message={"سلام"} sentByCurrentUser={true} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage={true} message={"سلام"} sentByCurrentUser={false} />
         <MessageItem message={"سلام"} sentByCurrentUser={false} />
         <MessageItem message={"سلام"} sentByCurrentUser={false} />
         <MessageItem message={"سلام"} sentByCurrentUser={false} />

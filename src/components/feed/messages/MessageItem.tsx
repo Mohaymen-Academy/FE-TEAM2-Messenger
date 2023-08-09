@@ -1,15 +1,19 @@
 import Avatar from "@/components/ui/avatar/Avatar";
 import Paragraph from "@/components/ui/paragraph/Paragraph";
 import clsx from "clsx";
-import Iris from "../../../assets/img/Iris.svg";
-
+import avatar from "../../../assets/img/avatar.jpg";
 
 interface MessageItemProps {
   message: string;
   sentByCurrentUser: boolean;
+  groupMessage : boolean
 }
 
-const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser }) => {
+const MessageItem: React.FC<MessageItemProps> = ({
+  message,
+  sentByCurrentUser,
+  groupMessage
+}) => {
   return (
     <div
       className={`
@@ -19,10 +23,9 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser })
         justify-${sentByCurrentUser ? "end" : "start"}
     `}
     >
-      {!sentByCurrentUser && (
+      {!sentByCurrentUser && groupMessage && (
         <div className="flex justify-end ">
-          {/* <Avatar size="sm" name={message.sender?.username ? message.sender.username : "USER"} /> */}
-          <Avatar imgSrc={Iris} className="mb-3 " />
+          <Avatar imgSrc={avatar} className="mb-3" isOnline />
         </div>
       )}
       <div className="flex flex-col gap-1 w-full">
@@ -35,14 +38,7 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser })
           ${!sentByCurrentUser && "flex-row-reverse self-end"}
           
         `}
-        >
-          {!sentByCurrentUser &&  (
-            <Paragraph className="font-bold text-left">abolfazl</Paragraph>
-          )}
-          <Paragraph size={"xs"} className="text-sm text-gray-950">
-            1402/10/12
-          </Paragraph>
-        </div>
+        ></div>
         <div
           className={`
           flex 
@@ -50,18 +46,26 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByCurrentUser })
           `}
         >
           <div
-            className={clsx(
-              "px-3 py-2  max-w-[350px] rounded-b-3xl",
-              {
-                "rounded-l-3xl": sentByCurrentUser,
-                "rounded-r-3xl": !sentByCurrentUser,
-                "bg-blue-500" : sentByCurrentUser,
-                "bg-teal-400" : !sentByCurrentUser,
-                "dark:bg-gray-700" : !sentByCurrentUser
-              }
-            )}
+            className={clsx("px-2 max-w-[350px] rounded-t-2xl flex", {
+              "rounded-l-2xl": sentByCurrentUser,
+              "rounded-r-2xl": !sentByCurrentUser,
+              "bg-blue-500": sentByCurrentUser,
+              "bg-teal-400": !sentByCurrentUser,
+              "dark:bg-gray-700": !sentByCurrentUser,
+            })}
           >
-            <Paragraph size={"sm"} className="text-white m-0">سلام بر تو ای </Paragraph>
+            {!sentByCurrentUser && groupMessage && (
+              <Paragraph className="font-bold text-left self-start">
+                abolfazl
+              </Paragraph>
+            )}
+
+            <Paragraph size={"sm"} className="text-white m-0">
+              سلام بر تو ای{" "}
+            </Paragraph>
+            <Paragraph className="m-0 !text-sm text-end self-end mt-5">
+              5:55
+            </Paragraph>
           </div>
         </div>
       </div>

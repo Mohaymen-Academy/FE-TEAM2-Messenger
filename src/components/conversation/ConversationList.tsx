@@ -4,7 +4,7 @@ interface ConversationListProps {}
 
 const ConversationList: React.FC<ConversationListProps> = ({}) => {
   return (
-    <div className="w-full">
+    <div>
       <ConversationItem
         hasSeenLatestMassage
         onDeleteConversation={() => {}}
