@@ -4,15 +4,28 @@
 
 @layer base {
   :root {
-    --text-primary-light: #0f172a;
-    --text-primary-dark: #e2e8f0;
-    --text-secondary-light: #1e293b;
-    --text-secondary-dark: #cbd5e1;
+    --text-primary: #0f172a;
+    --text-secondary: #1e293b;
     --text-blue: #67e8f9;
-    --bg-primary-light: ;
-    /* --bg-primary-dark: 
-    --bg-secondary-light:
-    --bg-secondary-dark: */
+    --bg-primary: #fff;
+    --bg-secondary: #f3f4f6;
+    --bg-btn: #334155;
+    --bg-btn-hover: #1e293b;
+    --bg-btn-ghost: #e2e8f0;
+    --bg-msg-current: #ecfccb;
+    --bg-msg-other: #f3f4f6;
+  }
+
+  .dark {
+    --text-primary: #e2e8f0;
+    --text-secondary: #cbd5e1;
+    --bg-primary: #334155;
+    --bg-secondary: #1f2937;
+    --bg-btn: #e2e8f0;
+    --bg-btn-hover: #f1f5f9;
+    --bg-btn-ghost: #334155;
+    --bg-msg-current: #0284c7;
+    --bg-msg-other: #334155;
   }
 
   input::-webkit-outer-spin-button,

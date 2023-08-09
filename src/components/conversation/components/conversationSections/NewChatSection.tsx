@@ -8,6 +8,9 @@ import { BsArrowRight } from "react-icons/bs";
 import { setSection } from "@/redux/Slices/conversationSlice";
 import { useDispatch } from "react-redux";
 
+import { BsBroadcastPin, BsFillPeopleFill } from "react-icons/bs";
+import { IconType } from "react-icons";
+
 type CreatePvSectionProps = {
   users: User[];
 };
@@ -32,6 +35,27 @@ const UserItem: React.FC<UserItemProps> = ({ user, onClick }) => {
   );
 };
 
+type NewChatButtonProps = {
+  text: string;
+  onClick: () => void;
+  Icon: IconType;
+};
+const NewChatButton: React.FC<NewChatButtonProps> = ({
+  Icon,
+  onClick,
+  text,
+}) => {
+  return (
+    <div
+      onClick={onClick}
+      className="w-full flex gap-5 items-center hover:bg-slate-600 px-5 py-4 dark:text-slate-400 cursor-pointer"
+    >
+      <Icon size={25} />
+      <Paragraph className="m-0 mr-2">{text}</Paragraph>
+    </div>
+  );
+};
+
 const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
   const dispatch = useDispatch();
   return (
@@ -49,6 +73,18 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
         <div className="w-full">
           <SearchInput />
         </div>
+      </div>
+      <div className="w-full flex flex-col gap-2 py-2 border-b">
+        <NewChatButton
+          Icon={BsFillPeopleFill}
+          text="گروه جدید"
+          onClick={() => {}}
+        />
+        <NewChatButton
+          Icon={BsBroadcastPin}
+          text="کانال جدید"
+          onClick={() => {}}
+        />
       </div>
       <div className="w-full h-full">
         {users.map((user) => (
