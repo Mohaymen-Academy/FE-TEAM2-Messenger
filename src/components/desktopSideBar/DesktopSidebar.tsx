@@ -46,13 +46,13 @@ const DesktopSidebar = ({
       <div className="w-full h-full flex flex-col justify-between items-center overflow-hidden">
         <div className="flex flex-col gap-4 items-center">
           <Button variant="ghost" className="text-3xl w-14 h-14">
-            <BsFillPersonFill />
+            <BsFillPersonFill className="icon-button" />
           </Button>
           <Button variant="ghost" className="text-3xl w-14 h-14">
-            <BsFillPeopleFill className="sidebar-icon" />
+            <BsFillPeopleFill className="icon-button" />
           </Button>
           <Button variant="ghost" className="text-3xl w-14 h-14">
-            <BsBroadcastPin className="sidebar-icon" />
+            <BsBroadcastPin className="icon-button" />
           </Button>
         </div>
         <div className="flex flex-col gap-4 items-center">
@@ -61,10 +61,10 @@ const DesktopSidebar = ({
             variant="ghost"
             className="text-3xl w-14 h-14"
           >
-            <FiEdit2 />
+            <FiEdit2 className="icon-button" />
           </Button>
           <Button variant="ghost" className="text-3xl w-14 h-14">
-            <MdLogout className="sidebar-icon" />
+            <MdLogout className="icon-button" />
           </Button>
           <ThemeToggle />
           <Avatar isOnline={false} imgSrc={test} />

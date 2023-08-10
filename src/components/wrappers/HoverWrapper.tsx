@@ -3,7 +3,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import React, { HTMLAttributes } from "react";
 
 const hoverWrapperVariants = cva(
-  "w-full hover:bg-hover cursor-pointer py-1 px-3",
+  "flex items-center justify-between w-full hover:bg-hover cursor-pointer py-4 px-4 transition-all duration-200",
   {
     variants: {
       rounded: {
@@ -21,9 +21,19 @@ interface hoverWrapperProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof hoverWrapperVariants> {}
 
-const HoverWrapper: React.FC<hoverWrapperProps> = ({ rounded, children }) => {
+const HoverWrapper: React.FC<hoverWrapperProps> = ({
+  rounded,
+  className,
+  children,
+  ...props
+}) => {
   return (
-    <div className={merge(hoverWrapperVariants({ rounded }))}>{children}</div>
+    <div
+      className={merge(hoverWrapperVariants({ rounded, className }))}
+      {...props}
+    >
+      {children}
+    </div>
   );
 };
 

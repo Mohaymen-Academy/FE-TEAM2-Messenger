@@ -10,29 +10,10 @@ import { useDispatch } from "react-redux";
 
 import { BsBroadcastPin, BsFillPeopleFill } from "react-icons/bs";
 import { IconType } from "react-icons";
+import UserItem from "./UserItem";
 
 type CreatePvSectionProps = {
   users: User[];
-};
-
-type UserItemProps = {
-  user: User;
-  onClick: () => void;
-};
-
-const UserItem: React.FC<UserItemProps> = ({ user, onClick }) => {
-  return (
-    <div
-      className="hover:bg-slate-300 dark:hover:bg-slate-800 p-2 flex gap-4 cursor-pointer mx-2 rounded-lg"
-      onClick={onClick}
-    >
-      <Avatar isOnline />
-      <div className="flex flex-col">
-        <Paragraph size="lg">{user.name}</Paragraph>
-        <Paragraph size="xs">اخیرا آنلاین بوده است</Paragraph>
-      </div>
-    </div>
-  );
 };
 
 type NewChatButtonProps = {
@@ -77,13 +58,13 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
           variant="ghost"
           className="w-12 h-12 "
         >
-          <BsArrowRight size={25} />
+          <BsArrowRight className="icon-button" size={25} />
         </Button>
         <div className="w-full">
           <SearchInput placeHolder="با چه کسی می‌خواهید صحبت کنید" />
         </div>
       </div>
-      <div className="w-full flex flex-col pb-2 mb-2 border-y border-gray-200 dark:border-gray-500">
+      <div className="w-full flex flex-col mb-2 border-y border-gray-200 dark:border-gray-500">
         {newSectionsButtonObject.map((btn) => (
           <NewChatButton Icon={btn.icon} text={btn.text} target={btn.target} />
         ))}
