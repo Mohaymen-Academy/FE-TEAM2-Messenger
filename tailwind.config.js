@@ -2,10 +2,12 @@
 export default {
   darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  safelist: ["p-0"],
   theme: {
     extend: {
       screens: {
         sm: "600px",
+        // "2xl": "1275px",
       },
       backgroundImage: {
         lightGradient: "url('/src/assets/img/lightGradient.svg')",
@@ -34,6 +36,8 @@ export default {
       },
     },
   },
-  // safelist: ["opacity-100", "scale-100"],
-  plugins: [],
+  plugins: [
+    // ...
+    require("tailwind-scrollbar")({ nocompatible: true }),
+  ],
 };

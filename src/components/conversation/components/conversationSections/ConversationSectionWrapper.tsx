@@ -6,7 +6,6 @@ type ConversationSectionWrapperProps = {
 const ConversationSectionWrapper: React.FC<ConversationSectionWrapperProps> = ({
   show,
   children,
-  sectionName,
 }) => {
   const [unmount, setUnmount] = useState(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -14,21 +13,15 @@ const ConversationSectionWrapper: React.FC<ConversationSectionWrapperProps> = ({
   useEffect(() => {}, []);
 
   useEffect(() => {
-    console.log(sectionName);
-    console.log(wrapperRef.current?.style.transform);
-    console.log(wrapperRef.current?.style.opacity!);
     if (
       +wrapperRef.current?.style.opacity! === 0 &&
       wrapperRef.current?.style.transform === "translate(200%, 0px)"
     ) {
-      console.log("first");
       setTimeout(() => {
-        console.log(sectionName + "is unmounted");
         setUnmount(true);
       }, 600);
     }
     if (wrapperRef.current?.style.transform === undefined) {
-      console.log(sectionName + "is mounted");
       setUnmount(false);
     }
   }, [show]);

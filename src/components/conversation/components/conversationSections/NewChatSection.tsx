@@ -38,7 +38,7 @@ const UserItem: React.FC<UserItemProps> = ({ user, onClick }) => {
 type NewChatButtonProps = {
   text: string;
   Icon: IconType;
-  target: "groupeCreate" | "channelCreate";
+  target: "groupCreate" | "channelCreate";
 };
 const NewChatButton: React.FC<NewChatButtonProps> = ({
   Icon,
@@ -85,18 +85,21 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
       </div>
       <div className="w-full flex flex-col pb-2 mb-2 border-y border-gray-200 dark:border-gray-500">
         {newSectionsButtonObject.map((btn) => (
-          <NewChatButton Icon={btn.icon} text={btn.text} target={btn.target} />
+          <NewChatButton
+            key={btn.text}
+            Icon={btn.icon}
+            text={btn.text}
+            target={btn.target}
+          />
         ))}
       </div>
-      <div className="w-full h-full overflow-y-auto">
+      <div className="w-full h-full overflow-y-auto custom-scrollbar scrollbar-none md:hover:scrollbar">
         {users.map((user) => (
-          <UserItem onClick={() => console.log(user.name)} user={user} />
-        ))}
-        {users.map((user) => (
-          <UserItem onClick={() => console.log(user.name)} user={user} />
-        ))}
-        {users.map((user) => (
-          <UserItem onClick={() => console.log(user.name)} user={user} />
+          <UserItem
+            key={user.name}
+            onClick={() => console.log(user.name)}
+            user={user}
+          />
         ))}
       </div>
     </div>

@@ -4,21 +4,21 @@ import Paragraph from "../ui/paragraph/Paragraph";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import Avatar from "../ui/avatar/Avatar";
 import test from "../../assets/img/darkBg.svg";
-import UnreadMesseges from "./components/UnreadMesseges";
+import UnreadMessages from "./components/UnreadMesseges";
 
 interface ConversationItemProps {
   conversation: any;
   onClickConversation: () => void;
   onDeleteConversation: () => void;
   isSelected: boolean;
-  unseendMesseges: number;
+  unseenMessages?: number;
 }
 
 const ConversationItem: React.FC<ConversationItemProps> = ({
   onClickConversation,
   conversation,
   isSelected,
-  unseendMesseges,
+  unseenMessages = 10,
   onDeleteConversation,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -55,7 +55,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       <div className="w-full">
         <div className="flex items-center justify-between whitespace-nowrap w-full">
           <Paragraph className="xl:w-[12vw] md:w-[16vw] w-[65vw] overflow-hidden font-extrabold text-ellipsis dark:!text-white !text-slate-800 ml-2">
-            ابوالفصل علی ممد
+            ابوالفصل علی
           </Paragraph>
           <Paragraph
             size={"xs"}
@@ -72,7 +72,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
           >
             {conversationLatestMessage}
           </Paragraph>
-          {true && <UnreadMesseges unseens={10} />}
+          {true && <UnreadMessages unseen={unseenMessages} />}
         </div>
       </div>
     </div>

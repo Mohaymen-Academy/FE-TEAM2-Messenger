@@ -67,30 +67,10 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
         </div>
       </div>
 
-      <div className="w-full h-full overflow-y-auto">
+      <div className="w-full h-full overflow-y-auto custom-scrollbar scrollbar-none md:hover:scrollbar">
         {users.map((user) => (
           <UserItem
-            withCheck
-            onClick={() => console.log(user.name)}
-            user={user}
-          />
-        ))}{" "}
-        {users.map((user) => (
-          <UserItem
-            withCheck
-            onClick={() => console.log(user.name)}
-            user={user}
-          />
-        ))}{" "}
-        {users.map((user) => (
-          <UserItem
-            withCheck
-            onClick={() => console.log(user.name)}
-            user={user}
-          />
-        ))}{" "}
-        {users.map((user) => (
-          <UserItem
+            key={user.name}
             withCheck
             onClick={() => console.log(user.name)}
             user={user}

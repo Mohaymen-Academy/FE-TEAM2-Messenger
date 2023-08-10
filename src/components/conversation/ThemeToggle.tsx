@@ -12,7 +12,7 @@ const ThemeToggle = () => {
         variant="ghost"
         size="sm"
         onClick={() => dispatch(toggleTheme())}
-        className="group relative w-14 h-14"
+        className="group relative w-12 h-12 hover:bg-transparent dark:hover:bg-transparent md:hover:bg-btn-ghost"
       >
         <BiSun
           size={30}
