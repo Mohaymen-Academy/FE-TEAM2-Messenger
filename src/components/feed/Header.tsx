@@ -12,8 +12,8 @@ const Header = () => {
   );
   const navigate = useNavigate();
   return (
-    <div className="w-full h-[61px] bg-primary flex items-center">
-      <div className="hidden md:block">
+    <div className="w-full h-[61px] bg-primary flex items-center px-2">
+      <div className="hidden md:block mt-2">
         <AnimatedButton
           FirstIcon={AiOutlineArrowLeft}
           SecondIcon={AiOutlineArrowRight}
@@ -21,15 +21,13 @@ const Header = () => {
           onClick={() => dispatch(toggleShowConversations({}))}
         />
       </div>
-      <div className="block md:hidden">
-        <Button
-          className="group relative w-12 h-12 hover:bg-transparent dark:hover:bg-transparent md:hover:bg-btn-ghost"
-          onClick={() => navigate("/chat")}
-          variant="ghost"
-        >
-          <AiOutlineArrowRight size={30} />
-        </Button>
-      </div>
+      <Button
+        className="block md:hidden relative w-12 h-12 hover:bg-btn-ghost"
+        onClick={() => navigate("/chat")}
+        variant="ghost"
+      >
+        <AiOutlineArrowRight size={30} />
+      </Button>
     </div>
   );
 };

@@ -36,7 +36,7 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
             </div>
             <div
               // style={{ paddingRight: showSideBar ? "90px" : "0.75rem" }}
-              className="h-full w-full overflow-y-auto overflow-x-hidden  duration-500 custom-scrollbar scrollbar-none md:scrollbar"
+              className="h-full w-full overflow-y-auto overflow-x-hidden px-2 duration-500 custom-scrollbar scrollbar-none md:scrollbar"
             >
               <ConversationItem
                 onDeleteConversation={() => {}}
