@@ -1,6 +1,5 @@
-import Button from "../ui/button/Button";
+import Button from "../ui/Button";
 import { clsx } from "clsx";
-import ThemeToggle from "../conversation/ThemeToggle";
 import {
   BsBroadcastPin,
   BsFillPeopleFill,
@@ -8,20 +7,17 @@ import {
 } from "react-icons/bs";
 import { MdLogout } from "react-icons/md";
 import { FiEdit2 } from "react-icons/fi";
-import { AiFillCaretRight } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSection } from "@/redux/Slices/conversationSlice";
-import Avatar from "../ui/avatar/Avatar";
 import test from "../../assets/img/darkBg.svg";
+import { AnimatedButton, Avatar } from "../ui";
+import { StoreStateTypes } from "@/utils/types";
+import { BiMoon, BiSun } from "react-icons/bi";
+import { toggleTheme } from "@/redux/Slices/appSlice";
 
-const DesktopSidebar = ({
-  showSideBar,
-  setShowSideBar,
-}: {
-  showSideBar: boolean;
-  setShowSideBar: (showSideBar: boolean) => void;
-}) => {
+const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
   const dispatch = useDispatch();
+  const theme = useSelector((store: StoreStateTypes) => store.app.theme);
   const onEditClickHandler = () => {
     dispatch(setSection({ selectedState: "pvCreate" }));
   };
@@ -35,16 +31,6 @@ const DesktopSidebar = ({
         { "!max-w-[0px]": !showSideBar, "!p-0": !showSideBar }
       )}
     >
-      <div
-        onClick={() => setShowSideBar(!showSideBar)}
-        className="absolute top-1/2 left-0 bg-slate-400 h-20 w-5 rounded-l-lg grid place-content-center -translate-x-full -translate-y-1/2 cursor-pointer opacity-40 hover:opacity-100 transition z-50"
-      >
-        <AiFillCaretRight
-          className={clsx("rotate-0 transition duration-500", {
-            "rotate-180": !showSideBar,
-          })}
-        />
-      </div>
       <div className="w-full h-full flex flex-col justify-between items-center overflow-hidden">
         <div className="flex flex-col gap-8 items-center">
           <Button variant="ghost" className="sidebar-icon-button">
@@ -68,7 +54,12 @@ const DesktopSidebar = ({
           <Button variant="ghost" className="sidebar-icon-button">
             <MdLogout />
           </Button>
-          <ThemeToggle />
+          <AnimatedButton
+            FirstIcon={BiSun}
+            SecondIcon={BiMoon}
+            isActive={theme === "dark"}
+            onClick={() => dispatch(toggleTheme())}
+          />
           <Avatar className="w-8 h-8" isOnline={false} imgSrc={test} />
         </div>
       </div>

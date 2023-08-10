@@ -1,4 +1,4 @@
-import Paragraph from "@/components/ui/paragraph/Paragraph";
+import Paragraph from "@/components/ui/Paragraph";
 import React from "react";
 
 interface unreadMessagesProps {

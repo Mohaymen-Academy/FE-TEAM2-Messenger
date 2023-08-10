@@ -10,18 +10,17 @@ import {
 import { useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import { useMemo, useState } from "react";
-import Button from "@/components/ui/button/Button";
+import Button from "@/components/ui/Button";
 import { useSearchParams } from "react-router-dom";
 import useViewportWidth from "@/hooks/useViewportWidth";
 const Chat = () => {
   const viewPortWidth = useViewportWidth();
   const userIsInMobile = (isAndroid || isIOS) && isMobile;
-  const [showComplete, setShowComplete] = useState(false);
-  const [showComplete2, setShowComplete2] = useState(false);
+  const showConversation = useSelector(
+    (store: StoreStateTypes) => store.conversation.showConversations
+  );
 
   const [URLSearchParams] = useSearchParams();
-  const [showSideBar, setShowSideBar] = useState(true);
-
   const selectedConversation = URLSearchParams.get("conversationId");
 
   const conversationShowCriteria = useMemo(() => {
@@ -35,14 +34,14 @@ const Chat = () => {
     }
 
     if (viewPortWidth > 765) {
-      if (showComplete) {
+      if (showConversation) {
         return "0px";
       }
-      if (!showComplete) {
-        return "-20%";
+      if (!showConversation) {
+        return "-0%";
       }
     }
-  }, [viewPortWidth, selectedConversation, showComplete]);
+  }, [viewPortWidth, selectedConversation, showConversation]);
 
   const feedShowCriteria = useMemo(() => {
     if (viewPortWidth < 765) {
@@ -55,21 +54,16 @@ const Chat = () => {
     }
 
     if (viewPortWidth > 765) {
-      if (showComplete) {
+      if (showConversation) {
         return "500px";
       }
-      if (!showComplete) {
+      if (!showConversation) {
         return "0px";
       }
     }
-  }, [viewPortWidth, selectedConversation, showComplete]);
+  }, [viewPortWidth, selectedConversation, showConversation]);
   return (
     <div className="flex transition-all m-auto rounded-none flex-col relative max-w-[1920px] bg-repeat h-full">
-      <div className="absolute top-0 left-0 z-50">
-        <Button onClick={() => setShowComplete(!showComplete)}>
-          showCopmlete
-        </Button>
-      </div>
       <div className="flex w-full h-full relative">
         <ConversationWrapper
           conversationShowCriteria={conversationShowCriteria}
@@ -79,15 +73,15 @@ const Chat = () => {
         {/* ////////////////////// */}
         {/* <div
           style={{
-            width: showComplete2 && 0,
-            minWidth: showComplete2 && 0,
+            width: showConversation2 && 0,
+            minWidth: showConversation2 && 0,
           }}
           className="h-full lg:w-[400px] sm:min-w-[300px] bg-orange-400/60 transition-all duration-300 absolute left-0 xl:static "
         >
           <div className="absolute">
             <Button
               className=""
-              onClick={() => setShowComplete2(!showComplete2)}
+              onClick={() => setshowConversation2(!showConversation2)}
             >
               showCopmlete
             </Button>

@@ -5,8 +5,7 @@ import Chat from "./pages/chat/Chat";
 import Auth from "./pages/auth/Auth";
 import Login from "./components/auth/SignIn";
 import { StoreStateTypes } from "./utils/types";
-import Button from "./components/ui/button/Button";
-import ThemeToggle from "./components/conversation/ThemeToggle";
+import { Button } from "@/ui";
 
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);

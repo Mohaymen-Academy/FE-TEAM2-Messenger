@@ -6,7 +6,7 @@ const MessageInput: React.FC<MessageInputProps> = ({}) => {
   const onSubmitHandler = async () => {};
 
   return (
-    <div className="w-full pb-8 px-5 lg:px-[5%] xl:px-[10%]">
+    <div className="w-full pb-2 px-5 lg:px-[5%] xl:px-[10%]">
       <form
         className="relative"
         onSubmit={(e) => {

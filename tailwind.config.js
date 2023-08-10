@@ -2,7 +2,15 @@
 export default {
   darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  safelist: ["p-0"],
+  // safelist: [
+  //   "p-0",
+  //   "scale-0",
+  //   "scale-100",
+  //   "-rotate-90",
+  //   "rotate-0",
+  //   "rotate-90",
+  //   "rotate-0",
+  // ],
   theme: {
     extend: {
       screens: {

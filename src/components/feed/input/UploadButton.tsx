@@ -1,7 +1,7 @@
 //@ts-nocheck
 // Import React FilePond
 import { FilePond, registerPlugin } from "react-filepond";
-import Button from "@/components/ui/button/Button";
+import Button from "@/components/ui/Button";
 import { IoMdImages } from "react-icons/io";
 
 // Import FilePond styles
