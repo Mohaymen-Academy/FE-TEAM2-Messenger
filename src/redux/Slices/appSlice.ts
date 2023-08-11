@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export type appSliceType = {
   theme: string;
+  showEmoji: boolean;
 };
 
 const initialState = {
   theme: "light",
+  showEmoji: false,
 };
 
 const appSlice = createSlice({
@@ -15,9 +17,15 @@ const appSlice = createSlice({
     toggleTheme: (state: appSliceType) => {
       state.theme = state.theme === "light" ? "dark" : "light";
     },
+    onToggleEmoji: (
+      state: appSliceType,
+      action: { payload: { show: boolean } }
+    ) => {
+      state.showEmoji = action.payload.show;
+    },
   },
 });
 
-export const { toggleTheme } = appSlice.actions;
+export const { toggleTheme, onToggleEmoji } = appSlice.actions;
 
 export default appSlice.reducer;

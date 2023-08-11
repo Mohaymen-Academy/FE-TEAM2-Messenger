@@ -2,17 +2,13 @@ import SwipeWrapper from "@/components/ui/SwipeWrapper";
 import ConversationItem from "./ConversationItem";
 import DesktopSidebar from "../desktopSideBar/DesktopSidebar";
 import { useState } from "react";
-import clsx from "clsx";
 import { TbSettingsX, TbSettings } from "react-icons/tb";
-import { AnimatedButton, Button, SearchInput } from "../ui";
+import { AnimatedButton, SearchInput } from "../ui";
 
 interface ConversationListProps {}
 
 const ConversationList: React.FC<ConversationListProps> = ({}) => {
   const [showSideBar, setShowSideBar] = useState(true);
-  // const innerWidth = useViewportWidth();
-
-  // console.log("renrende");
   return (
     <SwipeWrapper
       id="swipe-conversation-list-section"
@@ -34,10 +30,7 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
                 <SearchInput placeHolder="جستجو" />
               </div>
             </div>
-            <div
-              // style={{ paddingRight: showSideBar ? "90px" : "0.75rem" }}
-              className="h-full w-full overflow-y-auto overflow-x-hidden px-2 duration-500 custom-scrollbar scrollbar-none md:scrollbar"
-            >
+            <div className="h-full w-full overflow-y-auto overflow-x-hidden px-2 duration-500 custom-scrollbar scrollbar-none md:scrollbar">
               <ConversationItem
                 onDeleteConversation={() => {}}
                 onClickConversation={() => {}}

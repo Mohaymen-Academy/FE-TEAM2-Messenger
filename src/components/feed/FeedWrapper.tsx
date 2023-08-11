@@ -54,7 +54,6 @@ const FeedWrapper: React.FC<FeedWrapperProps> = ({
                   <Messages conversationId="12" userId={userId} />
                   <MessageInput />
                 </div>
-                H
               </div>
             </div>
           </SwipeWrapper>

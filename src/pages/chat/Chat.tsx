@@ -6,14 +6,18 @@ import {
   isIOS,
   isMobile,
   isSamsungBrowser,
+  MobileOnlyView,
+  isMobileOnly,
 } from "react-device-detect";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import { useMemo, useState } from "react";
 import Button from "@/components/ui/Button";
 import { useSearchParams } from "react-router-dom";
 import useViewportWidth from "@/hooks/useViewportWidth";
+import { onToggleEmoji } from "@/redux/Slices/appSlice";
 const Chat = () => {
+  const dispatch = useDispatch();
   const viewPortWidth = useViewportWidth();
   const userIsInMobile = (isAndroid || isIOS) && isMobile;
   const showConversation = useSelector(
@@ -38,7 +42,7 @@ const Chat = () => {
         return "0px";
       }
       if (!showConversation) {
-        return "-0%";
+        return "-5%";
       }
     }
   }, [viewPortWidth, selectedConversation, showConversation]);
@@ -62,8 +66,15 @@ const Chat = () => {
       }
     }
   }, [viewPortWidth, selectedConversation, showConversation]);
+
+  const onChatClickHandler = () => {
+    dispatch(onToggleEmoji({ show: false }));
+  };
   return (
-    <div className="flex transition-all m-auto rounded-none flex-col relative max-w-[1920px] bg-repeat h-full">
+    <div
+      onClick={onChatClickHandler}
+      className="flex transition-all m-auto rounded-none flex-col relative max-w-[1920px] bg-repeat h-full"
+    >
       <div className="flex w-full h-full relative">
         <ConversationWrapper
           conversationShowCriteria={conversationShowCriteria}

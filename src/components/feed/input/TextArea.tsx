@@ -8,8 +8,18 @@ import Emoji from "./Emoji";
 import clsx from "clsx";
 import Input from "@/components/auth/input/Input";
 import UploadButton from "./UploadButton";
+import { onToggleEmoji } from "@/redux/Slices/appSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { StoreStateTypes } from "@/utils/types";
 
 const TextArea = () => {
+  const [textareaHeight, setTextAreaHeight] = useState("auto");
+  const dispatch = useDispatch();
+
+  const showEmoji = useSelector(
+    (store: StoreStateTypes) => store.app.showEmoji
+  );
+
   const {
     register,
     handleSubmit,
@@ -18,30 +28,17 @@ const TextArea = () => {
     defaultValues: { message: "" },
   });
 
-  const [textareaHeight, setTextAreaHeight] = useState("auto");
-  const [showEmoji, setShowEmoji] = useState(false);
-
   const handleTextAreaInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { scrollHeight, clientHeight } = event.target;
+
     const newHeight = (
       scrollHeight > clientHeight ? scrollHeight : "auto"
     ) as string;
     setTextAreaHeight(newHeight);
   };
 
-  const handleShowEmoji = () => {
-    setShowEmoji((previousShowEmoji) => !previousShowEmoji);
-  };
-
   return (
     <div className="relative">
-      <Emoji
-        className={clsx(
-          "absolute bottom-20 hidd transition-all duration-300 font-normal overflow-hidden h-0 w-0 opacity-0",
-          { "h-[435px] w-[352px] opacity-1": showEmoji }
-        )}
-      />
-
       <label htmlFor="chat" className="sr-only">
         Your message
       </label>
@@ -57,7 +54,10 @@ const TextArea = () => {
           variant="ghost"
           size="sm"
           className="group"
-          onClick={handleShowEmoji}
+          onClick={(e) => {
+            e.stopPropagation();
+            dispatch(onToggleEmoji({ show: !showEmoji }));
+          }}
         >
           <BsEmojiLaughing className="icon w-5 h-5" />
           <span className="sr-only">Add emoji</span>
@@ -79,6 +79,12 @@ const TextArea = () => {
           <span className="sr-only">Send message</span>
         </Button>
       </div>
+      <Emoji
+        className={clsx(
+          "bottom-16 duration-300 md:absolute right-0 font-normal overflow-hidden h-0 w-full md:w-0 opacity-0",
+          { "h-[300px] md:h-[450px] md:w-[400px] opacity-1": showEmoji }
+        )}
+      />
     </div>
   );
 };

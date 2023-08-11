@@ -85,6 +85,11 @@
     height: 100vh;
     overflow: hidden;
   }
+  em-emoji-picker {
+    background-color: #1e293b !important;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
 }
 
 @layer components {
