@@ -33,22 +33,6 @@ export default {
         "msg-current": "var (--bg-msg-current)",
         "msg-other": "var (--bg-msg-other)",
       },
-      keyframes: {
-        entrance: {
-          "0%": {
-            opacity: 0,
-            transform: "translateX(50px)",
-          },
-
-          "100%": {
-            opacity: 1,
-            transform: " translateX(0px)",
-          },
-        },
-      },
-      animation: {
-        entrance: "entrance 200ms ease 0ms 1 normal forwards; ",
-      },
     },
   },
   plugins: [
