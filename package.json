@@ -38,6 +38,7 @@
     "react-router-dom": "^6.14.2",
     "react-spinners": "^0.13.8",
     "react-touch-events": "^3.0.0",
+    "react-use": "^17.4.0",
     "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {

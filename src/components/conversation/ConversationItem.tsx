@@ -1,4 +1,3 @@
-import { FaDotCircle } from "react-icons/fa";
 import { useState } from "react";
 import Paragraph from "../ui/Paragraph";
 import { useNavigate, createSearchParams } from "react-router-dom";

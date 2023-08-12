@@ -2,7 +2,7 @@ import { HTMLAttributes, Ref, forwardRef } from "react";
 import { VariantProps, cva } from "class-variance-authority";
 import { merge } from "@/utils/merge";
 
-const paragraphVariants = cva("text-slate-900 dark:text-slate-300 mb-2 ", {
+const paragraphVariants = cva("text-slate-900 dark:text-white select-none", {
   variants: {
     size: {
       default: "text-base sm:text-lg",

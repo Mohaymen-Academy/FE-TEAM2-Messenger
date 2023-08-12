@@ -3,9 +3,8 @@ import React, { useState } from "react";
 import { cva } from "class-variance-authority";
 import { useDispatch } from "react-redux";
 import { MdArrowDropDown } from "react-icons/md";
-// import CountryFlag from "react-country-flag";
-import Paragraph from "@/components/ui/Paragraph";
-import Button from "@/components/ui/Button";
+import CountryFlag from "react-country-flag";
+import { Paragraph, Button } from "@/components/ui";
 
 const dropDownButtonVariants = cva(
   "inline-flex justify-between px-2  py-2 text-sm font-medium rounded-md  text-slate-700 h-[44px] w-24 dark:bg-gray-800 bg-white"
@@ -59,7 +58,7 @@ const Dropdown = ({ items }) => {
                 onClick={() => handleItemClick(item)}
               >
                 <Paragraph className="mb-0">{item.dialCode}+</Paragraph>
-                {/* <CountryFlag svg countryCode={item.country} /> */}
+                <CountryFlag svg countryCode={item.country} />
               </div>
             ))}
           </div>

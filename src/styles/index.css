@@ -16,9 +16,12 @@
     /* white */
     --bg-primary: #fff;
     /* gray-100 */
-    --bg-secondary: #f3f4f6;
+    /* --bg-secondary: #f3f4f6; */
+    --bg-secondary: #e5e7eb;
     /* green-500 */
     --bg-online: #22c55e;
+    /* gray-200 */
+    --bg-hover: #e5e7eb;
 
     /* slate-700 */
     --bg-btn: #334155;
@@ -43,6 +46,8 @@
     --bg-primary: #334155;
     /* gray-800 */
     --bg-secondary: #1f2937;
+    /* slate-600 */
+    --bg-hover: #475569;
 
     /* slate-200 */
     --bg-btn: #e2e8f0;
@@ -92,6 +97,13 @@
 }
 
 @layer components {
+  .icon-button {
+    @apply dark:text-white;
+  }
+
+  .sidebar-icon {
+    @apply text-3xl w-14 h-14;
+  }
   .custom-scrollbar {
     @apply scrollbar scrollbar-w-1 scrollbar-track-transparent scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full;
   }

@@ -49,7 +49,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             variant="ghost"
             className="sidebar-icon-button"
           >
-            <FiEdit2 />
+            <FiEdit2 className="icon-button" />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
             <MdLogout />
