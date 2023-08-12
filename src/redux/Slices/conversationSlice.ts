@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export type conversationSliceType = {
-  section: string;
+  section: "groupCreate" | "channelCreate" | "conversations" | "pvCreate";
   showConversations: boolean;
+  createState: "groupCreate" | "channelCreate" | "";
 };
 
 const initialState: conversationSliceType = {
   section: "conversations",
   showConversations: true,
+  createState: "",
 };
 
 const conversationSlice = createSlice({
@@ -31,10 +33,16 @@ const conversationSlice = createSlice({
     toggleShowConversations: (state: conversationSliceType, _) => {
       state.showConversations = !state.showConversations;
     },
+    setCreateState: (
+      state: conversationSliceType,
+      action: { payload: { state: "groupCreate" | "channelCreate" | "" } }
+    ) => {
+      state.createState = action.payload.state;
+    },
   },
 });
 
-export const { setSection, toggleShowConversations } =
+export const { setSection, toggleShowConversations, setCreateState } =
   conversationSlice.actions;
 
 export default conversationSlice.reducer;
