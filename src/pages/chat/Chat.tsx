@@ -11,13 +11,12 @@ import {
 } from "react-device-detect";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
-import { useMemo, useState } from "react";
-import Button from "@/components/ui/Button";
+import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import useViewportWidth from "@/hooks/useViewportWidth";
 import { onToggleEmoji } from "@/redux/Slices/appSlice";
-import GroupProfile from "@/components/profile/GroupProfile";
-import GroupCreator from "@/components/profile/GroupCreator";
+import ProfileWrapper from "@/components/profile/ProfileWrapper";
+
 const Chat = () => {
   const dispatch = useDispatch();
   const viewPortWidth = useViewportWidth();
@@ -25,7 +24,6 @@ const Chat = () => {
   const showConversation = useSelector(
     (store: StoreStateTypes) => store.conversation.showConversations
   );
-
   const [URLSearchParams] = useSearchParams();
   const selectedConversation = URLSearchParams.get("conversationId");
 
@@ -61,7 +59,7 @@ const Chat = () => {
 
     if (viewPortWidth > 765) {
       if (showConversation) {
-        return "500px";
+        return "480px";
       }
       if (!showConversation) {
         return "0px";
@@ -83,7 +81,7 @@ const Chat = () => {
         />
         <FeedWrapper feedShowCriteria={feedShowCriteria} userId="232" />
 
-        <GroupCreator />
+        <ProfileWrapper />
       </div>
     </div>
   );

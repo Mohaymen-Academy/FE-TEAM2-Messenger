@@ -2,15 +2,25 @@ import React, { ComponentType } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
 import { Button, Paragraph } from "@/components/ui";
+import { setShow } from "@/redux/Slices/profileSlice";
+import { useDispatch } from "react-redux";
 
 interface sectionHeaderProps {
   title: string;
 }
 
 const SectionHeader: React.FC<sectionHeaderProps> = ({ title }) => {
+  const dispatch = useDispatch();
   return (
     <div className="flex items-center py-2 px-4 shadow">
-      <Button variant="ghost" className="h-12 w-12 ml-4">
+      <Button
+        onClick={() => {
+          console.log("close");
+          dispatch(setShow({ show: false }));
+        }}
+        variant="ghost"
+        className="h-12 w-12 ml-4"
+      >
         <AiOutlineClose className="icon-button" size={25} />
       </Button>
       <Paragraph size="xl">{title}</Paragraph>
@@ -21,7 +31,7 @@ const SectionHeader: React.FC<sectionHeaderProps> = ({ title }) => {
 const withEdit = (WrappedComponent: ComponentType<sectionHeaderProps>) => {
   return ({ title }: sectionHeaderProps) => {
     return (
-      <div className="relative">
+      <div className="relative h-[61px]">
         <WrappedComponent title={title} />
         <Button
           variant="ghost"

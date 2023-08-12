@@ -1,6 +1,6 @@
 import React from "react";
 import ProfileColor from "./components/ProfileColor";
-import Paragraph from "../ui/paragraph/Paragraph";
+import { Paragraph } from "../ui/";
 import SectionContainer from "./components/SectionContainer";
 import { SectionHeaderWithEdit } from "./components/SectionHeader";
 import Link from "./components/Link";

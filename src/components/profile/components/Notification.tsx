@@ -1,4 +1,4 @@
-import Switch from "@/components/ui/switch/Switch";
+import Switch from "@/components/ui/Switch";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import React, { useState } from "react";
 import { IoMdNotifications } from "react-icons/io";

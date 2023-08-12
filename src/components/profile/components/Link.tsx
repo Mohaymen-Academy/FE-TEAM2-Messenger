@@ -25,13 +25,13 @@ const Link: React.FC<linkProps> = ({ href }) => {
       <div className="flex items-center">
         <AiOutlineLink className="icon-button ml-4 round" size={25} />
         <div>
-          <Paragraph>{href}</Paragraph>
+          <Paragraph className="break-all">{href}</Paragraph>
           <Paragraph size="xs" className="text-secondary font-bold">
             لینک
           </Paragraph>
         </div>
       </div>
-      <Toaster />
+      {/* <Toaster /> */}
     </HoverWrapper>
   );
 };

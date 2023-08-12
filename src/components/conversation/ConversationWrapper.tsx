@@ -21,7 +21,7 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({
       style={{
         right: conversationShowCriteria,
       }}
-      className="h-full w-screen md:w-auto md:min-w-[500px] lg:min-w-[600p] lg:static absolute right-0 transition-[right] z-10 rounded-2xl shadow-2xl"
+      className="h-full w-screen md:w-auto md:min-w-[480px] lg:static absolute right-0 transition-[right] z-10 rounded-2xl shadow-2xl"
     >
       <div className="w-full h-full bg-white dark:bg-slate-700 backdrop-blur-[5px] flex flex-col relative dark:shadow-neutral-800/50 rounded-l-none ">
         <ConversationSectionWrapper show={section === "pvCreate"}>

@@ -5,7 +5,7 @@ export type conversationSliceType = {
   showConversations: boolean;
 };
 
-const initialState = {
+const initialState: conversationSliceType = {
   section: "conversations",
   showConversations: true,
 };
