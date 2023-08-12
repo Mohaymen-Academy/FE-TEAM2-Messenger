@@ -83,7 +83,7 @@ const Chat = () => {
         />
         <FeedWrapper feedShowCriteria={feedShowCriteria} userId="232" />
 
-        <GroupCreator />
+        {/* <GroupCreator /> */}
       </div>
     </div>
   );
