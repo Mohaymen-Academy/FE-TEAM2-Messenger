@@ -28,7 +28,6 @@ const SwipeWrapper: React.FC<SwipeWrapperProps> = ({
     if (startXRef.current !== null && endXRef.current !== null) {
       const deltaX = endXRef.current - startXRef.current;
       const swipeAmount = Math.abs(deltaX);
-      console.log(swipeAmount);
       if (deltaX > 0 && swipeAmount > 100) {
         if (onSwipeRight) {
           onSwipeRight();

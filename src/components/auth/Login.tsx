@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import Button from "../ui/button/Button";
-import Paragraph from "../ui/paragraph/Paragraph";
+import Button from "../ui/Button";
+import Paragraph from "../ui/Paragraph";
 import FloatingLabelInput from "./input/FloatingLabelInput";
 import Dropdown from "./input/DropDown";
 import ConfirmationInput from "./input/ConfirmationCodeInput";

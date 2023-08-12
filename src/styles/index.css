@@ -57,6 +57,19 @@
     --bg-msg-other: #334155;
   }
 
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  *:focus {
+    outline: none !important;
+  }
+
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -68,39 +81,23 @@
     -moz-appearance: textfield;
   }
 
-  /* width */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: transparent;
-    margin-bottom: 1.5rem;
-    margin-top: 1.5rem;
-  }
-
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #f8f8f8;
-    border-radius: 20px;
-  }
-
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-
-  body {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
+  #root {
+    height: 100vh;
     overflow: hidden;
   }
-  html {
-    height: -webkit-fill-available;
+  em-emoji-picker {
+    width: 100%;
+    margin-top: 0.5rem;
   }
 }
 
 @layer components {
+  .custom-scrollbar {
+    @apply scrollbar scrollbar-w-1 scrollbar-track-transparent scrollbar-thumb-slate-500 scrollbar-thumb-rounded-full;
+  }
+  .sidebar-icon-button {
+    @apply !text-2xl md:!text-3xl w-9 h-9 md:!w-12 md:!h-12;
+  }
 }
 .filepond--credits {
   display: none;

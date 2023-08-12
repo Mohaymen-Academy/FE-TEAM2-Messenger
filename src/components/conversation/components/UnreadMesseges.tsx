@@ -1,19 +1,19 @@
-import Paragraph from "@/components/ui/paragraph/Paragraph";
+import Paragraph from "@/components/ui/Paragraph";
 import React from "react";
 
-interface unreadMessegesProps {
-  unseens: number; // number of unread messages
+interface unreadMessagesProps {
+  unseen: number; // number of unread messages
 }
 
-const UnreadMesseges: React.FC<unreadMessegesProps> = ({ unseens }) => {
+const UnreadMessages: React.FC<unreadMessagesProps> = ({ unseen }) => {
   return (
     <Paragraph
       size="sm"
       className="py-1 px-2 bg-online rounded-2xl !text-white dark:!text-slate-800 h-7 w-fit"
     >
-      {unseens}
+      {unseen}
     </Paragraph>
   );
 };
 
-export default UnreadMesseges;
+export default UnreadMessages;

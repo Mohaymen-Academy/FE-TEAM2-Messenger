@@ -6,23 +6,98 @@ import {
   isIOS,
   isMobile,
   isSamsungBrowser,
+  MobileOnlyView,
+  isMobileOnly,
 } from "react-device-detect";
+import { useDispatch, useSelector } from "react-redux";
+import { StoreStateTypes } from "@/utils/types";
+import { useMemo, useState } from "react";
+import Button from "@/components/ui/Button";
+import { useSearchParams } from "react-router-dom";
+import useViewportWidth from "@/hooks/useViewportWidth";
+import { onToggleEmoji } from "@/redux/Slices/appSlice";
 const Chat = () => {
+  const dispatch = useDispatch();
+  const viewPortWidth = useViewportWidth();
   const userIsInMobile = (isAndroid || isIOS) && isMobile;
+  const showConversation = useSelector(
+    (store: StoreStateTypes) => store.conversation.showConversations
+  );
+
+  const [URLSearchParams] = useSearchParams();
+  const selectedConversation = URLSearchParams.get("conversationId");
+
+  const conversationShowCriteria = useMemo(() => {
+    if (viewPortWidth < 765) {
+      if (selectedConversation) {
+        return "-20%";
+      }
+      if (!selectedConversation) {
+        return "0";
+      }
+    }
+
+    if (viewPortWidth > 765) {
+      if (showConversation) {
+        return "0px";
+      }
+      if (!showConversation) {
+        return "-5%";
+      }
+    }
+  }, [viewPortWidth, selectedConversation, showConversation]);
+
+  const feedShowCriteria = useMemo(() => {
+    if (viewPortWidth < 765) {
+      if (selectedConversation) {
+        return "0";
+      }
+      if (!selectedConversation) {
+        return "100%";
+      }
+    }
+
+    if (viewPortWidth > 765) {
+      if (showConversation) {
+        return "500px";
+      }
+      if (!showConversation) {
+        return "0px";
+      }
+    }
+  }, [viewPortWidth, selectedConversation, showConversation]);
+
+  const onChatClickHandler = () => {
+    dispatch(onToggleEmoji({ show: false }));
+  };
   return (
     <div
-      style={{
-        height: isSamsungBrowser
-          ? "calc(100vh - 92px)"
-          : userIsInMobile
-          ? "calc(100vh - 52px)"
-          : "100vh",
-      }}
-      className="my-element flex transition-all m-auto rounded-none flex-col overflow-hidden relative before:absolute before:bg-lightGradient dark:before:bg-darkBg before:h-full before:w-full before:bg-cover after:bg-pattern2 after:bg-[length:400px] after:opacity-30 dark:after:opacity-10 dark:after:filter dark:after:invert  after:h-full after:w-full after:bg-repeat after:absolute before:z-10 after:z-20 max-w-[1920px]"
+      onClick={onChatClickHandler}
+      className="flex transition-all m-auto rounded-none flex-col relative max-w-[1920px] bg-repeat h-full"
     >
-      <div className="absolute flex w-full h-full left-0 top-0 z-30">
-        <ConversationWrapper />
-        <FeedWrapper userId="232" />
+      <div className="flex w-full h-full relative">
+        <ConversationWrapper
+          conversationShowCriteria={conversationShowCriteria}
+        />
+        <FeedWrapper feedShowCriteria={feedShowCriteria} userId="232" />
+
+        {/* ////////////////////// */}
+        {/* <div
+          style={{
+            width: showConversation2 && 0,
+            minWidth: showConversation2 && 0,
+          }}
+          className="h-full lg:w-[400px] sm:min-w-[300px] bg-orange-400/60 transition-all duration-300 absolute left-0 xl:static "
+        >
+          <div className="absolute">
+            <Button
+              className=""
+              onClick={() => setshowConversation2(!showConversation2)}
+            >
+              showCopmlete
+            </Button>
+          </div>
+        </div> */}
       </div>
     </div>
   );

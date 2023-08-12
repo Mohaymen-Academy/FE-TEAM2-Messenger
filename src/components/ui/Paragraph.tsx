@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, Ref, forwardRef } from "react";
+import { HTMLAttributes, Ref, forwardRef } from "react";
 import { VariantProps, cva } from "class-variance-authority";
 import { merge } from "@/utils/merge";
 

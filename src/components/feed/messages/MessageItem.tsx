@@ -1,5 +1,5 @@
-import Avatar from "@/components/ui/avatar/Avatar";
-import Paragraph from "@/components/ui/paragraph/Paragraph";
+import Avatar from "@/components/ui/Avatar";
+import Paragraph from "@/components/ui/Paragraph";
 import clsx from "clsx";
 import avatar from "../../../assets/img/avatar.jpg";
 
