@@ -8,7 +8,7 @@ import { setSection } from "@/redux/Slices/conversationSlice";
 import { useDispatch } from "react-redux";
 
 import { IconType } from "react-icons";
-import UserItem from "./UserItem";
+import UserItem from "../../../ui/UserItem";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import { newSectionsButtonObject } from "@/utils/constants";
 
@@ -76,7 +76,6 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
             key={user.name}
             onClick={() => console.log(user.name)}
             user={user}
-            
           />
         ))}
       </div>

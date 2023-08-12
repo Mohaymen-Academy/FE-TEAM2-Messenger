@@ -1,17 +1,17 @@
 import SearchInput from "@/components/ui/SearchInput";
-import { User } from "@/utils/types";
+import { StoreStateTypes, User } from "@/utils/types";
 import React, { useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
 import { BsArrowRight } from "react-icons/bs";
 import { setSection } from "@/redux/Slices/conversationSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiFillCheckCircle } from "react-icons/ai";
 import clsx from "clsx";
-import UserItem from "./UserItem";
-import { AnimatePresence, motion } from "framer-motion";
-import GroupCreator from "@/components/profile/GroupCreator";
-import ChannelCreator from "@/components/profile/ChannelCreator";
+import UserItem from "../../../../ui/UserItem";
+import ChannelCreator from "@/components/conversation/components/conversationSections/NewGroupChannelSection/ChannelCreator";
 import FadeMotionWrapper from "@/components/wrappers/FadeMotionWrapper";
+import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
+import GroupCreator from "./GroupCreator";
 
 interface UserSelect {
   onUserClickHandler: (user: User) => void;
@@ -33,9 +33,7 @@ const UserSelect: React.FC<UserSelect> = ({
       <div className="flex flex-col w-full h-full">
         <div className="flex gap-2 w-full p-4">
           <Button
-            onClick={() =>
-              dispatch(setSection({ selectedState: "conversations" }))
-            }
+            onClick={() => dispatch(setSection({ selectedState: "pvCreate" }))}
             variant="ghost"
             className="w-12 h-12 "
           >
@@ -72,12 +70,32 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
   const [selectedUser, setSelectedUser] = useState<string[]>([]);
   const [step, setStep] = useState<1 | 2>(1);
 
+  const section = useSelector(
+    (store: StoreStateTypes) => store.conversation.section
+  );
+
   const onUserClickHandler = (user: User) => {
     setSelectedUser((prev) => {
       if (prev.includes(user.name))
         return prev.filter((name) => name !== user.name);
       else return [...prev, user.name];
     });
+  };
+
+  const {
+    register,
+    handleSubmit,
+    // formState: { errors },
+  } = useForm<FieldValues>({
+    defaultValues: {
+      channelName: "",
+      channelBio: "",
+      groupName: "",
+    },
+  });
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log(data);
   };
 
   return (
@@ -88,17 +106,32 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
         users={users}
         show={step === 1}
       />
-      <ChannelCreator show={step === 2} />
+      {section === "channelCreate" && (
+        <ChannelCreator
+          onSubmit={handleSubmit(onSubmit)}
+          register={register}
+          show={step === 2}
+        />
+      )}
+      {section === "groupCreate" && (
+        <GroupCreator
+          onSubmit={handleSubmit(onSubmit)}
+          register={register}
+          show={step === 2}
+        />
+      )}
 
-      <div
-        onClick={() => setStep(2)}
-        className={clsx(
-          "text-green-500 drop-shadow-lg self-end mb-2 ml-2 scale-0 transition absolute left-0",
-          { "scale-100": true }
-        )}
-      >
-        <AiFillCheckCircle size={70} />
-      </div>
+      {step === 1 && (
+        <div
+          onClick={() => setStep(2)}
+          className={clsx(
+            "text-green-500 cursor-pointer drop-shadow-lg self-end mb-2 ml-2 scale-0 transition absolute left-0",
+            { "scale-100": selectedUser.length > 0 }
+          )}
+        >
+          <AiFillCheckCircle size={70} />
+        </div>
+      )}
     </>
   );
 };
