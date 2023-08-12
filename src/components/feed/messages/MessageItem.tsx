@@ -3,6 +3,7 @@ import Paragraph from "@/components/ui/Paragraph";
 import clsx from "clsx";
 import avatar from "../../../assets/img/avatar.jpg";
 
+
 interface MessageItemProps {
   message: string;
   sentByCurrentUser: boolean;
@@ -26,7 +27,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
     >
       {!sentByCurrentUser && groupMessage && (
         <div className="flex justify-end self-end">
-          <Avatar imgSrc={avatar} className="mb-3" isOnline />
+          <Avatar imgSrc={avatar} className="-mb-1" isOnline />
         </div>
       )}
       <div className="flex flex-col gap-1 w-full relative">
@@ -73,15 +74,20 @@ const MessageItem: React.FC<MessageItemProps> = ({
             <Paragraph className="m-0 text-end !text-xs self-end mt-5">
               5:55
             </Paragraph>
-            <div
-              className={clsx(
-                "w-[9px] h-[9px] bg-inherit transform -skew-y-12 -skew-x-12 rotate-45 absolute bottom-[px]",
-                  
-                sentByCurrentUser
-                  ? "-right-[2px] bottom-0"
-                  : "-left-[2px] bottom-0"
-              )}
-            />
+            {sentByCurrentUser && (
+              <div
+                className="w-0 h-0 absolute bottom-0 border-t-[10px] border-t-transparent border-l-[10px] border-l-blue-500 -right-[10px] border-b-transparent"
+              />
+            )}
+            {!sentByCurrentUser && (
+              <div
+                className="w-0 h-0 absolute
+                  border-t-[10px] border-t-transparent
+                  border-r-[10px] border-r-teal-400
+                  dark:border-r-gray-700
+                   border-b-transparent bottom-0 -left-[10px]"
+              />
+            )}
           </div>
         </div>
       </div>
