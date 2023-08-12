@@ -16,6 +16,8 @@ export default {
         pattern: "url('/src/assets/img/bgPattern.svg')",
         pattern2: "url('/src/assets/img/bgPattern2.webp')",
         pattern3: "url('/src/assets/img/bgPattern3.svg')",
+        chatCurrentUser: "url('src/assets/img/chat_currentuser.svg')",
+        chatOtherUser: "url('src/assets/img/chat_otheruser.svg')",
       },
       textColor: {
         primary: "var(--text-primary)",
