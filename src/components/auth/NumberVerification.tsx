@@ -28,7 +28,7 @@ const NumberVerification = () => {
           </div>
           <Button
             onClick={() => {
-              navigate("/chat");
+              navigate("../register");
             }}
             size="lg"
             className="text-white"
