@@ -1,5 +1,4 @@
 import SearchInput from "@/components/ui/SearchInput";
-import Avatar from "@/components/ui/Avatar";
 import Paragraph from "@/components/ui/Paragraph";
 import { User } from "@/utils/types";
 import React from "react";

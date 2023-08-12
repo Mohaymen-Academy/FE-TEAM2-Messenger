@@ -1,20 +1,26 @@
-import React from 'react'
-import { TbCameraPlus } from 'react-icons/tb';
-import ProfileImage from '../ui/ProfileImage';
-import FloatingLabelInput from './input/FloatingLabelInput';
-import { Button } from '../ui';
-import { useNavigate } from 'react-router-dom';
+import ProfileImage from "../ui/ProfileImage";
+import FloatingLabelInput from "./input/FloatingLabelInput";
+import { Button } from "../ui";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div className="dark w-full gap-4 flex flex-col bg-primary p-8 rounded-2xl">
-     
-        <ProfileImage width={200} />
-      
+      <ProfileImage width={200} />
 
-      <FloatingLabelInput borderWidth={25} label="نام" />
-      <FloatingLabelInput borderWidth={73} label="نام خانوادگی" />
+      <FloatingLabelInput
+        type="text"
+        inputID="name"
+        borderWidth={25}
+        label="نام"
+      />
+      <FloatingLabelInput
+        type="text"
+        inputID="family"
+        borderWidth={73}
+        label="نام خانوادگی"
+      />
       <Button
         onClick={() => {
           navigate("/chat");
@@ -25,6 +31,6 @@ const Register = () => {
       </Button>
     </div>
   );
-}
+};
 
-export default Register
+export default Register;

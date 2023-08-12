@@ -1,8 +1,8 @@
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import { AiOutlineLink } from "react-icons/ai";
 import { useCopyToClipboard } from "react-use";
-import toast, { Toaster } from "react-hot-toast";
 import { Paragraph } from "@/components/ui";
+import { toast } from "react-toastify";
 
 interface linkProps {
   href: string;
@@ -13,11 +13,7 @@ const Link: React.FC<linkProps> = ({ href }) => {
 
   const handleCopy = () => {
     copyToClipboard(href);
-    toast.success("لینک کپی شد.", {
-      duration: 1500,
-      className: "bg-secondary text-primary border-r-8 border-lime-500",
-      position: "bottom-center",
-    });
+    toast.success("لینک کپی شد.");
   };
 
   return (

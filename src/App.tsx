@@ -1,15 +1,12 @@
-//@ts-nocheck
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Chat from "./pages/chat/Chat";
 import Auth from "./pages/auth/Auth";
 import Login from "./components/auth/SignIn";
 import { StoreStateTypes } from "./utils/types";
-import Button from "./components/ui/button/Button";
-import AnimatedButton from "../src/components/ui/AnimatedButton";
 import NumberVerification from "./components/auth/NumberVerification";
-import { Toaster } from "react-hot-toast";
 import Register from "./components/auth/Register";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
@@ -25,7 +22,7 @@ function App() {
           <Route path="register" element={<Register />} />
         </Route>
       </Routes>
-      <Toaster />
+      <ToastContainer />
     </div>
   );
 }

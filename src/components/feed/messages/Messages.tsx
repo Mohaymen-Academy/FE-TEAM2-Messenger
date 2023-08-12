@@ -23,12 +23,13 @@ const Messages: React.FC<MessagesProps> = ({}) => {
           <MessageItem key={msg.id} message={msg} sentByCurrentUser={msg.sender?.id === userId} />
         ))} */}
         <MessageItem
+          groupMessage
           message={
             " سشسسشسسشسشسشسشسشستیباتسیذبتنصنیتصنثصضنثنضصستنساتدذسذزدسیذزدسیتزذصتیضصیشسنکیمصضحیحخصثبنتثصنختصایعهثابتثثا    بثدتیدزظینزسیتابثنمسئیثصبیئنسیئزمئسیتنشسئمظئسلام"
           }
           sentByCurrentUser={true}
         />
-        <MessageItem message={"سلام"} sentByCurrentUser={true} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={true} />
         <MessageItem
           groupMessage={true}
           message={
@@ -36,45 +37,45 @@ const Messages: React.FC<MessagesProps> = ({}) => {
           }
           sentByCurrentUser={false}
         />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
       </div>
     </div>
   );

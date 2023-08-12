@@ -1,7 +1,5 @@
-import React from "react";
 import SectionHeader from "./components/SectionHeader";
 import SectionContainer from "./components/SectionContainer";
-import { TbCameraPlus } from "react-icons/tb";
 import FloatingLabelInput from "../auth/input/FloatingLabelInput";
 import ProfileImage from "../ui/ProfileImage";
 
@@ -11,7 +9,7 @@ const GroupCreator = () => {
       <SectionHeader title="گروه جدید" />
 
       {/* Camera and Upload section */}
-    <ProfileImage/>
+      <ProfileImage />
 
       <FloatingLabelInput
         label="نام گروه"

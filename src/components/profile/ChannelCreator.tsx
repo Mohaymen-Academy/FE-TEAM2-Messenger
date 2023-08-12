@@ -1,4 +1,3 @@
-import React from "react";
 import SectionHeader from "./components/SectionHeader";
 import SectionContainer from "./components/SectionContainer";
 import { TbCameraPlus } from "react-icons/tb";

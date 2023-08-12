@@ -2,7 +2,7 @@ import SearchInput from "@/components/ui/SearchInput";
 import Avatar from "@/components/ui/Avatar";
 import Paragraph from "@/components/ui/Paragraph";
 import { User } from "@/utils/types";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "@/components/ui/Button";
 import { BsArrowRight, BsFillCheckCircleFill } from "react-icons/bs";
 import { setSection } from "@/redux/Slices/conversationSlice";
@@ -18,7 +18,7 @@ type UserItemProps = {
   withCheck?: boolean;
 };
 
-const UserItem: React.FC<UserItemProps> = ({ user, onClick, withCheck }) => {
+const UserItem: React.FC<UserItemProps> = ({ user, withCheck }) => {
   const [checked, setChecked] = useState(false);
 
   return (

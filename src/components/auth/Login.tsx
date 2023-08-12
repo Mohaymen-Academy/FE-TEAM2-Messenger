@@ -1,20 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
 import Paragraph from "../ui/Paragraph";
-import FloatingLabelInput from "./input/FloatingLabelInput";
-import Dropdown from "./input/DropDown";
 import ConfirmationInput from "./input/ConfirmationCodeInput";
 
-const countries = [
-  {
-    dialCode: "98",
-    country: "IR",
-  },
-  {
-    dialCode: "1",
-    country: "US",
-  },
-];
+// const countries = [
+//   {
+//     dialCode: "98",
+//     country: "IR",
+//   },
+//   {
+//     dialCode: "1",
+//     country: "US",
+//   },
+// ];
 
 const Login = () => {
   const navigate = useNavigate();

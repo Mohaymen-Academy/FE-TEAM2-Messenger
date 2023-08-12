@@ -2,7 +2,6 @@ import { StoreStateTypes } from "@/utils/types";
 import clsx from "clsx";
 import UserProfile from "./UserProfile";
 import { useSelector } from "react-redux";
-import GroupCreator from "./GroupCreator";
 
 const ProfileWrapper = () => {
   const show = useSelector((store: StoreStateTypes) => store.profile.show);

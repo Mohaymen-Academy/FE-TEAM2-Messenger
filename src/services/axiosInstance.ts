@@ -1,12 +1,12 @@
 import axios from "axios";
 // import { getAccessTokenApi } from '../authApi';
 
-const apiCall = axios.create({ baseURL: "http://localhost:3000/api" });
+const apiCall = axios.create({ baseURL: "http://192.168.70.242:8080/" });
 
 // Request interceptor for API calls
 apiCall.interceptors.request.use(
   async (req) => {
-    req.headers["x-auth-token"] = localStorage.getItem("accessToken");
+    // req.headers["x-auth-token"] = localStorage.getItem("accessToken");
     req.headers["Accept"] = "*/*";
 
     return req;
@@ -26,14 +26,14 @@ apiCall.interceptors.response.use(
       !prevRequest?.sent
     ) {
       prevRequest.sent = true;
-      const data = await getAccessTokenApi(
-        localStorage.getItem("refreshToken") || ""
-      );
-      const token = data.data.data.accessToken;
+      // const data = await getAccessTokenApi(
+      //   localStorage.getItem("refreshToken") || ""
+      // );
+      // const token = data.data.data.accessToken;
 
       //set new token
-      localStorage.setItem("accessToken", token);
-      axios.defaults.headers.common["x-auth-token"] = token;
+      // localStorage.setItem("accessToken", token);
+      // axios.defaults.headers.common["x-auth-token"] = token;
 
       return apiCall(prevRequest);
     }

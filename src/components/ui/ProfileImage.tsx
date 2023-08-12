@@ -1,8 +1,8 @@
-import React from 'react'
-import { TbCameraPlus } from 'react-icons/tb';
+import React from "react";
+import { TbCameraPlus } from "react-icons/tb";
 
 interface profileImageProps {
-  width : number
+  width?: number;
 }
 
 const ProfileImage: React.FC<profileImageProps> = ({ width }) => {
@@ -18,4 +18,4 @@ const ProfileImage: React.FC<profileImageProps> = ({ width }) => {
   );
 };
 
-export default ProfileImage
+export default ProfileImage;

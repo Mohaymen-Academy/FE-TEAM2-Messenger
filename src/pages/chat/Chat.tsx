@@ -1,14 +1,14 @@
 import ConversationWrapper from "@/components/conversation/ConversationWrapper";
 import FeedWrapper from "@/components/feed/FeedWrapper";
 
-import {
-  isAndroid,
-  isIOS,
-  isMobile,
-  isSamsungBrowser,
-  MobileOnlyView,
-  isMobileOnly,
-} from "react-device-detect";
+// import {
+//   isAndroid,
+//   isIOS,
+//   isMobile,
+//   // isSamsungBrowser,
+//   // MobileOnlyView,
+//   // isMobileOnly,
+// } from "react-device-detect";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import { useMemo } from "react";
@@ -20,7 +20,7 @@ import ProfileWrapper from "@/components/profile/ProfileWrapper";
 const Chat = () => {
   const dispatch = useDispatch();
   const viewPortWidth = useViewportWidth();
-  const userIsInMobile = (isAndroid || isIOS) && isMobile;
+  // const userIsInMobile = (isAndroid || isIOS) && isMobile;
   const showConversation = useSelector(
     (store: StoreStateTypes) => store.conversation.showConversations
   );
