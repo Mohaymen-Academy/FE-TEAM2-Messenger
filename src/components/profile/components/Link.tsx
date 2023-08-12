@@ -1,8 +1,8 @@
-import Paragraph from "@/components/ui/paragraph/Paragraph";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import { AiOutlineLink } from "react-icons/ai";
 import { useCopyToClipboard } from "react-use";
 import toast, { Toaster } from "react-hot-toast";
+import { Paragraph } from "@/components/ui";
 
 interface linkProps {
   href: string;

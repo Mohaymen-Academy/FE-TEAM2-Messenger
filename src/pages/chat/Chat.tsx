@@ -16,6 +16,8 @@ import Button from "@/components/ui/Button";
 import { useSearchParams } from "react-router-dom";
 import useViewportWidth from "@/hooks/useViewportWidth";
 import { onToggleEmoji } from "@/redux/Slices/appSlice";
+import GroupProfile from "@/components/profile/GroupProfile";
+import GroupCreator from "@/components/profile/GroupCreator";
 const Chat = () => {
   const dispatch = useDispatch();
   const viewPortWidth = useViewportWidth();
@@ -81,23 +83,7 @@ const Chat = () => {
         />
         <FeedWrapper feedShowCriteria={feedShowCriteria} userId="232" />
 
-        {/* ////////////////////// */}
-        {/* <div
-          style={{
-            width: showConversation2 && 0,
-            minWidth: showConversation2 && 0,
-          }}
-          className="h-full lg:w-[400px] sm:min-w-[300px] bg-orange-400/60 transition-all duration-300 absolute left-0 xl:static "
-        >
-          <div className="absolute">
-            <Button
-              className=""
-              onClick={() => setshowConversation2(!showConversation2)}
-            >
-              showCopmlete
-            </Button>
-          </div>
-        </div> */}
+        <GroupCreator />
       </div>
     </div>
   );

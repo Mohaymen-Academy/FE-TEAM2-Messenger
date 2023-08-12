@@ -13,7 +13,7 @@ const SectionContainer: React.FC<sectionContainerProps> = ({
       {...props}
       className={merge(
         className,
-        "bg-primary w-[500px] h-screen shadow-lg shadow-slate-900"
+        "bg-primary w-[900px] h-screen shadow-lg shadow-slate-900"
       )}
     >
       {children}
