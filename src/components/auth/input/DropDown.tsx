@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { cva } from "class-variance-authority";
 import { useDispatch } from "react-redux";
 import { MdArrowDropDown } from "react-icons/md";
-// import CountryFlag from "react-country-flag";
+import CountryFlag from "react-country-flag";
 import Paragraph from "@/components/ui/paragraph/Paragraph";
 import Button from "@/components/ui/button/Button";
 
@@ -59,7 +59,7 @@ const Dropdown = ({ items }) => {
                 onClick={() => handleItemClick(item)}
               >
                 <Paragraph className="mb-0">{item.dialCode}+</Paragraph>
-                {/* <CountryFlag svg countryCode={item.country} /> */}
+                <CountryFlag svg countryCode={item.country} />
               </div>
             ))}
           </div>

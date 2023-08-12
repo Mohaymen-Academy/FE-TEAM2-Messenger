@@ -15,7 +15,7 @@ const Link: React.FC<linkProps> = ({ href }) => {
     copyToClipboard(href);
     toast.success("لینک کپی شد.", {
       duration: 1500,
-      className: "bg-secondary text-primary",
+      className: "bg-secondary text-primary border-r-8 border-lime-500",
       position: "bottom-center",
     });
   };
@@ -23,8 +23,13 @@ const Link: React.FC<linkProps> = ({ href }) => {
   return (
     <HoverWrapper className="flex" onClick={handleCopy}>
       <div className="flex items-center">
-        <AiOutlineLink className="icon-button ml-4" size={25} />
-        <Paragraph>{href}</Paragraph>
+        <AiOutlineLink className="icon-button ml-4 round" size={25} />
+        <div>
+          <Paragraph>{href}</Paragraph>
+          <Paragraph size="xs" className="text-secondary font-bold">
+            لینک
+          </Paragraph>
+        </div>
       </div>
       <Toaster />
     </HoverWrapper>

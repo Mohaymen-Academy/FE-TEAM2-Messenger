@@ -1,25 +1,21 @@
 import React from "react";
-import Paragraph from "@/ui/paragraph/Paragraph";
-import Button from "@/ui/button/Button";
 import ProfileColor from "./components/ProfileColor";
-import { FiEdit2 } from "react-icons/fi";
-import Notification from "./components/Notification";
-import Link from "./components/Link";
-import SectionHeader, {
-  SectionHeaderWithEdit,
-} from "./components/SectionHeader";
+import Paragraph from "../ui/paragraph/Paragraph";
 import SectionContainer from "./components/SectionContainer";
+import { SectionHeaderWithEdit } from "./components/SectionHeader";
+import Link from "./components/Link";
+import Notification from "./components/Notification";
 
-interface groupProfileProps {
+interface userProfileProps {
   profileName: string;
   imgSrc?: string;
 }
 
-const GroupProfile: React.FC<groupProfileProps> = ({ profileName, imgSrc }) => {
+const UserProfile: React.FC<userProfileProps> = ({ profileName, imgSrc }) => {
   return (
     <SectionContainer>
       {/* Profile header and back button */}
-      <SectionHeaderWithEdit />
+      <SectionHeaderWithEdit title="اطلاعات کاربر" />
 
       {/* Show even profile image or solid color */}
       {/* Also add a gradient to show profile name and subscribers */}
@@ -33,15 +29,10 @@ const GroupProfile: React.FC<groupProfileProps> = ({ profileName, imgSrc }) => {
         ) : (
           <ProfileColor name={profileName} />
         )}
-        <div className="absolute bottom-0 w-full bg-gradient-to-b from-transparent dark:to-slate-700 to-white h-[80px] px-4 py-4 flex justify-between">
-          <div>
-            <Paragraph size="xl" className="select-none">
-              {profileName}
-            </Paragraph>
-            <Paragraph size="sm" className="select-none">
-              {"1200 عضو"}
-            </Paragraph>
-          </div>
+        <div className="absolute bottom-0 w-full bg-gradient-to-b from-transparent dark:to-slate-700 to-white h-[80px] px-4 py-4 flex justify-between items-center">
+          <Paragraph size="xl" className="select-none">
+            {profileName}
+          </Paragraph>
         </div>
       </div>
 
@@ -56,4 +47,4 @@ const GroupProfile: React.FC<groupProfileProps> = ({ profileName, imgSrc }) => {
   );
 };
 
-export default GroupProfile;
+export default UserProfile;

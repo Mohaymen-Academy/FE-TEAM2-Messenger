@@ -8,6 +8,7 @@ export interface FloatingLabelInputProps
   inputID: string;
   type: string;
   borderWidth: number;
+  removeBorderColor?: string;
   dropDown?: boolean;
   label?: string;
 }
@@ -17,6 +18,7 @@ const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
   inputID,
   type,
   borderWidth,
+  removeBorderColor,
   dropDown,
   className,
   children,
@@ -40,7 +42,10 @@ const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
     <div className={merge("relative mb-4", className)} {...props}>
       <div
         className={`absolute h-[1px] top-0 right-[16px] dark:bg-slate-800 bg-gray-200 z-20`}
-        style={{ width: `${borderWidth}px` }}
+        style={{
+          width: `${borderWidth}px`,
+          backgroundColor: removeBorderColor,
+        }}
       ></div>
       <label
         className={`absolute right-4 h-0 w-0 overflow-visible whitespace-nowrap transition-all duration-200 cursor-text z-30 ${
