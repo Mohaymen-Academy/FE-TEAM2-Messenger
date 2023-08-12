@@ -1,17 +1,16 @@
-import SearchInput from "@/components/ui/SearchInput";
-import { StoreStateTypes, User } from "@/utils/types";
-import React, { useEffect, useState } from "react";
-import Button from "@/components/ui/Button";
-import { BsArrowRight } from "react-icons/bs";
-import { setSection } from "@/redux/Slices/conversationSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { AiFillCheckCircle } from "react-icons/ai";
-import clsx from "clsx";
-import UserItem from "../../../../ui/UserItem";
-import ChannelCreator from "@/components/conversation/components/conversationSections/NewGroupChannelSection/ChannelCreator";
-import FadeMotionWrapper from "@/components/wrappers/FadeMotionWrapper";
+import React, { useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
+import { AiFillCheckCircle } from "react-icons/ai";
+import { BsArrowRight } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import clsx from "clsx";
+
+import { StoreStateTypes, User } from "@/utils/types";
+import { UserItem, Button, SearchInput } from "@/components/ui";
+import { setSection } from "@/redux/Slices/conversationSlice";
+import ChannelCreator from "./ChannelCreator";
 import GroupCreator from "./GroupCreator";
+import FadeMotionWrapper from "@/components/wrappers/FadeMotionWrapper";
 
 interface UserSelect {
   onUserClickHandler: (user: User) => void;

@@ -1,5 +1,3 @@
-import { TbCameraPlus } from "react-icons/tb";
-
 import SectionHeader from "@/components/profile/components/SectionHeader";
 import SectionContainer from "@/components/profile/components/SectionContainer";
 import FloatingLabelInput from "@/components/auth/input/FloatingLabelInput";

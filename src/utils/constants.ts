@@ -1,5 +1,6 @@
 import { IconType } from "react-icons";
-import { BsFillPeopleFill, BsBroadcastPin } from "react-icons/bs";
+import { BsFillPeopleFill } from "react-icons/bs";
+import { HiSpeakerphone } from "react-icons/hi";
 
 export const newSectionsButtonObject: {
   text: string;
@@ -7,5 +8,5 @@ export const newSectionsButtonObject: {
   target: "groupCreate" | "channelCreate";
 }[] = [
   { icon: BsFillPeopleFill, text: "گروه جدید", target: "groupCreate" },
-  { icon: BsBroadcastPin, text: "کانال جدید", target: "channelCreate" },
+  { icon: HiSpeakerphone, text: "کانال جدید", target: "channelCreate" },
 ];
