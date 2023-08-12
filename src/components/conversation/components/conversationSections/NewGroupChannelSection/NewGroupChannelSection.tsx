@@ -82,11 +82,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
     });
   };
 
-  const {
-    register,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm<FieldValues>({
+  const { register, handleSubmit } = useForm<FieldValues>({
     defaultValues: {
       channelName: "",
       channelBio: "",
@@ -96,6 +92,15 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
+    console.log(selectedUser);
+
+    if (section === "channelCreate") {
+      /// logic to create channel
+    }
+
+    if (section === "groupCreate") {
+      /// logic to create group
+    }
   };
 
   return (
@@ -106,6 +111,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
         users={users}
         show={step === 1}
       />
+
       {section === "channelCreate" && (
         <ChannelCreator
           onSubmit={handleSubmit(onSubmit)}
@@ -113,6 +119,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
           show={step === 2}
         />
       )}
+
       {section === "groupCreate" && (
         <GroupCreator
           onSubmit={handleSubmit(onSubmit)}

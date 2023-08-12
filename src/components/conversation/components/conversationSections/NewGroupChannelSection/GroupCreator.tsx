@@ -27,7 +27,7 @@ const GroupCreator: React.FC<GroupCreatorProp> = ({
         <SectionHeader title="گروه جدید" />
 
         {/* Camera and Upload section */}
-        <ProfileImage />
+        <ProfileImage width={150} />
 
         <FloatingLabelInput
           label="نام گروه"

@@ -31,7 +31,7 @@ const NewChatButton: React.FC<NewChatButtonProps> = ({
     <HoverWrapper>
       <div
         onClick={() => dispatch(setSection({ selectedState: target }))}
-        className="w-full flex gap-5 items-center cursor-pointer"
+        className="w-full flex gap-5 items-center cursor-pointer text-primary"
       >
         <Icon size={25} />
         <Paragraph className="m-0 mr-2">{text}</Paragraph>

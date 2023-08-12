@@ -1,10 +1,7 @@
 import Button from "../ui/Button";
 import { clsx } from "clsx";
-import {
-  BsBroadcastPin,
-  BsFillPeopleFill,
-  BsFillPersonFill,
-} from "react-icons/bs";
+import { BsFillPeopleFill, BsFillPersonFill } from "react-icons/bs";
+import { HiSpeakerphone } from "react-icons/hi";
 import { MdLogout } from "react-icons/md";
 import { FiEdit2 } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,10 +34,10 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             <BsFillPersonFill />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
-            <BsFillPeopleFill className="sidebar-icon" />
+            <BsFillPeopleFill />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
-            <BsBroadcastPin />
+            <HiSpeakerphone />
           </Button>
         </div>
         <div className="flex flex-col gap-8 items-center">

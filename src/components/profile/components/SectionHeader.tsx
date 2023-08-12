@@ -29,10 +29,10 @@ const SectionHeader: React.FC<sectionHeaderProps> = ({ title, withClose }) => {
 };
 
 const withEdit = (WrappedComponent: ComponentType<sectionHeaderProps>) => {
-  return ({ title }: sectionHeaderProps) => {
+  return ({ title, withClose }: sectionHeaderProps) => {
     return (
       <div className="relative h-[61px]">
-        <WrappedComponent title={title} />
+        <WrappedComponent withClose={withClose} title={title} />
         <Button
           variant="ghost"
           className="h-12 w-12 ml-4 z-10 left-2 absolute top-2"

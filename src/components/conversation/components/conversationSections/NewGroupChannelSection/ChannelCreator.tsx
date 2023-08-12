@@ -8,6 +8,7 @@ import { Button } from "@/components/ui";
 import { UseFormRegister, FieldValues } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setSection } from "@/redux/Slices/conversationSlice";
+import ProfileImage from "@/components/ui/ProfileImage";
 
 interface ChannelCreatorProp {
   show: boolean;
@@ -26,12 +27,7 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
         <SectionHeader title="کانال جدید" />
 
         {/* Camera and Upload section */}
-        <div className="mx-auto w-[200px] h-[200px] rounded-full bg-cyan-400 flex justify-center items-center cursor-pointer group">
-          <TbCameraPlus
-            className="text-white group-hover:scale-90 transition-all duration-300"
-            size={120}
-          />
-        </div>
+        <ProfileImage width={150} />
 
         <div>
           <FloatingLabelInput
