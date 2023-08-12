@@ -8,6 +8,7 @@ import { StoreStateTypes } from "./utils/types";
 import Button from "./components/ui/button/Button";
 import AnimatedButton from "../src/components/ui/AnimatedButton";
 import NumberVerification from "./components/auth/NumberVerification";
+import Register from "./components/auth/Register";
 
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
@@ -18,7 +19,8 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/auth" element={<Auth />}>
           <Route path="sign-in" element={<Login />} />
-          <Route path="number" element={<NumberVerification/>}/>
+          <Route path="numberVerification" element={<NumberVerification/>}/>
+          <Route path="register" element={<Register/>}/>
         </Route>
       </Routes>
     </div>

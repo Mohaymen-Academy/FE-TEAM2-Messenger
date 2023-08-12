@@ -84,7 +84,7 @@ const Login = () => {
 
         <Button
           onClick={() => {
-            navigate("../../auth/number");
+            navigate("../../auth/numberVerification");
           }}
           size="lg"
           className="text-white"

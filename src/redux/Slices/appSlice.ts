@@ -6,7 +6,7 @@ export type appSliceType = {
 };
 
 const initialState = {
-  theme: "light",
+  theme: "dark",
   showEmoji: false,
 };
 
