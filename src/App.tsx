@@ -1,19 +1,19 @@
+//@ts-nocheck
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Chat from "./pages/chat/Chat";
 import Auth from "./pages/auth/Auth";
 import Login from "./components/auth/SignIn";
 import { StoreStateTypes } from "./utils/types";
-import ThemeToggle from "./components/conversation/ThemeToggle";
-import FloatingLabelInput from "./components/auth/input/FloatingLabelInput";
-import SignIn from "./components/auth/SignIn";
+import Button from "./components/ui/button/Button";
+import AnimatedButton from "../src/components/ui/AnimatedButton";
 import NumberVerification from "./components/auth/NumberVerification";
 
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
 
   return (
-    <div className={`${theme}`}>
+    <div className={`${theme} h-full`}>
       <Routes>
         <Route path="/chat" element={<Chat />} />
         <Route path="/auth" element={<Auth />}>

@@ -4,19 +4,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      textColor: {
-        primary: "var(--text-primary)",
-        secondary: "var(--text-secondary)",
-        blue: "var(--text-primary-light)",
-      },
-      backgroundColor: {
-        primary: "var(--bg-primary)",
-        secondary: "var(--bg-secondary)",
-        btn: "var(--bg-btn)",
-        "btn-hover": "var(--bg-btn-hover)",
-        "btn-ghost": "var(--bg-btn-ghost)",
-        "msg-current": "var (--bg-msg-current)",
-        "msg-other": "var (--bg-msg-other)",
+      screens: {
+        sm: "600px",
+        // "2xl": "1275px",
       },
       backgroundImage: {
         lightGradient: "url('/src/assets/img/lightGradient.svg')",
@@ -29,12 +19,27 @@ export default {
         chatCurrentUser: "url('src/assets/img/chat_currentuser.svg')",
         chatOtherUser: "url('src/assets/img/chat_otheruser.svg')",
       },
+      textColor: {
+        primary: "var(--text-primary)",
+        secondary: "var(--text-secondary)",
+        white: "var(--text-white)",
+        blue: "var(--text-blue)",
+      },
       backgroundColor: {
-        primary: {},
-        secondary: {},
+        primary: "var(--bg-primary)",
+        secondary: "var(--bg-secondary)",
+        online: "var(--bg-online)",
+        btn: "var(--bg-btn)",
+        hover: "var(--bg-hover)",
+        "btn-hover": "var(--bg-btn-hover)",
+        "btn-ghost": "var(--bg-btn-ghost)",
+        "msg-current": "var (--bg-msg-current)",
+        "msg-other": "var (--bg-msg-other)",
       },
     },
   },
-  // safelist: ["opacity-100", "scale-100"],
-  plugins: [],
+  plugins: [
+    // ...
+    require("tailwind-scrollbar")({ nocompatible: true }),
+  ],
 };

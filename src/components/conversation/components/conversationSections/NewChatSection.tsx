@@ -1,53 +1,35 @@
-import SearchInput from "@/components/ui/input/SearchInput";
-import Avatar from "@/components/ui/avatar/Avatar";
-import Paragraph from "@/components/ui/paragraph/Paragraph";
+import SearchInput from "@/components/ui/SearchInput";
+import Avatar from "@/components/ui/Avatar";
+import Paragraph from "@/components/ui/Paragraph";
 import { User } from "@/utils/types";
 import React from "react";
-import Button from "@/components/ui/button/Button";
+import Button from "@/components/ui/Button";
 import { BsArrowRight } from "react-icons/bs";
 import { setSection } from "@/redux/Slices/conversationSlice";
 import { useDispatch } from "react-redux";
 
 import { BsBroadcastPin, BsFillPeopleFill } from "react-icons/bs";
 import { IconType } from "react-icons";
+import UserItem from "./UserItem";
 
 type CreatePvSectionProps = {
   users: User[];
 };
 
-type UserItemProps = {
-  user: User;
-  onClick: () => void;
-};
-
-const UserItem: React.FC<UserItemProps> = ({ user, onClick }) => {
-  return (
-    <div
-      className="hover:bg-slate-300 dark:hover:bg-slate-800 p-2 flex gap-4 cursor-pointer mx-2 rounded-lg"
-      onClick={onClick}
-    >
-      <Avatar isOnline />
-      <div className="flex flex-col">
-        <Paragraph size="lg">{user.name}</Paragraph>
-        <Paragraph size="xs">اخیرا آنلاین بوده است</Paragraph>
-      </div>
-    </div>
-  );
-};
-
 type NewChatButtonProps = {
   text: string;
-  onClick: () => void;
   Icon: IconType;
+  target: "groupCreate" | "channelCreate";
 };
 const NewChatButton: React.FC<NewChatButtonProps> = ({
   Icon,
-  onClick,
   text,
+  target,
 }) => {
+  const dispatch = useDispatch();
   return (
     <div
-      onClick={onClick}
+      onClick={() => dispatch(setSection({ selectedState: target }))}
       className="w-full flex gap-5 items-center hover:bg-slate-600 px-5 py-4 dark:text-slate-400 cursor-pointer"
     >
       <Icon size={25} />
@@ -58,6 +40,14 @@ const NewChatButton: React.FC<NewChatButtonProps> = ({
 
 const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
   const dispatch = useDispatch();
+  const newSectionsButtonObject: {
+    text: string;
+    icon: IconType;
+    target: "groupCreate" | "channelCreate";
+  }[] = [
+    { icon: BsFillPeopleFill, text: "گروه جدید", target: "groupCreate" },
+    { icon: BsBroadcastPin, text: "کانال جدید", target: "channelCreate" },
+  ];
   return (
     <div className="flex flex-col w-full h-full">
       <div className="flex gap-2 w-full p-4">
@@ -68,27 +58,29 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
           variant="ghost"
           className="w-12 h-12 "
         >
-          <BsArrowRight size={25} />
+          <BsArrowRight className="icon-button" size={25} />
         </Button>
         <div className="w-full">
-          <SearchInput />
+          <SearchInput placeHolder="با چه کسی می‌خواهید صحبت کنید" />
         </div>
       </div>
-      <div className="w-full flex flex-col gap-2 py-2 border-b">
-        <NewChatButton
-          Icon={BsFillPeopleFill}
-          text="گروه جدید"
-          onClick={() => {}}
-        />
-        <NewChatButton
-          Icon={BsBroadcastPin}
-          text="کانال جدید"
-          onClick={() => {}}
-        />
+      <div className="w-full flex flex-col mb-2 border-y border-gray-200 dark:border-gray-500">
+        {newSectionsButtonObject.map((btn) => (
+          <NewChatButton
+            key={btn.text}
+            Icon={btn.icon}
+            text={btn.text}
+            target={btn.target}
+          />
+        ))}
       </div>
-      <div className="w-full h-full">
+      <div className="w-full h-full overflow-y-auto custom-scrollbar scrollbar-none md:hover:scrollbar">
         {users.map((user) => (
-          <UserItem onClick={() => console.log(user.name)} user={user} />
+          <UserItem
+            key={user.name}
+            onClick={() => console.log(user.name)}
+            user={user}
+          />
         ))}
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React from 'react'
-import Paragraph from '../ui/paragraph/Paragraph';
+import {Paragraph} from '../ui';
 import FloatingLabelInput from './input/FloatingLabelInput';
-import Button from '../ui/button/Button';
+import{ Button} from '../ui';
 import { useNavigate } from "react-router-dom";
 import ConfirmationInput from './input/ConfirmationCodeInput';
 

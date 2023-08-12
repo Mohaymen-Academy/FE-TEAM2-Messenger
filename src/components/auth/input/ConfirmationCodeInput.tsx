@@ -10,12 +10,14 @@ const ConfirmationInput: React.FC<confirmationInputProps> = ({ length }) => {
   const codeRefs = useRef<HTMLInputElement[]>([]);
 
   const handleChange = (index: number, value: string) => {
-    const newCodes = [...codes];
-    newCodes[index] = value;
-    setCodes(newCodes);
+    if (/^\d*$/.test(value)) {
+      const newCodes = [...codes];
+      newCodes[index] = value;
+      setCodes(newCodes);
 
-    if (value !== "" && index < length - 1) {
-      codeRefs.current[index + 1].focus();
+      if (value !== "" && index < length - 1) {
+        codeRefs.current[index + 1].focus();
+      }
     }
   };
 
@@ -36,7 +38,6 @@ const ConfirmationInput: React.FC<confirmationInputProps> = ({ length }) => {
           ref={(ref) => (codeRefs.current[index] = ref as HTMLInputElement)}
           type="text"
           maxLength={1}
-          pattern="\d*"
           value={code}
           onChange={(e) => handleChange(index, e.target.value)}
           onKeyDown={(e) => handleKeyPress(e, index)}

@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export type conversationSliceType = {
   section: string;
+  showConversations: boolean;
 };
 
 const initialState = {
   section: "conversations",
+  showConversations: true,
 };
 
 const conversationSlice = createSlice({
@@ -17,7 +19,7 @@ const conversationSlice = createSlice({
       actions: {
         payload: {
           selectedState:
-            | "groupeCreate"
+            | "groupCreate"
             | "channelCreate"
             | "pvCreate"
             | "conversations";
@@ -26,9 +28,13 @@ const conversationSlice = createSlice({
     ) => {
       state.section = actions.payload.selectedState;
     },
+    toggleShowConversations: (state: conversationSliceType, _) => {
+      state.showConversations = !state.showConversations;
+    },
   },
 });
 
-export const { setSection } = conversationSlice.actions;
+export const { setSection, toggleShowConversations } =
+  conversationSlice.actions;
 
 export default conversationSlice.reducer;
