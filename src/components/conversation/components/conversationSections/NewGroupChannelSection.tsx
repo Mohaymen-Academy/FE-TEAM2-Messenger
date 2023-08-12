@@ -1,9 +1,9 @@
-import SearchInput from "@/components/ui/input/SearchInput";
-import Avatar from "@/components/ui/avatar/Avatar";
-import Paragraph from "@/components/ui/paragraph/Paragraph";
+import SearchInput from "@/components/ui/SearchInput";
+import Avatar from "@/components/ui/Avatar";
+import Paragraph from "@/components/ui/Paragraph";
 import { User } from "@/utils/types";
 import React, { useEffect, useState } from "react";
-import Button from "@/components/ui/button/Button";
+import Button from "@/components/ui/Button";
 import { BsArrowRight, BsFillCheckCircleFill } from "react-icons/bs";
 import { setSection } from "@/redux/Slices/conversationSlice";
 import { useDispatch } from "react-redux";
@@ -67,30 +67,10 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
         </div>
       </div>
 
-      <div className="w-full h-full overflow-y-auto">
+      <div className="w-full h-full overflow-y-auto custom-scrollbar scrollbar-none md:hover:scrollbar">
         {users.map((user) => (
           <UserItem
-            withCheck
-            onClick={() => console.log(user.name)}
-            user={user}
-          />
-        ))}{" "}
-        {users.map((user) => (
-          <UserItem
-            withCheck
-            onClick={() => console.log(user.name)}
-            user={user}
-          />
-        ))}{" "}
-        {users.map((user) => (
-          <UserItem
-            withCheck
-            onClick={() => console.log(user.name)}
-            user={user}
-          />
-        ))}{" "}
-        {users.map((user) => (
-          <UserItem
+            key={user.name}
             withCheck
             onClick={() => console.log(user.name)}
             user={user}

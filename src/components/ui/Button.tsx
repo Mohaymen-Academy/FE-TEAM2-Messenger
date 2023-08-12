@@ -1,5 +1,5 @@
 import { VariantProps, cva } from "class-variance-authority";
-import React, { ButtonHTMLAttributes, Ref, forwardRef } from "react";
+import { ButtonHTMLAttributes, Ref, forwardRef } from "react";
 import { merge } from "@/utils/merge";
 import { ClipLoader } from "react-spinners";
 

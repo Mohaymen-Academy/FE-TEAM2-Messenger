@@ -1,5 +1,4 @@
-import Avatar from "@/components/ui/avatar/Avatar";
-import Paragraph from "@/components/ui/paragraph/Paragraph";
+import { Avatar, Paragraph } from "@/components/ui";
 import React from "react";
 import { User } from "@/utils/types";
 

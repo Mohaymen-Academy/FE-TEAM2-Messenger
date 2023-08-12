@@ -37,13 +37,9 @@
 
 // export default Login;
 
-
-
-
-
 import { useNavigate } from "react-router-dom";
-import Button from "../ui/button/Button";
-import Paragraph from "../ui/paragraph/Paragraph";
+import Button from "../ui/Button";
+import Paragraph from "../ui/Paragraph";
 import Input from "./input/Input";
 import FloatingLabelInput from "./input/FloatingLabelInput";
 import PhoneNumberInput from "./input/PhoneNumberInput";
@@ -103,4 +99,3 @@ const Login = () => {
 };
 
 export default Login;
-

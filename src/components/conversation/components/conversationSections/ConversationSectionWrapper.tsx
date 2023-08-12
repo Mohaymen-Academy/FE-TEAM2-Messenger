@@ -1,4 +1,6 @@
+import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 type ConversationSectionWrapperProps = {
   children?: React.ReactNode;
   show: boolean;
@@ -6,7 +8,6 @@ type ConversationSectionWrapperProps = {
 const ConversationSectionWrapper: React.FC<ConversationSectionWrapperProps> = ({
   show,
   children,
-  sectionName,
 }) => {
   const [unmount, setUnmount] = useState(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -14,21 +15,15 @@ const ConversationSectionWrapper: React.FC<ConversationSectionWrapperProps> = ({
   useEffect(() => {}, []);
 
   useEffect(() => {
-    console.log(sectionName);
-    console.log(wrapperRef.current?.style.transform);
-    console.log(wrapperRef.current?.style.opacity!);
     if (
       +wrapperRef.current?.style.opacity! === 0 &&
       wrapperRef.current?.style.transform === "translate(200%, 0px)"
     ) {
-      console.log("first");
       setTimeout(() => {
-        console.log(sectionName + "is unmounted");
         setUnmount(true);
       }, 600);
     }
     if (wrapperRef.current?.style.transform === undefined) {
-      console.log(sectionName + "is mounted");
       setUnmount(false);
     }
   }, [show]);
@@ -36,19 +31,24 @@ const ConversationSectionWrapper: React.FC<ConversationSectionWrapperProps> = ({
   if (unmount) return null;
 
   return (
-    <div
-      ref={wrapperRef}
-      style={{
-        opacity: show ? "1" : "0",
-        transform: show ? "translate(0, 0)" : "translate(200%, 0)",
-        scale: show ? "1" : "0.7",
-      }}
-      className={
-        "flex h-full w-full top-0 left-0 opacity-0 scale-75 translate-x-full transition-all duration-500 absolute"
-      }
-    >
-      {children}
-    </div>
+    <AnimatePresence>
+      {show && (
+        <motion.div
+          key="modal"
+          initial={{ scale: 1, x: 400, opacity: 1 }}
+          animate={{ scale: 1, x: 0, opacity: 1 }}
+          exit={{ scale: 0.4, x: 400, opacity: 0 }}
+          transition={{
+            type: "spring",
+            duration: 0.5,
+            bounce: 0.3,
+          }}
+          className={clsx("flex h-full w-full absolute top-0 left-0")}
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

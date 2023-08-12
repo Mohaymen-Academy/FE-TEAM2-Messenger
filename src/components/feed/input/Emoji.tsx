@@ -10,18 +10,22 @@ interface EmojiProps extends HTMLAttributes<HTMLDivElement> {}
 const Emoji: React.FC<EmojiProps> = ({ className, ...props }) => {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
   return (
-    <div className={merge(className)} {...props}>
+    <div
+      onClick={(e) => e.stopPropagation()}
+      className={merge(className)}
+      {...props}
+    >
       <Picker
         data={data}
         onEmojiSelect={console.log}
         theme={theme}
         categories={["people", "activity", "flags"]}
-        // onClickOutsie={}
         emojiButtonColors={[]}
         emojiButtonRadius="6px"
         locale="fa"
-        perLine={9}
+        perLine={10}
         previewPosition="none"
+        dynamicWidth
       />
     </div>
   );

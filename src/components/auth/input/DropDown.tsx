@@ -4,8 +4,7 @@ import { cva } from "class-variance-authority";
 import { useDispatch } from "react-redux";
 import { MdArrowDropDown } from "react-icons/md";
 import CountryFlag from "react-country-flag";
-import Paragraph from "@/components/ui/paragraph/Paragraph";
-import Button from "@/components/ui/button/Button";
+import { Paragraph, Button } from "@/components/ui";
 
 const dropDownButtonVariants = cva(
   "inline-flex justify-between px-2  py-2 text-sm font-medium rounded-md  text-slate-700 h-[44px] w-24 dark:bg-gray-800 bg-white"
