@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import Chat from "./pages/chat/Chat";
 import Auth from "./pages/auth/Auth";
 import Login from "./components/auth/SignIn";
-import Emoji from "./components/feed/input/Emoji";
 import { StoreStateTypes } from "./utils/types";
 import ThemeToggle from "./components/conversation/ThemeToggle";
 import FloatingLabelInput from "./components/auth/input/FloatingLabelInput";
@@ -21,7 +20,6 @@ function App() {
           <Route path="sign-in" element={<Login />} />
           <Route path="number" element={<NumberVerification/>}/>
         </Route>
-        {/* <Route path="test" element={<FloatingLabelInput label="salam" />} /> */}
       </Routes>
     </div>
   );

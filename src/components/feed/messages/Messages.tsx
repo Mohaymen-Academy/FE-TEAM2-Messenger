@@ -21,9 +21,9 @@ const Messages: React.FC<MessagesProps> = ({}) => {
         {/* {data.messages.map((msg) => (
           <MessageItem key={msg.id} message={msg} sentByCurrentUser={msg.sender?.id === userId} />
         ))} */}
+        <MessageItem message={" سشسسشسسشسشسشسشسشستیباتسیذبتنصنیتصنثصضنثنضصستنساتدذسذزدسیذزدسیتزذصتیضصیشسنکیمصضحیحخصثبنتثصنختصایعهثابتثثا    بثدتیدزظینزسیتابثنمسئیثصبیئنسیئزمئسیتنشسئمظئسلام"} sentByCurrentUser={true} />
         <MessageItem message={"سلام"} sentByCurrentUser={true} />
-        <MessageItem message={"سلام"} sentByCurrentUser={true} />
-        <MessageItem groupMessage={true} message={"سلام"} sentByCurrentUser={false} />
+        <MessageItem groupMessage={true} message={"سشنیتسابتیسذباسذیسشذز زتسذتسیتنشسدتنسشدطتنسشیتنسدشتطندشستنیتنسشدطتنسشیتنسشیتندسشیسایتسنشدتنسیتنسشابنتسشدیتنسابنمسشئینمسئسبتسینابتنیابتنسیتنسباتیابتنیسبتاسیبنتیدزتنیدتنسیزت"} sentByCurrentUser={false} />
         <MessageItem message={"سلام"} sentByCurrentUser={false} />
         <MessageItem message={"سلام"} sentByCurrentUser={false} />
         <MessageItem message={"سلام"} sentByCurrentUser={false} />

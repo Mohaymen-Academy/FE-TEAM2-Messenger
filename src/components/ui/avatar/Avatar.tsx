@@ -16,7 +16,7 @@ const Avatar: React.FC<AvatarProps> = ({
     <div 
       className={merge(
         className,
-        "w-12 h-12 text-center relative rounded-full"
+        "w-12 h-12 text-center relative rounded-full mb-0"
       )}
       {...props}
     >
