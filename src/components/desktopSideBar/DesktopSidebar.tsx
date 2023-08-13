@@ -22,7 +22,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
         transition: "background-color 0s, max-width 200ms, padding 200ms",
       }}
       className={clsx(
-        "bg-gray-100 dark:bg-slate-800 items-center shadow-md  max-w-[50px] md:max-w-[80px] py-3 px-2 md:px-4 relative",
+        "bg-secondary items-center shadow-md  max-w-[50px] md:max-w-[80px] py-3 px-2 md:px-4 relative",
         { "!max-w-[0px]": !showSideBar, "!p-0": !showSideBar }
       )}
     >

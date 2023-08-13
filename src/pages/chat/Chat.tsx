@@ -14,7 +14,7 @@ import { StoreStateTypes } from "@/utils/types";
 import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import useViewportWidth from "@/hooks/useViewportWidth";
-import { onToggleEmoji } from "@/redux/Slices/appSlice";
+import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
 import ProfileWrapper from "@/components/profile/ProfileWrapper";
 
 const Chat = () => {
@@ -69,6 +69,7 @@ const Chat = () => {
 
   const onChatClickHandler = () => {
     dispatch(onToggleEmoji({ show: false }));
+    dispatch(onToggleUpload({ show: false }));
   };
   return (
     <div
@@ -81,7 +82,7 @@ const Chat = () => {
         />
         <FeedWrapper feedShowCriteria={feedShowCriteria} userId="232" />
 
-        <ProfileWrapper  />
+        <ProfileWrapper />
       </div>
     </div>
   );
