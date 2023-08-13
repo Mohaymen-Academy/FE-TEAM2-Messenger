@@ -21,11 +21,11 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({
         onClick={onClick}
         variant="ghost"
         size="sm"
-        className="group relative w-12 h-12 hover:bg-transparent dark:hover:bg-transparent md:hover:bg-btn-ghost"
+        className="group icon-button relative w-12 h-12 hover:bg-transparent dark:hover:bg-hover md:hover:bg-btn-ghost"
       >
         <FirstIcon
           size={30}
-          className={clsx("absolute transition-all duration-300", {
+          className={clsx(" absolute transition-all duration-300", {
             "scale-0": isActive,
             "scale-100": !isActive,
             "-rotate-90": isActive,
@@ -34,7 +34,7 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({
         />
         <SecondIcon
           size={30}
-          className={clsx("absolute transition-all duration-300", {
+          className={clsx("icon-button absolute transition-all duration-300", {
             "rotate-0": isActive,
             "scale-0": !isActive,
             "scale-100": isActive,

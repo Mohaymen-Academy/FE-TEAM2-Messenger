@@ -34,13 +34,13 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
       <div className="w-full h-full flex flex-col justify-between items-center overflow-hidden">
         <div className="flex flex-col gap-8 items-center">
           <Button variant="ghost" className="sidebar-icon-button">
-            <BsFillPersonFill />
+            <BsFillPersonFill className="icon-button" />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
-            <BsFillPeopleFill className="sidebar-icon" />
+            <BsFillPeopleFill className="icon-button" />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
-            <BsBroadcastPin />
+            <BsBroadcastPin className="icon-button" />
           </Button>
         </div>
         <div className="flex flex-col gap-8 items-center">
@@ -52,7 +52,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             <FiEdit2 className="icon-button" />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
-            <MdLogout />
+            <MdLogout className="icon-button" />
           </Button>
           <AnimatedButton
             FirstIcon={BiSun}
