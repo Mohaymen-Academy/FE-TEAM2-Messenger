@@ -1,12 +1,10 @@
-import React from 'react'
-import {Paragraph} from '../ui';
-import FloatingLabelInput from './input/FloatingLabelInput';
-import{ Button} from '../ui';
+import { Paragraph } from "../ui";
+import { Button } from "../ui";
 import { useNavigate } from "react-router-dom";
-import ConfirmationInput from './input/ConfirmationCodeInput';
+import ConfirmationInput from "./input/ConfirmationCodeInput";
 
 const NumberVerification = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div>
       <div className="w-screen flex flex-col items-center gap-3">
@@ -22,6 +20,7 @@ const NumberVerification = () => {
           <div className='flex'>
             <ConfirmationInput length={5}/>
             
+
           </div>
           <Button
             onClick={() => {
@@ -36,6 +35,6 @@ const NumberVerification = () => {
       </div>
     </div>
   );
-}
+};
 
-export default NumberVerification
+export default NumberVerification;

@@ -1,13 +1,14 @@
-import React from 'react'
-import { TbCameraPlus } from 'react-icons/tb';
+import React from "react";
+import { TbCameraPlus } from "react-icons/tb";
 
 interface profileImageProps {
-  width : number
+  width?: number;
 }
 
 const ProfileImage: React.FC<profileImageProps> = ({ width }) => {
   return (
     <div
+      style={{ width }}
       className={`mx-auto aspect-square rounded-full bg-cyan-400 flex justify-center items-center cursor-pointer group`}
     >
       <TbCameraPlus
@@ -19,4 +20,4 @@ const ProfileImage: React.FC<profileImageProps> = ({ width }) => {
   );
 };
 
-export default ProfileImage
+export default ProfileImage;
