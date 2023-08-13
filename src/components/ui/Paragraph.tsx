@@ -12,6 +12,7 @@ const paragraphVariants = cva("text-slate-900 dark:text-white select-none", {
       xl: "text-xl sm:text-2xl",
       "2xl": "text-2xl sm:text-3xl",
     },
+   
   },
   defaultVariants: {
     size: "default",
