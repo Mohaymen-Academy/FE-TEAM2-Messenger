@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { MdArrowDropDown } from "react-icons/md";
 import CountryFlag from "react-country-flag";
 import { Paragraph, Button } from "@/components/ui";
+import ClickOutsideWrapper from "@/components/wrappers/ClickOutsideWrapper";
 
 const dropDownButtonVariants = cva(
   "inline-flex justify-between px-2  py-2 text-sm font-medium rounded-md  text-slate-700 h-[44px] w-24 dark:bg-gray-800 bg-white"
@@ -33,38 +34,40 @@ const Dropdown = ({ items }) => {
   };
 
   return (
-    <div className="relative inline-block text-left">
-      <div>
-        <Button
-          variant="ghost"
-          onClick={toggleDropdown}
-          className={dropDownButtonVariants()}
-        >
-          <Paragraph className="mb-0">{activeItem.dialCode}+</Paragraph>
-          <CountryFlag svg countryCode={activeItem.country} />
+    <ClickOutsideWrapper onOutsideClick={()=> setIsOpen(false)}>
+      <div className="relative inline-block text-left">
+        <div>
+          <Button
+            variant="ghost"
+            onClick={toggleDropdown}
+            className={dropDownButtonVariants()}
+          >
+            <Paragraph className="mb-0">{activeItem.dialCode}+</Paragraph>
+            <CountryFlag svg countryCode={activeItem.country} />
 
-          <MdArrowDropDown size={30} className="dark:text-gray-200" />
-        </Button>
-      </div>
-
-      {isOpen && (
-        <div className={dropDownBoxVariants()}>
-          <div>
-            {items.map((item) => (
-              <div
-                key={item.country}
-                href="#"
-                className="flex justify-between items-center px-4 py-2 z-30 text-sm text-gray-700 dark:hover:bg-gray-700 hover:text-gray-900 text-right hover:cursor-pointer hover:bg-gray-200"
-                onClick={() => handleItemClick(item)}
-              >
-                <Paragraph className="mb-0">{item.dialCode}+</Paragraph>
-                <CountryFlag svg countryCode={item.country} />
-              </div>
-            ))}
-          </div>
+            <MdArrowDropDown size={30} className="dark:text-gray-200" />
+          </Button>
         </div>
-      )}
-    </div>
+
+        {isOpen && (
+          <div className={dropDownBoxVariants()}>
+            <div>
+              {items.map((item) => (
+                <div
+                  key={item.country}
+                  href="#"
+                  className="flex justify-between items-center px-4 py-2 z-30 text-sm text-gray-700 dark:hover:bg-gray-700 hover:text-gray-900 text-right hover:cursor-pointer hover:bg-gray-200"
+                  onClick={() => handleItemClick(item)}
+                >
+                  <Paragraph className="mb-0">{item.dialCode}+</Paragraph>
+                  <CountryFlag svg countryCode={item.country} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </ClickOutsideWrapper>
   );
 };
 

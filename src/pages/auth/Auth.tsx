@@ -4,6 +4,7 @@ import patternLight from "../../assets/img/bgPatternLight.png";
 import patternDark from "../../assets/img/bgPatternDark.png";
 import { StoreStateTypes } from "@/utils/types";
 import { useSelector } from "react-redux";
+import Context from "@/components/ui/Context";
 
 
 const Auth = () => {
@@ -26,12 +27,12 @@ const Auth = () => {
               : "rgba(119, 172, 140, 1), rgba(215, 219, 185, 1)"
           })`,
           backgroundBlendMode: "overlay",
-        
         }}
         className={merge("grid place-items-center min-h-screen relative dark")}
       >
         <div className="absolute z-30">
           <Outlet />
+          {/* <Context /> */}
         </div>
       </div>
     </div>
