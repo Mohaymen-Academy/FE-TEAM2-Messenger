@@ -35,8 +35,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             <BsFillPeopleFill className="icon-button" />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
-            <BsBroadcastPin className="icon-button" />
-
+            <HiSpeakerphone className="icon-button" />
           </Button>
         </div>
         <div className="flex flex-col gap-8 items-center">
@@ -45,7 +44,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             variant="ghost"
             className="sidebar-icon-button"
           >
-            <FiEdit2 />
+            <FiEdit2 className="icon-button" />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
             <MdLogout className="icon-button" />

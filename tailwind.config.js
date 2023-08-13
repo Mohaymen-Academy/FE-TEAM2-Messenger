@@ -36,6 +36,7 @@ export default {
         "btn-ghost": "var(--bg-btn-ghost)",
         "msg-current": "var (--bg-msg-current)",
         "msg-other": "var (--bg-msg-other)",
+        toast: "var(--toastify-toast-background)",
       },
     },
   },

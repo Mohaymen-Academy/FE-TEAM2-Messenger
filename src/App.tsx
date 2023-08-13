@@ -7,6 +7,8 @@ import { StoreStateTypes } from "./utils/types";
 import NumberVerification from "./components/auth/NumberVerification";
 import Register from "./components/auth/Register";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import Playground from "./pages/playground";
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
 
@@ -27,13 +29,22 @@ function App() {
           }
         />
         <Route path="/chat" element={<Chat />} />
+        {/* <Route path="/playground" element={<Playground />} /> */}
         <Route path="/auth" element={<Auth />}>
           <Route path="sign-in" element={<Login />} />
           <Route path="numberVerification" element={<NumberVerification />} />
           <Route path="register" element={<Register />} />
         </Route>
       </Routes>
-      <ToastContainer />
+      <ToastContainer
+        autoClose={3000}
+        position="top-center"
+        theme={theme}
+        rtl={true}
+        hideProgressBar={true}
+        closeButton={<></>}
+        limit={4}
+      />
     </div>
   );
 }

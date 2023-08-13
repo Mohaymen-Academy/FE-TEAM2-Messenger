@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 import Button from "../ui/Button";
 import Paragraph from "../ui/Paragraph";
 import FloatingLabelInput from "./input/FloatingLabelInput";
@@ -86,7 +84,6 @@ const Login = () => {
         </header>
 
         <FloatingLabelInput
-          inputID="phone"
           type="number"
           borderWidth={75}
           label="شماره تلفن"

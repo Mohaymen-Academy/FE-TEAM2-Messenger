@@ -8,7 +8,6 @@ import clsx from "clsx";
 import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
-import UploadButton from "./UploadButton";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { GoFileMedia, GoFile } from "react-icons/go";
 import { Paragraph } from "@/components/ui";
@@ -75,7 +74,7 @@ const TextArea = () => {
     );
     console.log(uploadResponse);
   };
-  
+
   return (
     <div className="relative">
       <label htmlFor="chat" className="sr-only">

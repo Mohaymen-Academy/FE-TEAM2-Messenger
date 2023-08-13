@@ -5,9 +5,8 @@ import { UseFormRegister, FieldValues } from "react-hook-form";
 
 export interface FloatingLabelInputProps
   extends HTMLAttributes<HTMLDivElement> {
-  inputID: string;
   type: string;
-  borderWidth: number;
+  borderWidth?: number;
   removeBorderColor?: string;
   dropDown?: boolean;
   label?: string;
@@ -19,7 +18,6 @@ export interface FloatingLabelInputProps
 
 const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
   label,
-  inputID,
   type,
   borderWidth,
   removeBorderColor,
@@ -47,7 +45,7 @@ const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
   };
 
   return (
-    <div className={merge("relative mb-4", className)} {...props}>
+    <div className={merge("relative", className)} {...props}>
       <div
         className={`absolute h-[1px] top-0 right-[16px] dark:bg-slate-800 bg-gray-200 z-20`}
         style={{
@@ -68,7 +66,6 @@ const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
       <div className="flex items-center gap-2">
         <Input
           ref={inputRef}
-          id={inputID}
           type={type}
           onFocus={handleFocus}
           onBlur={handleFocus}

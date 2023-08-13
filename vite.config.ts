@@ -9,6 +9,10 @@ export default defineConfig({
     react(),
     tsconfigPaths(),
     VitePWA({
+      // devOptions: {
+      //   enabled: true,
+      // },
+      registerType: "autoUpdate",
       manifest: {
         icons: [
           {
@@ -23,7 +27,8 @@ export default defineConfig({
         runtimeCaching: [
           {
             urlPattern: ({ url }) => {
-              return url.pathname.startsWith("/");
+              console.log(url.pathname.startsWith("/todos"));
+              return url.pathname.startsWith("/todos");
             },
             handler: "CacheFirst" as const,
             options: {

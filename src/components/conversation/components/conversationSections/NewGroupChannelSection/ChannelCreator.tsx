@@ -31,7 +31,6 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
           <FloatingLabelInput
             label="نام کانال"
             type="tel"
-            inputID="group-name"
             borderWidth={55}
             className="mx-10"
             dir="rtl"
@@ -43,7 +42,6 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
           <FloatingLabelInput
             label="توضیحات (اختیاری)"
             type="tel"
-            inputID="group-name"
             borderWidth={120}
             className="mx-10"
             dir="rtl"
