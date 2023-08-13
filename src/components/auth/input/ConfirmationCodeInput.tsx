@@ -2,7 +2,7 @@ import React, { useState, useRef, KeyboardEvent } from "react";
 import Input from "./Input";
 
 interface confirmationInputProps {
-  length: number;
+  length?: number;
 }
 
 const ConfirmationInput: React.FC<confirmationInputProps> = ({ length }) => {
@@ -10,6 +10,7 @@ const ConfirmationInput: React.FC<confirmationInputProps> = ({ length }) => {
   const codeRefs = useRef<HTMLInputElement[]>([]);
 
   const handleChange = (index: number, value: string) => {
+    if (!length) return;
     if (/^\d*$/.test(value)) {
       const newCodes = [...codes];
       newCodes[index] = value;

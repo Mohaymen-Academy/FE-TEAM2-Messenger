@@ -30,6 +30,7 @@ export default {
         secondary: "var(--bg-secondary)",
         online: "var(--bg-online)",
         btn: "var(--bg-btn)",
+        "btn-secondary": "var(--bg-btn-secondary)",
         hover: "var(--bg-hover)",
         "btn-hover": "var(--bg-btn-hover)",
         "btn-ghost": "var(--bg-btn-ghost)",

@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useState } from "react";
+import React, { HTMLAttributes } from "react";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { useSelector } from "react-redux";

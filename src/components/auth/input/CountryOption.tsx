@@ -1,13 +1,13 @@
 import React from "react";
 import CountryFlag from "react-country-flag";
 
-interface coutnryOptionProps {
-  innerProps: string;
-  label: string;
-  data: string;
+interface countryOptionProps {
+  innerProps: any;
+  label: any;
+  data: any;
 }
 
-const CountryOption: React.FC<coutnryOptionProps> = ({
+const CountryOption: React.FC<countryOptionProps> = ({
   innerProps,
   label,
   data,

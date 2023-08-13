@@ -1,14 +1,10 @@
 import React from "react";
-import Paragraph from "@/ui/paragraph/Paragraph";
-import Button from "@/ui/button/Button";
 import ProfileColor from "./components/ProfileColor";
-import { FiEdit2 } from "react-icons/fi";
 import Notification from "./components/Notification";
 import Link from "./components/Link";
-import SectionHeader, {
-  SectionHeaderWithEdit,
-} from "./components/SectionHeader";
 import SectionContainer from "./components/SectionContainer";
+import { Paragraph } from "../ui";
+import { SectionHeaderWithEdit } from "./components/SectionHeader";
 
 interface groupProfileProps {
   profileName: string;
@@ -19,7 +15,7 @@ const GroupProfile: React.FC<groupProfileProps> = ({ profileName, imgSrc }) => {
   return (
     <SectionContainer>
       {/* Profile header and back button */}
-      <SectionHeaderWithEdit />
+      <SectionHeaderWithEdit title="پروفایل گروه" />
 
       {/* Show even profile image or solid color */}
       {/* Also add a gradient to show profile name and subscribers */}

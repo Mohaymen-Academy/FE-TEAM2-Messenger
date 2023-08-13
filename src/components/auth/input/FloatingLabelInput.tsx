@@ -1,7 +1,7 @@
 import React, { HTMLAttributes, ReactNode, useRef, useState } from "react";
 import Input from "./Input";
 import { merge } from "@/utils/merge";
-import Dropdown from "./DropDown";
+import { UseFormRegister, FieldValues } from "react-hook-form";
 
 export interface FloatingLabelInputProps
   extends HTMLAttributes<HTMLDivElement> {
@@ -11,6 +11,10 @@ export interface FloatingLabelInputProps
   removeBorderColor?: string;
   dropDown?: boolean;
   label?: string;
+  register?: UseFormRegister<FieldValues>;
+  formId?: string;
+  required?: boolean;
+  patternFrom?: RegExp;
 }
 
 const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
@@ -21,6 +25,10 @@ const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
   removeBorderColor,
   dropDown,
   className,
+  register,
+  required,
+  patternFrom,
+  formId,
   children,
   ...props
 }) => {
@@ -65,6 +73,10 @@ const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
           onFocus={handleFocus}
           onBlur={handleFocus}
           className="m-0"
+          register={register}
+          patternFrom={patternFrom}
+          formId={formId}
+          required={required}
         />
 
         {dropDown && (children as ReactNode)}

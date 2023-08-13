@@ -1,8 +1,8 @@
-import Paragraph from "@/components/ui/paragraph/Paragraph";
-import Switch from "@/components/ui/switch/Switch";
+import Switch from "@/components/ui/Switch";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
-import React, { useState } from "react";
+import { useState } from "react";
 import { IoMdNotifications } from "react-icons/io";
+import { Paragraph } from "@/components/ui";
 
 const Notification = () => {
   const [isChecked, setIsChecked] = useState(false);

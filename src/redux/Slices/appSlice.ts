@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export type appSliceType = {
-  theme: string;
+  theme: "light" | "dark";
   showEmoji: boolean;
 };
 
-const initialState = {
+const initialState: appSliceType = {
   theme: "dark",
   showEmoji: false,
 };

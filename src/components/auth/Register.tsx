@@ -6,8 +6,9 @@ import { Button } from '../ui';
 import { useNavigate } from 'react-router-dom';
 import FileUploader from '../wrappers/FileUploader';
 
+
 const Register = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div className="dark w-full h-full gap-4 flex flex-col items-center bg-primary p-8 rounded-2xl">
       <FileUploader accept='image/*'>
@@ -27,8 +28,9 @@ const Register = () => {
         >
           ثبت نام
         </Button>
+
     </div>
   );
-}
+};
 
-export default Register
+export default Register;

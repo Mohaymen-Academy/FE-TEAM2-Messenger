@@ -5,6 +5,7 @@ import SwipeWrapper from "./SwipeWrapper";
 import IconButton from "./IconButton";
 import Button from "./Button";
 import Avatar from "./Avatar";
+import UserItem from "./UserItem";
 
 export {
   SearchInput,
@@ -14,4 +15,5 @@ export {
   IconButton,
   Button,
   Avatar,
+  UserItem,
 };

@@ -1,13 +1,10 @@
 import { FieldValues, useForm } from "react-hook-form";
 import Button from "@/components/ui/Button";
-import { IoMdImages } from "react-icons/io";
 import { BsEmojiLaughing, BsFillSendFill } from "react-icons/bs";
 import { ChangeEvent, useState } from "react";
 import { merge } from "@/utils/merge";
 import Emoji from "./Emoji";
 import clsx from "clsx";
-import Input from "@/components/auth/input/Input";
-import UploadButton from "./UploadButton";
 import { onToggleEmoji } from "@/redux/Slices/appSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
@@ -21,9 +18,9 @@ const TextArea = () => {
   );
 
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
+    // register,
+    // handleSubmit,
+    // formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: { message: "" },
   });

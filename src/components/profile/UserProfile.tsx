@@ -1,6 +1,6 @@
 import React from "react";
 import ProfileColor from "./components/ProfileColor";
-import Paragraph from "../ui/paragraph/Paragraph";
+import { Paragraph } from "../ui/";
 import SectionContainer from "./components/SectionContainer";
 import { SectionHeaderWithEdit } from "./components/SectionHeader";
 import Link from "./components/Link";
@@ -15,7 +15,7 @@ const UserProfile: React.FC<userProfileProps> = ({ profileName, imgSrc }) => {
   return (
     <SectionContainer>
       {/* Profile header and back button */}
-      <SectionHeaderWithEdit title="اطلاعات کاربر" />
+      <SectionHeaderWithEdit withClose title="اطلاعات کاربر" />
 
       {/* Show even profile image or solid color */}
       {/* Also add a gradient to show profile name and subscribers */}
