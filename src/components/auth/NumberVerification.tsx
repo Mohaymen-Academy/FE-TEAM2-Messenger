@@ -9,7 +9,7 @@ const NumberVerification = () => {
     const navigate = useNavigate();
   return (
     <div>
-      <div className="w-screen flex flex-col items-center">
+      <div className="w-screen flex flex-col items-center gap-3">
         <Paragraph size="2xl" className="!text-black dark:!text-white">
           پیام رسان آیریس
         </Paragraph>
