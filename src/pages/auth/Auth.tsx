@@ -32,7 +32,7 @@ const Auth = () => {
       >
         <div className="absolute z-30">
           <Outlet />
-          <Context />
+          {/* <Context /> */}
         </div>
       </div>
     </div>

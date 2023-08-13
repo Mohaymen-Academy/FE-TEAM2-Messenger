@@ -13,25 +13,22 @@ const NumberVerification = () => {
         <Paragraph size="2xl" className="!text-black dark:!text-white">
           پیام رسان آیریس
         </Paragraph>
-        <div className="flex flex-col gap-4 justify-center items-center-400 rounded-2xl py-10 px-6 backdrop-blur-md bg-gradient-to-r from-green-/40 to-green-300 dark:bg-gray-700 w-11/12 max-w-[580px] ">
+        <div className="flex flex-col gap-6 justify-center items-center rounded-2xl py-10 px-6 backdrop-blur-md bg-gradient-to-r from-green-/40 to-green-300 dark:bg-gray-700 w-11/12 max-w-[580px] ">
           <header className="mx-auto">
             <Paragraph size="sm" className="!text-cyan-500">
               ورود به حساب کاربری
             </Paragraph>
           </header>
           <div className='flex'>
-            <ConfirmationInput/>
-            <ConfirmationInput />
-            <ConfirmationInput />
-            <ConfirmationInput />
-            <ConfirmationInput />
+            <ConfirmationInput length={5}/>
+            
           </div>
           <Button
             onClick={() => {
               navigate("../register");
             }}
             size="lg"
-            className="text-white"
+            className="text-white w-full"
           >
             تایید کد
           </Button>
