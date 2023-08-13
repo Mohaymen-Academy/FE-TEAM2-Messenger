@@ -11,14 +11,17 @@ import UploadButton from "./UploadButton";
 import { onToggleEmoji } from "@/redux/Slices/appSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
+import MessageInput from "./MessageInput";
+import Controls from "./Controls";
 
 const TextArea = () => {
   const [textareaHeight, setTextAreaHeight] = useState("auto");
   const dispatch = useDispatch();
 
-  const showEmoji = useSelector(
-    (store: StoreStateTypes) => store.app.showEmoji
-  );
+  const {
+    message: { isSelected },
+    app: { showEmoji },
+  } = useSelector((store: StoreStateTypes) => store);
 
   const {
     register,
@@ -28,19 +31,15 @@ const TextArea = () => {
     defaultValues: { message: "" },
   });
 
-  const handleTextAreaInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const { scrollHeight, clientHeight } = event.target;
-
-    const newHeight = (
-      scrollHeight > clientHeight ? scrollHeight : "auto"
-    ) as string;
-    setTextAreaHeight(newHeight);
-  };
-
   return (
-    <div className="relative">
+    <div className="relative m-32">
+      <Controls
+        className={clsx("transition-all duration-300 opacity-0", {
+          "-top-10 opacity-100": isSelected,
+        })}
+      />
       <label htmlFor="chat" className="sr-only">
-        Your message
+        پیام شما
       </label>
       <div
         className={merge(
@@ -63,16 +62,7 @@ const TextArea = () => {
           <span className="sr-only">Add emoji</span>
         </Button>
 
-        <textarea
-          id="chat"
-          rows={1}
-          style={{ height: textareaHeight }}
-          onInput={handleTextAreaInput}
-          className={merge(
-            "mx-2 px-3 py-2.5 w-full text-base text-gray-900 bg-white ring-1 ring-white dark:ring-gray-800 dark:focus:ring-blue-400 rounded-lg border border-gray-300 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-400 dark:text-white outline-none resize-none leading-6"
-          )}
-          placeholder="ارسال پیام ..."
-        ></textarea>
+        <MessageInput />
 
         <Button variant="ghost" size="sm" className="hover:bg-blue-100 group">
           <BsFillSendFill className="w-5 h-5 text-cyan-700 dark:text-cyan-300" />

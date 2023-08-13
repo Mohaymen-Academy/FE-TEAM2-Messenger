@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, Ref, forwardRef } from "react";
 import { merge } from "@/utils/merge";
 import { ClipLoader } from "react-spinners";
 
-export const buttonVariants = cva(
+const buttonVariants = cva(
   "active:scale-95 inline-flex items-center justify-center rounded-md text-sm font-medium transition-color focus:outline-none disabled:opacity-50  disabled:pointer-events-none ",
   {
     variants: {
@@ -30,7 +30,7 @@ export const buttonVariants = cva(
   }
 );
 
-interface ButtonProps
+export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   isLoading?: boolean;

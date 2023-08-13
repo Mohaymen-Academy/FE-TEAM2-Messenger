@@ -1,12 +1,12 @@
-import React from 'react'
-import {Paragraph} from '../ui';
-import FloatingLabelInput from './input/FloatingLabelInput';
-import{ Button} from '../ui';
+import React from "react";
+import { Paragraph } from "../ui";
+import FloatingLabelInput from "./input/FloatingLabelInput";
+import { Button } from "../ui";
 import { useNavigate } from "react-router-dom";
-import ConfirmationInput from './input/ConfirmationCodeInput';
+import ConfirmationInput from "./input/ConfirmationCodeInput";
 
 const NumberVerification = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div>
       <div className="w-screen flex flex-col items-center">
@@ -19,12 +19,8 @@ const NumberVerification = () => {
               ورود به حساب کاربری
             </Paragraph>
           </header>
-          <div className='flex'>
-            <ConfirmationInput/>
-            <ConfirmationInput />
-            <ConfirmationInput />
-            <ConfirmationInput />
-            <ConfirmationInput />
+          <div className="flex">
+            <ConfirmationInput length={5} />
           </div>
           <Button
             onClick={() => {
@@ -39,6 +35,6 @@ const NumberVerification = () => {
       </div>
     </div>
   );
-}
+};
 
-export default NumberVerification
+export default NumberVerification;
