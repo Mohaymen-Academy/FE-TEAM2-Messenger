@@ -7,32 +7,32 @@ import { useDispatch } from "react-redux";
 
 interface sectionHeaderProps {
   title: string;
+  withClose?: boolean;
 }
 
-const SectionHeader: React.FC<sectionHeaderProps> = ({ title }) => {
+const SectionHeader: React.FC<sectionHeaderProps> = ({ title, withClose }) => {
   const dispatch = useDispatch();
   return (
-    <div className="flex items-center py-2 px-4 shadow">
-      <Button
-        onClick={() => {
-          console.log("close");
-          dispatch(setShow({ show: false }));
-        }}
-        variant="ghost"
-        className="h-12 w-12 ml-4"
-      >
-        <AiOutlineClose className="icon-button" size={25} />
-      </Button>
+    <div className="flex items-center py-2 px-4 h-[61px]">
+      {withClose && (
+        <Button
+          onClick={() => dispatch(setShow({ show: false }))}
+          variant="ghost"
+          className="h-12 w-12 ml-4"
+        >
+          <AiOutlineClose className="icon-button" size={25} />
+        </Button>
+      )}
       <Paragraph size="xl">{title}</Paragraph>
     </div>
   );
 };
 
 const withEdit = (WrappedComponent: ComponentType<sectionHeaderProps>) => {
-  return ({ title }: sectionHeaderProps) => {
+  return ({ title, withClose }: sectionHeaderProps) => {
     return (
       <div className="relative h-[61px]">
-        <WrappedComponent title={title} />
+        <WrappedComponent withClose={withClose} title={title} />
         <Button
           variant="ghost"
           className="h-12 w-12 ml-4 z-10 left-2 absolute top-2"

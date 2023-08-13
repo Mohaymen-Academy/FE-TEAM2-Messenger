@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import ConversationSectionWrapper from "./components/conversationSections/ConversationSectionWrapper";
 import CreatePvSection from "./components/conversationSections/NewChatSection";
-import NewGroupChannelSection from "./components/conversationSections/NewGroupChannelSection";
+import NewGroupChannelSection from "./components/conversationSections/NewGroupChannelSection/NewGroupChannelSection";
 
 interface ConversationWrapperProps {
   conversationShowCriteria?: string;

@@ -1,16 +1,11 @@
-import Button from "../ui/Button";
+import { useDispatch, useSelector } from "react-redux";
 import { clsx } from "clsx";
-import {
-  BsBroadcastPin,
-  BsFillPeopleFill,
-  BsFillPersonFill,
-} from "react-icons/bs";
+import { BsFillPeopleFill, BsFillPersonFill } from "react-icons/bs";
+import { HiSpeakerphone } from "react-icons/hi";
 import { MdLogout } from "react-icons/md";
 import { FiEdit2 } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
 import { setSection } from "@/redux/Slices/conversationSlice";
-import test from "../../assets/img/darkBg.svg";
-import { AnimatedButton, Avatar } from "../ui";
+import { AnimatedButton, Avatar, Button } from "../ui";
 import { StoreStateTypes } from "@/utils/types";
 import { BiMoon, BiSun } from "react-icons/bi";
 import { toggleTheme } from "@/redux/Slices/appSlice";
@@ -37,10 +32,10 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             <BsFillPersonFill />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
-            <BsFillPeopleFill className="sidebar-icon" />
+            <BsFillPeopleFill />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
-            <BsBroadcastPin />
+            <HiSpeakerphone />
           </Button>
         </div>
         <div className="flex flex-col gap-8 items-center">
@@ -49,7 +44,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             variant="ghost"
             className="sidebar-icon-button"
           >
-            <FiEdit2 className="icon-button" />
+            <FiEdit2 />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
             <MdLogout />
@@ -60,7 +55,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             isActive={theme === "dark"}
             onClick={() => dispatch(toggleTheme())}
           />
-          <Avatar className="w-8 h-8" isOnline={false} imgSrc={test} />
+          <Avatar className="w-8 h-8" isOnline={false} />
         </div>
       </div>
     </div>

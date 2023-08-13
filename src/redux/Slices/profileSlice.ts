@@ -32,7 +32,6 @@ const profileSlice = createSlice({
         };
       }
     ) => {
-      console.log("first222222222");
       state.show = actions.payload.show;
     },
   },

@@ -81,7 +81,7 @@ const Chat = () => {
         />
         <FeedWrapper feedShowCriteria={feedShowCriteria} userId="232" />
 
-        <ProfileWrapper />
+        <ProfileWrapper  />
       </div>
     </div>
   );

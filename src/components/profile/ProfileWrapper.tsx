@@ -12,7 +12,7 @@ const ProfileWrapper = () => {
         { "!w-0 md:!w-0 lg:!w-0 xl:!min-w-0 xl:!w-0": !show }
       )}
     >
-      <UserProfile profileName="sadff" />
+      <UserProfile  profileName="sadff" />
       {/* <GroupCreator /> */}
     </div>
   );

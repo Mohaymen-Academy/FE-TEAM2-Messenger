@@ -8,7 +8,8 @@ interface profileImageProps {
 const ProfileImage: React.FC<profileImageProps> = ({ width }) => {
   return (
     <div
-      className={`mx-auto w-[${width}px] aspect-square rounded-full bg-cyan-400 flex justify-center items-center cursor-pointer group`}
+      style={{ width }}
+      className={`mx-auto aspect-square rounded-full bg-cyan-400 flex justify-center items-center cursor-pointer group`}
     >
       <TbCameraPlus
         className="text-white group-hover:scale-90 transition-all duration-300"
