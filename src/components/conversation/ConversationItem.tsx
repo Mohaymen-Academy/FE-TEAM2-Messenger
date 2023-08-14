@@ -14,14 +14,16 @@ interface ConversationItemProps {
 }
 
 const ConversationItem: React.FC<ConversationItemProps> = ({
-  onClickConversation,
+  // onClickConversation,
   conversation,
   isSelected,
   unseenMessages = 10,
-  onDeleteConversation,
+  // onDeleteConversation,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+
+  console.log(menuOpen)
 
   const conversationLatestMessage =
     conversation?.latestMessage?.body || "No messages yet";

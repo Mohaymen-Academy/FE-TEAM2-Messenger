@@ -7,5 +7,19 @@ import { conversationSliceType } from "./conversationSlice";
 import messageSliceReducer from "./messageSlice";
 import { messageSliceType } from "./messageSlice";
 
-export { appSliceReducer, conversationSliceReducer, messageSliceReducer };
-export type { appSliceType, conversationSliceType, messageSliceType };
+import profileSliceReducer from "./profileSlice";
+import { profileSliceType } from "./profileSlice";
+
+export {
+  appSliceReducer,
+  conversationSliceReducer,
+  messageSliceReducer,
+  profileSliceReducer,
+};
+
+export type {
+  appSliceType,
+  conversationSliceType,
+  messageSliceType,
+  profileSliceType,
+};

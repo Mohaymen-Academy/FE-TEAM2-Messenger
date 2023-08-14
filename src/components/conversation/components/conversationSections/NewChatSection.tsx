@@ -1,5 +1,4 @@
 import SearchInput from "@/components/ui/SearchInput";
-import Avatar from "@/components/ui/Avatar";
 import Paragraph from "@/components/ui/Paragraph";
 import { User } from "@/utils/types";
 import React from "react";
@@ -8,9 +7,10 @@ import { BsArrowRight } from "react-icons/bs";
 import { setSection } from "@/redux/Slices/conversationSlice";
 import { useDispatch } from "react-redux";
 
-import { BsBroadcastPin, BsFillPeopleFill } from "react-icons/bs";
 import { IconType } from "react-icons";
-import UserItem from "./UserItem";
+import UserItem from "../../../ui/UserItem";
+import HoverWrapper from "@/components/wrappers/HoverWrapper";
+import { newSectionsButtonObject } from "@/utils/constants";
 
 type CreatePvSectionProps = {
   users: User[];
@@ -28,26 +28,21 @@ const NewChatButton: React.FC<NewChatButtonProps> = ({
 }) => {
   const dispatch = useDispatch();
   return (
-    <div
-      onClick={() => dispatch(setSection({ selectedState: target }))}
-      className="w-full flex gap-5 items-center hover:bg-slate-600 px-5 py-4 dark:text-slate-400 cursor-pointer"
-    >
-      <Icon size={25} />
-      <Paragraph className="m-0 mr-2">{text}</Paragraph>
-    </div>
+    <HoverWrapper>
+      <div
+        onClick={() => dispatch(setSection({ selectedState: target }))}
+        className="w-full flex gap-5 items-center cursor-pointer text-primary"
+      >
+        <Icon size={25} />
+        <Paragraph className="m-0 mr-2">{text}</Paragraph>
+      </div>
+    </HoverWrapper>
   );
 };
 
 const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
   const dispatch = useDispatch();
-  const newSectionsButtonObject: {
-    text: string;
-    icon: IconType;
-    target: "groupCreate" | "channelCreate";
-  }[] = [
-    { icon: BsFillPeopleFill, text: "گروه جدید", target: "groupCreate" },
-    { icon: BsBroadcastPin, text: "کانال جدید", target: "channelCreate" },
-  ];
+
   return (
     <div className="flex flex-col w-full h-full">
       <div className="flex gap-2 w-full p-4">
@@ -64,7 +59,8 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
           <SearchInput placeHolder="با چه کسی می‌خواهید صحبت کنید" />
         </div>
       </div>
-      <div className="w-full flex flex-col mb-2 border-y border-gray-200 dark:border-gray-500">
+
+      <div className="w-full flex flex-col mb-2 border-y border-gray-200 dark:border-gray-500 p-2">
         {newSectionsButtonObject.map((btn) => (
           <NewChatButton
             key={btn.text}

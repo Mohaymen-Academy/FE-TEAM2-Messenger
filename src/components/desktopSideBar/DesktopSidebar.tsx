@@ -1,16 +1,15 @@
-import Button from "../ui/Button";
+import { useDispatch, useSelector } from "react-redux";
 import { clsx } from "clsx";
 import {
   BsBroadcastPin,
   BsFillPeopleFill,
   BsFillPersonFill,
 } from "react-icons/bs";
+import { HiSpeakerphone } from "react-icons/hi";
 import { MdLogout } from "react-icons/md";
 import { FiEdit2 } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
 import { setSection } from "@/redux/Slices/conversationSlice";
-import test from "../../assets/img/darkBg.svg";
-import { AnimatedButton, Avatar } from "../ui";
+import { AnimatedButton, Avatar, Button } from "../ui";
 import { StoreStateTypes } from "@/utils/types";
 import { BiMoon, BiSun } from "react-icons/bi";
 import { toggleTheme } from "@/redux/Slices/appSlice";
@@ -34,13 +33,13 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
       <div className="w-full h-full flex flex-col justify-between items-center overflow-hidden">
         <div className="flex flex-col gap-8 items-center">
           <Button variant="ghost" className="sidebar-icon-button">
-            <BsFillPersonFill />
+            <BsFillPersonFill className="icon-button" />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
-            <BsFillPeopleFill className="sidebar-icon" />
+            <BsFillPeopleFill className="icon-button" />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
-            <BsBroadcastPin />
+            <BsBroadcastPin className="icon-button" />
           </Button>
         </div>
         <div className="flex flex-col gap-8 items-center">
@@ -52,7 +51,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             <FiEdit2 className="icon-button" />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
-            <MdLogout />
+            <MdLogout className="icon-button" />
           </Button>
           <AnimatedButton
             FirstIcon={BiSun}
@@ -60,7 +59,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             isActive={theme === "dark"}
             onClick={() => dispatch(toggleTheme())}
           />
-          <Avatar className="w-8 h-8" isOnline={false} imgSrc={test} />
+          <Avatar className="w-8 h-8" isOnline={false} />
         </div>
       </div>
     </div>

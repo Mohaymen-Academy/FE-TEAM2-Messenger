@@ -20,7 +20,6 @@ const Modal: React.FC<ModalProps> = ({
   title = "hello suck",
   body,
   footer,
-  actionLabel,
   disabled,
   secondaryAction,
   secondaryActionLabel,

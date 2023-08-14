@@ -1,23 +1,14 @@
-import { EmojiMartData } from "@emoji-mart/data";
-import { PayloadAction, createSlice, current } from "@reduxjs/toolkit";
-import {
-  ContentState,
-  EditorState,
-  Modifier,
-  RawDraftContentState,
-  convertFromRaw,
-  convertToRaw,
-} from "draft-js";
-import { RootState } from "../reducers";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { EditorState, RawDraftContentState, convertToRaw } from "draft-js";
 
 export type messageSliceType = {
   rawMessage: RawDraftContentState;
-  isSelected: boolean;
+  selection: string;
 };
 
 const initialState: messageSliceType = {
   rawMessage: convertToRaw(EditorState.createEmpty().getCurrentContent()),
-  isSelected: false,
+  selection: JSON.stringify(EditorState.createEmpty().getSelection()),
 };
 
 const messageSlice = createSlice({
@@ -26,49 +17,44 @@ const messageSlice = createSlice({
   reducers: {
     setMessage: (
       state: messageSliceType,
-      action: PayloadAction<EditorState>
+      action: PayloadAction<RawDraftContentState>
     ) => {
-      state.rawMessage = convertToRaw(action.payload.getCurrentContent());
+      state.rawMessage = action.payload;
     },
-    addEmoji: (
-      state: messageSliceType,
-      action: PayloadAction<EmojiMartData>
-    ) => {
-      const emoji = action.payload;
-
-      let editorState = EditorState.createWithContent(
-        convertFromRaw(state.rawMessage)
-      );
-
-      const currentContent = editorState.getCurrentContent();
-      console.log(`${currentContent.getPlainText()}${emoji.native} `);
-
-      const contentStateWithEmoji = ContentState.createFromText(
-        `${currentContent.getPlainText()}${emoji.native}`
-      );
-
-      const newEditorState = EditorState.push(
-        editorState,
-        contentStateWithEmoji,
-        "insert-characters"
-      );
-
-      setMessage(newEditorState);
-    },
-    setIsSelected: (
-      state: messageSliceType,
-      action: PayloadAction<boolean>
-    ) => {
-      state.isSelected = action.payload;
+    setSelection: (state: messageSliceType, action: PayloadAction<string>) => {
+      state.selection = action.payload;
+      console.log(action.payload);
     },
   },
 });
 
-export const selectEditorState = (state: RootState) => {
-  const editorState = convertFromRaw(state.message.rawMessage);
-  return EditorState.createWithContent(editorState);
-};
-
-export const { setMessage, addEmoji, setIsSelected } = messageSlice.actions;
+export const { setMessage, setSelection } = messageSlice.actions;
 
 export default messageSlice.reducer;
+
+// addEmoji: (
+//   state: messageSliceType,
+//   action: PayloadAction<EmojiMartData>
+// ) => {
+//   const emoji = action.payload;
+
+//   let editorState = EditorState.createWithContent(
+//     convertFromRaw(state.rawMessage)
+//   );
+
+//   const currentContent = editorState.getCurrentContent();
+
+//   const contentStateWithEmoji = ContentState.createFromText(
+//     `${currentContent.getPlainText()}${emoji.native}`
+//   );
+
+//   const newEditorState = EditorState.push(
+//     editorState,
+//     contentStateWithEmoji,
+//     "insert-characters"
+//   );
+
+//   return {
+//     ...state,
+//     rawMessage: convertToRaw(newEditorState.getCurrentContent()),
+//   };

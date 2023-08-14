@@ -1,5 +1,3 @@
-import Paragraph from "@/components/ui/paragraph/Paragraph";
-import { merge } from "@/utils/merge";
 import { getRandomColor } from "@/utils/randomColor";
 import React, { useEffect, useState } from "react";
 

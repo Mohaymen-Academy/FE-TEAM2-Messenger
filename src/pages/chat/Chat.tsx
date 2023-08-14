@@ -1,22 +1,20 @@
 import ConversationWrapper from "@/components/conversation/ConversationWrapper";
 import FeedWrapper from "@/components/feed/FeedWrapper";
-
-import { isAndroid, isIOS, isMobile } from "react-device-detect";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import useViewportWidth from "@/hooks/useViewportWidth";
 import { onToggleEmoji } from "@/redux/Slices/appSlice";
+import ProfileWrapper from "@/components/profile/ProfileWrapper";
 
 const Chat = () => {
   const dispatch = useDispatch();
   const viewPortWidth = useViewportWidth();
-  const userIsInMobile = (isAndroid || isIOS) && isMobile;
+  // const userIsInMobile = (isAndroid || isIOS) && isMobile;
   const showConversation = useSelector(
     (store: StoreStateTypes) => store.conversation.showConversations
   );
-
   const [URLSearchParams] = useSearchParams();
   const selectedConversation = URLSearchParams.get("conversationId");
 
@@ -52,7 +50,7 @@ const Chat = () => {
 
     if (viewPortWidth > 765) {
       if (showConversation) {
-        return "500px";
+        return "480px";
       }
       if (!showConversation) {
         return "0px";
@@ -60,12 +58,12 @@ const Chat = () => {
     }
   }, [viewPortWidth, selectedConversation, showConversation]);
 
-  const onChatClickHandler = () => {
-    dispatch(onToggleEmoji({ show: false }));
-  };
+  // const onChatClickHandler = () => {
+  //   dispatch(onToggleEmoji({ show: false }));
+  // };
   return (
     <div
-      onClick={onChatClickHandler}
+      // onClick={onChatClickHandler}
       className="flex transition-all m-auto rounded-none flex-col relative max-w-[1920px] bg-repeat h-full"
     >
       <div className="flex w-full h-full relative">
@@ -73,6 +71,8 @@ const Chat = () => {
           conversationShowCriteria={conversationShowCriteria}
         />
         <FeedWrapper feedShowCriteria={feedShowCriteria} userId="232" />
+
+        <ProfileWrapper />
       </div>
     </div>
   );

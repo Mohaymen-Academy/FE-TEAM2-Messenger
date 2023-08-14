@@ -25,6 +25,8 @@
 
     /* slate-700 */
     --bg-btn: #334155;
+    /* rose-800 */
+    --bg-btn-secondary: #9f1239;
     /* slate-800 */
     --bg-btn-hover: #1e293b;
     /* slate-200 */
@@ -51,6 +53,8 @@
 
     /* slate-200 */
     --bg-btn: #e2e8f0;
+    /* rose-500 */
+    --bg-btn-secondary: #f43f5e;
     /* slate-100 */
     --bg-btn-hover: #f1f5f9;
     /* slate-700 */
@@ -100,6 +104,32 @@
   }
   .sidebar-icon-button {
     @apply !text-2xl md:!text-3xl w-9 h-9 md:!w-12 md:!h-12;
+  }
+}
+@layer utilities {
+  .bubble-corner {
+    clip-path: polygon(
+      25% 34%,
+      17% 23%,
+      10% 13%,
+      0% 0%,
+      0% 25%,
+      0% 42%,
+      0% 52%,
+      8% 65%,
+      21% 78%,
+      34% 85%,
+      49% 89%,
+      65% 92%,
+      81% 90%,
+      100% 85%,
+      84% 79%,
+      74% 74%,
+      63% 68%,
+      55% 62%,
+      45% 54%,
+      35% 45%
+    );
   }
 }
 .filepond--credits {

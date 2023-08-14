@@ -34,7 +34,7 @@ const ConversationSectionWrapper: React.FC<ConversationSectionWrapperProps> = ({
     <AnimatePresence>
       {show && (
         <motion.div
-          key="modal"
+          key="section"
           initial={{ scale: 1, x: 400, opacity: 1 }}
           animate={{ scale: 1, x: 0, opacity: 1 }}
           exit={{ scale: 0.4, x: 400, opacity: 0 }}
