@@ -1,9 +1,7 @@
-import React from "react";
 import ContextItem from "./ContextItem";
 import { HiOutlinePencil } from "react-icons/hi";
 import { MdDelete, MdOutlineContentCopy } from "react-icons/md";
 import { AiOutlineCheckCircle } from "react-icons/ai";
-import HoverWrapper from "../wrappers/HoverWrapper";
 
 const Context = () => {
   return (
