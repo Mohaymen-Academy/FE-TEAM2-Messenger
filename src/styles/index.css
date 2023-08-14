@@ -136,3 +136,18 @@ input[type="number"] {
   height: 100vh;
   overflow: hidden;
 }
+
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+
+.spoiler {
+  background-color: gray;
+  color: transparent;
+  user-select: none !important;
+}
+
+.spoiler:hover {
+  background-color: inherit;
+  color: inherit;
+}
