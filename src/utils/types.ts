@@ -22,3 +22,11 @@ export type User = {
   userId: string | number;
   userName: string;
 };
+
+export type ChatItem = {
+  chatId: number | string;
+  lastMessage: string;
+  media: any;
+  title: string;
+  userFirstName: string;
+};

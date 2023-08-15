@@ -22,7 +22,6 @@ function App() {
 
   return (
     <div className={`${theme} h-full`}>
-      {/* <div className="w-40 h-40 bg-red-500 bubble-corner"></div> */}
       <Routes>
         <Route
           path="/"
@@ -36,7 +35,6 @@ function App() {
           }
         />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/playground" element={<LogOutModal />} />
         <Route path="/playground" element={<Playground />} />
         <Route path="/auth" element={<Auth />}>
           <Route path="sign-in" element={<Login />} />
