@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import MessageInput from "./messages/MessageInput";
-import Messages from "./messages/Messages";
+import MessageInput from "./messages/archive/MessageInput";
+import Messages from "./messages/archive/Messages";
 import SwipeWrapper from "@/components/ui/SwipeWrapper";
 import { useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";

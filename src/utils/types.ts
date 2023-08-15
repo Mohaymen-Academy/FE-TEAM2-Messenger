@@ -13,3 +13,5 @@ export type StoreStateTypes = {
 export type User = {
   name: string;
 };
+
+export type MessageStatus = "SEEN" | "DELIVERED" | "PENDING"

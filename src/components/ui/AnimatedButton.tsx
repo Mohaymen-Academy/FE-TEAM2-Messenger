@@ -1,31 +1,34 @@
 import Button from "./Button";
 import { IconType } from "react-icons";
 import clsx from "clsx";
+import { merge } from "@/utils/merge";
 
-interface AnimatedButtonProps {
-  onClick: () => void;
+interface AnimatedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   FirstIcon: IconType;
   SecondIcon: IconType;
   isActive: boolean;
+  size? : number
 }
 
 const AnimatedButton: React.FC<AnimatedButtonProps> = ({
-  onClick,
   FirstIcon,
   SecondIcon,
   isActive,
+  size=30,
+  className,
+  ...props
 }) => {
   return (
     <>
       <Button
-        onClick={onClick}
         variant="ghost"
         size="sm"
-        className="group icon-button relative w-12 h-12 hover:bg-transparent dark:hover:bg-hover md:hover:bg-btn-ghost"
+        className={merge("group icon-button relative w-12 h-12 hover:bg-transparent dark:hover:bg-hover md:hover:bg-btn-ghost", className)}
+        {...props}
       >
         <FirstIcon
-          size={30}
-          className={clsx(" absolute transition-all duration-300", {
+          size={size}
+          className={clsx(" absolute transition-all duration-300 icon-button", {
             "scale-0": isActive,
             "scale-100": !isActive,
             "-rotate-90": isActive,
@@ -33,7 +36,7 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({
           })}
         />
         <SecondIcon
-          size={30}
+          size={size}
           className={clsx("icon-button absolute transition-all duration-300", {
             "rotate-0": isActive,
             "scale-0": !isActive,
