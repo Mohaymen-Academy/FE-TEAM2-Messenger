@@ -24,7 +24,7 @@ const Editor = ({ children, initialValue }: EditorProps) => {
   const [editor] = useState(() => withReact(createEditor()));
 
   return (
-    <div className="max-w-[calc(100%-130px)] w-full">
+    <div className="">
       <Slate
         editor={editor}
         initialValue={initialValue}
