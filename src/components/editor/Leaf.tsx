@@ -1,7 +1,6 @@
 import { merge } from "@/utils/merge";
 
 const Leaf = (props) => {
-  console.log(props.leaf.spoiler);
   return (
     <span
       className={merge(
