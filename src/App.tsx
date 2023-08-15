@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import Playground from "./pages/playground";
 import ProtectedRoutes from "./pages/protected/ProtectedRoutes";
+import NoMatch from "./pages/NoMatch";
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
 
@@ -31,6 +32,8 @@ function App() {
           <Route path="varification" element={<NumberVerification />} />
           <Route path="register" element={<Register />} />
         </Route>
+
+        <Route path="*" element={<NoMatch /> } />
         
       </Routes>
       <ToastContainer theme={theme} rtl={true} closeButton={<></>} />
