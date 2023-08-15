@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import axios from "axios";
 import apiCall from "@/services/axiosInstance";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -17,9 +17,6 @@ const Register = () => {
   const [pictureUrl, setPictureUrl] = useState("");
 
   const user = useSelector((store: StoreStateTypes) => store);
-
-  console.log(user);
-
   const {
     register,
     setValue,
@@ -66,7 +63,6 @@ const Register = () => {
 
       toast.success("اطلاعات با موفقیت ذخیره شد");
     } catch (error: any) {
-      console.log(error);
       if (error.message === "Network Error")
         toast.error(
           "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید"
@@ -85,13 +81,11 @@ const Register = () => {
 
       const imageUrl = URL.createObjectURL(file);
       setPictureUrl(imageUrl);
-
-
     }
   };
 
   return (
-    <div className="dark w-full h-full gap-5 flex flex-col items-center bg-primary p-8 rounded-2xl">
+    <div className="dark w-full h-full flex flex-col items-center bg-primary p-8 rounded-2xl">
       <ProfileUploader
         imgUrl={pictureUrl}
         setImage={setValue}
@@ -100,33 +94,26 @@ const Register = () => {
         imageSelectHandler={imageSelectHandler}
       />
 
-      <div className="flex flex-col gap-2">
-        <div className="flex gap-2">
-          <FloatingLabelInput
-            type="text"
-            register={register}
-            required
-            formId="fName"
-            label="نام"
-          />
-          <FloatingLabelInput
-            register={register}
-            type="text"
-            formId="lName"
-            label="نام خانوادگی"
-          />
-        </div>
+      <div className="grid grid-cols-1 xs:grid-cols-2 xs:gap-5 my-6">
+        <FloatingLabelInput
+          type="text"
+          register={register}
+          required
+          formId="fName"
+          label="نام"
+        />
+
         <FloatingLabelInput
           register={register}
           type="text"
-          formId="bio"
-          label="درباره خود"
+          formId="lName"
+          label="نام خانوادگی"
         />
       </div>
+
       <Button onClick={handleSubmit(onSubmit)} className="w-full">
         تایید
       </Button>
-      <input type="file" onChange={imageSelectHandler} />
     </div>
   );
 };

@@ -74,7 +74,7 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
         {users.map((user) => (
           <UserItem
             key={user.name}
-            onClick={() => console.log(user.name)}
+            // onClick={() => console.log(user.name)}
             user={user}
           />
         ))}

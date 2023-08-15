@@ -85,8 +85,13 @@ const TextArea = ({ value }: { value: string }) => {
 
   return (
     <div className="relative">
+      {/* <Controls
+        className={clsx("transition-all duration-300 opacity-0", {
+          "-top-10 opacity-100": isSelected,
+        })}
+      /> */}
       <label htmlFor="chat" className="sr-only">
-        Your message
+        پیام شما
       </label>
       <div
         className={merge(

@@ -1,12 +1,10 @@
-import Button from "../ui/Button";
-import Paragraph from "../ui/Paragraph";
+import { useNavigate } from "react-router-dom";
+import { Button, Paragraph } from "@/components/ui/";
 import FloatingLabelInput from "./input/FloatingLabelInput";
-// import PhoneNumberInput from "./input/PhoneNumberInput";
 import Dropdown from "./input/DropDown";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { loginApi } from "@/services/api/authentication";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router";
 import { setEnteredPhoneNumber } from "@/redux/Slices/userSlice";
 import { useDispatch } from "react-redux";
 
@@ -69,22 +67,24 @@ const Login = () => {
       </Paragraph>
       <div className="flex flex-col gap-4 justify-center items-center-400 rounded-2xl py-10 px-6 backdrop-blur-md bg-gradient-to-r from-green-/40 to-green-300 dark:bg-gray-700 w-11/12 max-w-[580px] ">
         <header className="mx-auto">
-          <Paragraph size="sm" className="!text-cyan-500">
+          <Paragraph size="sm" className="!text-blue">
             ورود به حساب کاربری
           </Paragraph>
         </header>
-
-        <FloatingLabelInput
-          type="number"
-          borderWidth={75}
-          label="شماره تلفن"
-          dropDown
-          register={register}
-          formId="phoneNumber"
-          required
-        >
+        <div className="flex justify-between gap-2">
+          <FloatingLabelInput
+            inputID="phone"
+            type="tel"
+            borderWidth={75}
+            label="شماره تلفن"
+            dropDown
+            register={register}
+            formId="phoneNumber"
+            required
+            className="w-full"
+          />
           <Dropdown items={countries} />
-        </FloatingLabelInput>
+        </div>
 
         <Button
           onClick={handleSubmit(onSubmit)}
