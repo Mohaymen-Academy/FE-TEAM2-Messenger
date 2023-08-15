@@ -1,15 +1,13 @@
 import { merge } from "@/utils/merge";
-import { Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import patternLight from "../../assets/img/bgPatternLight.png";
 import patternDark from "../../assets/img/bgPatternDark.png";
 import { StoreStateTypes } from "@/utils/types";
 import { useSelector } from "react-redux";
-import Context from "@/components/ui/Context";
-
 
 const Auth = () => {
   const theme = useSelector((store: StoreStateTypes) => store.app.theme);
-  
+
   return (
     <div className="relative">
       <div

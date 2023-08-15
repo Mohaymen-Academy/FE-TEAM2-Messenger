@@ -32,7 +32,6 @@ const GroupCreator: React.FC<GroupCreatorProp> = ({
         <FloatingLabelInput
           label="نام گروه"
           type="tel"
-          inputID="group-name"
           borderWidth={55}
           className="mx-10"
           dir="rtl"

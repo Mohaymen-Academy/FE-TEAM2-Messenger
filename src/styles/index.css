@@ -29,8 +29,8 @@
     --bg-btn-secondary: #9f1239;
     /* slate-800 */
     --bg-btn-hover: #1e293b;
-    /* slate-200 */
-    --bg-btn-ghost: #e2e8f0;
+    /* slate-300 */
+    --bg-btn-ghost: #cbd5e1;
 
     /* lime-100 */
     --bg-msg-current: #ecfccb;
@@ -66,28 +66,10 @@
     --bg-msg-other: #334155;
   }
 
-  *:focus {
-    outline: none !important;
-  }
-
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-  }
-
-  /* Firefox */
-  input[type="number"] {
-    -moz-appearance: textfield;
-  }
-
-  #root {
-    height: 100vh;
-    overflow: hidden;
-  }
-  em-emoji-picker {
-    width: 100%;
-    margin-top: 0.5rem;
   }
 }
 
@@ -132,6 +114,25 @@
     );
   }
 }
-.filepond--credits {
-  display: none;
+
+/* customize toastify styles */
+:root {
+  --toastify-color-dark: #1f2937;
+  --toastify-color-light: #e5e7eb;
+}
+
+/* customize emoji picker styles */
+em-emoji-picker {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+#root {
+  height: 100vh;
+  overflow: hidden;
 }

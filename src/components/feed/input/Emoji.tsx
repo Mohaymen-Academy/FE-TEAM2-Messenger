@@ -1,9 +1,10 @@
 import React, { HTMLAttributes } from "react";
-import data from "@emoji-mart/data";
+import data, { EmojiMartData } from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { useDispatch, useSelector } from "react-redux";
 import { merge } from "@/utils/merge";
 import { StoreStateTypes } from "@/utils/types";
+import { Entity } from "draft-js";
 
 interface EmojiProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -19,7 +20,7 @@ const Emoji: React.FC<EmojiProps> = ({ className, ...props }) => {
     >
       <Picker
         data={data}
-        // onEmojiSelect={}
+        // onEmojiSelect={EmojiEntity}
         theme={theme}
         categories={["people", "activity", "flags"]}
         emojiButtonColors={[]}

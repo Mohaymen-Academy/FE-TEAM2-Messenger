@@ -1,10 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { clsx } from "clsx";
-import {
-  BsBroadcastPin,
-  BsFillPeopleFill,
-  BsFillPersonFill,
-} from "react-icons/bs";
+import { BsFillPeopleFill, BsFillPersonFill } from "react-icons/bs";
 import { HiSpeakerphone } from "react-icons/hi";
 import { MdLogout } from "react-icons/md";
 import { FiEdit2 } from "react-icons/fi";
@@ -26,7 +22,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
         transition: "background-color 0s, max-width 200ms, padding 200ms",
       }}
       className={clsx(
-        "bg-gray-100 dark:bg-slate-800 items-center shadow-md  max-w-[50px] md:max-w-[80px] py-3 px-2 md:px-4 relative",
+        "bg-secondary items-center shadow-md  max-w-[50px] md:max-w-[80px] py-3 px-2 md:px-4 relative",
         { "!max-w-[0px]": !showSideBar, "!p-0": !showSideBar }
       )}
     >
@@ -39,7 +35,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             <BsFillPeopleFill className="icon-button" />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
-            <BsBroadcastPin className="icon-button" />
+            <HiSpeakerphone className="icon-button" />
           </Button>
         </div>
         <div className="flex flex-col gap-8 items-center">

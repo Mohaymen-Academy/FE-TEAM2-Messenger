@@ -1,11 +1,20 @@
 import ConversationWrapper from "@/components/conversation/ConversationWrapper";
 import FeedWrapper from "@/components/feed/FeedWrapper";
+
+// import {
+//   isAndroid,
+//   isIOS,
+//   isMobile,
+//   // isSamsungBrowser,
+//   // MobileOnlyView,
+//   // isMobileOnly,
+// } from "react-device-detect";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import useViewportWidth from "@/hooks/useViewportWidth";
-import { onToggleEmoji } from "@/redux/Slices/appSlice";
+import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
 import ProfileWrapper from "@/components/profile/ProfileWrapper";
 
 const Chat = () => {
@@ -58,9 +67,10 @@ const Chat = () => {
     }
   }, [viewPortWidth, selectedConversation, showConversation]);
 
-  // const onChatClickHandler = () => {
-  //   dispatch(onToggleEmoji({ show: false }));
-  // };
+  const onChatClickHandler = () => {
+    dispatch(onToggleEmoji({ show: false }));
+    dispatch(onToggleUpload({ show: false }));
+  };
   return (
     <div
       // onClick={onChatClickHandler}

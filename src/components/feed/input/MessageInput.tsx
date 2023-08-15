@@ -9,7 +9,7 @@ import {
 } from "draft-js";
 import "draft-js/dist/Draft.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setMessage } from "@/redux/Slices/messageSlice";
+import { setMessage, setSelection } from "@/redux/Slices/messageSlice";
 import { StoreStateTypes } from "@/utils/types";
 import { merge } from "@/utils/merge";
 
@@ -17,16 +17,19 @@ const MessageInput = () => {
   const dispatch = useDispatch();
   const editorRef = useRef<Editor | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const { rawMessage } = useSelector((store: StoreStateTypes) => store.message);
-  const editorState = EditorState.createWithContent(convertFromRaw(rawMessage));
-  const [selection, setSelection] = useState<SelectionState>(
-    EditorState.createEmpty().getSelection()
+  const { rawMessage, selection } = useSelector(
+    (store: StoreStateTypes) => store.message
   );
+  const emptySelection = SelectionState.createEmpty("");
+  const editorState = EditorState.createWithContent(convertFromRaw(rawMessage));
+  // const [selection, setSelection] = useState<SelectionState>(
+  //   EditorState.createEmpty().getSelection()
+  // );
 
   const handleEditorChange = (newEditorState: EditorState) => {
     const rawMessage = convertToRaw(newEditorState.getCurrentContent());
     dispatch(setMessage(rawMessage));
-    setSelection(newEditorState.getSelection());
+    dispatch(setSelection(JSON.stringify(newEditorState.getSelection())));
   };
 
   const handleClick = () => {
@@ -46,7 +49,7 @@ const MessageInput = () => {
       <Editor
         editorState={EditorState.acceptSelection(
           editorState,
-          selection as SelectionState
+          emptySelection.merge(JSON.parse(selection))
         )}
         onChange={handleEditorChange}
         placeholder="پیام ..."

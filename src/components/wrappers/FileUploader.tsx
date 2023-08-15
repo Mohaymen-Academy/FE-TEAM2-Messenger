@@ -1,51 +1,63 @@
 import React, { useState } from "react";
+import ProfileImage from "../ui/ProfileImage";
+import { UseFormSetValue, FieldValues } from "react-hook-form";
 
 interface FileUploaderProps {
   accept: string; // MIME types accepted, e.g., 'image/*', 'video/*', '.pdf', etc.
-//   label: string; // Label for the upload button
+  //   label: string; // Label for the upload button
   width?: number; // Optional width for the component
-  
+  setImage: UseFormSetValue<FieldValues>;
 }
 
-const FileUploader: React.FC<FileUploaderProps> = ({ accept, children, width , }) => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+const ProfileUploader: React.FC<FileUploaderProps> = ({
+  accept,
+  width,
+  setImage,
+}) => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const handleFileUploader = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-     const imageUrl = URL.createObjectURL(file);
-     setSelectedImage(imageUrl);
+      const formData = new FormData();
+      formData.append("file", file);
+
+      //set form Data contains of selected image in react hook form
+      setImage("profilePicture", file);
+
+      //create a url from file to show in form
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
     }
   };
 
   return (
     <div>
       <label htmlFor="fileInput" className="cursor-pointer">
-        {selectedImage ? (
-          <div>
-            <img className="h-[100px] w-[100px] rounded-full" src={selectedImage} alt=""  />
-            {/* {selectedFile.name} */}
-            {/* <button onClick={() => setSelectedFile(null)}>Clear</button> */}
-          </div>
-        ) : (
-          <div
-            className="aspect-square flex justify-center items-center"
-            style={{ width: width || 100 }}
-          >
-            {children}
-          </div>
-        )}
+        <div
+          className="aspect-square flex justify-center items-center overflow-hidden rounded-full bg-slate-300"
+          style={{ width: width || 100 }}
+        >
+          {selectedImage ? (
+            <img
+              className="w-full h-full"
+              src={selectedImage}
+              alt="selected profile image"
+            />
+          ) : (
+            <ProfileImage width={200} />
+          )}
+        </div>
       </label>
       <input
         type="file"
         id="fileInput"
         accept={accept}
         style={{ display: "none" }}
-        onChange={handleFileUploader}
+        onChange={imageSelectHandler}
       />
     </div>
   );
 };
 
-export default FileUploader;
+export default ProfileUploader;
