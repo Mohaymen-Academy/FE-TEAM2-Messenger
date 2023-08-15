@@ -22,3 +22,5 @@ export type User = {
   userId: string | number;
   userName: string;
 };
+
+export type MessageStatus = "SEEN" | "DELIVERED" | "PENDING"

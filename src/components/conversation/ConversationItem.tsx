@@ -58,7 +58,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
           </Paragraph>
           <Paragraph
             size={"xs"}
-            className="text-sm text-neutral-200 whitespace-nowrap"
+            className="text-sm text-bg-btn whitespace-nowrap"
           >
             1402.12.30
           </Paragraph>
