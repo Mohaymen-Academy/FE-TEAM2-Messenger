@@ -1,115 +1,103 @@
 import { Button } from "@/components/ui";
-import { Editor } from "slate";
 import { createHyperscript } from "slate-hyperscript";
-import { deserialize, parseSlateToHtml } from "./serializer";
-
-const customEditor = {
-  isBoldMarkActive: (editor) => {
-    const mark = Editor.marks(editor);
-    return mark ? mark.bold === true : false;
-  },
-  isItalicMarkActive: (editor) => {
-    const mark = Editor.marks(editor);
-    return mark ? mark.italic === true : false;
-  },
-  isUnderlineMarkActive: (editor) => {
-    const mark = Editor.marks(editor);
-    return mark ? mark.underline === true : false;
-  },
-  isSpoilerMarkActive: (editor) => {
-    const mark = Editor.marks(editor);
-    return mark ? mark.spoiler === true : false;
-  },
-  toggleBoldMark: (editor) => {
-    const isActive = customEditor.isBoldMarkActive(editor);
-    if (isActive) {
-      Editor.removeMark(editor, "bold");
-    } else {
-      Editor.addMark(editor, "bold", true);
-    }
-  },
-  toggleItalicMark: (editor) => {
-    const isActive = customEditor.isItalicMarkActive(editor);
-    if (isActive) {
-      Editor.removeMark(editor, "italic");
-    } else {
-      Editor.addMark(editor, "italic", true);
-    }
-  },
-  toggleUnderlineMark: (editor) => {
-    const isActive = customEditor.isUnderlineMarkActive(editor);
-    if (isActive) {
-      Editor.removeMark(editor, "underline");
-    } else {
-      Editor.addMark(editor, "underline", true);
-    }
-  },
-  toggleSpoilerMark: (editor) => {
-    const isActive = customEditor.isSpoilerMarkActive(editor);
-    if (isActive) {
-      Editor.removeMark(editor, "spoiler");
-    } else {
-      Editor.addMark(editor, "spoiler", true);
-    }
-  },
-};
+import { parseSlateToHtml } from "./serializer";
+import {
+  FaBold,
+  FaCopy,
+  FaEyeSlash,
+  FaItalic,
+  FaStrikethrough,
+  FaUnderline,
+} from "react-icons/fa";
+import { customEditor } from "./customEditor";
+import { Editor, Range } from "slate";
+import { useCopyToClipboard } from "react-use";
+import useToastify from "@/hooks/useTostify";
 
 const Tools = ({ editor }: { editor?: any }) => {
+  const [, copyToClipboard] = useCopyToClipboard();
+  const tostify = useToastify();
+
   return (
-    <div className="flex gap-4 absolute bottom-24">
+    <div className="absolute -top-10 flex left-10">
       <Button
+        className="w-9 h-9 rounded-none rounded-r-lg !bg-primary hover:!bg-secondary"
         onMouseDown={(e) => {
           e.preventDefault();
           customEditor.toggleBoldMark(editor);
         }}
       >
-        Bold
+        <FaBold size={18} className="text-primary" />
       </Button>
       <Button
+        className="w-9 h-9 border-r dark:border-gray-200 border-slate-800 rounded-none !bg-primary hover:!bg-secondary"
         onMouseDown={(e) => {
           e.preventDefault();
           customEditor.toggleItalicMark(editor);
         }}
       >
-        Italic
+        <FaItalic size={18} className="text-primary" />
       </Button>
       <Button
+        className="w-9 h-9 border-r dark:border-gray-200 border-slate-800 rounded-none !bg-primary hover:!bg-secondary"
         onMouseDown={(e) => {
           e.preventDefault();
           customEditor.toggleUnderlineMark(editor);
         }}
       >
-        UnderLine
+        <FaUnderline size={18} className="text-primary" />
       </Button>
       <Button
+        className="w-9 h-9 border-r dark:border-gray-200 border-slate-800 rounded-none !bg-primary hover:!bg-secondary"
+        onMouseDown={(e) => {
+          e.preventDefault();
+          customEditor.toggleStrikeThroughMark(editor);
+        }}
+      >
+        <FaStrikethrough size={18} className="text-primary" />
+      </Button>
+
+      <Button
+        className="w-9 h-9 border-r dark:border-gray-200 border-slate-800 rounded-none !bg-primary hover:!bg-secondary"
+        onMouseDown={(e) => {
+          e.preventDefault();
+          const { selection } = editor;
+
+          if (selection) {
+            const [start, end] = Range.edges(selection);
+            const selectedText = Editor.string(editor, {
+              anchor: start,
+              focus: end,
+            });
+            copyToClipboard(selectedText);
+          }
+        }}
+      >
+        <FaCopy size={18} className="text-primary" />
+      </Button>
+
+      <Button
+        className="w-9 h-9 border-r dark:border-gray-200 border-slate-800 rounded-none rounded-l-lg !bg-primary hover:!bg-secondary"
         onMouseDown={(e) => {
           e.preventDefault();
           customEditor.toggleSpoilerMark(editor);
         }}
       >
-        spoiler
-      </Button>
-      <Button
-        onMouseDown={(e) => {
-          e.preventDefault();
-          editor.insertText("🤣");
-        }}
-      >
-        emoji
-      </Button>
-      <Button
-        onMouseDown={(e) => {
-          e.preventDefault();
-          console.log(editor.children);
-
-          const h = parseSlateToHtml(editor.children);
-          console.log(h);
-        }}
-      >
-        Save
+        <FaEyeSlash size={18} className="text-primary" />
       </Button>
     </div>
   );
 };
 
 export default Tools;
+
+{
+  /* <Button
+        onMouseDown={(e) => {
+          e.preventDefault();
+          editor.insertText("🤣");
+        }}
+      >
+        emoji
+      </Button> */
+}
