@@ -12,7 +12,6 @@ const Register = () => {
   const navigate = useNavigate();
 
   const user = useSelector((store: StoreStateTypes) => store);
-
   const {
     register,
     setValue,

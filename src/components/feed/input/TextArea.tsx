@@ -118,7 +118,6 @@ const TextArea = ({ value }: { value: string }) => {
           <BsEmojiLaughing className="w-5 h-5" />
           <span className="sr-only">Add emoji</span>
         </Button>
-
         <MessageInput />
 
         <Button variant="ghost" size="sm" className="hover:bg-blue-100 group">
