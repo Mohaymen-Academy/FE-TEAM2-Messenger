@@ -24,7 +24,7 @@ const Editor = ({ children, initialValue }: EditorProps) => {
   const [editor] = useState(() => withReact(createEditor()));
 
   return (
-    <div className="">
+    <div className="w-full">
       <Slate
         editor={editor}
         initialValue={initialValue}

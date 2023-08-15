@@ -4,22 +4,23 @@ import { parseSlateToHtml } from "./serializer";
 import {
   FaBold,
   FaCopy,
+  FaCut,
   FaEyeSlash,
   FaItalic,
+  FaPaste,
   FaStrikethrough,
   FaUnderline,
 } from "react-icons/fa";
 import { customEditor } from "./customEditor";
-import { Editor, Range } from "slate";
+import { Editor, Range, Transforms } from "slate";
 import { useCopyToClipboard } from "react-use";
-import useToastify from "@/hooks/useTostify";
 
 const Tools = ({ editor }: { editor?: any }) => {
-  const [, copyToClipboard] = useCopyToClipboard();
-  const tostify = useToastify();
+  const [clipboard, copyToClipboard] = useCopyToClipboard();
 
   return (
     <div className="absolute -top-10 flex left-10">
+      <div>
       <Button
         className="w-9 h-9 rounded-none rounded-r-lg !bg-primary hover:!bg-secondary"
         onMouseDown={(e) => {
@@ -30,7 +31,7 @@ const Tools = ({ editor }: { editor?: any }) => {
         <FaBold size={18} className="text-primary" />
       </Button>
       <Button
-        className="w-9 h-9 border-r dark:border-gray-200 border-slate-800 rounded-none !bg-primary hover:!bg-secondary"
+        className="w-9 h-9 rounded-none !bg-primary hover:!bg-secondary"
         onMouseDown={(e) => {
           e.preventDefault();
           customEditor.toggleItalicMark(editor);
@@ -39,7 +40,7 @@ const Tools = ({ editor }: { editor?: any }) => {
         <FaItalic size={18} className="text-primary" />
       </Button>
       <Button
-        className="w-9 h-9 border-r dark:border-gray-200 border-slate-800 rounded-none !bg-primary hover:!bg-secondary"
+        className="w-9 h-9 rounded-none !bg-primary hover:!bg-secondary"
         onMouseDown={(e) => {
           e.preventDefault();
           customEditor.toggleUnderlineMark(editor);
@@ -48,7 +49,7 @@ const Tools = ({ editor }: { editor?: any }) => {
         <FaUnderline size={18} className="text-primary" />
       </Button>
       <Button
-        className="w-9 h-9 border-r dark:border-gray-200 border-slate-800 rounded-none !bg-primary hover:!bg-secondary"
+        className="w-9 h-9 rounded-none !bg-primary hover:!bg-secondary"
         onMouseDown={(e) => {
           e.preventDefault();
           customEditor.toggleStrikeThroughMark(editor);
@@ -56,9 +57,11 @@ const Tools = ({ editor }: { editor?: any }) => {
       >
         <FaStrikethrough size={18} className="text-primary" />
       </Button>
+      </div>
 
+      <div className="border-r dark:border-gray-200 border-slate-800">
       <Button
-        className="w-9 h-9 border-r dark:border-gray-200 border-slate-800 rounded-none !bg-primary hover:!bg-secondary"
+        className="w-9 h-9 rounded-none !bg-primary hover:!bg-secondary"
         onMouseDown={(e) => {
           e.preventDefault();
           const { selection } = editor;
@@ -75,6 +78,41 @@ const Tools = ({ editor }: { editor?: any }) => {
       >
         <FaCopy size={18} className="text-primary" />
       </Button>
+
+      <Button
+        className="w-9 h-9  rounded-none !bg-primary hover:!bg-secondary"
+        onMouseDown={(e) => {
+          e.preventDefault();
+          if (clipboard){
+            Transforms.insertText(editor, clipboard.value as string)
+          }
+        }}
+      >
+        <FaPaste size={18} className="text-primary" />
+      </Button>
+
+      <Button
+        className="w-9 h-9  rounded-none !bg-primary hover:!bg-secondary"
+        onMouseDown={(e) => {
+          e.preventDefault();
+          const { selection } = editor;
+          
+          if (selection) {
+            const [start, end] = Range.edges(selection);
+            const selectedText = Editor.string(editor, {
+              anchor: start,
+              focus: end,
+            });
+      
+            copyToClipboard(selectedText);
+      
+            Editor.deleteFragment(editor, selection);
+          }
+        }}
+      >
+        <FaCut size={18} className="text-primary" />
+      </Button>
+      </div>
 
       <Button
         className="w-9 h-9 border-r dark:border-gray-200 border-slate-800 rounded-none rounded-l-lg !bg-primary hover:!bg-secondary"

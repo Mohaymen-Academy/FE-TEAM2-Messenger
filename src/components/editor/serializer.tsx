@@ -21,6 +21,10 @@ export function parseSlateToHtml(node) {
             text = `<span class="spoiler">${text}</span>`;
           }
 
+          if (child.strike) {
+            text = `<span class="line-through">${text}</span>`;
+          }
+
           return text;
         })
         .join("");
