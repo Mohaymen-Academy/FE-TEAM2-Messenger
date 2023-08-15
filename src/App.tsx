@@ -9,6 +9,7 @@ import Register from "./components/auth/Register";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
 import LogOutModal from "./components/modal/LogOutModal";
 // import Playground from "./pages/playground";
 import Playground from "./pages/playground";
@@ -16,6 +17,8 @@ function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
 
   const navigate = useNavigate();
+
+  useEffect(() => {}, []);
 
   return (
     <div className={`${theme} h-full`}>
@@ -43,13 +46,7 @@ function App() {
 
         {/* <Route path="playground" element={<Test />} /> */}
       </Routes>
-      <ToastContainer
-        theme={theme}
-        rtl={true}
-        // hideProgressBar={true}
-        closeButton={<></>}
-        limit={8}
-      />
+      <ToastContainer theme={theme} rtl={true} closeButton={<></>} />
     </div>
   );
 }

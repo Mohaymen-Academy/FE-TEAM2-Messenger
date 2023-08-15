@@ -13,8 +13,14 @@ import { GoFileMedia, GoFile } from "react-icons/go";
 import { Paragraph } from "@/components/ui";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import axios from "axios";
-import Controls from "./Controls";
-import MessageInput from "./MessageInput";
+import Editor from "@/components/editor";
+
+const initialValue = [
+  {
+    type: "paragraph",
+    children: [{ text: "A line of text in a paragraph." }],
+  },
+];
 
 const TextArea = ({ value }: { value: string }) => {
   const [textareaHeight, setTextAreaHeight] = useState("auto");
@@ -118,7 +124,11 @@ const TextArea = ({ value }: { value: string }) => {
           <BsEmojiLaughing className="w-5 h-5" />
           <span className="sr-only">Add emoji</span>
         </Button>
-        <MessageInput />
+
+        <Editor initialValue={initialValue}>
+          <Editor.ToolsBar />
+          <Editor.Input />
+        </Editor>
 
         <Button variant="ghost" size="sm" className="hover:bg-blue-100 group">
           <BsFillSendFill className="w-5 h-5 text-cyan-700 dark:text-cyan-300" />

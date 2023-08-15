@@ -7,29 +7,31 @@ interface FileUploaderProps {
   //   label: string; // Label for the upload button
   width?: number; // Optional width for the component
   setImage: UseFormSetValue<FieldValues>;
+  imageSelectHandler: (e: any) => any;
+  imgUrl?: string;
 }
 
 const ProfileUploader: React.FC<FileUploaderProps> = ({
   accept,
   width,
   setImage,
+  imgUrl,
+  imageSelectHandler,
 }) => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  // const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     const formData = new FormData();
+  //     formData.append("file", file);
 
-  const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append("file", file);
+  //     //set form Data contains of selected image in react hook form
+  //     setImage("profilePicture", file);
 
-      //set form Data contains of selected image in react hook form
-      setImage("profilePicture", file);
-
-      //create a url from file to show in form
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImage(imageUrl);
-    }
-  };
+  //     //create a url from file to show in form
+  //     const imageUrl = URL.createObjectURL(file);
+  //     setSelectedImage(imageUrl);
+  //   }
+  // };
 
   return (
     <div>
@@ -38,10 +40,10 @@ const ProfileUploader: React.FC<FileUploaderProps> = ({
           className="aspect-square flex justify-center items-center overflow-hidden rounded-full bg-slate-300"
           style={{ width: width || 100 }}
         >
-          {selectedImage ? (
+          {imgUrl && imgUrl.length > 0 ? (
             <img
               className="w-full h-full"
-              src={selectedImage}
+              src={imgUrl}
               alt="selected profile image"
             />
           ) : (

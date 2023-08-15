@@ -7,15 +7,21 @@ import { toast } from "react-toastify";
 import { sendPicture } from "@/services/api/authentication";
 import { useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
+import axios from "axios";
+import apiCall from "@/services/axiosInstance";
+import { useEffect, useState } from "react";
 
 const Register = () => {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState(new FormData());
+  const [pictureUrl, setPictureUrl] = useState("");
 
   const user = useSelector((store: StoreStateTypes) => store);
   const {
     register,
     setValue,
     handleSubmit,
+    watch,
     // formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
@@ -26,12 +32,34 @@ const Register = () => {
     },
   });
 
+  const file = watch("profilePicture");
+  console.log(file);
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { profilePicture, fName, lName, bio } = data;
     try {
-      const data = await sendPicture(profilePicture, 5);
+      const data = await sendPicture(formData);
+
+      // const { data: uploadResponse } = await axios.post(
+      //   `https://api.escuelajs.co/api/v1/files/upload`,
+      //   profilePicture,
+      //   {
+      //     headers: {
+      //       "Content-Type": "multipart/form-data",
+      //     },
+      //     onUploadProgress: function (progressEvent) {
+      //       if (!progressEvent.total) return;
+      //       var percentCompleted = Math.round(
+      //         (progressEvent.loaded * 100) / progressEvent.total
+      //       );
+      //       console.log(percentCompleted);
+      //     },
+      //   }
+      // );
+      console.log(data);
+
       ///sen to server logic here
-      navigate("/chat");
+      // navigate("/chat");
 
       toast.success("اطلاعات با موفقیت ذخیره شد");
     } catch (error: any) {
@@ -43,9 +71,28 @@ const Register = () => {
     }
   };
 
+  const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      setFormData(formData);
+
+      const imageUrl = URL.createObjectURL(file);
+      setPictureUrl(imageUrl);
+    }
+  };
+
   return (
     <div className="dark w-full h-full flex flex-col items-center bg-primary p-8 rounded-2xl">
-      <ProfileUploader setImage={setValue} width={150} accept="image/*" />
+      <ProfileUploader
+        imgUrl={pictureUrl}
+        setImage={setValue}
+        width={150}
+        accept="image/*"
+        imageSelectHandler={imageSelectHandler}
+      />
 
       <div className="grid grid-cols-1 xs:grid-cols-2 xs:gap-5 my-6">
         <FloatingLabelInput

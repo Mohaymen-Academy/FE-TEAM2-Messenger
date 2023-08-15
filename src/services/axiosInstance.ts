@@ -6,9 +6,10 @@ const apiCall = axios.create({ baseURL: "http://192.168.70.233:8080/" });
 // Request interceptor for API calls
 apiCall.interceptors.request.use(
   async (req) => {
-    req.headers["Authorization"] = localStorage.getItem("accessToken");
-    req.headers["Accept"] = "*/*";
-    req.headers["Content-Type"] = "*/*";
+    req.headers.Authorization =
+      "Bearer " + localStorage.getItem("access_token");
+    req.headers.Accept = "*/*";
+    // req.headers["Content-Type"] = "*/*";
 
     return req;
   },

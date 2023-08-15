@@ -38,7 +38,7 @@
     "react-touch-events": "^3.0.0",
     "react-use": "^17.4.0",
     "slate": "^0.94.1",
-    "slate-history": "^0.93.0",
+    "slate-hyperscript": "^0.77.0",
     "slate-react": "^0.98.1",
     "tailwind-merge": "^1.14.0",
     "vite-plugin-pwa": "^0.16.4"
