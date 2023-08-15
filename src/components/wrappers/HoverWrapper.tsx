@@ -10,9 +10,14 @@ const hoverWrapperVariants = cva(
         default: "rounded-2xl",
         lg: "rounded-3xl",
       },
+      type: {
+        inActive: "",
+        active: "bg-green-300 dark:bg-blue-600",
+      },
     },
     defaultVariants: {
       rounded: "default",
+      type: "inActive",
     },
   }
 );
@@ -23,13 +28,14 @@ interface hoverWrapperProps
 
 const HoverWrapper: React.FC<hoverWrapperProps> = ({
   rounded,
+  type,
   className,
   children,
   ...props
 }) => {
   return (
     <div
-      className={merge(hoverWrapperVariants({ rounded, className }))}
+      className={merge(hoverWrapperVariants({ rounded, type, className }))}
       {...props}
     >
       {children}

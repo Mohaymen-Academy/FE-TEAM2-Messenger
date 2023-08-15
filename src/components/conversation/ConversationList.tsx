@@ -5,11 +5,25 @@ import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
 import { AnimatedButton, SearchInput } from "../ui";
+import { useQuery } from "react-query";
+import { getAllChat } from "@/services/api/chat";
+import { BounceLoader } from "react-spinners";
+import { ChatItem } from "@/utils/types";
+import { useSearchParams } from "react-router-dom";
 
 interface ConversationListProps {}
 
 const ConversationList: React.FC<ConversationListProps> = ({}) => {
   const [showSideBar, setShowSideBar] = useState(true);
+  const [URLSearchParams] = useSearchParams();
+  const conversationItemsQueryResponse = useQuery(
+    ["conversations"],
+    getAllChat
+  );
+  const conversationItems = conversationItemsQueryResponse?.data?.data;
+
+  const selectedConversation = URLSearchParams.get("conversationId");
+
   return (
     <SwipeWrapper
       id="swipe-conversation-list-section"
@@ -32,84 +46,21 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
               </div>
             </div>
             <div className="h-full w-full overflow-y-auto overflow-x-hidden px-2 duration-500 custom-scrollbar scrollbar-none md:scrollbar">
-              <ConversationItem
-                onDeleteConversation={() => {}}
-                onClickConversation={() => {}}
-                conversation={{ a: 1 }}
-                isSelected={false}
-              />
-              <ConversationItem
-                onDeleteConversation={() => {}}
-                onClickConversation={() => {}}
-                conversation={{ a: 1 }}
-                isSelected={false}
-              />
-              <ConversationItem
-                onDeleteConversation={() => {}}
-                onClickConversation={() => {}}
-                conversation={{ a: 1 }}
-                isSelected={false}
-              />
-              <ConversationItem
-                onDeleteConversation={() => {}}
-                onClickConversation={() => {}}
-                conversation={{ a: 1 }}
-                isSelected={false}
-              />
-              <ConversationItem
-                onDeleteConversation={() => {}}
-                onClickConversation={() => {}}
-                conversation={{ a: 1 }}
-                isSelected={false}
-              />
-              <ConversationItem
-                onDeleteConversation={() => {}}
-                onClickConversation={() => {}}
-                conversation={{ a: 1 }}
-                isSelected={false}
-              />
-              <ConversationItem
-                onDeleteConversation={() => {}}
-                onClickConversation={() => {}}
-                conversation={{ a: 1 }}
-                isSelected={false}
-              />
-              <ConversationItem
-                onDeleteConversation={() => {}}
-                onClickConversation={() => {}}
-                conversation={{ a: 1 }}
-                isSelected={false}
-              />
-              <ConversationItem
-                onDeleteConversation={() => {}}
-                onClickConversation={() => {}}
-                conversation={{ a: 1 }}
-                isSelected={false}
-              />
-              <ConversationItem
-                onDeleteConversation={() => {}}
-                onClickConversation={() => {}}
-                conversation={{ a: 1 }}
-                isSelected={false}
-              />
-              <ConversationItem
-                onDeleteConversation={() => {}}
-                onClickConversation={() => {}}
-                conversation={{ a: 1 }}
-                isSelected={false}
-              />
-              <ConversationItem
-                onDeleteConversation={() => {}}
-                onClickConversation={() => {}}
-                conversation={{ a: 1 }}
-                isSelected={false}
-              />
-              <ConversationItem
-                onDeleteConversation={() => {}}
-                onClickConversation={() => {}}
-                conversation={{ a: 1 }}
-                isSelected={false}
-              />
+              {/* */}
+              {conversationItemsQueryResponse.isLoading ? (
+                <div className="w-full h-full grid place-content-center">
+                  <BounceLoader />
+                </div>
+              ) : (
+                conversationItems.map((item: ChatItem) => (
+                  <ConversationItem
+                    onDeleteConversation={() => {}}
+                    onClickConversation={() => {}}
+                    conversation={item}
+                    isSelected={selectedConversation === item.chatId}
+                  />
+                ))
+              )}
             </div>
           </div>
         </div>

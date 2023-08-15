@@ -3,72 +3,60 @@ import { Button } from "../ui";
 import { useNavigate } from "react-router-dom";
 import ProfileUploader from "../wrappers/FileUploader";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
-import { toast } from "react-toastify";
-import { sendPicture } from "@/services/api/authentication";
 import { useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
-import axios from "axios";
-import apiCall from "@/services/axiosInstance";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { sendPicture, updateInfo } from "@/services/api/user";
+import useToastify from "@/hooks/useTostify";
 
 const Register = () => {
   const navigate = useNavigate();
+  const toastify = useToastify();
   const [formData, setFormData] = useState(new FormData());
   const [pictureUrl, setPictureUrl] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const user = useSelector((store: StoreStateTypes) => store);
+  const userId = useSelector(
+    (store: StoreStateTypes) => store.user.user.userId
+  );
   const {
     register,
     setValue,
     handleSubmit,
-    watch,
     // formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      profilePicture: new FormData(),
       fName: "",
       lName: "",
       bio: "",
     },
   });
 
-  const file = watch("profilePicture");
-  console.log(file);
-
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const { profilePicture, fName, lName, bio } = data;
+    const { fName, lName } = data;
+    setLoading(true);
     try {
-      const data = await sendPicture(formData);
+      await sendPicture(formData);
+      await updateInfo({
+        userId: userId,
+        firstName: fName,
+        lastName: lName,
+        bio: undefined,
+        email: undefined,
+      });
 
-      // const { data: uploadResponse } = await axios.post(
-      //   `https://api.escuelajs.co/api/v1/files/upload`,
-      //   profilePicture,
-      //   {
-      //     headers: {
-      //       "Content-Type": "multipart/form-data",
-      //     },
-      //     onUploadProgress: function (progressEvent) {
-      //       if (!progressEvent.total) return;
-      //       var percentCompleted = Math.round(
-      //         (progressEvent.loaded * 100) / progressEvent.total
-      //       );
-      //       console.log(percentCompleted);
-      //     },
-      //   }
-      // );
-      console.log(data);
-
-      ///sen to server logic here
-      // navigate("/chat");
-
-      toast.success("اطلاعات با موفقیت ذخیره شد");
+      toastify.success("اطلاعات با موفقیت ذخیره شد");
     } catch (error: any) {
-      if (error.message === "Network Error")
-        toast.error(
+      console.log(error);
+      if (error.message === "Network Error") {
+        toastify.error(
           "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید"
         );
-      toast.error("اطلاعات ذخیره نگردید، مشکلی به وجود آمده است");
+      } else {
+        toastify.error("اطلاعات ذخیره نگردید، مشکلی به وجود آمده است");
+      }
     }
+    setLoading(false);
   };
 
   const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,7 +99,11 @@ const Register = () => {
         />
       </div>
 
-      <Button onClick={handleSubmit(onSubmit)} className="w-full">
+      <Button
+        isLoading={loading}
+        onClick={handleSubmit(onSubmit)}
+        className="w-full"
+      >
         تایید
       </Button>
     </div>

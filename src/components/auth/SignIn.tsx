@@ -73,9 +73,7 @@ const Login = () => {
         </header>
         <div className="flex justify-between gap-2">
           <FloatingLabelInput
-            inputID="phone"
             type="tel"
-            borderWidth={75}
             label="شماره تلفن"
             dropDown
             register={register}
