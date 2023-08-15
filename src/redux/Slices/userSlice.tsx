@@ -40,6 +40,8 @@ const userSlice = createSlice({
         };
       }
     ) => {
+      console.log("dispatched");
+      console.log(actions.payload);
       state.user = actions.payload.user;
     },
   },

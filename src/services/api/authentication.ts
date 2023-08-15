@@ -15,6 +15,9 @@ const numberConfirmation = async (
   });
 };
 
+const sendPicture = async (formData: any, id: string | number) => {
+  return apiCall.post(`/api/profiles/users/${id}`, formData);
+};
 // const registerUserApi = async (body: {
 //   username: string;
 //   email: string;
@@ -47,6 +50,7 @@ export {
   // forgetPasswordApi,
   loginApi,
   numberConfirmation,
+  sendPicture,
   // registerUserApi,
   // resetPasswordApi,
 };

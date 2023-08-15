@@ -24,6 +24,7 @@ const NumberVerification = () => {
       const { registered, access_token, refresh_token } = data;
 
       //save user entity to redux
+      console.log(data);
       dispatch(setUser(data.user));
 
       //save tokens to local storage
