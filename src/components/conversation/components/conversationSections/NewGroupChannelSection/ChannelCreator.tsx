@@ -21,49 +21,45 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
   const dispatch = useDispatch();
   return (
     <FadeMotionWrapper show={show}>
-      <SectionContainer className="gap-10 flex flex-col ">
+      <SectionContainer className="flex flex-col gap-10">
         <SectionHeader title="کانال جدید" />
 
         {/* Camera and Upload section */}
-        <ProfileImage width={150} />
+        <div className="px-8 flex flex-col gap-8">
+          <ProfileImage width={150} />
 
-        <div>
-          <FloatingLabelInput
-            label="نام کانال"
-            type="tel"
-            borderWidth={55}
-            className="mx-10"
-            dir="rtl"
-            formId="channelName"
-            required
-            register={register}
-          />
+          <div className="flex flex-col gap-4">
+            <FloatingLabelInput
+              type="text"
+              label="نام کانال"
+              formId="channelName"
+              required
+              register={register}
+            />
 
-          <FloatingLabelInput
-            label="توضیحات (اختیاری)"
-            type="tel"
-            borderWidth={120}
-            className="mx-10"
-            dir="rtl"
-            formId="channelBio"
-            register={register}
-          />
-        </div>
-        <div className="mx-10 flex gap-2">
-          <Button
-            onClick={() => onSubmit()}
-            className="w-full font-bold text-xl"
-          >
-            ساخت کانال
-          </Button>
-          <Button
-            onClick={() =>
-              dispatch(setSection({ selectedState: "conversations" }))
-            }
-            className="!bg-btn-secondary w-full font-bold text-xl"
-          >
-            انصراف
-          </Button>
+            <FloatingLabelInput
+              label="توضیحات (اختیاری)"
+              type="text"
+              formId="channelBio"
+              register={register}
+            />
+          </div>
+          <div className="flex gap-2">
+            <Button
+              onClick={() => onSubmit()}
+              className="w-full font-bold text-xl"
+            >
+              ساخت کانال
+            </Button>
+            <Button
+              onClick={() =>
+                dispatch(setSection({ selectedState: "conversations" }))
+              }
+              className="!bg-btn-danger hover:!bg-btn-danger-hover w-full font-bold text-xl"
+            >
+              انصراف
+            </Button>
+          </div>
         </div>
       </SectionContainer>
     </FadeMotionWrapper>

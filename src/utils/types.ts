@@ -2,12 +2,14 @@ import {
   appSliceType,
   conversationSliceType,
   profileSliceType,
+  messageSliceType,
   userSliceType,
 } from "@/redux/Slices";
 
 export type StoreStateTypes = {
   app: appSliceType;
   conversation: conversationSliceType;
+  message: messageSliceType;
   profile: profileSliceType;
   user: userSliceType;
 };

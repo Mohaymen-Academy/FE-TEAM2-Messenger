@@ -3,7 +3,6 @@ import Paragraph from "@/components/ui/Paragraph";
 import clsx from "clsx";
 import avatar from "../../../assets/img/avatar.jpg";
 
-
 interface MessageItemProps {
   message: string;
   sentByCurrentUser: boolean;
@@ -32,10 +31,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
       )}
       <div className="flex flex-col gap-1 w-full relative">
         <div
-          className={`
-            flex
-            items-center
-            gap-2
+          className={`flex items-center gap-2
             justify-${sentByCurrentUser ? "start" : "end"}
             ${!sentByCurrentUser && "flex-row-reverse self-end"}
           `}
@@ -75,9 +71,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
               5:55
             </Paragraph>
             {sentByCurrentUser && (
-              <div
-                className="w-0 h-0 absolute bottom-0 border-t-[10px] border-t-transparent border-l-[10px] border-l-blue-500 -right-[10px] border-b-transparent"
-              />
+              <div className="w-0 h-0 absolute bottom-0 border-t-[10px] border-t-transparent border-l-[10px] border-l-blue-500 -right-[10px] border-b-transparent" />
             )}
             {!sentByCurrentUser && (
               <div
@@ -94,7 +88,5 @@ const MessageItem: React.FC<MessageItemProps> = ({
     </div>
   );
 };
-
-
 
 export default MessageItem;
