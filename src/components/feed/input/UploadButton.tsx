@@ -1,51 +1,28 @@
-//@ts-nocheck
-// Import React FilePond
-import { FilePond, registerPlugin } from "react-filepond";
-import Button from "@/components/ui/Button";
-import { IoMdImages } from "react-icons/io";
+// import Button from "@/components/ui/Button";
+// import { IoMdImages } from "react-icons/io";
+// import { useRef, useState } from "react";
 
-// Import FilePond styles
-import "filepond/dist/filepond.min.css";
+// const UploadButton = () => {
+//   const uploadRef = useRef(null);
 
-import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-import { useRef, useState } from "react";
-import { FilePondFile } from "filepond";
+//   return (
+//     <div>
+//       <Button variant="ghost" className="group">
+//         <IoMdImages />
+//       </Button>
+//       {/* <FilePond
+//         id="uploader"
+//         ref={uploadRef}
+//         element={<h1>hi</h1>}
+//         files={files}
+//         onupdatefiles={setFiles}
+//         allowMultiple={true}
+//         name="files"
+//         labelIdle="I am"
+//         stylePanelLayout=""
+//       /> */}
+//     </div>
+//   );
+// };
 
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
-
-const UploadButton = () => {
-  const [files, setFiles] = useState<FilePondFile[]>([]);
-  const uploadRef = useRef(null);
-
-  const handleFileUpload = (fileItems: FilePondFile[]) => {
-    setFiles(fileItems);
-  };
-
-  return (
-    <div>
-      {/* <Button
-        variant="ghost"
-        size="sm"
-        className="group"
-        onClick={() => uploadRef.current._inputClone.click()}
-      >
-        <IoMdImages className="icon z-30" />
-      </Button> */}
-      <FilePond
-        id="uploader"
-        ref={uploadRef}
-        element={<h1>hi</h1>}
-        files={files}
-        onupdatefiles={setFiles}
-        allowMultiple={true}
-        name="files"
-        labelIdle="I am"
-        stylePanelLayout=""
-      />
-    </div>
-  );
-};
-
-export default UploadButton;
+// export default UploadButton;

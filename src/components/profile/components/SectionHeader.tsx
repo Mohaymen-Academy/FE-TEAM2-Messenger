@@ -13,7 +13,7 @@ interface sectionHeaderProps {
 const SectionHeader: React.FC<sectionHeaderProps> = ({ title, withClose }) => {
   const dispatch = useDispatch();
   return (
-    <div className="flex items-center py-2 px-4 h-[61px]">
+    <div className="flex items-center py-2 px-4 h-[61px] mb-8 shadow-md dark:shadow-gray-800 shadow-slate-300">
       {withClose && (
         <Button
           onClick={() => dispatch(setShow({ show: false }))}

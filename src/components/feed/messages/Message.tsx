@@ -131,16 +131,15 @@ const Message: MessageComponent = ({ children , message,
               {
                 "rounded-l-xl": sentByCurrentUser,
                 "rounded-r-xl": !sentByCurrentUser,
-                "bg-blue-500": sentByCurrentUser,
-                "bg-teal-400": !sentByCurrentUser,
-                "dark:bg-gray-700": !sentByCurrentUser,
+                "bg-msg-current": sentByCurrentUser,
+                "bg-msg-other": !sentByCurrentUser,
               }
             )}
           >
             {!sentByCurrentUser && groupMessage && (
               <Paragraph
                 size={"xs"}
-                className="font-bold text-white text-left self-start m-0"
+                className="font-bold text-left self-start m-0 text-primary"
               >
                 مصطفی
               </Paragraph>
@@ -150,24 +149,24 @@ const Message: MessageComponent = ({ children , message,
             <Paragraph size={"sm"} className="text-white m-0">
               {message}
             </Paragraph>
-            <div className="self-start items-end flex flex-row-reverse gap-1">
+            <div className="self-start items-center flex flex-row-reverse gap-1">
               <Paragraph className="!text-xs">5:55</Paragraph>
               {messageStatus === "SEEN" ? (
                 <BsCheckAll className="text-green-300" />
               ) : messageStatus === "DELIVERED" ? (
                 <BiCheck className="text-green-300" />
               ) : (
-                <ClockLoader size={17} color="#36d7b7" />
+                <ClockLoader size={12} color="#36d7b7" />
               )}
             </div>
             {sentByCurrentUser && (
-              <div className="w-0 h-0 absolute bottom-0 border-t-[10px] border-t-transparent border-l-[10px] border-l-blue-500 -right-[10px] border-b-transparent" />
+              <div className="w-0 h-0 absolute bottom-0 border-t-[10px] border-t-transparent border-l-[10px] border-l-lime-100 dark:border-l-sky-600 -right-[10px] border-b-transparent" />
             )}
             {!sentByCurrentUser && (
               <div
                 className="w-0 h-0 absolute
                   border-t-[10px] border-t-transparent
-                  border-r-[10px] border-r-teal-400
+                  border-r-[10px] border-r-gray-100
                   dark:border-r-gray-700
                    border-b-transparent bottom-0 -left-[10px]"
               />

@@ -2,12 +2,12 @@ import React, { HTMLAttributes, ReactNode, useRef, useState } from "react";
 import Input from "./Input";
 import { merge } from "@/utils/merge";
 import { UseFormRegister, FieldValues } from "react-hook-form";
+import { log } from "console";
+import { Paragraph } from "@/components/ui";
 
 export interface FloatingLabelInputProps
   extends HTMLAttributes<HTMLDivElement> {
-  inputID: string;
   type: string;
-  borderWidth: number;
   removeBorderColor?: string;
   dropDown?: boolean;
   label?: string;
@@ -19,9 +19,7 @@ export interface FloatingLabelInputProps
 
 const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
   label,
-  inputID,
   type,
-  borderWidth,
   removeBorderColor,
   dropDown,
   className,
@@ -32,55 +30,28 @@ const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
   children,
   ...props
 }) => {
-  const [isFocused, setIsFocused] = useState(false);
-
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleFocus = () => {
-    setIsFocused((prevIsFocused) => !prevIsFocused);
-  };
-
-  const handleClick = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  };
-
   return (
-    <div className={merge("relative mb-4", className)} {...props}>
-      <div
-        className={`absolute h-[1px] top-0 right-[16px] dark:bg-slate-800 bg-gray-200 z-20`}
-        style={{
-          width: `${borderWidth}px`,
-          backgroundColor: removeBorderColor,
-        }}
-      ></div>
+    <div
+      className={merge("flex flex-col-reverse relative mb-3", className)}
+      {...props}
+    >
+      <Input
+        type={type}
+        className="border text-sm rounded-lg block w-full p-2.5 mx-0 peer transition-all  duration-300 focus:!placeholder-transparent"
+        placeholder={label}
+        register={register}
+        patternFrom={patternFrom}
+        formId={formId}
+        required={required}
+      />
       <label
-        className={`absolute right-4 h-0 w-0 overflow-visible whitespace-nowrap transition-all duration-200 cursor-text z-30 ${
-          isFocused
-            ? "-top-3.5 right-[22px] text-cyan-600 text-sm "
-            : "top-3 right-4 text-gray-600 text-base"
-        }`}
-        onClick={handleClick}
+        htmlFor="success"
+        className="z-10 mb-2 text-sm font-medium translate-y-0 opacity-0 peer-focus:opacity-100  peer-focus:-translate-y-3 mr-2 absolute right-0.5 -top-2 transition-all duration-300"
       >
-        {label}
+        <Paragraph size="xs" className="!text-blue">
+          {label}
+        </Paragraph>
       </label>
-      <div className="flex items-center gap-2">
-        <Input
-          ref={inputRef}
-          id={inputID}
-          type={type}
-          onFocus={handleFocus}
-          onBlur={handleFocus}
-          className="m-0"
-          register={register}
-          patternFrom={patternFrom}
-          formId={formId}
-          required={required}
-        />
-
-        {dropDown && (children as ReactNode)}
-      </div>
     </div>
   );
 };

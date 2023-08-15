@@ -86,7 +86,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
         <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} /> */}
 
         <Message messageStatus="SEEN"  groupMessage={true} sentByCurrentUser={true}>
-          <Text content="سلام جیگر طلاسشسشسسشسشسکمیمتیسبنتیستبمنیتبنبنیابنتیابنتیسزدتهیساعهیدسشتیهسشئزخسهتیهسشئطسشتینخسشئطستشیهختسشهخئسهخشیتختشستیخهسشیتخنسشتی"/>
+          <Text  content="سلام جیگر طلاسشسشسسشسشسکمیمتیسبنتیستبمنیتبنبنیابنتیابنتیسزدتهیساعهیدسشتیهسشئزخسهتیهسشئطسشتینخسشئطستشیهختسشهخئسهخشیتختشستیخهسشیتخنسشتی"/>
         </Message>
         <Message messageStatus="PENDING" groupMessage={true} sentByCurrentUser={false}>
           <Text content="سمیبنخهسیبتسیدزتسشایهتیدتسشیتهسشدیسشتیدتهسشدیتهسشیدسشدیسشهیادسشهدینتسیدهشسیتنسشدتنشیدشستبدیسشتدبتنشسبسشتدبتب"/>

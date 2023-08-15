@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import Paragraph from "../ui/Paragraph";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import Avatar from "../ui/Avatar";
@@ -20,10 +20,8 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   unseenMessages = 10,
   // onDeleteConversation,
 }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-
-  console.log(menuOpen)
 
   const conversationLatestMessage =
     conversation?.latestMessage?.body || "No messages yet";
@@ -38,7 +36,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       });
     } else if (event.type === "contextmenu") {
       event.preventDefault();
-      setMenuOpen(true);
+      // setMenuOpen(true);
     }
   };
 
@@ -60,7 +58,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
           </Paragraph>
           <Paragraph
             size={"xs"}
-            className="text-sm text-neutral-200 whitespace-nowrap"
+            className="text-sm text-bg-btn whitespace-nowrap"
           >
             1402.12.30
           </Paragraph>

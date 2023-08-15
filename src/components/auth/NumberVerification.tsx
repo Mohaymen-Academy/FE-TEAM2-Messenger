@@ -2,9 +2,49 @@ import { Paragraph } from "../ui";
 import { Button } from "../ui";
 import { useNavigate } from "react-router-dom";
 import ConfirmationInput from "./input/ConfirmationCodeInput";
+import { useDispatch, useSelector } from "react-redux";
+import { StoreStateTypes } from "@/utils/types";
+import { useState } from "react";
+import { numberConfirmation } from "@/services/api/authentication";
+import { toast } from "react-toastify";
+import { setUser } from "@/redux/Slices/userSlice";
 
 const NumberVerification = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const phoneNumber = useSelector(
+    (store: StoreStateTypes) => store.user.enteredPhoneNumber
+  );
+
+  const submit = async (code: string) => {
+    setLoading(true);
+    try {
+      const { data } = await numberConfirmation(code, phoneNumber);
+      const { registered, access_token, refresh_token } = data;
+
+      //save user entity to redux
+      dispatch(setUser(data.user));
+
+      //save tokens to local storage
+      window.localStorage.setItem("access_token", access_token);
+      window.localStorage.setItem("refresh_token", refresh_token);
+
+      if (registered) {
+        navigate("/auth/register");
+      } else {
+        navigate("/chat");
+      }
+    } catch (error: any) {
+      console.error(error);
+      if (error.request.status === 403) {
+        toast.error("کد وارد شده مورد تایید نمی‌باشد");
+      } else {
+        toast.error("مشکلی پیش آمده است، لطفا مجددا تلاش فرمایید");
+      }
+    }
+    setLoading(false);
+  };
   return (
     <div>
       <div className="w-screen flex flex-col items-center gap-3">
@@ -17,10 +57,8 @@ const NumberVerification = () => {
               ورود به حساب کاربری
             </Paragraph>
           </header>
-          <div className='flex'>
-            <ConfirmationInput length={5}/>
-            
-
+          <div className="flex">
+            <ConfirmationInput submit={submit} length={5} />
           </div>
           <Button
             onClick={() => {
@@ -28,6 +66,7 @@ const NumberVerification = () => {
             }}
             size="lg"
             className="text-white w-full"
+            isLoading={loading}
           >
             تایید کد
           </Button>

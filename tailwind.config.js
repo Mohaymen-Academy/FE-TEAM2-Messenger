@@ -5,6 +5,7 @@ export default {
   theme: {
     extend: {
       screens: {
+        xs: "450px",
         sm: "600px",
         // "2xl": "1275px",
       },
@@ -30,12 +31,14 @@ export default {
         secondary: "var(--bg-secondary)",
         online: "var(--bg-online)",
         btn: "var(--bg-btn)",
-        "btn-secondary": "var(--bg-btn-secondary)",
+        "btn-danger": "var(--bg-btn-danger)",
+        "btn-danger-hover": "var(--bg-btn-danger-hover)",
         hover: "var(--bg-hover)",
         "btn-hover": "var(--bg-btn-hover)",
         "btn-ghost": "var(--bg-btn-ghost)",
-        "msg-current": "var (--bg-msg-current)",
-        "msg-other": "var (--bg-msg-other)",
+        "msg-current": "var(--bg-msg-current)",
+        "msg-other": "var(--bg-msg-other)",
+        toast: "var(--toastify-toast-background)",
       },
     },
   },

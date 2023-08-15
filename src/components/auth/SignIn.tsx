@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router-dom";
-
-import Button from "../ui/Button";
-import Paragraph from "../ui/Paragraph";
+import { Button, Paragraph } from "@/components/ui/";
 import FloatingLabelInput from "./input/FloatingLabelInput";
-// import PhoneNumberInput from "./input/PhoneNumberInput";
 import Dropdown from "./input/DropDown";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { loginApi } from "@/services/api/authentication";
 import { toast } from "react-toastify";
+import { setEnteredPhoneNumber } from "@/redux/Slices/userSlice";
+import { useDispatch } from "react-redux";
 
 const countries = [
   {
@@ -21,7 +20,8 @@ const countries = [
 ];
 
 const Login = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -39,31 +39,18 @@ const Login = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { phoneNumber } = data;
     try {
-      const { data: loginData } = await loginApi(phoneNumber);
+      const { data, status } = await loginApi("0" + phoneNumber);
+      console.log(data);
 
-      console.log(loginData);
-
-      //save tokens to local storage
-      // localStorage.setItem("accessToken", accessToken);
-      // localStorage.setItem("refreshToken", refreshToken);
-
-      // //save user info to redux accessible globally
-      // dispatch(
-      //   userSlice.actions.setUserInfoByRequest({
-      //     email,
-      //     id,
-      //     username,
-      //     firstname,
-      //     lastname,
-      //     phone,
-      //     profile_url,
-      //   })
-      // );
-
-      toast("خوش آمدید");
-      // navigate("/");
+      if (status === 200) {
+        dispatch(setEnteredPhoneNumber({ phone: "0" + phoneNumber }));
+        navigate("/auth/numberVerification");
+      } else {
+        throw new Error("ورود ناموفق، لطفا دوباره تلاش کنید");
+      }
+      toast("کد تایید پیامک گردید");
     } catch (error: any) {
-      console.log(error);
+      console.error(error);
       if (error.message === "Network Error")
         toast.error(
           "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید"
@@ -80,23 +67,24 @@ const Login = () => {
       </Paragraph>
       <div className="flex flex-col gap-4 justify-center items-center-400 rounded-2xl py-10 px-6 backdrop-blur-md bg-gradient-to-r from-green-/40 to-green-300 dark:bg-gray-700 w-11/12 max-w-[580px] ">
         <header className="mx-auto">
-          <Paragraph size="sm" className="!text-cyan-500">
+          <Paragraph size="sm" className="!text-blue">
             ورود به حساب کاربری
           </Paragraph>
         </header>
-
-        <FloatingLabelInput
-          inputID="phone"
-          type="number"
-          borderWidth={75}
-          label="شماره تلفن"
-          dropDown
-          register={register}
-          formId="phoneNumber"
-          required
-        >
+        <div className="flex justify-between gap-2">
+          <FloatingLabelInput
+            inputID="phone"
+            type="tel"
+            borderWidth={75}
+            label="شماره تلفن"
+            dropDown
+            register={register}
+            formId="phoneNumber"
+            required
+            className="w-full"
+          />
           <Dropdown items={countries} />
-        </FloatingLabelInput>
+        </div>
 
         <Button
           onClick={handleSubmit(onSubmit)}

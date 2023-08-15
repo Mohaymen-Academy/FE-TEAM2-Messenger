@@ -25,17 +25,21 @@
 
     /* slate-700 */
     --bg-btn: #334155;
-    /* rose-800 */
-    --bg-btn-secondary: #9f1239;
+    /* red-600 */
+    --bg-btn-danger: #dc2626;
+    /* red-500 */
+    --bg-btn-danger-hover: #ef4444;
     /* slate-800 */
     --bg-btn-hover: #1e293b;
-    /* slate-200 */
-    --bg-btn-ghost: #e2e8f0;
+    /* slate-300 */
+    --bg-btn-ghost: #cbd5e1;
 
     /* lime-100 */
     --bg-msg-current: #ecfccb;
     /* gray-100 */
     --bg-msg-other: #f3f4f6;
+
+    --toastify-font-family: "vazir";
   }
 
   .dark {
@@ -53,8 +57,10 @@
 
     /* slate-200 */
     --bg-btn: #e2e8f0;
-    /* rose-500 */
-    --bg-btn-secondary: #f43f5e;
+    /* red-500 */
+    --bg-btn-danger: #ef4444;
+    /* red- */
+    --bg-btn-danger-hover: #dc2626;
     /* slate-100 */
     --bg-btn-hover: #f1f5f9;
     /* slate-700 */
@@ -66,37 +72,10 @@
     --bg-msg-other: #334155;
   }
 
-  * {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  *:focus {
-    outline: none !important;
-  }
-
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-  }
-
-  /* Firefox */
-  input[type="number"] {
-    -moz-appearance: textfield;
-  }
-
-  #root {
-    height: 100vh;
-    overflow: hidden;
-  }
-  em-emoji-picker {
-    width: 100%;
-    margin-top: 0.5rem;
   }
 }
 
@@ -141,6 +120,43 @@
     );
   }
 }
-.filepond--credits {
-  display: none;
+
+/* customize toastify styles */
+:root {
+  --toastify-color-dark: #1f2937;
+  --toastify-color-light: #e5e7eb;
+}
+
+/* customize emoji picker styles */
+em-emoji-picker {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+#root {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.editable.bold {
+  font-weight: bold;
+}
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+
+.spoiler {
+  background-color: gray;
+  color: transparent;
+  user-select: none !important;
+}
+
+.spoiler:hover {
+  background-color: inherit;
+  color: inherit;
 }

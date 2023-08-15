@@ -3,6 +3,7 @@ import { AiOutlineLink } from "react-icons/ai";
 import { useCopyToClipboard } from "react-use";
 import { Paragraph } from "@/components/ui";
 import { toast } from "react-toastify";
+import useToastify from "@/hooks/useTostify";
 
 interface linkProps {
   href: string;
@@ -11,9 +12,11 @@ interface linkProps {
 const Link: React.FC<linkProps> = ({ href }) => {
   const [, copyToClipboard] = useCopyToClipboard();
 
+  const tostify = useToastify();
+
   const handleCopy = () => {
     copyToClipboard(href);
-    toast.success("لینک کپی شد.");
+    tostify.warning("لینک کپی شد.");
   };
 
   return (
@@ -27,7 +30,6 @@ const Link: React.FC<linkProps> = ({ href }) => {
           </Paragraph>
         </div>
       </div>
-      {/* <Toaster /> */}
     </HoverWrapper>
   );
 };

@@ -1,34 +1,119 @@
-import React from 'react'
-import { TbCameraPlus } from 'react-icons/tb';
-import ProfileImage from '../ui/ProfileImage';
-import FloatingLabelInput from './input/FloatingLabelInput';
-import { Button } from '../ui';
-import { useNavigate } from 'react-router-dom';
-import FileUploader from '../wrappers/FileUploader';
-
+import FloatingLabelInput from "./input/FloatingLabelInput";
+import { Button } from "../ui";
+import { useNavigate } from "react-router-dom";
+import ProfileUploader from "../wrappers/FileUploader";
+import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
+import { toast } from "react-toastify";
+import { sendPicture } from "@/services/api/authentication";
+import { useSelector } from "react-redux";
+import { StoreStateTypes } from "@/utils/types";
+import axios from "axios";
+import apiCall from "@/services/axiosInstance";
+import { useEffect, useState } from "react";
 
 const Register = () => {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState(new FormData());
+  const [pictureUrl, setPictureUrl] = useState("");
+
+  const user = useSelector((store: StoreStateTypes) => store);
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    watch,
+    // formState: { errors },
+  } = useForm<FieldValues>({
+    defaultValues: {
+      profilePicture: new FormData(),
+      fName: "",
+      lName: "",
+      bio: "",
+    },
+  });
+
+  const file = watch("profilePicture");
+  console.log(file);
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const { profilePicture, fName, lName, bio } = data;
+    try {
+      const data = await sendPicture(formData);
+
+      // const { data: uploadResponse } = await axios.post(
+      //   `https://api.escuelajs.co/api/v1/files/upload`,
+      //   profilePicture,
+      //   {
+      //     headers: {
+      //       "Content-Type": "multipart/form-data",
+      //     },
+      //     onUploadProgress: function (progressEvent) {
+      //       if (!progressEvent.total) return;
+      //       var percentCompleted = Math.round(
+      //         (progressEvent.loaded * 100) / progressEvent.total
+      //       );
+      //       console.log(percentCompleted);
+      //     },
+      //   }
+      // );
+      console.log(data);
+
+      ///sen to server logic here
+      // navigate("/chat");
+
+      toast.success("اطلاعات با موفقیت ذخیره شد");
+    } catch (error: any) {
+      if (error.message === "Network Error")
+        toast.error(
+          "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید"
+        );
+      toast.error("اطلاعات ذخیره نگردید، مشکلی به وجود آمده است");
+    }
+  };
+
+  const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      setFormData(formData);
+
+      const imageUrl = URL.createObjectURL(file);
+      setPictureUrl(imageUrl);
+    }
+  };
+
   return (
-    <div className="dark w-full h-full gap-4 flex flex-col items-center bg-primary p-8 rounded-2xl">
-      <FileUploader accept='image/*'>
+    <div className="dark w-full h-full flex flex-col items-center bg-primary p-8 rounded-2xl">
+      <ProfileUploader
+        imgUrl={pictureUrl}
+        setImage={setValue}
+        width={150}
+        accept="image/*"
+        imageSelectHandler={imageSelectHandler}
+      />
 
-      <ProfileImage width={150} />
-      </FileUploader>
+      <div className="grid grid-cols-1 xs:grid-cols-2 xs:gap-5 my-6">
+        <FloatingLabelInput
+          type="text"
+          register={register}
+          required
+          formId="fName"
+          label="نام"
+        />
 
-      <div>
-        <FloatingLabelInput borderWidth={30} label="نام" />
-        <FloatingLabelInput borderWidth={80} label="نام خانوادگی" />
-        </div>
-        <Button
-          onClick={() => {
-            navigate("/chat");
-          }}
-          className="!bg-slate-800 hover:!bg-slate-900 !text-white w-full"
-        >
-          ثبت نام
-        </Button>
+        <FloatingLabelInput
+          register={register}
+          type="text"
+          formId="lName"
+          label="نام خانوادگی"
+        />
+      </div>
 
+      <Button onClick={handleSubmit(onSubmit)} className="w-full">
+        تایید
+      </Button>
     </div>
   );
 };

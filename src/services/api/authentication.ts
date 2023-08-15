@@ -1,11 +1,40 @@
 import apiCall from "../axiosInstance";
 
 const loginApi = async (phoneNumber: string) => {
-  return apiCall.post(`api/auth/send-activation-code`, {
+  return apiCall.get(`api/auth/send-activation-code`, {
     params: { phoneNumber },
   });
 };
+const numberConfirmation = async (
+  activationCode: string,
+  phoneNumber: string
+) => {
+  return apiCall.post(`api/auth/login`, {
+    phoneNumber,
+    activationCode,
+  });
+};
 
+const sendPicture = async (formData: any) => {
+  return apiCall.post(
+    `http://192.168.70.233:8080/api/profiles/users`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        accept: "*/*",
+        Authorization: `Bearer ${window.localStorage.getItem("access_token")}`,
+      },
+      onUploadProgress: function (progressEvent) {
+        if (!progressEvent.total) return;
+        var percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+        console.log(percentCompleted);
+      },
+    }
+  );
+};
 // const registerUserApi = async (body: {
 //   username: string;
 //   email: string;
@@ -37,6 +66,8 @@ export {
   // getAccessTokenApi,
   // forgetPasswordApi,
   loginApi,
+  numberConfirmation,
+  sendPicture,
   // registerUserApi,
   // resetPasswordApi,
 };

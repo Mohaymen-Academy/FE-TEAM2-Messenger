@@ -3,7 +3,7 @@ interface TextProps {
 }
 
 const Text: React.FC<TextProps> = ({ content }) => {
-  return <div className="text-message">
+  return <div className="text-primary">
     {content}
     </div>;
 };
