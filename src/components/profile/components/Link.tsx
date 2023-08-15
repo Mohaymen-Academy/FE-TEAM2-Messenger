@@ -16,7 +16,7 @@ const Link: React.FC<linkProps> = ({ href }) => {
 
   const handleCopy = () => {
     copyToClipboard(href);
-    tostify.warning("لینک کپی شد.");
+    tostify.success("لینک کپی شد.");
   };
 
   return (

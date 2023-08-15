@@ -2,6 +2,13 @@ import { Button } from "@/components/ui";
 import { Editor } from "slate";
 import { createHyperscript } from "slate-hyperscript";
 import { deserialize, parseSlateToHtml } from "./serializer";
+import {
+  FaBold,
+  FaEyeSlash,
+  FaItalic,
+  FaStrikethrough,
+  FaUnderline,
+} from "react-icons/fa";
 
 const customEditor = {
   isBoldMarkActive: (editor) => {
@@ -19,6 +26,10 @@ const customEditor = {
   isSpoilerMarkActive: (editor) => {
     const mark = Editor.marks(editor);
     return mark ? mark.spoiler === true : false;
+  },
+  isStrikeThroughMarkActive: (editor) => {
+    const mark = Editor.marks(editor);
+    return mark ? mark.strike === true : false;
   },
   toggleBoldMark: (editor) => {
     const isActive = customEditor.isBoldMarkActive(editor);
@@ -52,64 +63,77 @@ const customEditor = {
       Editor.addMark(editor, "spoiler", true);
     }
   },
+  toggleStrikeThroughMark: (editor) => {
+    const isActive = customEditor.isStrikeThroughMarkActive(editor);
+    if (isActive) {
+      Editor.removeMark(editor, "strike");
+    } else {
+      Editor.addMark(editor, "strike", true);
+    }
+  },
 };
 
 const Tools = ({ editor }: { editor?: any }) => {
   return (
-    <div className="flex gap-4 absolute bottom-24">
+    <div className="absolute -top-10 flex left-10">
       <Button
+        className="w-9 h-9 rounded-none rounded-r-lg"
         onMouseDown={(e) => {
           e.preventDefault();
           customEditor.toggleBoldMark(editor);
         }}
       >
-        Bold
+        <FaBold size={18} />
       </Button>
       <Button
+        className="w-9 h-9 border-r border-gray-200 dark:border-slate-800 rounded-none"
         onMouseDown={(e) => {
           e.preventDefault();
           customEditor.toggleItalicMark(editor);
         }}
       >
-        Italic
+        <FaItalic size={18} />
       </Button>
       <Button
+        className="w-9 h-9 border-r border-gray-200 dark:border-slate-800 rounded-none"
         onMouseDown={(e) => {
           e.preventDefault();
           customEditor.toggleUnderlineMark(editor);
         }}
       >
-        UnderLine
+        <FaUnderline size={18} />
       </Button>
       <Button
+        className="w-9 h-9 border-r border-gray-200 rounded-none"
+        onMouseDown={(e) => {
+          e.preventDefault();
+          customEditor.toggleStrikeThroughMark(editor);
+        }}
+      >
+        <FaStrikethrough size={18} />
+      </Button>
+      <Button
+        className="w-9 h-9 border-r border-gray-200 dark:border-slate-800 rounded-none rounded-l-lg"
         onMouseDown={(e) => {
           e.preventDefault();
           customEditor.toggleSpoilerMark(editor);
         }}
       >
-        spoiler
-      </Button>
-      <Button
-        onMouseDown={(e) => {
-          e.preventDefault();
-          editor.insertText("🤣");
-        }}
-      >
-        emoji
-      </Button>
-      <Button
-        onMouseDown={(e) => {
-          e.preventDefault();
-          console.log(editor.children);
-
-          const h = parseSlateToHtml(editor.children);
-          console.log(h);
-        }}
-      >
-        Save
+        <FaEyeSlash size={18} />
       </Button>
     </div>
   );
 };
 
 export default Tools;
+
+{
+  /* <Button
+        onMouseDown={(e) => {
+          e.preventDefault();
+          editor.insertText("🤣");
+        }}
+      >
+        emoji
+      </Button> */
+}

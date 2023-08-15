@@ -48,6 +48,6 @@ const Editor = ({ children, initialValue }: EditorProps) => {
 };
 
 Editor.Input = EditableTextArea;
-Editor.ToolsBar = Tools;
+Editor.ToolBar = Tools;
 
 export default Editor;
