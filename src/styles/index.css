@@ -38,6 +38,8 @@
     --bg-msg-current: #ecfccb;
     /* gray-100 */
     --bg-msg-other: #f3f4f6;
+
+    --toastify-font-family: "vazir";
   }
 
   .dark {

@@ -42,13 +42,11 @@ function App() {
         {/* <Route path="playground" element={<Test />} /> */}
       </Routes>
       <ToastContainer
-        autoClose={3000}
-        position="top-center"
         theme={theme}
         rtl={true}
-        hideProgressBar={true}
+        // hideProgressBar={true}
         closeButton={<></>}
-        limit={4}
+        limit={8}
       />
     </div>
   );
