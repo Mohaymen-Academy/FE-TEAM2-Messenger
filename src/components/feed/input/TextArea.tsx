@@ -13,6 +13,14 @@ import { GoFileMedia, GoFile } from "react-icons/go";
 import { Paragraph } from "@/components/ui";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import axios from "axios";
+import Editor from "@/components/editor";
+
+const initialValue = [
+  {
+    type: "paragraph",
+    children: [{ text: "A line of text in a paragraph." }],
+  },
+];
 
 const TextArea = ({ value }: { value: string }) => {
   const [textareaHeight, setTextAreaHeight] = useState("auto");
@@ -112,20 +120,10 @@ const TextArea = ({ value }: { value: string }) => {
           <span className="sr-only">Add emoji</span>
         </Button>
 
-        {/* <textarea
-          value={value}
-          id="chat"
-          rows={1}
-          style={{ height: textareaHeight }}
-          onInput={handleTextAreaInput}
-          className={merge(
-            "mx-2 px-3 py-2.5 w-full text-base text-gray-900 bg-white ring-1 ring-white dark:ring-gray-800 dark:focus:ring-blue-400 rounded-lg border border-gray-300 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-400 dark:text-white outline-none resize-none leading-6"
-          )}
-          placeholder="ارسال پیام ..."
-        /> */}
-        <div className="mx-2 px-3 py-2.5 w-full text-base text-gray-900 bg-white ring-1 ring-white dark:ring-gray-800 dark:focus:ring-blue-400 rounded-lg border border-gray-300 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-400 dark:text-white outline-none resize-none leading-6">
-          {value}
-        </div>
+        <Editor initialValue={initialValue}>
+          <Editor.ToolsBar />
+          <Editor.Input />
+        </Editor>
 
         <Button variant="ghost" size="sm" className="hover:bg-blue-100 group">
           <BsFillSendFill className="w-5 h-5 text-cyan-700 dark:text-cyan-300" />
