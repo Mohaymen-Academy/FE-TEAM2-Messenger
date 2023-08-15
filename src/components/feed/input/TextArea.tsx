@@ -121,6 +121,7 @@ const TextArea = ({ value }: { value: string }) => {
 
         <MessageInput />
 
+
         <Button variant="ghost" size="sm" className="hover:bg-blue-100 group">
           <BsFillSendFill className="w-5 h-5 text-cyan-700 dark:text-cyan-300" />
           <span className="sr-only">Send message</span>

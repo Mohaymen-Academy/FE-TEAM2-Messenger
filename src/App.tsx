@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LogOutModal from "./components/modal/LogOutModal";
 // import Playground from "./pages/playground";
+
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
 
@@ -32,7 +33,8 @@ function App() {
           }
         />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/playground" element={<LogOutModal />} />
+        <Route path="/playground" element={<Playground />} />
+
         <Route path="/auth" element={<Auth />}>
           <Route path="sign-in" element={<Login />} />
           <Route path="numberVerification" element={<NumberVerification />} />

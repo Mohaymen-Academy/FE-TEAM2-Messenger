@@ -13,6 +13,8 @@ const Register = () => {
 
   const user = useSelector((store: StoreStateTypes) => store);
 
+  console.log(user);
+
   const {
     register,
     setValue,
@@ -30,7 +32,13 @@ const Register = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { profilePicture, fName, lName, bio } = data;
     try {
+
+      console.log(profilePicture, fName, lName, bio);
+
+      console.log(profilePicture);
+
       const data = await sendPicture(profilePicture, 5);
+      console.log(data);
       ///sen to server logic here
       navigate("/chat");
 
