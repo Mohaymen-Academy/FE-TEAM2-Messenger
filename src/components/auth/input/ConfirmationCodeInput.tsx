@@ -1,11 +1,15 @@
-import React, { useState, useRef, KeyboardEvent } from "react";
+import React, { useState, useRef, KeyboardEvent, useEffect } from "react";
 import Input from "./Input";
 
 interface confirmationInputProps {
   length?: number;
+  submit: (e: any) => any;
 }
 
-const ConfirmationInput: React.FC<confirmationInputProps> = ({ length }) => {
+const ConfirmationInput: React.FC<confirmationInputProps> = ({
+  length,
+  submit,
+}) => {
   const [codes, setCodes] = useState<string[]>(Array(length).fill(""));
   const codeRefs = useRef<HTMLInputElement[]>([]);
 
@@ -21,6 +25,12 @@ const ConfirmationInput: React.FC<confirmationInputProps> = ({ length }) => {
       }
     }
   };
+
+  useEffect(() => {
+    if (codes[4].length === 1) {
+      submit(codes.join(""));
+    }
+  }, [codes[4]]);
 
   const handleKeyPress = (
     e: KeyboardEvent<HTMLInputElement>,

@@ -6,6 +6,9 @@ import Dropdown from "./input/DropDown";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { loginApi } from "@/services/api/authentication";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
+import { setEnteredPhoneNumber } from "@/redux/Slices/userSlice";
+import { useDispatch } from "react-redux";
 
 const countries = [
   {
@@ -19,7 +22,8 @@ const countries = [
 ];
 
 const Login = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -37,31 +41,18 @@ const Login = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { phoneNumber } = data;
     try {
-      const { data: loginData } = await loginApi(phoneNumber);
+      const { data, status } = await loginApi("0" + phoneNumber);
+      console.log(data);
 
-      console.log(loginData);
-
-      //save tokens to local storage
-      // localStorage.setItem("accessToken", accessToken);
-      // localStorage.setItem("refreshToken", refreshToken);
-
-      // //save user info to redux accessible globally
-      // dispatch(
-      //   userSlice.actions.setUserInfoByRequest({
-      //     email,
-      //     id,
-      //     username,
-      //     firstname,
-      //     lastname,
-      //     phone,
-      //     profile_url,
-      //   })
-      // );
-
-      toast("خوش آمدید");
-      // navigate("/");
+      if (status === 200) {
+        dispatch(setEnteredPhoneNumber({ phone: "0" + phoneNumber }));
+        navigate("/auth/numberVerification");
+      } else {
+        throw new Error("ورود ناموفق، لطفا دوباره تلاش کنید");
+      }
+      toast("کد تایید پیامک گردید");
     } catch (error: any) {
-      console.log(error);
+      console.error(error);
       if (error.message === "Network Error")
         toast.error(
           "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید"

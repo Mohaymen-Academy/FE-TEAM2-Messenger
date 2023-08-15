@@ -4,9 +4,16 @@ import { useNavigate } from "react-router-dom";
 import ProfileUploader from "../wrappers/FileUploader";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
+import { sendPicture } from "@/services/api/authentication";
+import { useSelector } from "react-redux";
+import { StoreStateTypes } from "@/utils/types";
 
 const Register = () => {
   const navigate = useNavigate();
+
+  const user = useSelector((store: StoreStateTypes) => store);
+
+  console.log(user);
 
   const {
     register,
@@ -27,7 +34,10 @@ const Register = () => {
     try {
       console.log(profilePicture, fName, lName, bio);
 
-      // const { data: registerData } = await registerApi({...});
+      console.log(profilePicture);
+
+      const data = await sendPicture(profilePicture, 5);
+      console.log(data);
       ///sen to server logic here
       navigate("/chat");
 
