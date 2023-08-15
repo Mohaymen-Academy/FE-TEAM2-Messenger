@@ -67,7 +67,7 @@ const Login = () => {
       </Paragraph>
       <div className="flex flex-col gap-4 justify-center items-center-400 rounded-2xl py-10 px-6 backdrop-blur-md bg-gradient-to-r from-green-/40 to-green-300 dark:bg-gray-700 w-11/12 max-w-[580px] ">
         <header className="mx-auto">
-          <Paragraph size="sm" className="!text-blue">
+          <Paragraph size="sm" className="!text-neon-blue">
             ورود به حساب کاربری
           </Paragraph>
         </header>

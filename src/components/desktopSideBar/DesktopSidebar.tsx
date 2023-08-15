@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { clsx } from "clsx";
-import { BsFillPeopleFill, BsFillPersonFill } from "react-icons/bs";
+import { BsBroadcastPin, BsFillPeopleFill, BsFillPersonFill } from "react-icons/bs";
 import { HiSpeakerphone } from "react-icons/hi";
 import { MdLogout } from "react-icons/md";
 import { FiEdit2 } from "react-icons/fi";

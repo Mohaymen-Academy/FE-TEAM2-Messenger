@@ -31,6 +31,7 @@ const conversationSlice = createSlice({
       state.section = actions.payload.selectedState;
     },
     toggleShowConversations: (state: conversationSliceType, _) => {
+      console.log('called')
       state.showConversations = !state.showConversations;
     },
     setCreateState: (

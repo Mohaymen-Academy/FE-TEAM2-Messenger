@@ -1,5 +1,8 @@
+import { toggleShowConversations } from "@/redux/Slices/conversationSlice";
+import { setShow } from "@/redux/Slices/profileSlice";
 import { merge } from "@/utils/merge";
 import { HTMLAttributes } from "react";
+import { useDispatch } from "react-redux";
 
 interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   isOnline: boolean;
@@ -12,10 +15,13 @@ const Avatar: React.FC<AvatarProps> = ({
   imgSrc,
   ...props
 }) => {
+
+  const dispatch = useDispatch();
   return (
     <div
+      onClick={() => dispatch(setShow({show:true}))}
       className={merge(
-        "w-16 h-16 text-center relative rounded-full bg-red-600",
+        "w-16 h-16 text-center relative rounded-full bg-red-600 cursor-pointer",
         className
       )}
       {...props}

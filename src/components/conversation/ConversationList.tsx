@@ -2,7 +2,8 @@ import SwipeWrapper from "@/components/ui/SwipeWrapper";
 import ConversationItem from "./ConversationItem";
 import DesktopSidebar from "../desktopSideBar/DesktopSidebar";
 import { useState } from "react";
-import { TbSettingsX, TbSettings } from "react-icons/tb";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { RxCross1 } from "react-icons/rx";
 import { AnimatedButton, SearchInput } from "../ui";
 import { useQuery } from "react-query";
 import { getAllChat } from "@/services/api/chat";
@@ -35,8 +36,8 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
           <div className="flex flex-col w-full h-full">
             <div className="flex gap-2 w-full p-2 ">
               <AnimatedButton
-                FirstIcon={TbSettings}
-                SecondIcon={TbSettingsX}
+                FirstIcon={GiHamburgerMenu}
+                SecondIcon={RxCross1}
                 isActive={showSideBar}
                 onClick={() => setShowSideBar((prev) => !prev)}
               />
