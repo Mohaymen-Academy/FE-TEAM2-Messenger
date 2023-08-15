@@ -32,24 +32,20 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    // register input
+    console.log(type);
     const registerValidator = useMemo(() => {
       if (register && formId)
         return register(formId, { required, pattern: patternFrom });
       return { register: "no Register" };
     }, [register]);
 
-    console.log(registerValidator);
     return (
       <input
         ref={ref}
         type={type}
-        // dir={type === "tel" || "number" ? "ltr" : "rtl"}
-        className={merge(
-          inputVariants({
-            className,
-          })
-        )}
+        className={merge(inputVariants(), className, {
+          "focus:text-left text-right": type === "tel",
+        })}
         {...registerValidator}
         {...props}
       >

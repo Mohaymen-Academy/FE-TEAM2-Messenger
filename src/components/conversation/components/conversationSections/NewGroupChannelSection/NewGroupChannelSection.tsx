@@ -90,9 +90,6 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
-    console.log(selectedUser);
-
     if (section === "channelCreate") {
       /// logic to create channel
     }

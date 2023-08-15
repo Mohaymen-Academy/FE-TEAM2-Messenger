@@ -16,7 +16,7 @@ import axios from "axios";
 import Controls from "./Controls";
 import MessageInput from "./MessageInput";
 
-const TextArea = () => {
+const TextArea = ({ value }: { value: string }) => {
   const [textareaHeight, setTextAreaHeight] = useState("auto");
   const dispatch = useDispatch();
 

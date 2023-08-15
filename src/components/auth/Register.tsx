@@ -4,9 +4,14 @@ import { useNavigate } from "react-router-dom";
 import ProfileUploader from "../wrappers/FileUploader";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
+import { sendPicture } from "@/services/api/authentication";
+import { useSelector } from "react-redux";
+import { StoreStateTypes } from "@/utils/types";
 
 const Register = () => {
   const navigate = useNavigate();
+
+  const user = useSelector((store: StoreStateTypes) => store);
 
   const {
     register,
@@ -25,15 +30,12 @@ const Register = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { profilePicture, fName, lName, bio } = data;
     try {
-      console.log(profilePicture, fName, lName, bio);
-
-      // const { data: registerData } = await registerApi({...});
+      const data = await sendPicture(profilePicture, 5);
       ///sen to server logic here
       navigate("/chat");
 
       toast.success("اطلاعات با موفقیت ذخیره شد");
     } catch (error: any) {
-      console.log(error);
       if (error.message === "Network Error")
         toast.error(
           "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید"
@@ -43,33 +45,26 @@ const Register = () => {
   };
 
   return (
-    <div className="dark w-full h-full gap-5 flex flex-col items-center bg-primary p-8 rounded-2xl">
+    <div className="dark w-full h-full flex flex-col items-center bg-primary p-8 rounded-2xl">
       <ProfileUploader setImage={setValue} width={150} accept="image/*" />
 
-      <div className="flex flex-col gap-2">
-        <div className="flex gap-2">
-          <FloatingLabelInput
-            type="text"
-            register={register}
-            required
-            formId="fName"
-            label="نام"
-            borderWidth={10}
-          />
-          <FloatingLabelInput
-            register={register}
-            type="text"
-            formId="lName"
-            label="نام خانوادگی"
-          />
-        </div>
+      <div className="grid grid-cols-1 xs:grid-cols-2 xs:gap-5 my-6">
+        <FloatingLabelInput
+          type="text"
+          register={register}
+          required
+          formId="fName"
+          label="نام"
+        />
+
         <FloatingLabelInput
           register={register}
           type="text"
-          formId="bio"
-          label="درباره خود"
+          formId="lName"
+          label="نام خانوادگی"
         />
       </div>
+
       <Button onClick={handleSubmit(onSubmit)} className="w-full">
         تایید
       </Button>

@@ -27,33 +27,32 @@ const GroupCreator: React.FC<GroupCreatorProp> = ({
         <SectionHeader title="گروه جدید" />
 
         {/* Camera and Upload section */}
-        <ProfileImage width={150} />
+        <div className="px-8 flex flex-col gap-8">
+          <ProfileImage width={150} />
 
-        <FloatingLabelInput
-          label="نام گروه"
-          type="tel"
-          borderWidth={55}
-          className="mx-10"
-          dir="rtl"
-          register={register}
-          required
-          formId="groupName"
-        />
-        <div className="mx-10 flex gap-2">
-          <Button
-            onClick={() => onSubmit()}
-            className="w-full font-bold text-xl"
-          >
-            ساخت کانال
-          </Button>
-          <Button
-            onClick={() =>
-              dispatch(setSection({ selectedState: "conversations" }))
-            }
-            className="!bg-btn-secondary w-full font-bold text-xl"
-          >
-            انصراف
-          </Button>
+          <FloatingLabelInput
+            type="text"
+            label="نام گروه"
+            register={register}
+            required
+            formId="groupName"
+          />
+          <div className="flex gap-2">
+            <Button
+              onClick={() => onSubmit()}
+              className="w-full font-bold text-xl"
+            >
+              ساخت گروه
+            </Button>
+            <Button
+              onClick={() =>
+                dispatch(setSection({ selectedState: "conversations" }))
+              }
+              className="!bg-btn-danger hover:!bg-btn-danger-hover !text-white w-full font-bold text-xl"
+            >
+              انصراف
+            </Button>
+          </div>
         </div>
       </SectionContainer>
     </FadeMotionWrapper>

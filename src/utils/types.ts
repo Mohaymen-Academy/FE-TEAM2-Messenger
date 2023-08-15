@@ -3,6 +3,7 @@ import {
   conversationSliceType,
   profileSliceType,
   messageSliceType,
+  userSliceType,
 } from "@/redux/Slices";
 
 export type StoreStateTypes = {
@@ -10,8 +11,14 @@ export type StoreStateTypes = {
   conversation: conversationSliceType;
   message: messageSliceType;
   profile: profileSliceType;
+  user: userSliceType;
 };
 
 export type User = {
-  name: string;
+  bio: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  userId: string | number;
+  userName: string;
 };

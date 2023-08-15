@@ -10,11 +10,15 @@ import { messageSliceType } from "./messageSlice";
 import profileSliceReducer from "./profileSlice";
 import { profileSliceType } from "./profileSlice";
 
+import userSliceReducer from "./userSlice";
+import { userSliceType } from "./userSlice";
+
 export {
   appSliceReducer,
   conversationSliceReducer,
   messageSliceReducer,
   profileSliceReducer,
+  userSliceReducer,
 };
 
 export type {
@@ -22,4 +26,5 @@ export type {
   conversationSliceType,
   messageSliceType,
   profileSliceType,
+  userSliceType,
 };

@@ -4,6 +4,7 @@ import {
   conversationSliceReducer,
   messageSliceReducer,
   profileSliceReducer,
+  userSliceReducer,
 } from "./Slices";
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   app: appSliceReducer,
   message: messageSliceReducer,
   profile: profileSliceReducer,
+  user: userSliceReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

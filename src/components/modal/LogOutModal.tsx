@@ -1,12 +1,8 @@
 import React from "react";
 import Modal from "./ParentModal";
-import { AnimatedButton, Button, Paragraph } from "../ui";
-import { BiMoon, BiSun } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
-import { setSection } from "@/redux/Slices/conversationSlice";
-import { toggleTheme } from "@/redux/Slices/appSlice";
+import { Button, Paragraph } from "../ui";
 
-const LogOutConfirm = () => {
+const LogOutModal = () => {
   return (
     <>
       <div className="bg-primary w-[280px] py-5 px-8 rounded-xl shadow shadow-gray-400">
@@ -14,18 +10,18 @@ const LogOutConfirm = () => {
           آیا از خروج مطمئن هستید؟
         </Paragraph>
         <div className="flex justify-between gap-3">
-          <Button className="w-full bg-red-500 transition-all duration-300 hover:bg-red-600 dark:bg-red-400 dark:hover:bg-red-500">
+          <Button className="w-full  transition-all duration-200 hover:bg-red-500 !bg-btn-danger dark:hover:bg-red-600 !text-white">
             بله
           </Button>
-          <Button className="w-full transition-all duration-300">خیر</Button>
+          <Button className="w-full transition-all duration-200">خیر</Button>
         </div>
       </div>
     </>
   );
 };
 
-const LogOutModal = () => {
-  return <Modal body={<LogOutConfirm />} />;
-};
+// const LogOutModal = () => {
+//   return <Modal body={<LogOutConfirm />} />;
+// };
 
 export default LogOutModal;
