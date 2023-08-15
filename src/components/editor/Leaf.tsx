@@ -1,14 +1,16 @@
+import { merge } from "@/utils/merge";
+
 const Leaf = (props) => {
-  console.log(props.leaf.spoiler);
   return (
     <span
-      className={props.leaf.spoiler && "spoiler"}
+      className={merge(
+        { spoiler: props.leaf.spoiler },
+        { "font-bold": props.leaf.bold },
+        { italic: props.leaf.italic },
+        { underline: props.leaf.underline },
+        { "line-through": props.leaf.strike }
+      )}
       {...props.attributes}
-      style={{
-        fontWeight: props.leaf.bold ? "bold" : "normal",
-        fontStyle: props.leaf.italic ? "italic" : "normal",
-        textDecoration: props.leaf.underline ? "underline" : "normal",
-      }}
     >
       {props.children}
     </span>

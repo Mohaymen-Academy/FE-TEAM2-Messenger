@@ -48,7 +48,7 @@ const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
         htmlFor="success"
         className="z-10 mb-2 text-sm font-medium translate-y-0 opacity-0 peer-focus:opacity-100  peer-focus:-translate-y-3 mr-2 absolute right-0.5 -top-2 transition-all duration-300"
       >
-        <Paragraph size="xs" className="!text-blue">
+        <Paragraph size="xs" className="!text-neon-blue">
           {label}
         </Paragraph>
       </label>
