@@ -10,39 +10,31 @@ import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
-import LogOutModal from "./components/modal/LogOutModal";
-// import Playground from "./pages/playground";
 import Playground from "./pages/playground";
+import ProtectedRoutes from "./pages/protected/ProtectedRoutes";
+import NoMatch from "./pages/NoMatch";
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
-
-  const navigate = useNavigate();
 
   useEffect(() => {}, []);
 
   return (
     <div className={`${theme} h-full`}>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <button
-              onClick={() => navigate("/chat")}
-              className="bg-slate-200 p-4"
-            >
-              go to main page
-            </button>
-          }
-        />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="" element={<ProtectedRoutes isAuthenticated={true}/>}>
+          <Route path="/chat" element={<Chat />} />
+        </Route>
+
         <Route path="/playground" element={<Playground />} />
+        
         <Route path="/auth" element={<Auth />}>
           <Route path="sign-in" element={<Login />} />
-          <Route path="numberVerification" element={<NumberVerification />} />
+          <Route path="varification" element={<NumberVerification />} />
           <Route path="register" element={<Register />} />
         </Route>
 
-        {/* <Route path="playground" element={<Test />} /> */}
+        <Route path="*" element={<NoMatch /> } />
+        
       </Routes>
       <ToastContainer theme={theme} rtl={true} closeButton={<></>} />
     </div>
