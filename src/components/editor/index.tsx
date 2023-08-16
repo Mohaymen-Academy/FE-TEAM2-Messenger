@@ -1,21 +1,15 @@
-import React, { useCallback, useState } from "react";
-import { ReactEditor, Slate, withReact } from "slate-react";
-import {
-  BaseEditor,
-  Descendant,
-  createEditor,
-  Editor as SlateEditor,
-  Range,
-} from "slate";
+import React, { useCallback } from "react";
+import { ReactEditor, Slate } from "slate-react";
+import { BaseEditor, Descendant, Range } from "slate";
 import EditableTextArea from "./EditableTextArea";
 import Tools from "./Tools";
-import { useDispatch, useSelector } from "react-redux";
-import { StoreStateTypes } from "@/utils/types";
+import { useDispatch } from "react-redux";
 import { setIsSelected } from "@/redux/Slices/messageSlice";
 
 interface EditorProps {
   children: React.ReactNode;
   initialValue: Descendant[];
+  editor: BaseEditor & ReactEditor;
 }
 
 type CustomElement = { type: "paragrapgh"; children: CustomText[] };
@@ -29,12 +23,8 @@ declare module slate {
   }
 }
 
-const Editor = ({ children, initialValue }: EditorProps) => {
-  const [editor] = useState(() => withReact(createEditor()));
-  const [isTextSelected, setIsTextSelected] = useState(false);
+const Editor = ({ children, initialValue, editor }: EditorProps) => {
   const dispatch = useDispatch();
-  const { isSelected } = useSelector((store: StoreStateTypes) => store.message);
-
   const handleSelectionChange = useCallback(() => {
     const { selection } = editor;
     if (selection) {

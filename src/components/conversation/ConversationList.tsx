@@ -47,6 +47,18 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
             </div>
             <div className="h-full w-full overflow-y-auto overflow-x-hidden px-2 duration-500 custom-scrollbar scrollbar-none md:scrollbar">
               {/* */}
+              <ConversationItem
+                onDeleteConversation={() => {}}
+                onClickConversation={() => {}}
+                conversation={{
+                  chatId: "sk",
+                  lastMessage: "dksl",
+                  media: "",
+                  title: "sdkl",
+                  userFirstName: "sdf",
+                }}
+                isSelected={selectedConversation === "sk"}
+              />
               {/* {conversationItemsQueryResponse.isLoading ? (
                 <div className="w-full h-full grid place-content-center">
                   <BounceLoader />
