@@ -38,6 +38,11 @@
     --bg-msg-current: #ecfccb;
     /* gray-100 */
     --bg-msg-other: #f3f4f6;
+    
+    /* slate-200 */
+    --bg-skeleton-primary : #e2e8f0;
+
+
 
     --toastify-font-family: "vazir";
   }
@@ -70,6 +75,9 @@
     --bg-msg-current: #0284c7;
     /* slate-700 */
     --bg-msg-other: #334155;
+
+    /* black */
+    --bg-skeleton-primary : #020617;
   }
 
   input::-webkit-outer-spin-button,

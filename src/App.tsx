@@ -14,6 +14,7 @@ import LogOutModal from "./components/modal/LogOutModal";
 // import Playground from "./pages/playground";
 import Playground from "./pages/playground";
 import NoMatch from "./pages/NoMatch";
+import FinalSkeleton from "./components/skeletonTest/FinalSkeleton";
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
 

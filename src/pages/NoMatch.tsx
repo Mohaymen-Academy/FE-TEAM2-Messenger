@@ -9,7 +9,7 @@ const NoMatch = () => {
           404
         </div>
         <div className='flex flex-col gap-8 items-center'>
-          <Paragraph className="!text-4xl">صفحه مرد نظر پیدا نشد</Paragraph>
+          <Paragraph className="!text-4xl">صفحه مورد نظر پیدا نشد</Paragraph>
           <Paragraph className="!text-4xl">Page Not Found</Paragraph>
           <Button className='p-2'>بازگشت به خانه</Button>
         </div>

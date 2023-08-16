@@ -24,8 +24,10 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
               <AnimatedButton
                 FirstIcon={GiHamburgerMenu}
                 SecondIcon={RxCross1}
+                size={20}
                 isActive={showSideBar}
                 onClick={() => setShowSideBar((prev) => !prev)}
+
               />
               <div className="w-full">
                 <SearchInput placeHolder="جستجو" />
