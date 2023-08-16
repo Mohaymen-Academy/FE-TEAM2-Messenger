@@ -3,12 +3,11 @@ import { Button } from "../ui";
 import { useNavigate } from "react-router-dom";
 import ConfirmationInput from "./input/ConfirmationCodeInput";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreStateTypes, User } from "@/utils/types";
+import { StoreStateTypes,} from "@/utils/types";
 import { useState } from "react";
 import { numberConfirmation } from "@/services/api/authentication";
-import { toast } from "react-toastify";
 import { setUser } from "@/redux/Slices/userSlice";
-import { QueryClient, useMutation, useQuery } from "react-query";
+import { QueryClient, useMutation, } from "react-query";
 import useToastify from "@/hooks/useTostify";
 
 const NumberVerification = () => {
@@ -18,7 +17,6 @@ const NumberVerification = () => {
   const phoneNumber = useSelector(
     (store: StoreStateTypes) => store.user.enteredPhoneNumber
   );
-  const toastify = useToastify();
   const queryClient = new QueryClient();
 
   const useNumberConfirmationMutation = () => {
@@ -28,6 +26,8 @@ const NumberVerification = () => {
   };
 
   const { mutate: numberConfirmationMutate } = useNumberConfirmationMutation();
+
+  const toastify = useToastify();
 
   const submit = async (code: string) => {
     setLoading(true);

@@ -53,37 +53,8 @@ const TextArea = ({ value }: { value: string }) => {
     setTextAreaHeight(newHeight);
   };
 
-  const onMediaUploadHandler = async (
-    filesInput: ChangeEvent<HTMLInputElement>
-  ) => {
-    if (!filesInput.target.files) return;
 
-    //get the selected file details
-    if (!filesInput.target.files) return;
-    const file = filesInput.target.files[0];
-
-    //create a FormData instance and append needed
-    //data to it, as cloadinary only accepts formData
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const { data: uploadResponse } = await axios.post(
-      `https://api.escuelajs.co/api/v1/files/upload`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        onUploadProgress: function (progressEvent) {
-          if (!progressEvent.total) return;
-          var percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
-          console.log(percentCompleted);
-        },
-      }
-    );
-  };
+  
 
   return (
     <div className="relative flex max-w-full w-full bg-primary px-3 py-2 justify-center items-center gap-2 rounded-lg">
@@ -95,7 +66,7 @@ const TextArea = ({ value }: { value: string }) => {
         variant="ghost"
         size="sm"
         className="group"
-      >
+      >Upload Menu </Button>
         <Button
           onClick={(e) => {
             e.stopPropagation();
@@ -127,7 +98,7 @@ const TextArea = ({ value }: { value: string }) => {
           <Editor.ToolBar />
           <Editor.Input />
         </Editor>
-      </div>
+      {/* </div> */}
       <Button variant="ghost" size="sm" className="hover:bg-blue-100 group">
         <BsFillSendFill className="w-5 h-5 text-cyan-700 dark:text-cyan-300" />
         <span className="sr-only">Send message</span>
@@ -157,7 +128,6 @@ const TextArea = ({ value }: { value: string }) => {
               className="hidden"
               type="file"
               accept=".jpg, .png, .mp4"
-              onChange={onMediaUploadHandler}
             />
 
             <Paragraph size="xs" className="w-full flex items-center gap-3">

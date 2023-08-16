@@ -50,7 +50,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
         }`}
       >
         <div>
-          <Avatar imgSrc={test} isOnline={false} />
+          <Avatar isConversationList={true} imgSrc={test} isOnline={false} />
         </div>
         <div className="w-full">
           <div className="flex items-center justify-between whitespace-nowrap w-full">
@@ -59,7 +59,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
             </Paragraph>
             <Paragraph
               size={"xs"}
-              className="text-sm text-neutral-200 whitespace-nowrap"
+              className="text-sm text-bg-btn whitespace-nowrap"
             >
               1402.12.30
             </Paragraph>

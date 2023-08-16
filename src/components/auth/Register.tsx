@@ -53,6 +53,8 @@ const Register = () => {
     },
   });
 
+
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { fName, lName } = data;
     setLoading(true);
