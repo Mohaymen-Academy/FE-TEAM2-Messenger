@@ -52,7 +52,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={isLoading}
         {...props}
       >
-        {isLoading ? <ClipLoader /> : null}
+        {isLoading ?  <ClipLoader className="mx-2" size={20}/> : null }
         {children}
       </button>
     );

@@ -39,6 +39,8 @@ export default {
         "msg-current": "var(--bg-msg-current)",
         "msg-other": "var(--bg-msg-other)",
         toast: "var(--toastify-toast-background)",
+        "skeleton-primary": "var(--bg-skeleton-primary)",
+        
       },
     },
   },

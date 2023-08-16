@@ -175,6 +175,7 @@ const Audio: React.FC<AudioProps> = ({ src }) => {
   const progressBar = useRef<HTMLInputElement>(null);
   const animationRef = useRef<number | null>(null);
 
+
   useEffect(() => {
     if (audioPlayer.current) {
       const seconds = Math.floor(audioPlayer.current.duration);
@@ -202,7 +203,7 @@ const Audio: React.FC<AudioProps> = ({ src }) => {
 
     if (!prevValue && audioPlayer.current) {
       audioPlayer.current.play();
-      setShowInputRange(true); // Show input range when playing starts
+      setShowInputRange(true); 
       animationRef.current = requestAnimationFrame(whilePlaying);
     } else {
       if (audioPlayer.current) {
@@ -253,18 +254,20 @@ const Audio: React.FC<AudioProps> = ({ src }) => {
   return (
     <div className="w-full flex items-center gap-2">
       <div>
-        <audio ref={audioPlayer} src={src} preload="metadata"></audio>
+        <audio
+          ref={audioPlayer}
+          src={src}
+          preload="metadata"
+        ></audio>
 
-        <button className="rounded-full flex justify-center items-center relative">
-          <AnimatedButton
-            className="rounded-full w-12 h-12 dark:bg-slate-600 dark:hover:!bg-slate-800 bg-blue-500 hover:!bg-blue-400 "
-            onClick={togglePlayPause}
-            FirstIcon={FaPlay}
-            size={20}
-            SecondIcon={FaPause}
-            isActive={isPlaying}
-          />
-        </button>
+        <AnimatedButton
+          className="rounded-full flex justify-center items-center relative w-12 h-12 dark:bg-slate-600 dark:hover:!bg-slate-800 bg-slate-500 hover:!bg-slate-600 "
+          onClick={togglePlayPause}
+          FirstIcon={FaPlay}
+          size={20}
+          SecondIcon={FaPause}
+          isActive={isPlaying}
+        />
 
         <button
           className="rounded-full absolute bottom-9 right-4"
@@ -278,12 +281,12 @@ const Audio: React.FC<AudioProps> = ({ src }) => {
         <div>
           <Paragraph size="xs">Shadmehr - Chera Too Jangi</Paragraph>
 
-          {/* Conditionally show the duration */}
+          
           {!showInputRange && (
             <div>{duration && !isNaN(duration) && calculateTime(duration)}</div>
           )}
 
-          {/* Conditionally show the input */}
+        
           {showInputRange && (
             <div className="flex flex-col">
               <input
