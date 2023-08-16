@@ -14,29 +14,24 @@ const Header = () => {
   const navigate = useNavigate();
   return (
     <div className="w-full h-[61px] bg-primary flex items-center px-2">
-      {/* <div></div> */}
-      {/* <div className="hidden md:block lg:hidden mt-2">
+      <div className="hidden md:block lg:hidden mt-2">
         <AnimatedButton
           FirstIcon={AiOutlineArrowLeft}
           SecondIcon={AiOutlineArrowRight}
           isActive={showConversation}
           onClick={() => dispatch(toggleShowConversations({}))}
         />
-        dod
-      </div> */}
+      </div>
       <Button
         className="flex md:hidden relative w-12 h-12 hover:bg-btn-ghost"
         onClick={() => navigate("/chat")}
         variant="ghost"
-      >
-        {/* <AiOutlineArrowRight size={30} /> */}
-      </Button>
+      ></Button>
       <Button
         className="flex relative w-12 h-12 hover:bg-btn-ghost"
         onClick={() => dispatch(setShow({ show: true }))}
-        variant="ghost"
       >
-        {/* <AiOutlineArrowRight size={30} /> */}
+        Profile
       </Button>
     </div>
   );

@@ -80,68 +80,53 @@ const TextArea = ({ value }: { value: string }) => {
         },
       }
     );
-    console.log(uploadResponse);
   };
 
   return (
-    <div className="relative">
-      {/* <Controls
-        className={clsx("transition-all duration-300 opacity-0", {
-          "-top-10 opacity-100": isSelected,
-        })}
-      /> */}
-      <label htmlFor="chat" className="sr-only">
-        پیام شما
-      </label>
-      <div
-        className={merge(
-          "flex gap-1 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 items-center",
-          textareaHeight !== "auto" && "items-end"
-        )}
+    <div className="relative flex max-w-full w-full bg-primary px-3 py-2 justify-center items-center gap-2 rounded-lg">
+      <Button
+        onClick={(e) => {
+          e.stopPropagation();
+          dispatch(onToggleUpload({ show: !showUploadMenu }));
+        }}
+        variant="ghost"
+        size="sm"
+        className="group"
       >
-        <Button
-          onClick={(e) => {
-            e.stopPropagation();
-            dispatch(onToggleUpload({ show: !showUploadMenu }));
-          }}
-          variant="ghost"
-          size="sm"
-          className="group"
-        >
-          <AiOutlinePaperClip className="w-5 h-5" />
-          <span className="sr-only">Upload File</span>
-        </Button>
-
-        <Button
-          variant="ghost"
-          size="sm"
-          className="group"
-          onClick={(e) => {
-            e.stopPropagation();
-            dispatch(onToggleEmoji({ show: !showEmoji }));
-          }}
-        >
-          <BsEmojiLaughing className="w-5 h-5" />
-          <span className="sr-only">Add emoji</span>
-        </Button>
-
+        <AiOutlinePaperClip className="w-5 h-5" />
+        <span className="sr-only">Upload File</span>
+      </Button>
+      <Button
+        variant="ghost"
+        size="sm"
+        className="group"
+        onClick={(e) => {
+          e.stopPropagation();
+          dispatch(onToggleEmoji({ show: !showEmoji }));
+        }}
+      >
+        <BsEmojiLaughing className="w-5 h-5" />
+        <span className="sr-only">Add emoji</span>
+      </Button>
+      <div className="w-full">
         <Editor initialValue={initialValue}>
           <Editor.ToolBar />
           <Editor.Input />
         </Editor>
-
-        <Button variant="ghost" size="sm" className="hover:bg-blue-100 group">
-          <BsFillSendFill className="w-5 h-5 text-cyan-700 dark:text-cyan-300" />
-          <span className="sr-only">Send message</span>
-        </Button>
       </div>
+      <Button variant="ghost" size="sm" className="hover:bg-blue-100 group">
+        <BsFillSendFill className="w-5 h-5 text-cyan-700 dark:text-cyan-300" />
+        <span className="sr-only">Send message</span>
+      </Button>
+      
+      {/* absolute positioning*/}
+      {/* Emoji menu */}
       <Emoji
         className={clsx(
           "bottom-16 duration-300 md:absolute right-0 font-normal overflow-hidden h-0 w-full md:w-0 opacity-0",
           { "h-[300px] md:h-[450px] md:w-[400px] opacity-1": showEmoji }
         )}
       />
-
       {/* upload menu */}
       <div
         className={clsx(

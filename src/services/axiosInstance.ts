@@ -1,7 +1,8 @@
+import { BASE_URL } from "@/utils/constants";
 import axios from "axios";
 // import { getAccessTokenApi } from '../authApi';
 
-const apiCall = axios.create({ baseURL: "http://185.60.136.206:8080/" });
+const apiCall = axios.create({ baseURL: BASE_URL });
 
 // Request interceptor for API calls
 apiCall.interceptors.request.use(
