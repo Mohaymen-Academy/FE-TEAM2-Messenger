@@ -1,8 +1,5 @@
-import { Avatar, Button, Paragraph } from "@/components/ui";
+import { Avatar, Paragraph } from "@/components/ui";
 import React from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { HiPhone } from "react-icons/hi";
-import {LiaSearchSolid} from "react-icons/lia"
 
 interface HeaderProfileProps {
   privateMessage: boolean;
@@ -20,7 +17,6 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({ privateMessage }) => {
               آخرین بازدید به تازگی
             </Paragraph>
           </div>
-        
         </div>
       )}
     </div>

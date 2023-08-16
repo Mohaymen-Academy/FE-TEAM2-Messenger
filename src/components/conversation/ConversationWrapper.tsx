@@ -27,10 +27,10 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({
         <ConversationSectionWrapper show={section === "pvCreate"}>
           <CreatePvSection
             users={[
-              { name: "ابوالفضل" },
-              { name: "غلی" },
-              { name: "بهروز" },
-              { name: "فاطمه " },
+              { userName: "ابوالفضل" },
+              { userName: "غلی" },
+              { userName: "بهروز" },
+              { userName: "فاطمه " },
             ]}
           />
         </ConversationSectionWrapper>
@@ -39,10 +39,10 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({
         >
           <NewGroupChannelSection
             users={[
-              { name: "ابوالفضل" },
-              { name: "غلی" },
-              { name: "بهروز" },
-              { name: "فاطمه " },
+              { userName: "ابوالفضل" },
+              { userName: "غلی" },
+              { userName: "بهروز" },
+              { userName: "فاطمه " },
             ]}
           />
         </ConversationSectionWrapper>

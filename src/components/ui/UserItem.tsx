@@ -33,7 +33,7 @@ const UserItem: React.FC<UserItemProps> = ({
         )}
       </div>
       <div className="flex flex-col">
-        <Paragraph size="lg">{user.name}</Paragraph>
+        <Paragraph size="lg">{user.userName}</Paragraph>
         <Paragraph size="xs">اخیرا آنلاین بوده است</Paragraph>
       </div>
     </div>

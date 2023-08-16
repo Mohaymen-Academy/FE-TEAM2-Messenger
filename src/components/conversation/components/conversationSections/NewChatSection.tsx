@@ -73,8 +73,8 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
       <div className="w-full h-full overflow-y-auto custom-scrollbar scrollbar-none md:hover:scrollbar">
         {users.map((user) => (
           <UserItem
-            key={user.name}
-            // onClick={() => console.log(user.name)}
+            key={user.userName}
+            onClick={() => console.log(user.userName)}
             user={user}
           />
         ))}

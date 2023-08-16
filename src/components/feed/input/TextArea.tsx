@@ -1,8 +1,7 @@
 import { FieldValues, useForm } from "react-hook-form";
 import Button from "@/components/ui/Button";
 import { BsEmojiLaughing, BsFillSendFill } from "react-icons/bs";
-import { ChangeEvent, useState } from "react";
-import { merge } from "@/utils/merge";
+import { useState } from "react";
 import Emoji from "./Emoji";
 import clsx from "clsx";
 import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
@@ -12,7 +11,6 @@ import { AiOutlinePaperClip } from "react-icons/ai";
 import { GoFileMedia, GoFile } from "react-icons/go";
 import { Paragraph } from "@/components/ui";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
-import axios from "axios";
 import Editor from "@/components/editor";
 import { withReact } from "slate-react";
 import { createEditor } from "slate";
@@ -24,8 +22,8 @@ const initialValue = [
   },
 ];
 
-const TextArea = ({ value }: { value: string }) => {
-  const [textareaHeight, setTextAreaHeight] = useState("auto");
+const TextArea = () => {
+  // const [textareaHeight, setTextAreaHeight] = useState("auto");
   const dispatch = useDispatch();
   const [editor] = useState(() => withReact(createEditor()));
 
@@ -44,14 +42,14 @@ const TextArea = ({ value }: { value: string }) => {
     defaultValues: { message: "" },
   });
 
-  const handleTextAreaInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const { scrollHeight, clientHeight } = event.target;
+  // const handleTextAreaInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  //   const { scrollHeight, clientHeight } = event.target;
 
-    const newHeight = (
-      scrollHeight > clientHeight ? scrollHeight : "auto"
-    ) as string;
-    setTextAreaHeight(newHeight);
-  };
+  //   const newHeight = (
+  //     scrollHeight > clientHeight ? scrollHeight : "auto"
+  //   ) as string;
+  //   // setTextAreaHeight(newHeight);
+  // };
 
   return (
     <div className="relative flex max-w-full w-full bg-primary px-3 py-2 justify-center items-center gap-2 rounded-lg">

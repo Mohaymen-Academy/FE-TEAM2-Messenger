@@ -10,7 +10,6 @@ import { useDispatch } from "react-redux";
 import { useMutation } from "react-query";
 import { countries } from "@/utils/constants";
 import { useState } from "react";
-import useToastify from "@/hooks/useTostify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -38,7 +37,6 @@ const Login = () => {
   // const onSubmit: SubmitHandler<FieldValues> = async (data) => {
   //   const { phoneNumber } = data;
   // };
-   const toastify = useToastify();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { phoneNumber } = data;

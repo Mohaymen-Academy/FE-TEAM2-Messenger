@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ProfileImage from "../ui/ProfileImage";
 import { UseFormSetValue, FieldValues } from "react-hook-form";
 
@@ -14,7 +14,7 @@ interface FileUploaderProps {
 const ProfileUploader: React.FC<FileUploaderProps> = ({
   accept,
   width,
-  setImage,
+  // setImage,
   imgUrl,
   imageSelectHandler,
 }) => {

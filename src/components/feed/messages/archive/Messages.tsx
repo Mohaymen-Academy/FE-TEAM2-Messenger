@@ -1,12 +1,6 @@
 import clsx from "clsx";
 import { useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
-import Message from "../Message";
-import Text from "../Text";
-import Image from "../Image";
-import avatar from "../../../../assets/img/a.jpeg";
-import Audio from "../Audio";
-import mu from "../../../../assets/Shadmehr Aghili - Chera Too Jangi [320].mp3";
 import { useQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
 import { getChat } from "@/services/api/chat";

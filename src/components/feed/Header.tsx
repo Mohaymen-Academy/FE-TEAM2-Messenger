@@ -3,8 +3,6 @@ import { AnimatedButton, Button } from "../ui/";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import { toggleShowConversations } from "@/redux/Slices/conversationSlice";
-import { useNavigate } from "react-router-dom";
-import { setShow } from "@/redux/Slices/profileSlice";
 import HeaderProfile from "./messages/HeaderProfile";
 import { HiPhone } from "react-icons/hi";
 import { LiaSearchSolid } from "react-icons/lia";
@@ -15,7 +13,7 @@ const Header = () => {
   const showConversation = useSelector(
     (store: StoreStateTypes) => store.conversation.showConversations
   );
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <div className="w-full h-[61px] bg-primary flex items-center px-2 justify-between">
       {/* <div></div> */}

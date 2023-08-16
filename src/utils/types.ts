@@ -15,12 +15,12 @@ export type StoreStateTypes = {
 };
 
 export type User = {
-  bio: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  userId: string | number;
-  userName: string;
+  bio?: string;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  userId?: string | number;
+  userName?: string;
 };
 
 export type ChatItem = {
@@ -30,4 +30,4 @@ export type ChatItem = {
   title: string;
   userFirstName: string;
 };
-export type MessageStatus = "SEEN" | "DELIVERED" | "PENDING"
+export type MessageStatus = "SEEN" | "DELIVERED" | "PENDING";

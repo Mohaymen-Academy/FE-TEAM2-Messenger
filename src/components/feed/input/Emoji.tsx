@@ -1,10 +1,10 @@
 import React, { HTMLAttributes } from "react";
 import data, { EmojiMartData } from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { merge } from "@/utils/merge";
 import { StoreStateTypes } from "@/utils/types";
-import { BaseEditor, Node, Transforms } from "slate";
+import { BaseEditor, Transforms } from "slate";
 import { ReactEditor } from "slate-react";
 
 interface EmojiProps extends HTMLAttributes<HTMLDivElement> {
@@ -23,6 +23,7 @@ const Emoji: React.FC<EmojiProps> = ({ editor, className, ...props }) => {
       <Picker
         data={data}
         onEmojiSelect={(emoji: EmojiMartData) =>
+          //@ts-ignore
           Transforms.insertText(editor, emoji.native)
         }
         theme={theme}

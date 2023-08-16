@@ -46,9 +46,9 @@ const UserSelect: React.FC<UserSelect> = ({
         <div className="w-full h-full overflow-y-auto custom-scrollbar scrollbar-none md:hover:scrollbar">
           {users.map((user) => (
             <UserItem
-              key={user.name}
+              key={user.userId}
               withCheck
-              checked={selectedUser.includes(user.name)}
+              checked={selectedUser.includes(user.firstName!)}
               onClick={() => onUserClickHandler(user)}
               user={user}
             />
@@ -66,7 +66,7 @@ type NewGroupChannelSectionProps = {
 const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
   users,
 }) => {
-  const [selectedUser, setSelectedUser] = useState<string[]>([]);
+  const [selectedUser, setSelectedUser] = useState<any>([]);
   const [step, setStep] = useState<1 | 2>(1);
 
   const section = useSelector(
@@ -74,10 +74,10 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
   );
 
   const onUserClickHandler = (user: User) => {
-    setSelectedUser((prev) => {
-      if (prev.includes(user.name))
-        return prev.filter((name) => name !== user.name);
-      else return [...prev, user.name];
+    setSelectedUser((prev: any) => {
+      if (prev.includes(user.userId))
+        return prev.filter((name: any) => name !== user.userId);
+      else return [...prev, user.userId];
     });
   };
 
@@ -90,6 +90,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log(data);
     if (section === "channelCreate") {
       /// logic to create channel
     }
