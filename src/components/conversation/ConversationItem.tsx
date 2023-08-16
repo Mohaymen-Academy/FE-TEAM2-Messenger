@@ -49,7 +49,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       }`}
     >
       <div>
-        <Avatar imgSrc={test} isOnline={false} />
+        <Avatar isConversationList={true} imgSrc={test} isOnline={false} />
       </div>
       <div className="w-full">
         <div className="flex items-center justify-between whitespace-nowrap w-full">

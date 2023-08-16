@@ -37,6 +37,7 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
                 onClickConversation={() => {}}
                 conversation={{ a: 1 }}
                 isSelected={false}
+              
               />
               <ConversationItem
                 onDeleteConversation={() => {}}

@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import LogOutModal from "./components/modal/LogOutModal";
 // import Playground from "./pages/playground";
 import Playground from "./pages/playground";
+import NoMatch from "./pages/NoMatch";
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
 
@@ -36,7 +37,7 @@ function App() {
           }
         />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/playground" element={<LogOutModal />} />
+        <Route path="/playground" element={<NoMatch />} />
         <Route path="/playground" element={<Playground />} />
         <Route path="/auth" element={<Auth />}>
           <Route path="sign-in" element={<Login />} />
