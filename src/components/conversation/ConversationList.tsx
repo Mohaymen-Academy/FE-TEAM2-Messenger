@@ -20,7 +20,8 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
   const toastify = useToastify();
   const conversationItemsQueryResponse = useQuery(
     ["conversations"],
-    getAllChat
+    getAllChat,
+    // { refetchInterval: 5000 }
   );
   const conversationItems = conversationItemsQueryResponse?.data?.data;
 
@@ -47,19 +48,18 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
                 size={20}
                 isActive={showSideBar}
                 onClick={() => setShowSideBar((prev) => !prev)}
-
               />
               <div className="w-full">
                 <SearchInput placeHolder="جستجو" />
               </div>
             </div>
             <div className="h-full w-full overflow-y-auto overflow-x-hidden px-2 duration-500 custom-scrollbar scrollbar-none md:scrollbar">
-{/* 
-               {conversationItemsQueryResponse.isLoading ? (
-              conversationItemsQueryResponse.isError ? null : conversationItemsQueryResponse.isLoading ? (
+              {conversationItemsQueryResponse.isLoading ? (
                 <div className="w-full h-full grid place-content-center">
                   <BounceLoader />
                 </div>
+              ) : conversationItemsQueryResponse.isError ? (
+                "Conversation list fetch error"
               ) : (
                 conversationItems.map((item: ChatItem) => (
                   <ConversationItem
@@ -70,7 +70,7 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
                     isSelected={selectedConversation === item.chatId}
                   />
                 ))
-              )} */}
+              )}
             </div>
           </div>
         </div>

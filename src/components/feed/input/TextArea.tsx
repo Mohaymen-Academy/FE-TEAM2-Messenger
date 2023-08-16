@@ -53,9 +53,6 @@ const TextArea = ({ value }: { value: string }) => {
     setTextAreaHeight(newHeight);
   };
 
-
-  
-
   return (
     <div className="relative flex max-w-full w-full bg-primary px-3 py-2 justify-center items-center gap-2 rounded-lg">
       <Button
@@ -66,44 +63,34 @@ const TextArea = ({ value }: { value: string }) => {
         variant="ghost"
         size="sm"
         className="group"
-      >Upload Menu </Button>
-        <Button
-          onClick={(e) => {
-            e.stopPropagation();
-            dispatch(onToggleUpload({ show: !showUploadMenu }));
-          }}
-          variant="ghost"
-          size="sm"
-          className="group"
-        >
-          <AiOutlinePaperClip className="w-5 h-5" />
-          <span className="sr-only">Upload File</span>
-        </Button>
+      >
+        <AiOutlinePaperClip className="w-5 h-5" />
+        <span className="sr-only">Upload File</span>
+      </Button>
 
-        <Button
-          variant="ghost"
-          size="sm"
-          className="group"
-          onClick={(e) => {
-            e.stopPropagation();
-            dispatch(onToggleEmoji({ show: !showEmoji }));
-          }}
-        >
-          <BsEmojiLaughing className="w-5 h-5" />
-          <span className="sr-only">Add emoji</span>
-        </Button>
+      <Button
+        variant="ghost"
+        size="sm"
+        className="group"
+        onClick={(e) => {
+          e.stopPropagation();
+          dispatch(onToggleEmoji({ show: !showEmoji }));
+        }}
+      >
+        <BsEmojiLaughing className="w-5 h-5" />
+        <span className="sr-only">Add emoji</span>
+      </Button>
 
-        <Editor initialValue={initialValue} editor={editor}>
-
-          <Editor.ToolBar />
-          <Editor.Input />
-        </Editor>
+      <Editor initialValue={initialValue} editor={editor}>
+        <Editor.ToolBar />
+        <Editor.Input />
+      </Editor>
       {/* </div> */}
       <Button variant="ghost" size="sm" className="hover:bg-blue-100 group">
         <BsFillSendFill className="w-5 h-5 text-cyan-700 dark:text-cyan-300" />
         <span className="sr-only">Send message</span>
       </Button>
-      
+
       {/* absolute positioning*/}
       {/* Emoji menu */}
       <Emoji
@@ -124,11 +111,7 @@ const TextArea = ({ value }: { value: string }) => {
       >
         <HoverWrapper className="px-2 py-1">
           <label className="w-fullitems-center gap-2 cursor-pointer px-2">
-            <input
-              className="hidden"
-              type="file"
-              accept=".jpg, .png, .mp4"
-            />
+            <input className="hidden" type="file" accept=".jpg, .png, .mp4" />
 
             <Paragraph size="xs" className="w-full flex items-center gap-3">
               <GoFileMedia size={30} />

@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import MessageItem from "./MessageItem";
 import { useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import Message from "../Message";
@@ -8,15 +7,34 @@ import Image from "../Image";
 import avatar from "../../../../assets/img/a.jpeg";
 import Audio from "../Audio";
 import mu from "../../../../assets/Shadmehr Aghili - Chera Too Jangi [320].mp3";
+import { useQuery } from "react-query";
+import { useSearchParams } from "react-router-dom";
+import { getChat } from "@/services/api/chat";
 
 interface MessagesProps {
   userId: string;
   conversationId: string;
 }
 const Messages: React.FC<MessagesProps> = ({}) => {
+  const [URLSearchParams] = useSearchParams();
+  const selectedConversation = URLSearchParams.get("conversationId");
+  const messagesQuery = useQuery(
+    [
+      "user",
+      "currentUser",
+      "Conversation",
+      `conversation?${selectedConversation}`,
+    ],
+    () => {
+      if (!selectedConversation) return null;
+      return getChat(selectedConversation);
+    }
+  );
   const profileShow = useSelector(
     (store: StoreStateTypes) => store.profile.show
   );
+
+  console.log(messagesQuery);
   return (
     <div className="flex flex-col h-full justify-end overflow-hidden">
       <div
@@ -25,66 +43,8 @@ const Messages: React.FC<MessagesProps> = ({}) => {
           { "xl:!px-2": profileShow }
         )}
       >
-        {/* {data.messages.map((msg) => (
-          <MessageItem key={msg.id} message={msg} sentByCurrentUser={msg.sender?.id === userId} />
-        ))} */}
-
-        {/* <MessageItem
-          groupMessage
-          message={
-            " سشسسشسسشسشسشسشسشستیباتسیذبتنصنیتصنثصضنثنضصستنساتدذسذزدسیذزدسیتزذصتیضصیشسنکیمصضحیحخصثبنتثصنختصایعهثابتثثا    بثدتیدزظینزسیتابثنمسئیثصبیئنسیئزمئسیتنشسئمظئسلام"
-          }
-          sentByCurrentUser={true}
-        />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={true} />
-        <MessageItem
-          groupMessage={true}
-          message={
-            "سشنیتسابتیسذباسذیسشذز زتسذتسیتنشسدتنسشدطتنسشیتنسدشتطندشستنیتنسشدطتنسشیتنسشیتندسشیسایتسنشدتنسیتنسشابنتسشدیتنسابنمسشئینمسئسبتسینابتنیابتنسیتنسباتیابتنیسبتاسیبنتیدزتنیدتنسیزت"
-          }
-          sentByCurrentUser={false}
-        />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
-        <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} /> */}
-
-        <Message
+        {/* {messagesQuery.isLoading? 'loading' : messagesQuery.isError? 'error' ? messagesQuery.data} */}
+        {/* <Message
           messageStatus="SEEN"
           groupMessage={true}
           sentByCurrentUser={true}
@@ -107,7 +67,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
         </Message>
         <Message groupMessage={false} sentByCurrentUser={false}>
           <Audio src={mu} />
-        </Message>
+        </Message> */}
       </div>
     </div>
   );

@@ -17,12 +17,6 @@ const Register = () => {
   const [pictureUrl, setPictureUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const useRegisterMutation = () => {
-    return useMutation((formData: FormData) => {
-      return sendPicture(formData);
-    });
-  };
-
   const sendPictureMutation = useMutation(sendPicture, {
     onError: (error) => {
       console.log(error);
@@ -44,7 +38,6 @@ const Register = () => {
     register,
     setValue,
     handleSubmit,
-    // formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
       fName: "",
@@ -52,8 +45,6 @@ const Register = () => {
       bio: "",
     },
   });
-
-
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { fName, lName } = data;
