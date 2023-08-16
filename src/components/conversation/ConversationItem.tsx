@@ -39,7 +39,6 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       event.preventDefault();
     }
   };
-  console.log(isSelected);
 
   return (
     <HoverWrapper type={isSelected ? "active" : "inActive"}>

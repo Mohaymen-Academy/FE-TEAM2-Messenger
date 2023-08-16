@@ -10,3 +10,6 @@ export const newSectionsButtonObject: {
   { icon: BsFillPeopleFill, text: "گروه جدید", target: "groupCreate" },
   { icon: HiSpeakerphone, text: "کانال جدید", target: "channelCreate" },
 ];
+
+export const BASE_URL = "http://185.60.136.202:8080/";
+// export const BASE_URL = "http://192.168.70.214:8080/";
