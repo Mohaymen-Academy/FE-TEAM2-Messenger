@@ -73,13 +73,6 @@ const Chat = () => {
     dispatch(onToggleUpload({ show: false }));
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("refresh_token");
-    if (!token) {
-      navigate("/auth/sign-in");
-    }
-  }, []);
-
   return (
     <div
       onClick={onChatClickHandler}

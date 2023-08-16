@@ -21,7 +21,15 @@ function App() {
   return (
     <div className={`${theme} h-full`}>
       <Routes>
-        <Route path="" element={<ProtectedRoutes isAuthenticated={true} />}>
+        <Route
+          path=""
+          element={
+            <ProtectedRoutes
+              // isAuthenticated={!!localStorage.getItem("refresh_token")}
+              isAuthenticated={true}
+            />
+          }
+        >
           <Route path="/chat" element={<Chat />} />
         </Route>
 
