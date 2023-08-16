@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { ReactEditor, Slate, withReact } from "slate-react";
-import { BaseEditor, Descendant, createEditor } from "slate";
+import {
+  BaseEditor,
+  Descendant,
+  createEditor,
+  Editor as SlateEditor,
+  Range,
+} from "slate";
 import EditableTextArea from "./EditableTextArea";
 import Tools from "./Tools";
+import { useDispatch, useSelector } from "react-redux";
+import { StoreStateTypes } from "@/utils/types";
+import { setIsSelected } from "@/redux/Slices/messageSlice";
 
 interface EditorProps {
   children: React.ReactNode;
@@ -22,6 +31,19 @@ declare module slate {
 
 const Editor = ({ children, initialValue }: EditorProps) => {
   const [editor] = useState(() => withReact(createEditor()));
+  const [isTextSelected, setIsTextSelected] = useState(false);
+  const dispatch = useDispatch();
+  const { isSelected } = useSelector((store: StoreStateTypes) => store.message);
+
+  const handleSelectionChange = useCallback(() => {
+    const { selection } = editor;
+    if (selection) {
+      const [start, end] = Range.edges(selection);
+      dispatch(setIsSelected(!Range.isCollapsed(selection) && start !== end));
+    } else {
+      dispatch(setIsSelected(false));
+    }
+  }, [editor.selection]);
 
   return (
     <div className="w-full">
@@ -29,6 +51,8 @@ const Editor = ({ children, initialValue }: EditorProps) => {
         editor={editor}
         initialValue={initialValue}
         onChange={(value) => {
+          handleSelectionChange();
+
           const isAtChange = editor.operations.some(
             (op) => op.type !== "set_selection"
           );
