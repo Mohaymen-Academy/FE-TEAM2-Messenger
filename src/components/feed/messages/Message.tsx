@@ -65,47 +65,45 @@ const Message: MessageComponent = ({ children , message,
          setShowContextMenu(true);
        }}
      >
-       {showContextMenu &&
-         sentByCurrentUser && (
-           <div
-             ref={contextMenuRef}
-             className="absolute"
-             style={{
-               top: contextMenuY - 150,
-               left: contextMenuX,
-               zIndex: 10,
+       {showContextMenu && sentByCurrentUser && (
+         <div
+           ref={contextMenuRef}
+           className="absolute"
+           style={{
+             top: contextMenuY - 150,
+             left: contextMenuX,
+             zIndex: 10,
+           }}
+         >
+           <ClickOutsideWrapper
+             onOutsideClick={() => {
+               setShowContextMenu(false);
              }}
            >
-             <ClickOutsideWrapper
-               onOutsideClick={() => {
-                 setShowContextMenu(false);
-               }}
-             >
-               <Context />
-             </ClickOutsideWrapper>
-           </div>
-         )}
+             <Context />
+           </ClickOutsideWrapper>
+         </div>
+       )}
 
-       {showContextMenu &&
-         !sentByCurrentUser &&(
-           <div
-             ref={contextMenuRef}
-             className="absolute"
-             style={{
-               top: contextMenuY - 100,
-               left: contextMenuX,
-               zIndex: 10,
+       {showContextMenu && !sentByCurrentUser && (
+         <div
+           ref={contextMenuRef}
+           className="absolute"
+           style={{
+             top: contextMenuY - 100,
+             left: contextMenuX,
+             zIndex: 10,
+           }}
+         >
+           <ClickOutsideWrapper
+             onOutsideClick={() => {
+               setShowContextMenu(false);
              }}
            >
-             <ClickOutsideWrapper
-               onOutsideClick={() => {
-                 setShowContextMenu(false);
-               }}
-             >
-               <Context />
-             </ClickOutsideWrapper>
-           </div>
-         )}
+             <Context />
+           </ClickOutsideWrapper>
+         </div>
+       )}
 
        {!sentByCurrentUser && groupMessage && (
          <div className="flex justify-end self-end">
@@ -164,7 +162,7 @@ const Message: MessageComponent = ({ children , message,
                )}
              </div>
              {sentByCurrentUser && (
-               <div className="w-0 h-0 absolute bottom-0 border-t-[10px] border-t-transparent border-l-[10px] border-l-lime-100 dark:border-l-sky-600 -right-[10px] border-b-transparent" />
+               <div className="w-0 h-0 absolute bottom-0 border-t-[10px] border-t-transparent border-l-[10px] border-l-lime-100 dark:border-l-purple-900 -right-[10px] border-b-transparent" />
              )}
              {!sentByCurrentUser && (
                <div

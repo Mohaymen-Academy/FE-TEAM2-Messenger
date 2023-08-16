@@ -15,7 +15,7 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({ privateMessage }) => {
         <div className="flex gap-3 w-full">
           <Avatar className="w-12 h-12" />
           <div className="flex flex-col gap-2">
-            <Paragraph className="!text-sm ">بهروز</Paragraph>
+            <Paragraph className="!text-md ">بهروز</Paragraph>
             <Paragraph className="self-end  !text-xs">
               آخرین بازدید به تازگی
             </Paragraph>
