@@ -21,20 +21,19 @@ function App() {
   return (
     <div className={`${theme} h-full`}>
       <Routes>
-        <Route path="" element={<ProtectedRoutes isAuthenticated={true}/>}>
+        <Route path="" element={<ProtectedRoutes isAuthenticated={true} />}>
           <Route path="/chat" element={<Chat />} />
         </Route>
 
         <Route path="/playground" element={<Playground />} />
-        
+
         <Route path="/auth" element={<Auth />}>
           <Route path="sign-in" element={<Login />} />
-          <Route path="varification" element={<NumberVerification />} />
+          <Route path="verification" element={<NumberVerification />} />
           <Route path="register" element={<Register />} />
         </Route>
 
-        <Route path="*" element={<NoMatch /> } />
-        
+        <Route path="*" element={<NoMatch />} />
       </Routes>
       <ToastContainer theme={theme} rtl={true} closeButton={<></>} />
     </div>

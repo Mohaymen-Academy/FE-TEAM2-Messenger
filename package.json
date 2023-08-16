@@ -13,25 +13,19 @@
     "@emoji-mart/data": "^1.1.2",
     "@emoji-mart/react": "^1.1.1",
     "@reduxjs/toolkit": "^1.9.5",
-    "@types/draft-js": "^0.11.12",
     "axios": "^1.4.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
-    "draft-js": "^0.11.7",
-    "draftjs-to-html": "^0.9.1",
     "emoji-mart": "^5.5.2",
     "framer-motion": "^10.15.1",
-    "html-to-draftjs": "^1.5.0",
     "react": "^18.2.0",
     "react-country-flag": "^3.1.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-draft-wysiwyg": "^1.15.0",
-    "react-filepond": "^7.1.2",
     "react-hook-form": "^7.45.4",
     "react-icons": "^4.10.1",
     "react-query": "^3.39.3",
-    "react-quill": "^2.0.0",
     "react-redux": "^8.1.2",
     "react-router-dom": "^6.14.2",
     "react-spinners": "^0.13.8",
@@ -41,8 +35,7 @@
     "slate": "^0.94.1",
     "slate-hyperscript": "^0.77.0",
     "slate-react": "^0.98.1",
-    "tailwind-merge": "^1.14.0",
-    "vite-plugin-pwa": "^0.16.4"
+    "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -63,6 +56,7 @@
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
+    "vite-plugin-pwa": "^0.16.4",
     "vite-tsconfig-paths": "^4.2.0"
   }
 }

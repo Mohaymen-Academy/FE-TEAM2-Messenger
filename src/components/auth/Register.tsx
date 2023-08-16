@@ -8,6 +8,7 @@ import { StoreStateTypes } from "@/utils/types";
 import { useState } from "react";
 import { sendPicture, updateInfo } from "@/services/api/user";
 import useToastify from "@/hooks/useTostify";
+import { useMutation } from "react-query";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -15,6 +16,26 @@ const Register = () => {
   const [formData, setFormData] = useState(new FormData());
   const [pictureUrl, setPictureUrl] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const useRegisterMutation = () => {
+    return useMutation((formData: FormData) => {
+      return sendPicture(formData);
+    });
+  };
+
+  const sendPictureMutation = useMutation(sendPicture, {
+    onError: (error) => {
+      console.log(error);
+      toastify.error("متاسفانه عکس ذخیره نگردید لطفا مجددا تلاش فرمایید");
+    },
+  });
+
+  const setInfoMutation = useMutation(updateInfo, {
+    onError: (error) => {
+      console.log(error);
+      toastify.error("اطلاعات دخیره نگردید لطفا مجددا تلاش فرمایید");
+    },
+  });
 
   const userId = useSelector(
     (store: StoreStateTypes) => store.user.user.userId
@@ -35,27 +56,24 @@ const Register = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { fName, lName } = data;
     setLoading(true);
-    try {
-      await sendPicture(formData);
-      await updateInfo({
-        userId: userId,
-        firstName: fName,
-        lastName: lName,
-        bio: undefined,
-        email: undefined,
-      });
 
+    try {
+      await Promise.all([
+        sendPictureMutation.mutateAsync(formData),
+        setInfoMutation.mutateAsync({
+          userId: userId,
+          firstName: fName,
+          lastName: lName,
+          bio: undefined,
+          email: undefined,
+        }),
+      ]);
       toastify.success("اطلاعات با موفقیت ذخیره شد");
+      navigate("/chat");
     } catch (error: any) {
       console.log(error);
-      if (error.message === "Network Error") {
-        toastify.error(
-          "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید"
-        );
-      } else {
-        toastify.error("اطلاعات ذخیره نگردید، مشکلی به وجود آمده است");
-      }
     }
+
     setLoading(false);
   };
 
@@ -73,7 +91,7 @@ const Register = () => {
   };
 
   return (
-    <div className="dark w-full h-full flex flex-col items-center bg-primary p-8 rounded-2xl">
+    <div className="dark flex flex-col items-center bg-primary p-8 rounded-2xl">
       <ProfileUploader
         imgUrl={pictureUrl}
         setImage={setValue}

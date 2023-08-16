@@ -20,7 +20,10 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
   const toastify = useToastify();
   const conversationItemsQueryResponse = useQuery(
     ["conversations"],
-    getAllChat
+    getAllChat,
+    {
+      refetchInterval: 5000,
+    }
   );
   const conversationItems = conversationItemsQueryResponse?.data?.data;
 
@@ -59,13 +62,14 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
               ) : (
                 conversationItems.map((item: ChatItem) => (
                   <ConversationItem
+                    key={item.chatId}
                     onDeleteConversation={() => {}}
                     onClickConversation={() => {}}
                     conversation={item}
                     isSelected={selectedConversation === item.chatId}
                   />
                 ))
-              )} */}
+              )}
             </div>
           </div>
         </div>

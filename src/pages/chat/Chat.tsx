@@ -11,15 +11,15 @@ import FeedWrapper from "@/components/feed/FeedWrapper";
 // } from "react-device-detect";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
-import { useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useMemo } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import useViewportWidth from "@/hooks/useViewportWidth";
 import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
 import ProfileWrapper from "@/components/profile/ProfileWrapper";
-import { Button } from "@/components/ui";
 
 const Chat = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const viewPortWidth = useViewportWidth();
   // const userIsInMobile = (isAndroid || isIOS) && isMobile;
   const showConversation = useSelector(
@@ -72,6 +72,14 @@ const Chat = () => {
     dispatch(onToggleEmoji({ show: false }));
     dispatch(onToggleUpload({ show: false }));
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("refresh_token");
+    if (!token) {
+      navigate("/auth/sign-in");
+    }
+  }, []);
+
   return (
     <div
       onClick={onChatClickHandler}
