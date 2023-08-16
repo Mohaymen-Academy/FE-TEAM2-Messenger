@@ -32,7 +32,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    console.log(type);
     const registerValidator = useMemo(() => {
       if (register && formId)
         return register(formId, { required, pattern: patternFrom });

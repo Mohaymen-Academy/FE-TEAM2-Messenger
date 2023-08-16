@@ -29,7 +29,7 @@ const Login = () => {
   } = useForm<FieldValues>({
     defaultValues: {
       phoneNumber: "",
-    },
+  },
   });
 
   // const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -41,7 +41,6 @@ const Login = () => {
     try {
       const { data, status } = await loginApi("0" + phoneNumber);
       console.log(data);
-
       if (status === 200) {
         dispatch(setEnteredPhoneNumber({ phone: "0" + phoneNumber }));
         navigate("/auth/numberVerification");

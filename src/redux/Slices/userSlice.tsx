@@ -35,13 +35,9 @@ const userSlice = createSlice({
     setUser: (
       state: userSliceType,
       actions: {
-        payload: {
-          user: User;
-        };
+        payload: User;
       }
     ) => {
-      console.log("dispatched");
-      console.log(actions.payload);
       state.user = actions.payload;
     },
   },

@@ -7,9 +7,5 @@ const bgColors = [
   "#ec4899",
 ];
 
-export function getRandomColor(): string {
-  const randomIndex = Math.floor(Math.random() * bgColors.length);
-  // console.log(bgColors[randomIndex]);
-
-  return bgColors[randomIndex];
-}
+export const getRandomColor = () =>
+  bgColors[Math.floor(Math.random() * bgColors.length)];
