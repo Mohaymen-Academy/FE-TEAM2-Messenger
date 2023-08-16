@@ -1,5 +1,7 @@
 import { EmojiMartData } from "@emoji-mart/data";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { BaseEditor, createEditor } from "slate";
+import { ReactEditor, withReact } from "slate-react";
 
 export type messageSliceType = {
   message: string;

@@ -14,6 +14,8 @@ import { Paragraph } from "@/components/ui";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import axios from "axios";
 import Editor from "@/components/editor";
+import { withReact } from "slate-react";
+import { createEditor } from "slate";
 
 const initialValue = [
   {
@@ -25,6 +27,7 @@ const initialValue = [
 const TextArea = ({ value }: { value: string }) => {
   const [textareaHeight, setTextAreaHeight] = useState("auto");
   const dispatch = useDispatch();
+  const [editor] = useState(() => withReact(createEditor()));
 
   const showEmoji = useSelector(
     (store: StoreStateTypes) => store.app.showEmoji
@@ -93,23 +96,34 @@ const TextArea = ({ value }: { value: string }) => {
         size="sm"
         className="group"
       >
-        <AiOutlinePaperClip className="w-5 h-5" />
-        <span className="sr-only">Upload File</span>
-      </Button>
-      <Button
-        variant="ghost"
-        size="sm"
-        className="group"
-        onClick={(e) => {
-          e.stopPropagation();
-          dispatch(onToggleEmoji({ show: !showEmoji }));
-        }}
-      >
-        <BsEmojiLaughing className="w-5 h-5" />
-        <span className="sr-only">Add emoji</span>
-      </Button>
-      <div className="w-full">
-        <Editor initialValue={initialValue}>
+        <Button
+          onClick={(e) => {
+            e.stopPropagation();
+            dispatch(onToggleUpload({ show: !showUploadMenu }));
+          }}
+          variant="ghost"
+          size="sm"
+          className="group"
+        >
+          <AiOutlinePaperClip className="w-5 h-5" />
+          <span className="sr-only">Upload File</span>
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="sm"
+          className="group"
+          onClick={(e) => {
+            e.stopPropagation();
+            dispatch(onToggleEmoji({ show: !showEmoji }));
+          }}
+        >
+          <BsEmojiLaughing className="w-5 h-5" />
+          <span className="sr-only">Add emoji</span>
+        </Button>
+
+        <Editor initialValue={initialValue} editor={editor}>
+
           <Editor.ToolBar />
           <Editor.Input />
         </Editor>
@@ -122,6 +136,7 @@ const TextArea = ({ value }: { value: string }) => {
       {/* absolute positioning*/}
       {/* Emoji menu */}
       <Emoji
+        editor={editor}
         className={clsx(
           "bottom-16 duration-300 md:absolute right-0 font-normal overflow-hidden h-0 w-full md:w-0 opacity-0",
           { "h-[300px] md:h-[450px] md:w-[400px] opacity-1": showEmoji }

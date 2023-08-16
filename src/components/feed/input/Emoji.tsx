@@ -4,13 +4,15 @@ import Picker from "@emoji-mart/react";
 import { useDispatch, useSelector } from "react-redux";
 import { merge } from "@/utils/merge";
 import { StoreStateTypes } from "@/utils/types";
-import { Entity } from "draft-js";
+import { BaseEditor, Node, Transforms } from "slate";
+import { ReactEditor } from "slate-react";
 
-interface EmojiProps extends HTMLAttributes<HTMLDivElement> {}
+interface EmojiProps extends HTMLAttributes<HTMLDivElement> {
+  editor: BaseEditor & ReactEditor;
+}
 
-const Emoji: React.FC<EmojiProps> = ({ className, ...props }) => {
+const Emoji: React.FC<EmojiProps> = ({ editor, className, ...props }) => {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
-  const dispatch = useDispatch();
 
   return (
     <div
@@ -20,7 +22,9 @@ const Emoji: React.FC<EmojiProps> = ({ className, ...props }) => {
     >
       <Picker
         data={data}
-        // onEmojiSelect={EmojiEntity}
+        onEmojiSelect={(emoji: EmojiMartData) =>
+          Transforms.insertText(editor, emoji.native)
+        }
         theme={theme}
         categories={["people", "activity", "flags"]}
         emojiButtonColors={[]}
