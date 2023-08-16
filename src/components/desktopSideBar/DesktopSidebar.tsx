@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { clsx } from "clsx";
-import { BsBroadcastPin, BsFillPeopleFill, BsFillPersonFill } from "react-icons/bs";
+import { BsFillPeopleFill, BsFillPersonFill } from "react-icons/bs";
 import { HiSpeakerphone } from "react-icons/hi";
 import { MdLogout } from "react-icons/md";
 import { FiEdit2 } from "react-icons/fi";
@@ -9,12 +9,21 @@ import { AnimatedButton, Avatar, Button } from "../ui";
 import { StoreStateTypes } from "@/utils/types";
 import { BiMoon, BiSun } from "react-icons/bi";
 import { toggleTheme } from "@/redux/Slices/appSlice";
+import { emptyUser } from "@/redux/Slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const theme = useSelector((store: StoreStateTypes) => store.app.theme);
   const onEditClickHandler = () => {
     dispatch(setSection({ selectedState: "pvCreate" }));
+  };
+  const onLogOutClickHandler = () => {
+    dispatch(emptyUser());
+    navigate("/auth/sign-in");
+    window.localStorage.removeItem("access_token");
+    window.localStorage.removeItem("refresh_token");
   };
   return (
     <div
@@ -47,7 +56,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             <FiEdit2 className="icon-button" />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
-            <MdLogout className="icon-button" />
+            <MdLogout onClick={onLogOutClickHandler} className="icon-button" />
           </Button>
           <AnimatedButton
             FirstIcon={BiSun}

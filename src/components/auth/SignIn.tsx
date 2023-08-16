@@ -7,21 +7,23 @@ import { loginApi } from "@/services/api/authentication";
 import { toast } from "react-toastify";
 import { setEnteredPhoneNumber } from "@/redux/Slices/userSlice";
 import { useDispatch } from "react-redux";
-
-const countries = [
-  {
-    dialCode: "98",
-    country: "IR",
-  },
-  {
-    dialCode: "1",
-    country: "US",
-  },
-];
+import { useMutation } from "react-query";
+import { countries } from "@/utils/constants";
+import { useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
+  const useSignInMutation = () => {
+    return useMutation((phoneNumber: string) => {
+      return loginApi("0" + phoneNumber);
+    });
+  };
+
+  const { mutate: signInMutate } = useSignInMutation();
+
   const {
     register,
     handleSubmit,
@@ -29,38 +31,35 @@ const Login = () => {
   } = useForm<FieldValues>({
     defaultValues: {
       phoneNumber: "",
-  },
+    },
   });
-
-  // const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-  //   const { phoneNumber } = data;
-  // };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { phoneNumber } = data;
-    try {
-      const { data, status } = await loginApi("0" + phoneNumber);
-      console.log(data);
-      if (status === 200) {
-        dispatch(setEnteredPhoneNumber({ phone: "0" + phoneNumber }));
-        navigate("/auth/varificatoin");
-      } else {
-        throw new Error("ورود ناموفق، لطفا دوباره تلاش کنید");
-      }
-      toast("کد تایید پیامک گردید");
-    } catch (error: any) {
-      console.error(error);
-      if (error.message === "Network Error")
-        toast.error(
-          "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید"
-        );
-      toast.error("ورود ناموفق، لطفا دوباره تلاش کنید");
-    }
+
+    setLoading(true);
+
+    signInMutate(phoneNumber, {
+      onSuccess(data, variables, _) {
+        console.log(data?.data);
+        dispatch(setEnteredPhoneNumber({ phone: `0${variables}` }));
+        navigate("/auth/verification");
+      },
+      onError(error: any, _, __) {
+        if (error.message === "Network Error")
+          toast.error(
+            "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید"
+          );
+        toast.error("ورود ناموفق، لطفا دوباره تلاش کنید");
+      },
+      onSettled() {
+        setLoading(false);
+      },
+    });
   };
 
   return (
     <div className="w-screen flex flex-col items-center gap-3">
-      {/* <img className="h-48 p-2 bg-gray-100 dark:bg-gray-800 rounded-full" src={Iris}  /> */}
       <Paragraph size="2xl" className="!text-black dark:!text-white">
         پیام رسان آیریس
       </Paragraph>
@@ -84,6 +83,7 @@ const Login = () => {
         </div>
 
         <Button
+          isLoading={loading}
           onClick={handleSubmit(onSubmit)}
           size="lg"
           className="text-white"
