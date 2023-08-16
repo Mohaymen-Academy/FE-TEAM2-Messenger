@@ -44,7 +44,7 @@ const Login = () => {
 
       if (status === 200) {
         dispatch(setEnteredPhoneNumber({ phone: "0" + phoneNumber }));
-        navigate("/auth/numberVerification");
+        navigate("/auth/varificatoin");
       } else {
         throw new Error("ورود ناموفق، لطفا دوباره تلاش کنید");
       }

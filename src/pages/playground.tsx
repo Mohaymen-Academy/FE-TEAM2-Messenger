@@ -8,7 +8,7 @@ const playground = () => {
   const user = useSelector((store: StoreStateTypes) => store.user.user);
 
   const onTestButtonClickHandler = async () => {
-    const query = useQuery("todos", getAllChat);
+    // const query = useQuery("todos", getAllChat);
     // const data = await getAllChat();
     // console.log(data);
     // user;
