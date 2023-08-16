@@ -10,6 +10,7 @@ import { StoreStateTypes } from "@/utils/types";
 import axios from "axios";
 import apiCall from "@/services/axiosInstance";
 import { useEffect, useState } from "react";
+import useToastify from "@/hooks/useTostify";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -34,6 +35,8 @@ const Register = () => {
 
   const file = watch("profilePicture");
   console.log(file);
+
+  const toastify = useToastify();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { profilePicture, fName, lName, bio } = data;
@@ -61,13 +64,13 @@ const Register = () => {
       ///sen to server logic here
       // navigate("/chat");
 
-      toast.success("اطلاعات با موفقیت ذخیره شد");
+      toastify.success("اطلاعات با موفقیت ذخیره شد");
     } catch (error: any) {
       if (error.message === "Network Error")
-        toast.error(
+        toastify.error(
           "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید"
         );
-      toast.error("اطلاعات ذخیره نگردید، مشکلی به وجود آمده است");
+      toastify.error("اطلاعات ذخیره نگردید، مشکلی به وجود آمده است");
     }
   };
 

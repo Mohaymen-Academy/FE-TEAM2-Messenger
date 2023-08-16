@@ -7,6 +7,8 @@ import { loginApi } from "@/services/api/authentication";
 import { toast } from "react-toastify";
 import { setEnteredPhoneNumber } from "@/redux/Slices/userSlice";
 import { useDispatch } from "react-redux";
+import useToastify from "@/hooks/useTostify";
+import { positions } from "slate";
 
 const countries = [
   {
@@ -35,6 +37,7 @@ const Login = () => {
   // const onSubmit: SubmitHandler<FieldValues> = async (data) => {
   //   const { phoneNumber } = data;
   // };
+   const toastify = useToastify();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { phoneNumber } = data;
@@ -52,10 +55,10 @@ const Login = () => {
     } catch (error: any) {
       console.error(error);
       if (error.message === "Network Error")
-        toast.error(
-          "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید"
+        toastify.error(
+          "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید",
         );
-      toast.error("ورود ناموفق، لطفا دوباره تلاش کنید");
+      toastify.error("ورود ناموفق، لطفا دوباره تلاش کنید");
     }
   };
 

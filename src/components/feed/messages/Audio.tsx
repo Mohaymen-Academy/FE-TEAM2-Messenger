@@ -255,16 +255,16 @@ const Audio: React.FC<AudioProps> = ({ src }) => {
       <div>
         <audio ref={audioPlayer} src={src} preload="metadata"></audio>
 
-        <button className="rounded-full flex justify-center items-center relative">
+        
           <AnimatedButton
-            className="rounded-full w-12 h-12 dark:bg-slate-600 dark:hover:!bg-slate-800 bg-blue-500 hover:!bg-blue-400 "
+            className="rounded-full flex justify-center items-center relative w-12 h-12 dark:bg-slate-600 dark:hover:!bg-slate-800 bg-slate-500 hover:!bg-slate-600 "
             onClick={togglePlayPause}
             FirstIcon={FaPlay}
             size={20}
             SecondIcon={FaPause}
             isActive={isPlaying}
           />
-        </button>
+      
 
         <button
           className="rounded-full absolute bottom-9 right-4"

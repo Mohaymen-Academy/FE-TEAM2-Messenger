@@ -8,6 +8,7 @@ import { useState } from "react";
 import { numberConfirmation } from "@/services/api/authentication";
 import { toast } from "react-toastify";
 import { setUser } from "@/redux/Slices/userSlice";
+import useToastify from "@/hooks/useTostify";
 
 const NumberVerification = () => {
   const [loading, setLoading] = useState(false);
@@ -16,6 +17,8 @@ const NumberVerification = () => {
   const phoneNumber = useSelector(
     (store: StoreStateTypes) => store.user.enteredPhoneNumber
   );
+
+  const toastify = useToastify();
 
   const submit = async (code: string) => {
     setLoading(true);
@@ -30,6 +33,7 @@ const NumberVerification = () => {
       window.localStorage.setItem("access_token", access_token);
       window.localStorage.setItem("refresh_token", refresh_token);
 
+       
       if (registered) {
         navigate("/auth/register");
       } else {
@@ -38,12 +42,14 @@ const NumberVerification = () => {
     } catch (error: any) {
       console.error(error);
       if (error.request.status === 403) {
-        toast.error("کد وارد شده مورد تایید نمی‌باشد");
+        toastify.error("کد وارد شده مورد تایید نمی‌باشد");
       } else {
-        toast.error("مشکلی پیش آمده است، لطفا مجددا تلاش فرمایید");
+        toastify.error("مشکلی پیش آمده است، لطفا مجددا تلاش فرمایید");
       }
     }
     setLoading(false);
+
+   
   };
   return (
     <div>
