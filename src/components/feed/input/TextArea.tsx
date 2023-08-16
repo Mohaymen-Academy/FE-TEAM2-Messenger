@@ -14,17 +14,20 @@ import { Paragraph } from "@/components/ui";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import axios from "axios";
 import Editor from "@/components/editor";
+import { withReact } from "slate-react";
+import { createEditor } from "slate";
 
 const initialValue = [
   {
     type: "paragraph",
-    children: [{ text: "A line of text in a paragraph." }],
+    children: [{ text: "" }],
   },
 ];
 
 const TextArea = ({ value }: { value: string }) => {
   const [textareaHeight, setTextAreaHeight] = useState("auto");
   const dispatch = useDispatch();
+  const [editor] = useState(() => withReact(createEditor()));
 
   const showEmoji = useSelector(
     (store: StoreStateTypes) => store.app.showEmoji
@@ -50,55 +53,20 @@ const TextArea = ({ value }: { value: string }) => {
     setTextAreaHeight(newHeight);
   };
 
-  const onMediaUploadHandler = async (
-    filesInput: ChangeEvent<HTMLInputElement>
-  ) => {
-    if (!filesInput.target.files) return;
 
-    //get the selected file details
-    if (!filesInput.target.files) return;
-    const file = filesInput.target.files[0];
-
-    //create a FormData instance and append needed
-    //data to it, as cloadinary only accepts formData
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const { data: uploadResponse } = await axios.post(
-      `https://api.escuelajs.co/api/v1/files/upload`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        onUploadProgress: function (progressEvent) {
-          if (!progressEvent.total) return;
-          var percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
-          console.log(percentCompleted);
-        },
-      }
-    );
-    console.log(uploadResponse);
-  };
+  
 
   return (
-    <div className="relative">
-      {/* <Controls
-        className={clsx("transition-all duration-300 opacity-0", {
-          "-top-10 opacity-100": isSelected,
-        })}
-      /> */}
-      <label htmlFor="chat" className="sr-only">
-        پیام شما
-      </label>
-      <div
-        className={merge(
-          "flex gap-1 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 items-center",
-          textareaHeight !== "auto" && "items-end"
-        )}
-      >
+    <div className="relative flex max-w-full w-full bg-primary px-3 py-2 justify-center items-center gap-2 rounded-lg">
+      <Button
+        onClick={(e) => {
+          e.stopPropagation();
+          dispatch(onToggleUpload({ show: !showUploadMenu }));
+        }}
+        variant="ghost"
+        size="sm"
+        className="group"
+      >Upload Menu </Button>
         <Button
           onClick={(e) => {
             e.stopPropagation();
@@ -125,23 +93,26 @@ const TextArea = ({ value }: { value: string }) => {
           <span className="sr-only">Add emoji</span>
         </Button>
 
-        <Editor initialValue={initialValue}>
-          <Editor.ToolsBar />
+        <Editor initialValue={initialValue} editor={editor}>
+
+          <Editor.ToolBar />
           <Editor.Input />
         </Editor>
-
-        <Button variant="ghost" size="sm" className="hover:bg-blue-100 group">
-          <BsFillSendFill className="w-5 h-5 text-cyan-700 dark:text-cyan-300" />
-          <span className="sr-only">Send message</span>
-        </Button>
-      </div>
+      {/* </div> */}
+      <Button variant="ghost" size="sm" className="hover:bg-blue-100 group">
+        <BsFillSendFill className="w-5 h-5 text-cyan-700 dark:text-cyan-300" />
+        <span className="sr-only">Send message</span>
+      </Button>
+      
+      {/* absolute positioning*/}
+      {/* Emoji menu */}
       <Emoji
+        editor={editor}
         className={clsx(
           "bottom-16 duration-300 md:absolute right-0 font-normal overflow-hidden h-0 w-full md:w-0 opacity-0",
           { "h-[300px] md:h-[450px] md:w-[400px] opacity-1": showEmoji }
         )}
       />
-
       {/* upload menu */}
       <div
         className={clsx(
@@ -157,7 +128,6 @@ const TextArea = ({ value }: { value: string }) => {
               className="hidden"
               type="file"
               accept=".jpg, .png, .mp4"
-              onChange={onMediaUploadHandler}
             />
 
             <Paragraph size="xs" className="w-full flex items-center gap-3">

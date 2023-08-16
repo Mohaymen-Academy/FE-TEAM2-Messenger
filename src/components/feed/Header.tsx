@@ -49,6 +49,17 @@ const Header = () => {
           <BsThreeDotsVertical />
         </Button>
       </div>
+      <Button
+        className="flex md:hidden relative w-12 h-12 hover:bg-btn-ghost"
+        onClick={() => navigate("/chat")}
+        variant="ghost"
+      ></Button>
+      <Button
+        className="flex relative w-12 h-12 hover:bg-btn-ghost"
+        onClick={() => dispatch(setShow({ show: true }))}
+      >
+        Profile
+      </Button>
     </div>
   );
 };

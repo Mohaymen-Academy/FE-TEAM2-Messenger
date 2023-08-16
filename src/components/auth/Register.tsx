@@ -3,75 +3,80 @@ import { Button } from "../ui";
 import { useNavigate } from "react-router-dom";
 import ProfileUploader from "../wrappers/FileUploader";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
-import { toast } from "react-toastify";
-import { sendPicture } from "@/services/api/authentication";
 import { useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
-import axios from "axios";
-import apiCall from "@/services/axiosInstance";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { sendPicture, updateInfo } from "@/services/api/user";
 import useToastify from "@/hooks/useTostify";
+import { useMutation } from "react-query";
 
 const Register = () => {
   const navigate = useNavigate();
+  const toastify = useToastify();
   const [formData, setFormData] = useState(new FormData());
   const [pictureUrl, setPictureUrl] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const user = useSelector((store: StoreStateTypes) => store);
+  const useRegisterMutation = () => {
+    return useMutation((formData: FormData) => {
+      return sendPicture(formData);
+    });
+  };
+
+  const sendPictureMutation = useMutation(sendPicture, {
+    onError: (error) => {
+      console.log(error);
+      toastify.error("متاسفانه عکس ذخیره نگردید لطفا مجددا تلاش فرمایید");
+    },
+  });
+
+  const setInfoMutation = useMutation(updateInfo, {
+    onError: (error) => {
+      console.log(error);
+      toastify.error("اطلاعات دخیره نگردید لطفا مجددا تلاش فرمایید");
+    },
+  });
+
+  const userId = useSelector(
+    (store: StoreStateTypes) => store.user.user.userId
+  );
   const {
     register,
     setValue,
     handleSubmit,
-    watch,
     // formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      profilePicture: new FormData(),
       fName: "",
       lName: "",
       bio: "",
     },
   });
 
-  const file = watch("profilePicture");
-  console.log(file);
 
-  const toastify = useToastify();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const { profilePicture, fName, lName, bio } = data;
+    const { fName, lName } = data;
+    setLoading(true);
+
     try {
-      const data = await sendPicture(formData);
-
-      // const { data: uploadResponse } = await axios.post(
-      //   `https://api.escuelajs.co/api/v1/files/upload`,
-      //   profilePicture,
-      //   {
-      //     headers: {
-      //       "Content-Type": "multipart/form-data",
-      //     },
-      //     onUploadProgress: function (progressEvent) {
-      //       if (!progressEvent.total) return;
-      //       var percentCompleted = Math.round(
-      //         (progressEvent.loaded * 100) / progressEvent.total
-      //       );
-      //       console.log(percentCompleted);
-      //     },
-      //   }
-      // );
-      console.log(data);
-
-      ///sen to server logic here
-      // navigate("/chat");
-
+      await Promise.all([
+        sendPictureMutation.mutateAsync(formData),
+        setInfoMutation.mutateAsync({
+          userId: userId,
+          firstName: fName,
+          lastName: lName,
+          bio: undefined,
+          email: undefined,
+        }),
+      ]);
       toastify.success("اطلاعات با موفقیت ذخیره شد");
+      navigate("/chat");
     } catch (error: any) {
-      if (error.message === "Network Error")
-        toastify.error(
-          "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید"
-        );
-      toastify.error("اطلاعات ذخیره نگردید، مشکلی به وجود آمده است");
+      console.log(error);
     }
+
+    setLoading(false);
   };
 
   const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +93,7 @@ const Register = () => {
   };
 
   return (
-    <div className="dark w-full h-full flex flex-col items-center bg-primary p-8 rounded-2xl">
+    <div className="dark flex flex-col items-center bg-primary p-8 rounded-2xl">
       <ProfileUploader
         imgUrl={pictureUrl}
         setImage={setValue}
@@ -114,7 +119,11 @@ const Register = () => {
         />
       </div>
 
-      <Button onClick={handleSubmit(onSubmit)} className="w-full">
+      <Button
+        isLoading={loading}
+        onClick={handleSubmit(onSubmit)}
+        className="w-full"
+      >
         تایید
       </Button>
     </div>

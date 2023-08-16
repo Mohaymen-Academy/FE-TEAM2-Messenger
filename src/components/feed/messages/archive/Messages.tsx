@@ -18,7 +18,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
     (store: StoreStateTypes) => store.profile.show
   );
   return (
-    <div className="flex flex-col justify-end overflow-hidden">
+    <div className="flex flex-col h-full justify-end overflow-hidden">
       <div
         className={clsx(
           "flex flex-col-reverse overflow-auto h-full px-2 lg:px-[5%] xl:px-[10%] custom-scrollbar transition-[padding]",
@@ -28,7 +28,6 @@ const Messages: React.FC<MessagesProps> = ({}) => {
         {/* {data.messages.map((msg) => (
           <MessageItem key={msg.id} message={msg} sentByCurrentUser={msg.sender?.id === userId} />
         ))} */}
-
 
         {/* <MessageItem
           groupMessage
@@ -85,17 +84,29 @@ const Messages: React.FC<MessagesProps> = ({}) => {
         <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} />
         <MessageItem groupMessage message={"سلام"} sentByCurrentUser={false} /> */}
 
-        <Message messageStatus="SEEN"  groupMessage={true} sentByCurrentUser={true}>
-          <Text  content="سلام جیگر طلاسشسشسسشسشسکمیمتیسبنتیستبمنیتبنبنیابنتیابنتیسزدتهیساعهیدسشتیهسشئزخسهتیهسشئطسشتینخسشئطستشیهختسشهخئسهخشیتختشستیخهسشیتخنسشتی"/>
+        <Message
+          messageStatus="SEEN"
+          groupMessage={true}
+          sentByCurrentUser={true}
+        >
+          <Text content="سلام جیگر طلاسشسشسسشسشسکمیمتیسبنتیستبمنیتبنبنیابنتیابنتیسزدتهیساعهیدسشتیهسشئزخسهتیهسشئطسشتینخسشئطستشیهختسشهخئسهخشیتختشستیخهسشیتخنسشتی" />
         </Message>
-        <Message messageStatus="PENDING" groupMessage={true} sentByCurrentUser={false}>
-          <Text content="سمیبنخهسیبتسیدزتسشایهتیدتسشیتهسشدیسشتیدتهسشدیتهسشیدسشدیسشهیادسشهدینتسیدهشسیتنسشدتنشیدشستبدیسشتدبتنشسبسشتدبتب"/>
+        <Message
+          messageStatus="PENDING"
+          groupMessage={true}
+          sentByCurrentUser={false}
+        >
+          <Text content="سمیبنخهسیبتسیدزتسشایهتیدتسشیتهسشدیسشتیدتهسشدیتهسشیدسشدیسشهیادسشهدینتسیدهشسیتنسشدتنشیدشستبدیسشتدبتنشسبسشتدبتب" />
         </Message>
-        <Message messageStatus="DELIVERED" groupMessage={false} sentByCurrentUser={true}>
-          <Image src={avatar}/>
+        <Message
+          messageStatus="DELIVERED"
+          groupMessage={false}
+          sentByCurrentUser={true}
+        >
+          <Image src={avatar} />
         </Message>
         <Message groupMessage={false} sentByCurrentUser={false}>
-          <Audio src={mu}/>
+          <Audio src={mu} />
         </Message>
       </div>
     </div>

@@ -35,18 +35,25 @@ const userSlice = createSlice({
     setUser: (
       state: userSliceType,
       actions: {
-        payload: {
-          user: User;
-        };
+        payload: User;
       }
     ) => {
-      console.log("dispatched");
-      console.log(actions.payload);
-      state.user = actions.payload.user;
+      state.user = actions.payload;
+    },
+    emptyUser: (state: userSliceType) => {
+      state.user = {
+        bio: "",
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+        userId: "",
+        userName: "",
+      };
+      state.enteredPhoneNumber = "";
     },
   },
 });
 
-export const { setEnteredPhoneNumber, setUser } = userSlice.actions;
+export const { setEnteredPhoneNumber, setUser, emptyUser } = userSlice.actions;
 
 export default userSlice.reducer;

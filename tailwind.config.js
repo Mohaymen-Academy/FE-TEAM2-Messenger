@@ -24,7 +24,7 @@ export default {
         primary: "var(--text-primary)",
         secondary: "var(--text-secondary)",
         white: "var(--text-white)",
-        blue: "var(--text-blue)",
+        "neon-blue": "var(--text-neon-blue)",
       },
       backgroundColor: {
         primary: "var(--bg-primary)",

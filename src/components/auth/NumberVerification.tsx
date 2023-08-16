@@ -3,11 +3,11 @@ import { Button } from "../ui";
 import { useNavigate } from "react-router-dom";
 import ConfirmationInput from "./input/ConfirmationCodeInput";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreStateTypes } from "@/utils/types";
+import { StoreStateTypes,} from "@/utils/types";
 import { useState } from "react";
 import { numberConfirmation } from "@/services/api/authentication";
-import { toast } from "react-toastify";
 import { setUser } from "@/redux/Slices/userSlice";
+import { QueryClient, useMutation, } from "react-query";
 import useToastify from "@/hooks/useTostify";
 
 const NumberVerification = () => {
@@ -17,39 +17,50 @@ const NumberVerification = () => {
   const phoneNumber = useSelector(
     (store: StoreStateTypes) => store.user.enteredPhoneNumber
   );
+  const queryClient = new QueryClient();
+
+  const useNumberConfirmationMutation = () => {
+    return useMutation((confirmData: { code: string; phoneNumber: string }) => {
+      return numberConfirmation(confirmData.code, confirmData.phoneNumber);
+    });
+  };
+
+  const { mutate: numberConfirmationMutate } = useNumberConfirmationMutation();
 
   const toastify = useToastify();
 
   const submit = async (code: string) => {
     setLoading(true);
-    try {
-      const { data } = await numberConfirmation(code, phoneNumber);
-      const { registered, access_token, refresh_token } = data;
+    numberConfirmationMutate(
+      { code, phoneNumber },
+      {
+        onSuccess(data, _, __) {
+          const { registered, access_token, refresh_token, user } = data.data;
+          dispatch(setUser(user));
+          window.localStorage.setItem("access_token", access_token);
+          window.localStorage.setItem("refresh_token", refresh_token);
 
-      //save user entity to redux
-      dispatch(setUser(data.user));
+          toastify.success("خوش آمدید");
 
-      //save tokens to local storage
-      window.localStorage.setItem("access_token", access_token);
-      window.localStorage.setItem("refresh_token", refresh_token);
-
-       
-      if (registered) {
-        navigate("/auth/register");
-      } else {
-        navigate("/chat");
+          if (registered) {
+            navigate("/auth/register");
+          } else {
+            navigate("/chat");
+          }
+        },
+        onError(error: any, _, __) {
+          console.error(error);
+          if (error.request.status === 403) {
+            toastify.error("کد وارد شده مورد تایید نمی‌باشد");
+          } else {
+            toastify.error("مشکلی پیش آمده است، لطفا مجددا تلاش فرمایید");
+          }
+        },
+        onSettled() {
+          setLoading(false);
+        },
       }
-    } catch (error: any) {
-      console.error(error);
-      if (error.request.status === 403) {
-        toastify.error("کد وارد شده مورد تایید نمی‌باشد");
-      } else {
-        toastify.error("مشکلی پیش آمده است، لطفا مجددا تلاش فرمایید");
-      }
-    }
-    setLoading(false);
-
-   
+    );
   };
   return (
     <div>
@@ -66,14 +77,7 @@ const NumberVerification = () => {
           <div className="flex">
             <ConfirmationInput submit={submit} length={5} />
           </div>
-          <Button
-            onClick={() => {
-              navigate("../register");
-            }}
-            size="lg"
-            className="text-white w-full"
-            isLoading={loading}
-          >
+          <Button size="lg" className="text-white w-full" isLoading={loading}>
             تایید کد
           </Button>
         </div>

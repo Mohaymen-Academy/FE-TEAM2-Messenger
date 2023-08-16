@@ -23,4 +23,11 @@ export type User = {
   userName: string;
 };
 
+export type ChatItem = {
+  chatId: number | string;
+  lastMessage: string;
+  media: any;
+  title: string;
+  userFirstName: string;
+};
 export type MessageStatus = "SEEN" | "DELIVERED" | "PENDING"
