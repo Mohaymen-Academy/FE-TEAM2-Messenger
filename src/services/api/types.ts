@@ -1,5 +1,5 @@
 export type getMessageParamsType = {
   chatId: string;
-  floor: string;
-  ceil: string;
+  floor: string | number;
+  ceil: string | number;
 };

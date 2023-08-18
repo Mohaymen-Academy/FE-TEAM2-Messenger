@@ -6,6 +6,9 @@ import test from "../../assets/img/darkBg.svg";
 import UnreadMessages from "./components/UnreadMesseges";
 import { ChatItem } from "@/utils/types";
 import HoverWrapper from "../wrappers/HoverWrapper";
+import { useEffect } from "react";
+import { getMessages } from "@/services/api/chat";
+import { queryClient } from "@/providers/queryClientProvider";
 
 interface ConversationItemProps {
   conversation: ChatItem;
@@ -39,6 +42,29 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       event.preventDefault();
     }
   };
+
+  //effect to prefetch first page of conversation's messages on mount
+  useEffect(() => {
+    const preFetchMessages = async () => {
+      const { data } = await getMessages({
+        chatId: `${conversation.chatId}`,
+        floor: 0,
+        ceil: 5,
+      });
+      return data;
+    };
+
+    //prefetch
+    queryClient.prefetchInfiniteQuery({
+      queryKey: [
+        {
+          user: "current",
+          conversation: `${conversation.chatId}`,
+        },
+      ],
+      queryFn: preFetchMessages,
+    });
+  }, []);
 
   return (
     <HoverWrapper type={isSelected ? "active" : "inActive"}>

@@ -5,7 +5,7 @@ const getAllChat = async () => {
   return apiCall.get("/api/chats/get-all-chats");
 };
 const getChat = async (chatId: string) => {
-  return apiCall.get(`/api/chats/get-chats/${chatId}`);
+  return apiCall.get(`/api/chats/get-chat/${chatId}`);
 };
 const getMessages = async (getMessageParams: getMessageParamsType) => {
   return apiCall.get(

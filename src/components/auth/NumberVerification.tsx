@@ -9,6 +9,7 @@ import { numberConfirmation } from "@/services/api/authentication";
 import { setUser } from "@/redux/Slices/userSlice";
 import { useMutation } from "react-query";
 import useToastify from "@/hooks/useTostify";
+import { queryClient } from "@/providers/queryClientProvider";
 
 const NumberVerification = () => {
   const [loading, setLoading] = useState(false);
@@ -34,6 +35,7 @@ const NumberVerification = () => {
       {
         onSuccess(data, _, __) {
           const { registered, access_token, refresh_token, user } = data.data;
+          queryClient.setQueryData([{ user: "current" }], user);
           dispatch(setUser(user));
           window.localStorage.setItem("access_token", access_token);
           window.localStorage.setItem("refresh_token", refresh_token);

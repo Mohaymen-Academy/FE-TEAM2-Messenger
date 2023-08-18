@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import MessageInput from "./messages/archive/MessageInput";
 import Messages from "./messages/archive/Messages";
 import SwipeWrapper from "@/components/ui/SwipeWrapper";
@@ -19,6 +19,8 @@ const FeedWrapper: React.FC<FeedWrapperProps> = ({
 }) => {
   const navigate = useNavigate();
   const theme = useSelector((store: StoreStateTypes) => store.app.theme);
+  const [URLSearchParams] = useSearchParams();
+  const selectedConversation = URLSearchParams.get("conversationId");
 
   return (
     <div
@@ -51,8 +53,16 @@ const FeedWrapper: React.FC<FeedWrapperProps> = ({
               <Header />
               <div className="h-[calc(100vh-61px)] w-full">
                 <div className="flex flex-col h-full gap-1 w-full">
-                  <Messages conversationId="12" userId={userId} />
-                  <MessageInput />
+                  {selectedConversation ? (
+                    <>
+                      <Messages conversationId="12" userId={userId} />
+                      <MessageInput />
+                    </>
+                  ) : (
+                    <div className="w-full h-full text-primary text-4xl grid place-content-center">
+                      پیام‌رسان آیریس
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

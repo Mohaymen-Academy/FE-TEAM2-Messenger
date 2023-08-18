@@ -13,11 +13,11 @@ import Context from "@/components/ui/Context";
 import ClickOutsideWrapper from "@/components/wrappers/ClickOutsideWrapper";
 
 interface MessageProps {
-  children: React.ReactNode;
-  message: string;
-  sentByCurrentUser: boolean;
-  groupMessage: boolean;
-  messageStatus: MessageStatus;
+  children?: React.ReactNode;
+  message?: string;
+  sentByCurrentUser?: boolean;
+  groupMessage?: boolean;
+  messageStatus?: MessageStatus;
 }
 
 interface MessageComponent extends React.FC<MessageProps> {
@@ -39,6 +39,7 @@ const Message: MessageComponent = ({
   const [contextMenuX, setContextMenuX] = useState(0);
   const [contextMenuY, setContextMenuY] = useState(0);
 
+  console.log(message);
   return (
     <div
       ref={containerRef}

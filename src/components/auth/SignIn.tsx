@@ -45,8 +45,8 @@ const Login = () => {
 
     signInMutate(phoneNumber, {
       onSuccess(data, variables, _) {
-        console.log(data?.data);
         dispatch(setEnteredPhoneNumber({ phone: `0${variables}` }));
+        toast.success(data?.data);
         navigate("/auth/verification");
       },
       onError(error: any, _, __) {

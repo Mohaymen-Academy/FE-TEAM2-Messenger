@@ -34,11 +34,7 @@ const Register = () => {
   const userId = useSelector(
     (store: StoreStateTypes) => store.user.user.userId
   );
-  const {
-    register,
-    setValue,
-    handleSubmit,
-  } = useForm<FieldValues>({
+  const { register, setValue, handleSubmit } = useForm<FieldValues>({
     defaultValues: {
       fName: "",
       lName: "",
@@ -50,22 +46,18 @@ const Register = () => {
     const { fName, lName } = data;
     setLoading(true);
 
-    try {
-      await Promise.all([
-        sendPictureMutation.mutateAsync(formData),
-        setInfoMutation.mutateAsync({
-          userId: userId,
-          firstName: fName,
-          lastName: lName,
-          bio: undefined,
-          email: undefined,
-        }),
-      ]);
-      toastify.success("اطلاعات با موفقیت ذخیره شد");
-      navigate("/chat");
-    } catch (error: any) {
-      console.log(error);
-    }
+    await Promise.all([
+      sendPictureMutation.mutateAsync(formData),
+      setInfoMutation.mutateAsync({
+        userId: userId,
+        firstName: fName,
+        lastName: lName,
+        bio: undefined,
+        email: undefined,
+      }),
+    ]);
+    toastify.success("اطلاعات با موفقیت ذخیره شد");
+    navigate("/chat");
 
     setLoading(false);
   };
