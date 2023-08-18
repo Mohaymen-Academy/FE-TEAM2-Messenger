@@ -66,6 +66,8 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     });
   }, []);
 
+  console.log(conversation);
+
   return (
     <HoverWrapper type={isSelected ? "active" : "inActive"}>
       <div
@@ -76,7 +78,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
         }`}
       >
         <div>
-          <Avatar isConversationList={true} imgSrc={test} isOnline={false} />
+          <Avatar isConversationList={true} imgSrc={test} />
         </div>
         <div className="w-full">
           <div className="flex items-center justify-between whitespace-nowrap w-full">
