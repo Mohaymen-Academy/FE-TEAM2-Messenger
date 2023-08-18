@@ -9,6 +9,13 @@ import HoverWrapper from "../wrappers/HoverWrapper";
 import { useEffect } from "react";
 import { getMessages } from "@/services/api/chat";
 import { queryClient } from "@/providers/queryClientProvider";
+import { useDispatch } from "react-redux";
+import { setSelectedConversation } from "@/redux/Slices/conversationSlice";
+import {
+  formatDateDifference,
+  formatDateToShamsiYear,
+  formatDateToTime,
+} from "@/utils/fromatData";
 
 interface ConversationItemProps {
   conversation: ChatItem;
@@ -27,17 +34,21 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
 }) => {
   // const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const conversationLastMessage = conversation.lastMessage || "No messages yet";
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
+      //change url search params to selected conversationId
       navigate({
         pathname: "/chat",
         search: createSearchParams({
           conversationId: conversation.chatId as string,
         }).toString(),
       });
+
+      //save selected conversation data in redux
+      dispatch(setSelectedConversation({ conversation }));
     } else if (event.type === "contextmenu") {
       event.preventDefault();
     }
@@ -66,8 +77,6 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     });
   }, []);
 
-  console.log(conversation);
-
   return (
     <HoverWrapper type={isSelected ? "active" : "inActive"}>
       <div
@@ -89,7 +98,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
               size={"xs"}
               className="text-sm text-bg-btn whitespace-nowrap"
             >
-              1402.12.30
+              {formatDateDifference(conversation.sentAt)}
             </Paragraph>
           </div>
 

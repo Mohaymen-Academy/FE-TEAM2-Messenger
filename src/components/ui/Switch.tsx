@@ -10,7 +10,7 @@ const Switch: React.FC<switchProps> = ({ isChecked, onClick }) => {
         <div className="relative">
           <input
             type="checkbox"
-            checked={isChecked}
+            defaultChecked={isChecked}
             className="sr-only"
             onClick={onClick}
           />

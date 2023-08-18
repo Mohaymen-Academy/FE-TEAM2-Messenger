@@ -7,7 +7,7 @@ export type profileSliceType = {
 
 const initialState: profileSliceType = {
   section: "personal",
-  show: true,
+  show: false,
 };
 
 const profileSlice = createSlice({

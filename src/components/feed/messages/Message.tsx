@@ -7,31 +7,32 @@ import avatar from "../../../assets/img/avatar.jpg";
 import clsx from "clsx";
 import { BsCheckAll } from "react-icons/bs";
 import { BiCheck } from "react-icons/bi";
-import { MessageStatus } from "@/utils/types";
+import { MessageStatus, MessageTypes } from "@/utils/types";
 import { ClockLoader } from "react-spinners";
 import Context from "@/components/ui/Context";
 import ClickOutsideWrapper from "@/components/wrappers/ClickOutsideWrapper";
+import { formatDateToShamsiYear, formatDateToTime } from "@/utils/fromatData";
 
-interface MessageProps {
+interface MessageComponent {
   children?: React.ReactNode;
-  message?: string;
+  message: MessageTypes;
   sentByCurrentUser?: boolean;
   groupMessage?: boolean;
   messageStatus?: MessageStatus;
-}
-
-interface MessageComponent extends React.FC<MessageProps> {
   TextMessage?: typeof Text;
   ImageMessage?: typeof Image;
   VoiceMessage?: typeof Voice;
 }
 
-const Message: MessageComponent = ({
+const Message: React.FC<MessageComponent> = ({
   children,
   message,
   sentByCurrentUser,
   groupMessage,
   messageStatus,
+  // TextMessage,
+  // ImageMessage,
+  // VoiceMessage,
 }) => {
   const [showContextMenu, setShowContextMenu] = useState(false);
   const containerRef = useRef(null);
@@ -39,7 +40,6 @@ const Message: MessageComponent = ({
   const [contextMenuX, setContextMenuX] = useState(0);
   const [contextMenuY, setContextMenuY] = useState(0);
 
-  console.log(message);
   return (
     <div
       ref={containerRef}
@@ -112,15 +112,6 @@ const Message: MessageComponent = ({
       <div className="flex flex-col gap-1 w-full relative">
         <div
           className={`
-            flex
-            items-center
-            gap-2
-            justify-${sentByCurrentUser ? "start" : "end"}
-            ${!sentByCurrentUser && "flex-row-reverse self-end"}
-          `}
-        ></div>
-        <div
-          className={`
             flex 
             justify-${sentByCurrentUser ? "start" : "end"}
             relative
@@ -142,16 +133,15 @@ const Message: MessageComponent = ({
                 size={"xs"}
                 className="font-bold text-left self-start m-0 text-primary"
               >
-                مصطفی
+                [نام کاربری]
               </Paragraph>
             )}
             {children}
-
-            <Paragraph size={"sm"} className="text-white m-0">
-              {message}
-            </Paragraph>
             <div className="self-start items-center flex flex-row-reverse gap-1">
-              <Paragraph className="!text-xs">5:55</Paragraph>
+              <Paragraph className="!text-xs flex gap-2">
+                <span>{formatDateToTime(message.sendAt)}</span>
+                <span>{formatDateToShamsiYear(message.sendAt)}</span>
+              </Paragraph>
               {messageStatus === "SEEN" ? (
                 <BsCheckAll className="text-green-300" />
               ) : messageStatus === "DELIVERED" ? (

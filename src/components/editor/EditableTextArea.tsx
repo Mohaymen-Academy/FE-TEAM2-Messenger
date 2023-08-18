@@ -43,7 +43,8 @@ const EditableTextArea = () => {
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         onBlur={() => dispatch(setIsSelected(false))}
-        placeholder="پیام ..."
+        //this causes an error in react tree either fix or remove it
+        // placeholder="پیام ..."
         renderPlaceholder={renderPlaceholder}
       />
     </div>

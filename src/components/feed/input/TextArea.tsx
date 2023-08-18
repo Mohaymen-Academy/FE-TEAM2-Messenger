@@ -23,7 +23,6 @@ const initialValue = [
 ];
 
 const TextArea = () => {
-  // const [textareaHeight, setTextAreaHeight] = useState("auto");
   const dispatch = useDispatch();
   const [editor] = useState(() => withReact(createEditor()));
 
@@ -33,23 +32,6 @@ const TextArea = () => {
   const showUploadMenu = useSelector(
     (store: StoreStateTypes) => store.app.showUploadMenu
   );
-
-  const {
-    // register,
-    // handleSubmit,
-    // formState: { errors },
-  } = useForm<FieldValues>({
-    defaultValues: { message: "" },
-  });
-
-  // const handleTextAreaInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
-  //   const { scrollHeight, clientHeight } = event.target;
-
-  //   const newHeight = (
-  //     scrollHeight > clientHeight ? scrollHeight : "auto"
-  //   ) as string;
-  //   // setTextAreaHeight(newHeight);
-  // };
 
   return (
     <div className="relative flex max-w-full w-full bg-primary px-3 py-2 justify-center items-center gap-2 rounded-lg">

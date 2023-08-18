@@ -1,10 +1,10 @@
 import { Avatar, Paragraph } from "@/components/ui";
 import React from "react";
-import { User } from "@/utils/types";
+import { ContactTypes } from "@/utils/types";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 
 type UserItemProps = {
-  user: User;
+  user: ContactTypes;
   onClick: () => void;
   withCheck?: boolean;
   checked?: boolean;
@@ -33,7 +33,9 @@ const UserItem: React.FC<UserItemProps> = ({
         )}
       </div>
       <div className="flex flex-col">
-        <Paragraph size="lg">{user.userName}</Paragraph>
+        <Paragraph size="lg">
+          {user.firstName + (user.lastName ? user.lastName : "")}
+        </Paragraph>
         <Paragraph size="xs">اخیرا آنلاین بوده است</Paragraph>
       </div>
     </div>

@@ -89,6 +89,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
             <>
               {messages.map((msg) => (
                 <Message
+                  message={msg}
                   key={msg.messageId}
                   messageStatus="SEEN"
                   groupMessage={true}
