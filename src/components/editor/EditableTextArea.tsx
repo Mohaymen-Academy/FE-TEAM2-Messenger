@@ -26,9 +26,9 @@ const EditableTextArea = () => {
 
   const renderPlaceholder = useCallback(
     (props: any) => (
-      <p className="mt-2" {...props.attributes}>
+      <span className="mt-2" {...props.attributes}>
         {props.children}
-      </p>
+      </span>
     ),
     []
   );
@@ -44,7 +44,7 @@ const EditableTextArea = () => {
         renderLeaf={renderLeaf}
         onBlur={() => dispatch(setIsSelected(false))}
         //this causes an error in react tree either fix or remove it
-        // placeholder="پیام ..."
+        placeholder="پیام ..."
         renderPlaceholder={renderPlaceholder}
       />
     </div>

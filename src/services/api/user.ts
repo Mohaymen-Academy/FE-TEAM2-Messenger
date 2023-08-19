@@ -19,6 +19,10 @@ const updateInfo = async (body: {
   return apiCall.put("api/users", body);
 };
 
+const getUser = async () => {
+  return apiCall.get("api/users/get-current-user");
+};
+
 // const forgetPasswordApi = async (email: string) => {
 //   return apiCall.post("/auth/forget-password", {
 //     email,
@@ -36,4 +40,4 @@ const updateInfo = async (body: {
 //     refreshToken: rToken,
 //   });
 // };
-export { sendPicture, updateInfo };
+export { sendPicture, updateInfo, getUser };
