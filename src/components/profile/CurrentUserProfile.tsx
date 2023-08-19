@@ -20,7 +20,6 @@ const CurrentUserProfile: React.FC<currentUserProfile> = ({
   profileName,
 }) => {
   const currentUser = queryClient.getQueryData(["user", "current"]);
-  console.log(currentUser?.data);
 
   const [, copyToClipboard] = useCopyToClipboard();
 

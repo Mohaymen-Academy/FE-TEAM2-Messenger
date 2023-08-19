@@ -5,6 +5,7 @@ import EditableTextArea from "./EditableTextArea";
 import Tools from "./Tools";
 import { useDispatch } from "react-redux";
 import { setIsSelected } from "@/redux/Slices/messageSlice";
+import { setTextObj } from "@/redux/Slices/textAreaSlice";
 
 interface EditorProps {
   children: React.ReactNode;
@@ -48,8 +49,10 @@ const Editor = ({ children, initialValue, editor }: EditorProps) => {
           );
 
           if (isAtChange) {
-            const content = JSON.stringify(value);
-            localStorage.setItem("content", content);
+            // const content = JSON.stringify(value);
+            dispatch(setTextObj(value));
+
+            // localStorage.setItem("content", content);
           }
         }}
       >
