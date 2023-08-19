@@ -9,11 +9,10 @@ import Notification from "./components/Notification";
 interface userProfileProps {
   profileName: string;
   imgSrc?: string;
-  groupmessage: boolean;
-  sentBtCurrentUser:boolean;
+ 
 }
 
-const UserProfile: React.FC<userProfileProps> = ({ profileName, imgSrc, groupmessage, sentBtCurrentUser }) => {
+const UserProfile: React.FC<userProfileProps> = ({ profileName, imgSrc }) => {
   return (
     <SectionContainer>
       {/* Profile header and back button */}

@@ -52,7 +52,7 @@ const LogOutModal = () => {
       body={body}
       actionLabel="تایید"
       secondaryActionLabel="خروج"
-      isOpen={true}
+      isOpen={isOpen}
       onClose={() => dispatch(onClose())}
     />
   );

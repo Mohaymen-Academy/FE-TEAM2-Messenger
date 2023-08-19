@@ -11,7 +11,7 @@ const initialState: logOutModalSliceType = {
 
 const logOutModalSlice = createSlice({
   name: "user",
-  initialState,
+  initialState : {isOpen : false},
   reducers: {
     onOpen: (state: logOutModalSliceType,) => {
       state.isOpen = true;
