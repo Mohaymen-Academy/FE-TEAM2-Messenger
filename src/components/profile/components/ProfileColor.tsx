@@ -17,7 +17,9 @@ const ProfileColor: React.FC<profileColorProps> = ({ name }) => {
       className={"w-full h-full flex items-center justify-center"}
       style={{ backgroundColor: profileColor }}
     >
-      <p className="text-[10rem] font-bold text-white select-none">{name[0]}</p>
+      <p className="text-[10rem] font-bold text-white select-none">
+        {name ? name[0] : "-"}
+      </p>
     </div>
   );
 };

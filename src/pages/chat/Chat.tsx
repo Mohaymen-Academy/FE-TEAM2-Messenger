@@ -79,7 +79,9 @@ const Chat = () => {
     dispatch(onToggleUpload({ show: false }));
   };
 
-  useQuery(["user", "current"], getUser);
+  //get user and save in react-query cache
+  useQuery(["user", "current"], getUser, { refetchOnWindowFocus: false });
+
   useEffect(() => {
     const token = localStorage.getItem("refresh_token");
     if (!token) {

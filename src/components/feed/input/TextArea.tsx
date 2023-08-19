@@ -1,12 +1,12 @@
 import { FieldValues, useForm } from "react-hook-form";
 import Button from "@/components/ui/Button";
 import { BsEmojiLaughing, BsFillSendFill } from "react-icons/bs";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Emoji from "./Emoji";
 import clsx from "clsx";
 import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreStateTypes } from "@/utils/types";
+import { StoreStateTypes, UserTypes } from "@/utils/types";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { GoFileMedia, GoFile } from "react-icons/go";
 import { Paragraph } from "@/components/ui";
@@ -18,6 +18,8 @@ import { parseSlateToHtml } from "@/components/editor/serializer";
 import { useSearchParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import { sendMessage } from "@/services/api/chat";
+import { queryClient } from "@/providers/queryClientProvider";
+import { v4 as uuidv4 } from "uuid";
 
 const initialValue = [
   {
@@ -30,6 +32,9 @@ const TextArea = () => {
   const dispatch = useDispatch();
   const [editor] = useState(() => withReact(createEditor()));
   const [URLSearchParams] = useSearchParams();
+
+  const start = useRef(0);
+  const end = useRef(0);
 
   const selectedConversation = URLSearchParams.get("conversationId");
   const textObj = useSelector(
@@ -51,12 +56,53 @@ const TextArea = () => {
 
   const { mutate: sendMessageMutate } = useMutation({
     mutationFn: (formData: FormData) => sendMessage(formData),
-    onMutate: (data) => {
-      console.log("mutate happens");
-      console.log(data);
+    onMutate: (newMessage) => {
+      start.current = Date.now();
+      const text = newMessage.get("text");
+      const userId = queryClient.getQueryData<{ data: UserTypes }>([
+        "user",
+        "current",
+      ])?.data.userId;
+      const sendAt = new Date().toISOString();
+      // // Optimistic update
+      const optimisticData = {
+        editedAt: null,
+        media: null,
+        messageId: uuidv4(),
+        sendAt,
+        text,
+        userId,
+      };
+
+      // Update the cache
+      queryClient.setQueryData(
+        ["user", "current", "conversations", selectedConversation],
+        (oldData: any) => {
+          return {
+            pages: [
+              [optimisticData, ...oldData.pages[0]],
+              ...oldData.pages.slice(1),
+            ],
+            pageParams: oldData.pageParams,
+          };
+        }
+      );
+
+      // return optimisticData; // This value will be passed to onSettled
     },
     onSuccess: () => {
       console.log("sent");
+      queryClient.invalidateQueries([
+        "user",
+        "current",
+        "conversations",
+        selectedConversation,
+      ]);
+
+      end.current = Date.now();
+
+      const time = end.current - start.current;
+      console.log(time / 1000);
     },
   });
 

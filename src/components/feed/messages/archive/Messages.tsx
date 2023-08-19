@@ -47,15 +47,10 @@ const Messages: React.FC<MessagesProps> = ({}) => {
     isLoading,
     hasNextPage,
   } = useInfiniteQuery(
-    [
-      {
-        user: "current",
-        conversation: selectedConversation,
-      },
-    ],
+    ["user", "current", "conversations", selectedConversation],
     fetchMessages,
     {
-      enabled: !!selectedConversation,
+      enabled: true,
       getNextPageParam: (lastPage, allPages) => {
         if (lastPage.length <= HAS_NEXT_PAGE_THRESHOLD) {
           return null; // No more pages
@@ -97,7 +92,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
                   key={msg.messageId}
                   messageStatus="SEEN"
                   groupMessage={true}
-                  sentByCurrentUser={msg.userId === data.data.userId}
+                  sentByCurrentUser={msg.userId === data?.data?.userId}
                 >
                   <Text content={msg.text} />
                 </Message>

@@ -1,3 +1,4 @@
+import { UserTypes } from "@/utils/types";
 import apiCall from "../axiosInstance";
 
 const sendPicture = async (formData: any) => {
@@ -20,7 +21,7 @@ const updateInfo = async (body: {
 };
 
 const getUser = async () => {
-  return apiCall.get("api/users/get-current-user");
+  return apiCall.get<UserTypes>("api/users/get-current-user");
 };
 
 // const forgetPasswordApi = async (email: string) => {
