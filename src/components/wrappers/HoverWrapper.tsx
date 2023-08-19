@@ -12,7 +12,7 @@ const hoverWrapperVariants = cva(
       },
       type: {
         inActive: "",
-        active: "bg-green-300 dark:bg-blue-600",
+        active: "hover:bg-green-300 bg-green-300 dark:bg-blue-600",
       },
     },
     defaultVariants: {
