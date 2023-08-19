@@ -2,9 +2,6 @@ import React from 'react'
 import SkeletonConversationWraaper from './SkeletonConversationWraaper'
 import SkeletonMessage from './SkeletonMessage';
 
-
-
-
 const FinalSkeleton = () => {
   return (
     <div>

@@ -1,3 +1,4 @@
+import CurrentUserProfile from "@/components/profile/CurrentUserProfile";
 import { Button } from "@/components/ui";
 
 const playground = () => {
@@ -9,14 +10,10 @@ const playground = () => {
     // console.log(data);
     // user;
   };
+
   return (
     <div>
-      <Button
-        onClick={onTestButtonClickHandler}
-        className="w-24 h-12 bg-green-500"
-      >
-        test user
-      </Button>
+      <CurrentUserProfile />
     </div>
   );
 };

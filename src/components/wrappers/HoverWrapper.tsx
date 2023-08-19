@@ -22,7 +22,7 @@ const hoverWrapperVariants = cva(
   }
 );
 
-interface hoverWrapperProps
+export interface hoverWrapperProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof hoverWrapperVariants> {}
 

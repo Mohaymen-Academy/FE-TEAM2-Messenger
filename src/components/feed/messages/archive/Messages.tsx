@@ -74,7 +74,6 @@ const Messages: React.FC<MessagesProps> = ({}) => {
   );
 
   const messages = messageData?.pages.flat();
-
   const data = queryClient.getQueryData(["user", "current"]) as {
     data: UserTypes;
   };

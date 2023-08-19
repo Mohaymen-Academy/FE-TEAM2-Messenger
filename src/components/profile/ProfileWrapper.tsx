@@ -2,6 +2,7 @@ import { ConversationTypes, StoreStateTypes } from "@/utils/types";
 import clsx from "clsx";
 import UserProfile from "./UserProfile";
 import { useSelector } from "react-redux";
+import CurrentUserProfile from "./CurrentUserProfile";
 
 const ProfileWrapper = () => {
   const show = useSelector((store: StoreStateTypes) => store.profile.show);
@@ -19,8 +20,9 @@ const ProfileWrapper = () => {
         { "!w-0 md:!w-0 lg:!w-0 xl:!min-w-0 xl:!w-0": !show }
       )}
     >
-      <UserProfile  profileName={profileName} />
+      {/* <UserProfile profileName="sadff" /> */}
       {/* <GroupCreator /> */}
+      <CurrentUserProfile profileName="علی اکبر" />
     </div>
   );
 };

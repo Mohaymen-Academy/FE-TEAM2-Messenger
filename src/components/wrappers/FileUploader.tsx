@@ -6,9 +6,10 @@ interface FileUploaderProps {
   accept: string; // MIME types accepted, e.g., 'image/*', 'video/*', '.pdf', etc.
   //   label: string; // Label for the upload button
   width?: number; // Optional width for the component
-  setImage: UseFormSetValue<FieldValues>;
+  setImage?: UseFormSetValue<FieldValues>;
   imageSelectHandler: (e: any) => any;
   imgUrl?: string;
+  className: string;
 }
 
 const ProfileUploader: React.FC<FileUploaderProps> = ({
@@ -16,6 +17,7 @@ const ProfileUploader: React.FC<FileUploaderProps> = ({
   width,
   // setImage,
   imgUrl,
+  className,
   imageSelectHandler,
 }) => {
   // const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +36,7 @@ const ProfileUploader: React.FC<FileUploaderProps> = ({
   // };
 
   return (
-    <div>
+    <div className={className}>
       <label htmlFor="fileInput" className="cursor-pointer">
         <div
           className="aspect-square flex justify-center items-center overflow-hidden rounded-full bg-slate-300"
