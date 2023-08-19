@@ -77,8 +77,6 @@ const Messages: React.FC<MessagesProps> = ({}) => {
   const data = queryClient.getQueryData(["user", "current"]) as {
     data: UserTypes;
   };
-  console.log(data);
-  console.log(messages);
 
   return (
     <div className="flex flex-col h-full justify-end overflow-hidden">

@@ -43,22 +43,29 @@ const TextArea = () => {
     (store: StoreStateTypes) => store.app.showUploadMenu
   );
 
-  const useSendMessageMutation = () => {
-    return useMutation((formData: FormData) => sendMessage(formData));
-  };
+  // const useSendMessageMutation = () => {
+  //   return useMutation((formData: FormData) => sendMessage(formData));
+  // };
 
-  const { mutate: sendMessageMutate } = useSendMessageMutation();
+  // const { mutate: sendMessageMutate } = useSendMessageMutation();
+
+  const { mutate: sendMessageMutate } = useMutation({
+    mutationFn: (formData: FormData) => sendMessage(formData),
+    onMutate: (data) => {
+      console.log("mutate happens");
+      console.log(data);
+    },
+    onSuccess: () => {
+      console.log("sent");
+    },
+  });
 
   const onSendClickHandler = () => {
     const text = parseSlateToHtml(textObj);
     const messageFormData = new FormData();
     messageFormData.append("text", text as string);
     messageFormData.append("chatId", selectedConversation as string);
-    sendMessageMutate(messageFormData, {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    });
+    sendMessageMutate(messageFormData);
   };
 
   return (
