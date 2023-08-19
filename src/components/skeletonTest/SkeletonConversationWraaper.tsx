@@ -1,10 +1,19 @@
 import { merge } from "@/utils/merge";
-import React from "react";
 
-
-const SkeletonConversationWraaper = ({ children, className }) => {
+const SkeletonConversationWraaper = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className: string;
+}) => {
   return (
-    <div className={merge("h-screen w-80 bg-red-300 overflow-y-auto overflow-x-hidden px-2 duration-500 custom-scrollbar scrollbar-none md:scrollbar", className)}>
+    <div
+      className={merge(
+        "h-screen w-80 bg-red-300 overflow-y-auto overflow-x-hidden px-2 duration-500 custom-scrollbar scrollbar-none md:scrollbar",
+        className
+      )}
+    >
       {children}
     </div>
   );

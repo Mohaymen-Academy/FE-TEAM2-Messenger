@@ -1,8 +1,8 @@
-export function parseSlateToHtml(node) {
+export function parseSlateToHtml(node: any[]) {
   return node
     .map((paragraph) => {
       const paragraphHtml = paragraph.children
-        .map((child) => {
+        .map((child:any) => {
           let text = child.text;
 
           if (child.bold) {

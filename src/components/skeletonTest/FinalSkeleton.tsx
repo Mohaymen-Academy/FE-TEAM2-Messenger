@@ -13,6 +13,6 @@ const FinalSkeleton = () => {
      <SkeletonMessage sentByCurrentUser={false} groupMessage={false}/>
     </div>
   );
-}
+};
 
-export default FinalSkeleton
+export default FinalSkeleton;

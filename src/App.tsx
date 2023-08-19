@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Chat from "./pages/chat/Chat";
 import Auth from "./pages/auth/Auth";
 import Login from "./components/auth/SignIn";

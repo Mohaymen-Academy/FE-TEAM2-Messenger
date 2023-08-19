@@ -1,5 +1,4 @@
-import { Button, Paragraph } from '@/components/ui'
-import React from 'react'
+import { Button, Paragraph } from "@/components/ui";
 
 const NoMatch = () => {
   return (
@@ -8,14 +7,14 @@ const NoMatch = () => {
         <div className="h-60 w-60 bg-secondary text-white font-extrabold rounded-full border-4 border-white flex items-center justify-center text-7xl text-blue shadow-cyan-800 shadow-2xl">
           404
         </div>
-        <div className='flex flex-col gap-8 items-center'>
+        <div className="flex flex-col gap-8 items-center">
           <Paragraph className="!text-4xl">صفحه مورد نظر پیدا نشد</Paragraph>
           <Paragraph className="!text-4xl">Page Not Found</Paragraph>
-          <Button className='p-2'>بازگشت به خانه</Button>
+          <Button className="p-2">بازگشت به خانه</Button>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default NoMatch
+export default NoMatch;

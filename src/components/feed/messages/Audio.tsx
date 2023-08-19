@@ -3,7 +3,6 @@
 // import { FaPlay } from "react-icons/fa";
 // import { FaPause } from "react-icons/fa";
 
-
 // interface AudioProps {
 //   src : string
 // }
@@ -101,7 +100,6 @@
 //           />
 //         </button>
 
-        
 //       </div>
 
 //       <div className="flex flex-col-reverse gap-1">
@@ -132,29 +130,6 @@
 
 // export default Audio;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { AnimatedButton, Paragraph } from "@/components/ui";
 import React, { useState, useRef, useEffect } from "react";
 import { FaPlay } from "react-icons/fa";
@@ -174,7 +149,6 @@ const Audio: React.FC<AudioProps> = ({ src }) => {
   const audioPlayer = useRef<HTMLAudioElement>(null);
   const progressBar = useRef<HTMLInputElement>(null);
   const animationRef = useRef<number | null>(null);
-
 
   useEffect(() => {
     if (audioPlayer.current) {
@@ -203,7 +177,7 @@ const Audio: React.FC<AudioProps> = ({ src }) => {
 
     if (!prevValue && audioPlayer.current) {
       audioPlayer.current.play();
-      setShowInputRange(true); 
+      setShowInputRange(true);
       animationRef.current = requestAnimationFrame(whilePlaying);
     } else {
       if (audioPlayer.current) {
@@ -215,19 +189,20 @@ const Audio: React.FC<AudioProps> = ({ src }) => {
     }
   };
 
-    const stopMusic = () => {
-      audioPlayer.current?.pause();
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-      setShowInputRange(false);
-      setIsPlaying(false);
-      setCurrentTime(0);
-      audioPlayer.current.currentTime = 0;
-    };
+  const stopMusic = () => {
+    audioPlayer.current?.pause();
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
+    setShowInputRange(false);
+    setIsPlaying(false);
+    setCurrentTime(0);
+    audioPlayer.current!.currentTime = 0;
+  };
 
   const whilePlaying = () => {
     if (audioPlayer.current && progressBar.current) {
+      //@ts-ignore
       progressBar.current.value = audioPlayer.current.currentTime;
       changePlayerCurrentTime();
       animationRef.current = requestAnimationFrame(whilePlaying);
@@ -245,7 +220,7 @@ const Audio: React.FC<AudioProps> = ({ src }) => {
     if (progressBar.current && duration) {
       progressBar.current.style.setProperty(
         "--seek-before-width",
-        `${(progressBar.current.value / duration) * 100}%`
+        `${((progressBar.current.value as any) / duration) * 100}%`
       );
       setCurrentTime(parseFloat(progressBar.current.value));
     }
@@ -254,11 +229,7 @@ const Audio: React.FC<AudioProps> = ({ src }) => {
   return (
     <div className="w-full flex items-center gap-2">
       <div>
-        <audio
-          ref={audioPlayer}
-          src={src}
-          preload="metadata"
-        ></audio>
+        <audio ref={audioPlayer} src={src} preload="metadata"></audio>
 
         <AnimatedButton
           className="rounded-full flex justify-center items-center relative w-12 h-12 dark:bg-slate-600 dark:hover:!bg-slate-800 bg-slate-500 hover:!bg-slate-600 "
@@ -281,12 +252,10 @@ const Audio: React.FC<AudioProps> = ({ src }) => {
         <div>
           <Paragraph size="xs">Shadmehr - Chera Too Jangi</Paragraph>
 
-          
           {!showInputRange && (
             <div>{duration && !isNaN(duration) && calculateTime(duration)}</div>
           )}
 
-        
           {showInputRange && (
             <div className="flex flex-col">
               <input
@@ -306,57 +275,6 @@ const Audio: React.FC<AudioProps> = ({ src }) => {
 };
 
 export default Audio;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { AnimatedButton, Paragraph } from "@/components/ui";
 // import React, { useState, useRef, useEffect } from "react";
@@ -511,4 +429,3 @@ export default Audio;
 // };
 
 // export default Audio;
-

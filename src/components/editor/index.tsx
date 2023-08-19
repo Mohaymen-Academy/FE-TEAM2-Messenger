@@ -54,7 +54,7 @@ const Editor = ({ children, initialValue, editor }: EditorProps) => {
         }}
       >
         {React.Children.map(children, (child) =>
-          React.cloneElement(child, { editor })
+          React.cloneElement(child as any, { editor })
         )}
       </Slate>
     </div>

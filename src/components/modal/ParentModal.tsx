@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { IoMdClose } from "react-icons/io";
 import Button from "@/components/ui/Button";
 interface ModalProps {
   isOpen?: boolean;
@@ -17,12 +16,13 @@ const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   onSubmit,
-  title = "hello suck",
+  title = "",
   body,
   footer,
   disabled,
   secondaryAction,
   secondaryActionLabel,
+ 
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
 
@@ -35,6 +35,7 @@ const Modal: React.FC<ModalProps> = ({
 
     setShowModal(false);
     setTimeout(() => {
+      console.log("first");
       onClose();
     }, 300);
   }, [onClose, disabled]);
@@ -51,11 +52,12 @@ const Modal: React.FC<ModalProps> = ({
     secondaryAction();
   }, [disabled, secondaryAction]);
 
-  if (!isOpen) return null; //if not open return null
+  if (!isOpen) return null;
 
   return (
     <>
       <div
+        onClick={() => handleClose()}
         className="
 					select-none
           justify-center
@@ -71,12 +73,13 @@ const Modal: React.FC<ModalProps> = ({
         bg-neutral-800/70"
       >
         <div
+          onClick={(e) => e.stopPropagation()}
           className="
             relative
 						w-full
-						md:w-3/4
-						lg:2-3/6
-						xl:2-2/5
+						md:w-1/4
+						lg:w-3/6
+						xl:w-2/5
 						my-6
 						h-full
 						md:h-auto"
@@ -97,41 +100,14 @@ const Modal: React.FC<ModalProps> = ({
 							md:h-auto
 							border-0
 							rounded-lg
-							shadow-lg
 							relative
 							flex flex-col
 							w-full
-							bg-white
 							outline-none
 							focus:outline-none"
             >
-              {/* HEADER */}
-              <div
-                className="
-									flex
-									item-center
-									p-6
-									rounded-t
-									justify-center
-									relative
-									border-b-[1px]"
-              >
-                <button
-                  onClick={handleClose}
-                  className="
-										p-1
-										border-0
-										hover:opacity-70
-										transition
-										absolute
-										left-9"
-                >
-                  <IoMdClose size={18} />
-                </button>
-                <div className="text-lg font-semibold">{title}</div>
-              </div>
               {/* BODY */}
-              <div className="relative p-6 flex-auto">{body}</div>
+              <div className="relative w-96 p-6 flex-auto self-center flex items-center ">{body}</div>
               {/* FOOTER */}
               <div className="flex flex-col gap-2 p-6">
                 <div
@@ -145,7 +121,7 @@ const Modal: React.FC<ModalProps> = ({
                     <Button onClick={handleSecondaryAction} />
                   )}
 
-                  <Button onClick={handleSubmit} />
+                  {/* <Button onClick={handleSubmit}>{actionLabel}</Button> */}
                 </div>
                 {footer}
               </div>
