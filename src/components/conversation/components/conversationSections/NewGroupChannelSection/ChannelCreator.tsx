@@ -76,7 +76,10 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
 
           <div className="flex gap-2">
             <Button
-              onClick={() => onSubmit()}
+              onClick={() => {
+                onSubmit();
+                dispatch(setSection({ selectedState: "conversations" }));
+              }}
               className="w-full font-bold text-xl"
             >
               ساخت کانال
