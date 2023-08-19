@@ -8,7 +8,7 @@ import { useSetState } from "react-use";
 interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   isOnline: boolean;
   imgSrc?: string;
-  isConversationList : boolean
+  isConversationList: boolean;
 }
 
 const Avatar: React.FC<AvatarProps> = ({
@@ -18,14 +18,13 @@ const Avatar: React.FC<AvatarProps> = ({
   isConversationList,
   ...props
 }) => {
-
   const dispatch = useDispatch();
 
-  
   return (
     <div
-    
-      onClick={() => dispatch(setShow({show:isConversationList ? false : true}))}
+      onClick={() =>
+        dispatch(setShow({ show: isConversationList ? false : true }))
+      }
       className={merge(
         "w-16 h-16 text-center relative rounded-full bg-red-600 cursor-pointer",
         className

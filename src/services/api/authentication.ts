@@ -15,26 +15,6 @@ const numberConfirmation = async (
   });
 };
 
-const sendPicture = async (formData: any) => {
-  return apiCall.post(
-    `http://192.168.70.233:8080/api/profiles/users`,
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        accept: "*/*",
-        Authorization: `Bearer ${window.localStorage.getItem("access_token")}`,
-      },
-      onUploadProgress: function (progressEvent) {
-        if (!progressEvent.total) return;
-        var percentCompleted = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total
-        );
-        console.log(percentCompleted);
-      },
-    }
-  );
-};
 // const registerUserApi = async (body: {
 //   username: string;
 //   email: string;
@@ -67,7 +47,6 @@ export {
   // forgetPasswordApi,
   loginApi,
   numberConfirmation,
-  sendPicture,
   // registerUserApi,
   // resetPasswordApi,
 };

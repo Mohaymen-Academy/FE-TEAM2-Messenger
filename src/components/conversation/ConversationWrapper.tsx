@@ -4,6 +4,8 @@ import { StoreStateTypes } from "@/utils/types";
 import ConversationSectionWrapper from "./components/conversationSections/ConversationSectionWrapper";
 import CreatePvSection from "./components/conversationSections/NewChatSection";
 import NewGroupChannelSection from "./components/conversationSections/NewGroupChannelSection/NewGroupChannelSection";
+import { useQuery } from "react-query";
+import { getContacts } from "@/services/api/chat";
 
 interface ConversationWrapperProps {
   conversationShowCriteria?: string;
@@ -15,6 +17,9 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({
   const section = useSelector(
     (state: StoreStateTypes) => state.conversation.section
   );
+
+  const contacts = useQuery("contacts", getContacts);
+  console.log("contacts", contacts);
 
   return (
     <div

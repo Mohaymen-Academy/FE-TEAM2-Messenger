@@ -6,19 +6,37 @@ import { Button } from "@/components/ui";
 import { UseFormRegister, FieldValues } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setSection } from "@/redux/Slices/conversationSlice";
-import ProfileImage from "@/components/ui/ProfileImage";
+import ProfileUploader from "@/components/wrappers/FileUploader";
+import { useState } from "react";
 
 interface ChannelCreatorProp {
   show: boolean;
   register: UseFormRegister<FieldValues>;
   onSubmit: any;
 }
+
 const ChannelCreator: React.FC<ChannelCreatorProp> = ({
   show,
   register,
   onSubmit,
 }) => {
   const dispatch = useDispatch();
+  const [formData, setFormData] = useState(new FormData());
+  const [pictureUrl, setPictureUrl] = useState("");
+
+  const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      setFormData(formData);
+
+      const imageUrl = URL.createObjectURL(file);
+      setPictureUrl(imageUrl);
+    }
+  };
+
   return (
     <FadeMotionWrapper show={show}>
       <SectionContainer className="flex flex-col gap-10">
@@ -26,7 +44,12 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
 
         {/* Camera and Upload section */}
         <div className="px-8 flex flex-col gap-8">
-          <ProfileImage width={150} />
+          <ProfileUploader
+            imgUrl={pictureUrl}
+            width={150}
+            accept="image/*"
+            imageSelectHandler={imageSelectHandler}
+          />
 
           <div className="flex flex-col gap-4">
             <FloatingLabelInput

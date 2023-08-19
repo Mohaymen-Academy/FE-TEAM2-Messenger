@@ -6,7 +6,7 @@ interface FileUploaderProps {
   accept: string; // MIME types accepted, e.g., 'image/*', 'video/*', '.pdf', etc.
   //   label: string; // Label for the upload button
   width?: number; // Optional width for the component
-  setImage: UseFormSetValue<FieldValues>;
+  setImage?: UseFormSetValue<FieldValues>;
   imageSelectHandler: (e: any) => any;
   imgUrl?: string;
 }

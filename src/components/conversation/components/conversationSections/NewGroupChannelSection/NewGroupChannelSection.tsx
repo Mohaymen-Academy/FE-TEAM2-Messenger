@@ -11,6 +11,9 @@ import { setSection } from "@/redux/Slices/conversationSlice";
 import ChannelCreator from "./ChannelCreator";
 import GroupCreator from "./GroupCreator";
 import FadeMotionWrapper from "@/components/wrappers/FadeMotionWrapper";
+import { useMutation } from "react-query";
+import { createChat } from "@/services/api/chat";
+import useToastify from "@/hooks/useTostify";
 
 interface UserSelect {
   onUserClickHandler: (user: User) => void;
@@ -68,6 +71,22 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
 }) => {
   const [selectedUser, setSelectedUser] = useState<string[]>([]);
   const [step, setStep] = useState<1 | 2>(1);
+  const toastify = useToastify();
+  console.log(users, "users");
+
+  // const sendPictureMutation = useMutation(sendPicture, {
+  //   onError: (error) => {
+  //     console.log(error);
+  //     toastify.error("متاسفانه عکس ذخیره نگردید لطفا مجددا تلاش فرمایید");
+  //   },
+  // });
+
+  const sendInfoMutation = useMutation(createChat, {
+    onError: (error) => {
+      console.log(error);
+      toastify.error("اطلاعات دخیره نگردید لطفا مجددا تلاش فرمایید");
+    },
+  });
 
   const section = useSelector(
     (store: StoreStateTypes) => store.conversation.section
@@ -91,7 +110,15 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     if (section === "channelCreate") {
-      /// logic to create channel
+      console.log(selectedUser);
+      sendInfoMutation.mutate({
+        title: data.channelName,
+        bio: data.channelBio,
+        link: "https://chetchat/channels/SDKJIEJKEKLI",
+        chatType: "CHANNEL",
+        userIds: [],
+        public: true,
+      });
     }
 
     if (section === "groupCreate") {
@@ -128,8 +155,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
         <div
           onClick={() => setStep(2)}
           className={clsx(
-            "text-green-500 cursor-pointer drop-shadow-lg self-end mb-2 ml-2 scale-0 transition absolute left-0",
-            { "scale-100": selectedUser.length > 0 }
+            "dark:text-cyan-400 text-blue-600 cursor-pointer drop-shadow-lg self-end mb-2 ml-2 scale-100 transition absolute left-0 "
           )}
         >
           <AiFillCheckCircle size={70} />

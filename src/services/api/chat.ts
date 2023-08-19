@@ -1,4 +1,5 @@
 import apiCall from "../axiosInstance";
+import { CreateChannelType } from "./types";
 
 const getAllChat = async () => {
   return apiCall.get("/api/chats/get-all-chats");
@@ -21,4 +22,14 @@ const getAllChat = async () => {
 //     refreshToken: rToken,
 //   });
 // };
-export { getAllChat };
+
+const createChat = async (body: CreateChannelType) => {
+  console.log("called with:", body);
+  return apiCall.post("/api/chats/create-chat", body);
+};
+
+const getContacts = async () => {
+  return apiCall.get("/api/contacts/get-contacts");
+};
+
+export { getAllChat, createChat, getContacts };
