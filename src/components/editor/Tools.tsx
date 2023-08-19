@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui";
-import { createHyperscript } from "slate-hyperscript";
-import { parseSlateToHtml } from "./serializer";
 import {
   FaBold,
   FaCopy,
@@ -12,9 +10,8 @@ import {
   FaUnderline,
 } from "react-icons/fa";
 import { customEditor } from "./customEditor";
-import { Editor, Range, Transforms, Selection } from "slate";
+import { Editor, Range, Transforms } from "slate";
 import { useCopyToClipboard } from "react-use";
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import { AnimatePresence, motion } from "framer-motion";

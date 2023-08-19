@@ -1,11 +1,7 @@
 import { Button } from "@/components/ui";
-import { getAllChat } from "@/services/api/chat";
-import { StoreStateTypes } from "@/utils/types";
-import { useQuery } from "react-query";
-import { useSelector } from "react-redux";
 
 const playground = () => {
-  const user = useSelector((store: StoreStateTypes) => store.user.user);
+  // const user = useSelector((store: StoreStateTypes) => store.user.user);
 
   const onTestButtonClickHandler = async () => {
     // const query = useQuery("todos", getAllChat);

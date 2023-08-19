@@ -17,12 +17,6 @@ const Register = () => {
   const [pictureUrl, setPictureUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const useRegisterMutation = () => {
-    return useMutation((formData: FormData) => {
-      return sendPicture(formData);
-    });
-  };
-
   const sendPictureMutation = useMutation(sendPicture, {
     onError: (error) => {
       console.log(error);
@@ -40,12 +34,7 @@ const Register = () => {
   const userId = useSelector(
     (store: StoreStateTypes) => store.user.user.userId
   );
-  const {
-    register,
-    setValue,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm<FieldValues>({
+  const { register, setValue, handleSubmit } = useForm<FieldValues>({
     defaultValues: {
       fName: "",
       lName: "",
@@ -53,28 +42,22 @@ const Register = () => {
     },
   });
 
-
-
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { fName, lName } = data;
     setLoading(true);
 
-    try {
-      await Promise.all([
-        sendPictureMutation.mutateAsync(formData),
-        setInfoMutation.mutateAsync({
-          userId: userId,
-          firstName: fName,
-          lastName: lName,
-          bio: undefined,
-          email: undefined,
-        }),
-      ]);
-      toastify.success("اطلاعات با موفقیت ذخیره شد");
-      navigate("/chat");
-    } catch (error: any) {
-      console.log(error);
-    }
+    await Promise.all([
+      sendPictureMutation.mutateAsync(formData),
+      setInfoMutation.mutateAsync({
+        userId: userId,
+        firstName: fName,
+        lastName: lName,
+        bio: undefined,
+        email: undefined,
+      }),
+    ]);
+    toastify.success("اطلاعات با موفقیت ذخیره شد");
+    navigate("/chat");
 
     setLoading(false);
   };

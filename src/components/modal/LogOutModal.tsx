@@ -1,5 +1,3 @@
-import React from "react";
-import Modal from "./ParentModal";
 import { Button, Paragraph } from "../ui";
 
 const LogOutModal = () => {

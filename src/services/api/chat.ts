@@ -1,9 +1,17 @@
 import apiCall from "../axiosInstance";
+import { getMessageParamsType } from "./types";
 
 const getAllChat = async () => {
   return apiCall.get("/api/chats/get-all-chats");
 };
-
+const getChat = async (chatId: string) => {
+  return apiCall.get(`/api/chats/get-chat/${chatId}`);
+};
+const getMessages = async (getMessageParams: getMessageParamsType) => {
+  return apiCall.get(
+    `/api/messages/get-messages/${getMessageParams.chatId}/${getMessageParams.floor}/${getMessageParams.ceil}`
+  );
+};
 // const forgetPasswordApi = async (email: string) => {
 //   return apiCall.post("/auth/forget-password", {
 //     email,
@@ -21,4 +29,4 @@ const getAllChat = async () => {
 //     refreshToken: rToken,
 //   });
 // };
-export { getAllChat };
+export { getAllChat, getChat, getMessages };

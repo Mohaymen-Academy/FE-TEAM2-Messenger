@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 type ConversationSectionWrapperProps = {
   children?: React.ReactNode;
@@ -9,27 +9,6 @@ const ConversationSectionWrapper: React.FC<ConversationSectionWrapperProps> = ({
   show,
   children,
 }) => {
-  const [unmount, setUnmount] = useState(false);
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {}, []);
-
-  useEffect(() => {
-    if (
-      +wrapperRef.current?.style.opacity! === 0 &&
-      wrapperRef.current?.style.transform === "translate(200%, 0px)"
-    ) {
-      setTimeout(() => {
-        setUnmount(true);
-      }, 600);
-    }
-    if (wrapperRef.current?.style.transform === undefined) {
-      setUnmount(false);
-    }
-  }, [show]);
-
-  if (unmount) return null;
-
   return (
     <AnimatePresence>
       {show && (

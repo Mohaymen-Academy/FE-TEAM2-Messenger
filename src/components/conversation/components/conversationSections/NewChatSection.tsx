@@ -1,6 +1,6 @@
 import SearchInput from "@/components/ui/SearchInput";
 import Paragraph from "@/components/ui/Paragraph";
-import { User } from "@/utils/types";
+import { ContactTypes } from "@/utils/types";
 import React from "react";
 import Button from "@/components/ui/Button";
 import { BsArrowRight } from "react-icons/bs";
@@ -11,10 +11,6 @@ import { IconType } from "react-icons";
 import UserItem from "../../../ui/UserItem";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import { newSectionsButtonObject } from "@/utils/constants";
-
-type CreatePvSectionProps = {
-  users: User[];
-};
 
 type NewChatButtonProps = {
   text: string;
@@ -40,7 +36,11 @@ const NewChatButton: React.FC<NewChatButtonProps> = ({
   );
 };
 
-const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
+interface CreatePvSectionProps {
+  contactsData: ContactTypes[];
+}
+
+const CreatePvSection: React.FC<CreatePvSectionProps> = ({ contactsData }) => {
   const dispatch = useDispatch();
 
   return (
@@ -71,11 +71,11 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ users }) => {
         ))}
       </div>
       <div className="w-full h-full overflow-y-auto custom-scrollbar scrollbar-none md:hover:scrollbar">
-        {users.map((user) => (
+        {contactsData.map((cont) => (
           <UserItem
-            key={user.name}
-            // onClick={() => console.log(user.name)}
-            user={user}
+            key={cont.id}
+            onClick={() => console.log(cont.id)}
+            user={cont}
           />
         ))}
       </div>

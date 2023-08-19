@@ -2,7 +2,6 @@ import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import { AiOutlineLink } from "react-icons/ai";
 import { useCopyToClipboard } from "react-use";
 import { Paragraph } from "@/components/ui";
-import { toast } from "react-toastify";
 import useToastify from "@/hooks/useTostify";
 
 interface linkProps {

@@ -1,8 +1,7 @@
-import React, { HTMLAttributes, ReactNode, useRef, useState } from "react";
+import React, { HTMLAttributes } from "react";
 import Input from "./Input";
 import { merge } from "@/utils/merge";
 import { UseFormRegister, FieldValues } from "react-hook-form";
-import { log } from "console";
 import { Paragraph } from "@/components/ui";
 
 export interface FloatingLabelInputProps
