@@ -55,7 +55,7 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
             className="mb-10 mx-auto"
           />
 
-          <div className="flex flex-col gap-4 mb-4">
+          <div className="flex flex-col gap-4 mb-6">
             <FloatingLabelInput
               type="text"
               label="نام کانال"

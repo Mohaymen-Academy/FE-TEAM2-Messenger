@@ -4,7 +4,6 @@ import { AiFillCheckCircle } from "react-icons/ai";
 import { BsArrowRight } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
-
 import { ContactTypes, StoreStateTypes } from "@/utils/types";
 import { UserItem, Button, SearchInput } from "@/components/ui";
 import { setSection } from "@/redux/Slices/conversationSlice";
@@ -14,6 +13,7 @@ import FadeMotionWrapper from "@/components/wrappers/FadeMotionWrapper";
 import { useMutation } from "react-query";
 import { createChat } from "@/services/api/chat";
 import useToastify from "@/hooks/useTostify";
+import { v4 as uuid4 } from "uuid";
 
 interface UserSelect {
   onUserClickHandler: (user: string | number) => void;
@@ -81,9 +81,11 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
   // });
 
   const sendInfoMutation = useMutation(createChat, {
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
       toastify.error("اطلاعات دخیره نگردید لطفا مجددا تلاش فرمایید");
+    },
+    onSuccess: () => {
+      toastify.info("کانال با موفقیت ایجاد شد.");
     },
   });
 
@@ -108,12 +110,13 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
+    const link = uuid4().replace(/-/g, "").substring(0, 20);
+
     if (section === "channelCreate") {
       sendInfoMutation.mutate({
         title: data.channelName,
         bio: data.channelBio,
-        link: "https://chetchat/channels/SDKJIESKKFLKJDKJFLJKJKFJKEKLI",
+        link: `https://chetchat/channels/${link}`,
         chatType: "CHANNEL",
         userIds: selectedUser,
         public: data.public,

@@ -17,7 +17,7 @@ const ChannelPrivacy: React.FC<channelPrivacyProps> = ({ setValue }) => {
   };
 
   return (
-    <div className="mb-10">
+    <div className="mb-7">
       <HoverWrapper
         onClick={() => handleChannelTypeChange("public")}
         className="p-3 flex-col items-start"
