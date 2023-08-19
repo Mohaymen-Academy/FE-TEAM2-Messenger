@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import Playground from "./pages/playground";
 import ProtectedRoutes from "./pages/protected/ProtectedRoutes";
 import NoMatch from "./pages/NoMatch";
+import FinalSkeleton from "./components/skeletonTest/FinalSkeleton";
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
 
@@ -33,7 +34,7 @@ function App() {
           <Route path="register" element={<Register />} />
         </Route>
 
-        <Route path="*" element={<NoMatch />} />
+        <Route path="*" element={<FinalSkeleton />} />
       </Routes>
       <ToastContainer theme={theme} rtl={true} closeButton={<></>} />
     </div>

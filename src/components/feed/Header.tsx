@@ -34,21 +34,21 @@ const Header = () => {
       <div className="flex gap-4 self-center">
         <Button
           variant={"ghost"}
-          className="rounded-full h-10 w-10 dark:hover:bg-slate-200"
+          className="rounded-full h-10 w-10 dark:hover:bg-slate-500"
         >
-          <HiPhone />
+          <HiPhone size={23}/>
         </Button>
         <Button
           variant={"ghost"}
-          className="rounded-full h-10 w-10 dark:hover:bg-slate-200"
+          className="rounded-full h-10 w-10 dark:hover:bg-slate-500"
         >
-          <LiaSearchSolid />
+          <LiaSearchSolid size={23}/>
         </Button>
         <Button
           variant={"ghost"}
-          className="rounded-full h-10 w-10 dark:hover:bg-slate-200"
+          className="rounded-full h-10 w-10 dark:hover:bg-slate-500"
         >
-          <BsThreeDotsVertical />
+          <BsThreeDotsVertical size={23}/>
         </Button>
       </div>
     </div>

@@ -5,6 +5,7 @@ import {
   messageSliceReducer,
   profileSliceReducer,
   userSliceReducer,
+  logOutModalSliceReducer
 } from "./Slices";
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   message: messageSliceReducer,
   profile: profileSliceReducer,
   user: userSliceReducer,
+  logOutModal : logOutModalSliceReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
