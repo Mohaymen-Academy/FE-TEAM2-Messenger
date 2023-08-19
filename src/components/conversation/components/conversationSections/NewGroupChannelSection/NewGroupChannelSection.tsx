@@ -5,7 +5,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
 
-import { StoreStateTypes, User } from "@/utils/types";
+import { ContactTypes, StoreStateTypes } from "@/utils/types";
 import { UserItem, Button, SearchInput } from "@/components/ui";
 import { setSection } from "@/redux/Slices/conversationSlice";
 import ChannelCreator from "./ChannelCreator";
@@ -16,16 +16,16 @@ import { createChat } from "@/services/api/chat";
 import useToastify from "@/hooks/useTostify";
 
 interface UserSelect {
-  onUserClickHandler: (user: User) => void;
-  selectedUser: string[];
-  users: User[];
+  onUserClickHandler: (user: string | number) => void;
+  selectedUser: number[];
+  contacts: ContactTypes[];
   show: boolean;
 }
 
 const UserSelect: React.FC<UserSelect> = ({
   onUserClickHandler,
   selectedUser,
-  users,
+  contacts,
   show,
 }) => {
   const dispatch = useDispatch();
@@ -47,13 +47,13 @@ const UserSelect: React.FC<UserSelect> = ({
         </div>
 
         <div className="w-full h-full overflow-y-auto custom-scrollbar scrollbar-none md:hover:scrollbar">
-          {users.map((user) => (
+          {contacts.map((cont) => (
             <UserItem
-              key={user.name}
+              key={cont.id}
               withCheck
-              checked={selectedUser.includes(user.name)}
-              onClick={() => onUserClickHandler(user)}
-              user={user}
+              checked={selectedUser.includes(cont.id as number)}
+              onClick={() => onUserClickHandler(cont.id)}
+              user={cont}
             />
           ))}
         </div>
@@ -62,17 +62,16 @@ const UserSelect: React.FC<UserSelect> = ({
   );
 };
 
-type NewGroupChannelSectionProps = {
-  users: User[];
-};
+interface NewGroupChannelSectionProps {
+  contactsData: ContactTypes[];
+}
 
 const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
-  users,
+  contactsData,
 }) => {
-  const [selectedUser, setSelectedUser] = useState<string[]>([]);
+  const [selectedUser, setSelectedUser] = useState<any>([]);
   const [step, setStep] = useState<1 | 2>(1);
   const toastify = useToastify();
-  console.log(users, "users");
 
   // const sendPictureMutation = useMutation(sendPicture, {
   //   onError: (error) => {
@@ -92,32 +91,31 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
     (store: StoreStateTypes) => store.conversation.section
   );
 
-  const onUserClickHandler = (user: User) => {
-    setSelectedUser((prev) => {
-      if (prev.includes(user.name))
-        return prev.filter((name) => name !== user.name);
-      else return [...prev, user.name];
+  const onUserClickHandler = (user: string | number) => {
+    setSelectedUser((prev: any) => {
+      if (prev.includes(user)) return prev.filter((name: any) => name !== user);
+      else return [...prev, user];
     });
   };
 
-  const { register, handleSubmit } = useForm<FieldValues>({
+  const { register, handleSubmit, setValue } = useForm<FieldValues>({
     defaultValues: {
       channelName: "",
       channelBio: "",
       groupName: "",
+      public: true,
     },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     if (section === "channelCreate") {
-      console.log(selectedUser);
       sendInfoMutation.mutate({
         title: data.channelName,
         bio: data.channelBio,
-        link: "https://chetchat/channels/SDKJIEJKEKLI",
+        link: "https://chetchat/channels/SDKJIESKKFLKJDKJFLJKJKFJKEKLI",
         chatType: "CHANNEL",
-        userIds: [],
-        public: true,
+        userIds: selectedUser,
+        public: data.public,
       });
     }
 
@@ -131,7 +129,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
       <UserSelect
         onUserClickHandler={onUserClickHandler}
         selectedUser={selectedUser}
-        users={users}
+        contacts={contactsData}
         show={step === 1}
       />
 
@@ -140,6 +138,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
           onSubmit={handleSubmit(onSubmit)}
           register={register}
           show={step === 2}
+          setValue={setValue}
         />
       )}
 

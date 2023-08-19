@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ProfileImage from "../ui/ProfileImage";
 import { UseFormSetValue, FieldValues } from "react-hook-form";
 
@@ -9,13 +9,15 @@ interface FileUploaderProps {
   setImage?: UseFormSetValue<FieldValues>;
   imageSelectHandler: (e: any) => any;
   imgUrl?: string;
+  className: string;
 }
 
 const ProfileUploader: React.FC<FileUploaderProps> = ({
   accept,
   width,
-  setImage,
+  // setImage,
   imgUrl,
+  className,
   imageSelectHandler,
 }) => {
   // const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +36,7 @@ const ProfileUploader: React.FC<FileUploaderProps> = ({
   // };
 
   return (
-    <div>
+    <div className={className}>
       <label htmlFor="fileInput" className="cursor-pointer">
         <div
           className="aspect-square flex justify-center items-center overflow-hidden rounded-full bg-slate-300"

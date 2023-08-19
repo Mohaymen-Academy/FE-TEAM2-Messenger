@@ -7,8 +7,9 @@ import { StoreStateTypes } from "@/utils/types";
 import { useState } from "react";
 import { numberConfirmation } from "@/services/api/authentication";
 import { setUser } from "@/redux/Slices/userSlice";
-import { QueryClient, useMutation } from "react-query";
+import { useMutation } from "react-query";
 import useToastify from "@/hooks/useTostify";
+import { queryClient } from "@/providers/queryClientProvider";
 
 const NumberVerification = () => {
   const [loading, setLoading] = useState(false);
@@ -17,7 +18,6 @@ const NumberVerification = () => {
   const phoneNumber = useSelector(
     (store: StoreStateTypes) => store.user.enteredPhoneNumber
   );
-
   const useNumberConfirmationMutation = () => {
     return useMutation((confirmData: { code: string; phoneNumber: string }) => {
       return numberConfirmation(confirmData.code, confirmData.phoneNumber);
@@ -35,6 +35,7 @@ const NumberVerification = () => {
       {
         onSuccess(data, _, __) {
           const { registered, access_token, refresh_token, user } = data.data;
+          queryClient.setQueryData([{ user: "current" }], user);
           dispatch(setUser(user));
           window.localStorage.setItem("access_token", access_token);
           window.localStorage.setItem("refresh_token", refresh_token);

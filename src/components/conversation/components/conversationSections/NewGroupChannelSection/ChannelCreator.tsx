@@ -3,22 +3,25 @@ import SectionContainer from "@/components/profile/components/SectionContainer";
 import FloatingLabelInput from "@/components/auth/input/FloatingLabelInput";
 import FadeMotionWrapper from "@/components/wrappers/FadeMotionWrapper";
 import { Button } from "@/components/ui";
-import { UseFormRegister, FieldValues } from "react-hook-form";
+import { UseFormRegister, FieldValues, UseFormSetValue } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setSection } from "@/redux/Slices/conversationSlice";
 import ProfileUploader from "@/components/wrappers/FileUploader";
 import { useState } from "react";
+import ChannelPrivacy from "../../ChannelPrivacy";
 
 interface ChannelCreatorProp {
   show: boolean;
   register: UseFormRegister<FieldValues>;
   onSubmit: any;
+  setValue: UseFormSetValue<FieldValues>;
 }
 
 const ChannelCreator: React.FC<ChannelCreatorProp> = ({
   show,
   register,
   onSubmit,
+  setValue,
 }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState(new FormData());
@@ -43,15 +46,16 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
         <SectionHeader title="کانال جدید" />
 
         {/* Camera and Upload section */}
-        <div className="px-8 flex flex-col gap-8">
+        <div className="px-8 flex flex-col">
           <ProfileUploader
             imgUrl={pictureUrl}
             width={150}
             accept="image/*"
             imageSelectHandler={imageSelectHandler}
+            className="mb-10 mx-auto"
           />
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 mb-4">
             <FloatingLabelInput
               type="text"
               label="نام کانال"
@@ -67,6 +71,9 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
               register={register}
             />
           </div>
+
+          <ChannelPrivacy setValue={setValue} />
+
           <div className="flex gap-2">
             <Button
               onClick={() => onSubmit()}

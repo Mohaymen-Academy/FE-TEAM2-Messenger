@@ -16,6 +16,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import useViewportWidth from "@/hooks/useViewportWidth";
 import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
 import ProfileWrapper from "@/components/profile/ProfileWrapper";
+import { useQuery } from "react-query";
+import { getUser } from "@/services/api/user";
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -72,6 +74,8 @@ const Chat = () => {
     dispatch(onToggleEmoji({ show: false }));
     dispatch(onToggleUpload({ show: false }));
   };
+
+  useQuery(["user", "current"], getUser);
 
   return (
     <div

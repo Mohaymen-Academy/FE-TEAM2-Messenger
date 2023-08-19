@@ -1,14 +1,12 @@
-import { toggleShowConversations } from "@/redux/Slices/conversationSlice";
 import { setShow } from "@/redux/Slices/profileSlice";
 import { merge } from "@/utils/merge";
 import { HTMLAttributes } from "react";
 import { useDispatch } from "react-redux";
-import { useSetState } from "react-use";
 
 interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
-  isOnline: boolean;
+  isOnline?: boolean;
   imgSrc?: string;
-  isConversationList: boolean;
+  isConversationList?: boolean;
 }
 
 const Avatar: React.FC<AvatarProps> = ({

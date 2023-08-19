@@ -6,6 +6,12 @@ import test from "../../assets/img/darkBg.svg";
 import UnreadMessages from "./components/UnreadMesseges";
 import { ChatItem } from "@/utils/types";
 import HoverWrapper from "../wrappers/HoverWrapper";
+import { useEffect } from "react";
+import { getMessages } from "@/services/api/chat";
+import { queryClient } from "@/providers/queryClientProvider";
+import { useDispatch } from "react-redux";
+import { setSelectedConversation } from "@/redux/Slices/conversationSlice";
+import { formatDateDifference } from "@/utils/fromatData";
 
 interface ConversationItemProps {
   conversation: ChatItem;
@@ -24,21 +30,48 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
 }) => {
   // const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const conversationLastMessage = conversation.lastMessage || "No messages yet";
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
+      //change url search params to selected conversationId
       navigate({
         pathname: "/chat",
         search: createSearchParams({
           conversationId: conversation.chatId as string,
         }).toString(),
       });
+
+      //save selected conversation data in redux
+      dispatch(setSelectedConversation({ conversation }));
     } else if (event.type === "contextmenu") {
       event.preventDefault();
     }
   };
+
+  //effect to prefetch first page of conversation's messages on mount
+  useEffect(() => {
+    const preFetchMessages = async () => {
+      const { data } = await getMessages({
+        chatId: `${conversation.chatId}`,
+        floor: 0,
+        ceil: 5,
+      });
+      return data;
+    };
+
+    //prefetch
+    queryClient.prefetchInfiniteQuery({
+      queryKey: [
+        {
+          user: "current",
+          conversation: `${conversation.chatId}`,
+        },
+      ],
+      queryFn: preFetchMessages,
+    });
+  }, []);
 
   return (
     <HoverWrapper type={isSelected ? "active" : "inActive"}>
@@ -50,7 +83,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
         }`}
       >
         <div>
-          <Avatar isConversationList={true} imgSrc={test} isOnline={false} />
+          <Avatar isConversationList={true} imgSrc={test} />
         </div>
         <div className="w-full">
           <div className="flex items-center justify-between whitespace-nowrap w-full">
@@ -61,7 +94,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
               size={"xs"}
               className="text-sm text-bg-btn whitespace-nowrap"
             >
-              1402.12.30
+              {formatDateDifference(conversation.sentAt)}
             </Paragraph>
           </div>
 

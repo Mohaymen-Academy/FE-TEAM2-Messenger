@@ -1,14 +1,6 @@
 import { merge } from "@/utils/merge";
 
-const Leaf = (props) => {
-  if (props.leaf.emoji) {
-    return (
-      <span className="emoji" {...props.attributes}>
-        {props.children}
-      </span>
-    );
-  }
-
+const Leaf = (props: any) => {
   return (
     <span
       className={merge(

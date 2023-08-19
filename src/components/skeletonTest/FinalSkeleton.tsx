@@ -1,9 +1,5 @@
-import React from 'react'
-import SkeletonConversationWraaper from './SkeletonConversationWraaper'
-import SkeletonConversationItem from './SkeletonConversationItem';
-
-
-
+import SkeletonConversationWraaper from "./SkeletonConversationWraaper";
+import SkeletonConversationItem from "./SkeletonConversationItem";
 
 const FinalSkeleton = () => {
   return (
@@ -17,6 +13,6 @@ const FinalSkeleton = () => {
       </SkeletonConversationWraaper>
     </div>
   );
-}
+};
 
-export default FinalSkeleton
+export default FinalSkeleton;
