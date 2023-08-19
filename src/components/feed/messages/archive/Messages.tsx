@@ -57,7 +57,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
     {
       enabled: !!selectedConversation,
       getNextPageParam: (lastPage, allPages) => {
-        if (lastPage.length < HAS_NEXT_PAGE_THRESHOLD) {
+        if (lastPage.length <= HAS_NEXT_PAGE_THRESHOLD) {
           return null; // No more pages
         }
         const floor = allPages.length && allPages.length * MESSAGE_PER_PAGE;
