@@ -1,4 +1,4 @@
-import { StoreStateTypes } from "@/utils/types";
+import { ConversationTypes, StoreStateTypes } from "@/utils/types";
 import clsx from "clsx";
 import UserProfile from "./UserProfile";
 import { useSelector } from "react-redux";
@@ -6,6 +6,13 @@ import CurrentUserProfile from "./CurrentUserProfile";
 
 const ProfileWrapper = () => {
   const show = useSelector((store: StoreStateTypes) => store.profile.show);
+  const selectedConversation = useSelector(
+    (store: StoreStateTypes) => store.conversation.selectedConversation
+  );
+  const profileName =
+    selectedConversation && "title" in selectedConversation
+      ? selectedConversation.title
+      : "";
   return (
     <div
       className={clsx(

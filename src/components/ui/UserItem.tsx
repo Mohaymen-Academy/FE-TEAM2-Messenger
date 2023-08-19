@@ -22,7 +22,7 @@ const UserItem: React.FC<UserItemProps> = ({
     >
       <div className="flex items-center  mr-4"></div>
       <div className="relative">
-        <Avatar isOnline />
+        <Avatar isConversationList={true} isOnline />
         {withCheck && (
           <div
             style={{ transform: `scale(${checked ? 1.2 : 0})` }}

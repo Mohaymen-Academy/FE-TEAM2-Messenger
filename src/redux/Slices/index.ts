@@ -13,12 +13,16 @@ import { profileSliceType } from "./profileSlice";
 import userSliceReducer from "./userSlice";
 import { userSliceType } from "./userSlice";
 
+import {logOutModalSliceType} from "./modal/logOutModalSlice"
+import logOutModalSliceReducer from "./modal/logOutModalSlice"
+
 export {
   appSliceReducer,
   conversationSliceReducer,
   messageSliceReducer,
   profileSliceReducer,
   userSliceReducer,
+  logOutModalSliceReducer
 };
 
 export type {
@@ -27,4 +31,5 @@ export type {
   messageSliceType,
   profileSliceType,
   userSliceType,
+  logOutModalSliceType
 };

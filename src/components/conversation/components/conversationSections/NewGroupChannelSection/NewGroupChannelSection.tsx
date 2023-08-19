@@ -108,6 +108,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log(data);
     if (section === "channelCreate") {
       sendInfoMutation.mutate({
         title: data.channelName,

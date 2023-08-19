@@ -8,7 +8,7 @@ import { AnimatedButton, SearchInput } from "../ui";
 import { useQuery } from "react-query";
 import { getAllChat } from "@/services/api/chat";
 import { BounceLoader } from "react-spinners";
-import { ChatItem } from "@/utils/types";
+import { ConversationTypes } from "@/utils/types";
 import { useSearchParams } from "react-router-dom";
 import useToastify from "@/hooks/useTostify";
 
@@ -61,13 +61,14 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
               ) : conversationItemsQueryResponse.isError ? (
                 "Conversation list fetch error"
               ) : (
-                conversationItems.map((item: ChatItem) => (
+                conversationItems.map((item: ConversationTypes) => (
                   <ConversationItem
                     key={item.chatId}
                     onDeleteConversation={() => {}}
                     onClickConversation={() => {}}
                     conversation={item}
-                    isSelected={selectedConversation === item.chatId}
+                    isSelected={selectedConversation === `${item.chatId}`}
+                    unseenMessages={item.unSeenMessages}
                   />
                 ))
               )}

@@ -11,6 +11,7 @@ import { BiMoon, BiSun } from "react-icons/bi";
 import { toggleTheme } from "@/redux/Slices/appSlice";
 import { emptyUser } from "@/redux/Slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import { onOpen } from "@/redux/Slices/modal/logOutModalSlice";
 
 const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
   const dispatch = useDispatch();
@@ -20,10 +21,8 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
     dispatch(setSection({ selectedState: "pvCreate" }));
   };
   const onLogOutClickHandler = () => {
-    dispatch(emptyUser());
-    navigate("/auth/sign-in");
-    window.localStorage.removeItem("access_token");
-    window.localStorage.removeItem("refresh_token");
+    dispatch(onOpen());
+   
   };
   return (
     <div

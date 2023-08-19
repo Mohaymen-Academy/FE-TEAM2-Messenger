@@ -16,6 +16,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import useViewportWidth from "@/hooks/useViewportWidth";
 import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
 import ProfileWrapper from "@/components/profile/ProfileWrapper";
+import LogOutModal from "@/components/modal/LogOutModal";
 import { useQuery } from "react-query";
 import { getUser } from "@/services/api/user";
 
@@ -23,6 +24,7 @@ const Chat = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const viewPortWidth = useViewportWidth();
+  const logoutModalOpen = useSelector((store:StoreStateTypes) => store.logOutModal.isOpen)
   // const userIsInMobile = (isAndroid || isIOS) && isMobile;
   const showConversation = useSelector(
     (store: StoreStateTypes) => store.conversation.showConversations
@@ -76,20 +78,29 @@ const Chat = () => {
   };
 
   useQuery(["user", "current"], getUser);
+  useEffect(() => {
+    const token = localStorage.getItem("refresh_token");
+    if (!token) {
+      navigate("/auth/sign-in");
+    }
+  }, []);
 
   return (
-    <div
-      onClick={onChatClickHandler}
-      className="flex transition-all m-auto rounded-none flex-col relative max-w-[1920px] bg-repeat h-full"
-    >
-      <div className="flex w-full h-full relative">
-        <ConversationWrapper
-          conversationShowCriteria={conversationShowCriteria}
-        />
-        <FeedWrapper feedShowCriteria={feedShowCriteria} userId="232" />
-        <ProfileWrapper />
+    <>
+      {logoutModalOpen && <LogOutModal />}
+      <div
+        onClick={onChatClickHandler}
+        className="flex transition-all m-auto rounded-none flex-col relative max-w-[1920px] bg-repeat h-full"
+      >
+        <div className="flex w-full h-full relative">
+          <ConversationWrapper
+            conversationShowCriteria={conversationShowCriteria}
+          />
+          <FeedWrapper feedShowCriteria={feedShowCriteria} userId="232" />
+          <ProfileWrapper />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

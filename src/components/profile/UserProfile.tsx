@@ -9,6 +9,7 @@ import Notification from "./components/Notification";
 interface userProfileProps {
   profileName: string;
   imgSrc?: string;
+ 
 }
 
 const UserProfile: React.FC<userProfileProps> = ({ profileName, imgSrc }) => {

@@ -11,7 +11,12 @@ import { getMessages } from "@/services/api/chat";
 import { queryClient } from "@/providers/queryClientProvider";
 import { useDispatch } from "react-redux";
 import { setSelectedConversation } from "@/redux/Slices/conversationSlice";
-import { formatDateDifference } from "@/utils/fromatData";
+import {
+  formatDateDifference,
+  formatDateToShamsiYear,
+  formatDateToTime,
+} from "@/utils/fromatData";
+
 
 interface ConversationItemProps {
   conversation: ChatItem;
@@ -25,13 +30,15 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   // onClickConversation,
   conversation,
   isSelected,
-  unseenMessages = 10,
+  unseenMessages,
   // onDeleteConversation,
 }) => {
   // const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const conversationLastMessage = conversation.lastMessage || "No messages yet";
+  console.log(unseenMessages);
+  
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
@@ -74,13 +81,11 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   }, []);
 
   return (
-    <HoverWrapper type={isSelected ? "active" : "inActive"}>
+    <HoverWrapper className="p-0" type={isSelected ? "active" : "inActive"}>
       <div
         onClick={handleClick}
         onContextMenu={handleClick}
-        className={`flex justify-between p-3 cursor-pointer items-center  gap-3 w-full relative rounded-3xl overflow-hidden ${
-          isSelected && "bg-black/20"
-        }`}
+        className={`flex justify-between cursor-pointer items-center p-4  gap-3 w-full relative rounded-3xl overflow-hidden`}
       >
         <div>
           <Avatar isConversationList={true} imgSrc={test} />
@@ -105,7 +110,8 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
             >
               {conversationLastMessage}
             </Paragraph>
-            {true && <UnreadMessages unseen={unseenMessages} />}
+            {/* {true && <UnreadMessages unseen={unseenMessages} />} */}
+            {unseenMessages > 0 && <UnreadMessages unseen={unseenMessages} />}
           </div>
         </div>
       </div>

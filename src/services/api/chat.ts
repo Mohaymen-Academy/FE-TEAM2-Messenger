@@ -36,4 +36,5 @@ const createChat = async (body: CreateChannelType) => {
   return apiCall.post("/api/chats/create-chat", body);
 };
 
-export { getAllChat, createChat, getMessages };
+export { getAllChat, createChat,getChat, getMessages };
+

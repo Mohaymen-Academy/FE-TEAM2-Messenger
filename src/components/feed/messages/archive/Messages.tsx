@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useSelector } from "react-redux";
-import { StoreStateTypes } from "@/utils/types";
+import { StoreStateTypes, UserTypes } from "@/utils/types";
 import { useInfiniteQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
 import { getMessages } from "@/services/api/chat";
@@ -9,6 +9,7 @@ import Text from "../Text";
 import { HAS_NEXT_PAGE_THRESHOLD, MESSAGE_PER_PAGE } from "@/utils/constants";
 import { InView } from "react-intersection-observer";
 import { BeatLoader } from "react-spinners";
+import { queryClient } from "@/providers/queryClientProvider";
 
 interface MessagesProps {
   userId: string;
@@ -73,7 +74,11 @@ const Messages: React.FC<MessagesProps> = ({}) => {
   );
 
   const messages = messageData?.pages.flat();
-  console.log(messageData?.pages, "pages");
+  const data = queryClient.getQueryData(["user", "current"]) as {
+    data: UserTypes;
+  };
+  console.log(data);
+  console.log(messages);
 
   return (
     <div className="flex flex-col h-full justify-end overflow-hidden">
@@ -94,7 +99,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
                   key={msg.messageId}
                   messageStatus="SEEN"
                   groupMessage={true}
-                  sentByCurrentUser={false}
+                  sentByCurrentUser={msg.userId === data.data.userId}
                 >
                   <Text content={msg.text} />
                 </Message>
