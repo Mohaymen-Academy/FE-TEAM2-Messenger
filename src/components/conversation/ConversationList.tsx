@@ -11,6 +11,7 @@ import { BounceLoader } from "react-spinners";
 import { ConversationTypes } from "@/utils/types";
 import { useSearchParams } from "react-router-dom";
 import useToastify from "@/hooks/useTostify";
+import FinalSkeleton from "../skeletonTest/FinalSkeleton";
 
 interface ConversationListProps {}
 
@@ -55,8 +56,9 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
             </div>
             <div className="h-full w-full overflow-y-auto overflow-x-hidden px-2 duration-500 custom-scrollbar scrollbar-none md:scrollbar">
               {conversationItemsQueryResponse.isLoading ? (
-                <div className="w-full h-full grid place-content-center">
-                  <BounceLoader />
+                <div className="w-full h-full">
+                  {/* <BounceLoader /> */}
+                  <FinalSkeleton/>
                 </div>
               ) : conversationItemsQueryResponse.isError ? (
                 "Conversation list fetch error"
