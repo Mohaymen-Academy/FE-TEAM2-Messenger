@@ -6,7 +6,6 @@ import Button from "@/components/ui/Button";
 import { BsArrowRight } from "react-icons/bs";
 import { setSection } from "@/redux/Slices/conversationSlice";
 import { useDispatch } from "react-redux";
-
 import { IconType } from "react-icons";
 import UserItem from "../../../ui/UserItem";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
@@ -15,7 +14,7 @@ import { newSectionsButtonObject } from "@/utils/constants";
 type NewChatButtonProps = {
   text: string;
   Icon: IconType;
-  target: "groupCreate" | "channelCreate";
+  target: "groupCreate" | "channelCreate" | "contactCreate";
 };
 const NewChatButton: React.FC<NewChatButtonProps> = ({
   Icon,

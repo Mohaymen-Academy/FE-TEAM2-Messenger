@@ -6,6 +6,7 @@ import CreatePvSection from "./components/conversationSections/NewChatSection";
 import NewGroupChannelSection from "./components/conversationSections/NewGroupChannelSection/NewGroupChannelSection";
 import { useQuery } from "react-query";
 import { getContacts } from "@/services/api/contact";
+import NewContactSection from "./components/conversationSections/NewGroupChannelSection/NewContactSection";
 
 interface ConversationWrapperProps {
   conversationShowCriteria?: string;
@@ -47,8 +48,13 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({
         >
           <NewGroupChannelSection contactsData={sortedContacts} />
         </ConversationSectionWrapper>
+
         <ConversationSectionWrapper show={section === "conversations"}>
           <ConversationList />
+        </ConversationSectionWrapper>
+
+        <ConversationSectionWrapper show={section === "contactCreate"}>
+          <NewContactSection />
         </ConversationSectionWrapper>
       </div>
     </div>
