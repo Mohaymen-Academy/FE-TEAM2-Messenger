@@ -14,6 +14,10 @@ import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import Editor from "@/components/editor";
 import { withReact } from "slate-react";
 import { createEditor } from "slate";
+import { parseSlateToHtml } from "@/components/editor/serializer";
+import { useSearchParams } from "react-router-dom";
+import { useMutation } from "react-query";
+import { sendMessage } from "@/services/api/chat";
 
 const initialValue = [
   {
@@ -25,6 +29,12 @@ const initialValue = [
 const TextArea = () => {
   const dispatch = useDispatch();
   const [editor] = useState(() => withReact(createEditor()));
+  const [URLSearchParams] = useSearchParams();
+
+  const selectedConversation = URLSearchParams.get("conversationId");
+  const textObj = useSelector(
+    (store: StoreStateTypes) => store.textArea.textObject
+  );
 
   const showEmoji = useSelector(
     (store: StoreStateTypes) => store.app.showEmoji
@@ -32,6 +42,31 @@ const TextArea = () => {
   const showUploadMenu = useSelector(
     (store: StoreStateTypes) => store.app.showUploadMenu
   );
+
+  // const useSendMessageMutation = () => {
+  //   return useMutation((formData: FormData) => sendMessage(formData));
+  // };
+
+  // const { mutate: sendMessageMutate } = useSendMessageMutation();
+
+  const { mutate: sendMessageMutate } = useMutation({
+    mutationFn: (formData: FormData) => sendMessage(formData),
+    onMutate: (data) => {
+      console.log("mutate happens");
+      console.log(data);
+    },
+    onSuccess: () => {
+      console.log("sent");
+    },
+  });
+
+  const onSendClickHandler = () => {
+    const text = parseSlateToHtml(textObj);
+    const messageFormData = new FormData();
+    messageFormData.append("text", text as string);
+    messageFormData.append("chatId", selectedConversation as string);
+    sendMessageMutate(messageFormData);
+  };
 
   return (
     <div className="relative flex max-w-full w-full bg-primary px-3 py-2 justify-center items-center gap-2 rounded-lg">
@@ -65,8 +100,12 @@ const TextArea = () => {
         <Editor.ToolBar />
         <Editor.Input />
       </Editor>
-      {/* </div> */}
-      <Button variant="ghost" size="sm" className="hover:bg-blue-100 group">
+      <Button
+        onClick={onSendClickHandler}
+        variant="ghost"
+        size="sm"
+        className="hover:bg-blue-100 group"
+      >
         <BsFillSendFill className="w-5 h-5 text-cyan-700 dark:text-cyan-300" />
         <span className="sr-only">Send message</span>
       </Button>

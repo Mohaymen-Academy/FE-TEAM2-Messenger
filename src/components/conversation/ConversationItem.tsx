@@ -16,7 +16,7 @@ import {
   formatDateToShamsiYear,
   formatDateToTime,
 } from "@/utils/fromatData";
-
+import { MESSAGE_PER_PAGE } from "@/utils/constants";
 
 interface ConversationItemProps {
   conversation: ChatItem;
@@ -37,8 +37,6 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const conversationLastMessage = conversation.lastMessage || "No messages yet";
-  console.log(unseenMessages);
-  
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
@@ -63,9 +61,9 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       const { data } = await getMessages({
         chatId: `${conversation.chatId}`,
         floor: 0,
-        ceil: 5,
+        ceil: MESSAGE_PER_PAGE,
       });
-      return data;
+      return data.reverse();
     };
 
     //prefetch

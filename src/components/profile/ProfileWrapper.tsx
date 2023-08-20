@@ -3,8 +3,16 @@ import clsx from "clsx";
 import UserProfile from "./UserProfile";
 import { useSelector } from "react-redux";
 import CurrentUserProfile from "./CurrentUserProfile";
+import GroupProfile from "./GroupProfile";
+import ChannelProfile from "./ChannelProfile";
 
-const ProfileWrapper = () => {
+interface ProfileWrapperProps {
+  profileType: "channel" | "currentUser" | "otherUser" | "group";
+}
+
+const ProfileWrapper: React.FC<ProfileWrapperProps> = ({
+  profileType
+}) => {
   const show = useSelector((store: StoreStateTypes) => store.profile.show);
   const selectedConversation = useSelector(
     (store: StoreStateTypes) => store.conversation.selectedConversation
@@ -22,7 +30,18 @@ const ProfileWrapper = () => {
     >
       {/* <UserProfile profileName="sadff" /> */}
       {/* <GroupCreator /> */}
-      <CurrentUserProfile profileName="علی اکبر" />
+
+      {/* <CurrentUserProfile profileName={profileName} /> */}
+
+      {profileType === "currentUser" ? (
+        <CurrentUserProfile profileName={profileName} />
+      ) : profileType === "otherUser" ? (
+        <UserProfile profileName={profileName} />
+      ) : profileType === "group" ? (
+        <GroupProfile profileName={profileName} />
+      ) : (
+        <ChannelProfile profileName={profileName} />
+      )}
     </div>
   );
 };

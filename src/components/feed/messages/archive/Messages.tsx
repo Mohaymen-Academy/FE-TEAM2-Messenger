@@ -57,7 +57,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
     {
       enabled: !!selectedConversation,
       getNextPageParam: (lastPage, allPages) => {
-        if (lastPage.length < HAS_NEXT_PAGE_THRESHOLD) {
+        if (lastPage.length <= HAS_NEXT_PAGE_THRESHOLD) {
           return null; // No more pages
         }
         const floor = allPages.length && allPages.length * MESSAGE_PER_PAGE;
@@ -77,8 +77,6 @@ const Messages: React.FC<MessagesProps> = ({}) => {
   const data = queryClient.getQueryData(["user", "current"]) as {
     data: UserTypes;
   };
-  console.log(data);
-  console.log(messages);
 
   return (
     <div className="flex flex-col h-full justify-end overflow-hidden">

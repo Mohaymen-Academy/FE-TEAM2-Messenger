@@ -38,7 +38,8 @@
     --bg-msg-current: #ecfccb;
     /* gray-100 */
     --bg-msg-other: #f3f4f6;
-
+    /* black */
+    --bg-skeleton-primary : #020617;
     /* slate-200 */
     --bg-skeleton-primary: #e2e8f0;
 
@@ -70,13 +71,12 @@
     /* slate-700 */
     --bg-btn-ghost: #334155;
 
-    /* sky-600 */
+    /* purple-900 */
     --bg-msg-current: #581c87;
     /* slate-700 */
     --bg-msg-other: #334155;
-
-    /* black */
-    --bg-skeleton-primary: #020617;
+    /* slate-200 */
+    --bg-skeleton-primary : #e2e8f0;
   }
 
   input::-webkit-outer-spin-button,

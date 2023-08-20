@@ -24,7 +24,9 @@ const Chat = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const viewPortWidth = useViewportWidth();
-  const logoutModalOpen = useSelector((store:StoreStateTypes) => store.logOutModal.isOpen)
+  const logoutModalOpen = useSelector(
+    (store: StoreStateTypes) => store.logOutModal.isOpen
+  );
   // const userIsInMobile = (isAndroid || isIOS) && isMobile;
   const showConversation = useSelector(
     (store: StoreStateTypes) => store.conversation.showConversations
@@ -87,7 +89,7 @@ const Chat = () => {
 
   return (
     <>
-      {logoutModalOpen && <LogOutModal />}
+      <LogOutModal />
       <div
         onClick={onChatClickHandler}
         className="flex transition-all m-auto rounded-none flex-col relative max-w-[1920px] bg-repeat h-full"
