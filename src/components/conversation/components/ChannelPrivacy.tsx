@@ -30,7 +30,7 @@ const ChannelPrivacy: React.FC<channelPrivacyProps> = ({ setValue }) => {
             checked={channelType === "public"}
             className="w-5 h-5"
           />
-          <Paragraph className="mb-2">عمومی</Paragraph>
+          <Paragraph>عمومی</Paragraph>
         </label>
         <Paragraph size="xs" className="!text-secondary mx-3">
           به کانال های خصوصی می توان از طریق سرچ دسترسی داشت و هرکسی می تواند به
@@ -49,7 +49,7 @@ const ChannelPrivacy: React.FC<channelPrivacyProps> = ({ setValue }) => {
             checked={channelType === "private"}
             className="w-5 h-5"
           />
-          <Paragraph className="mb-2">خصوصی</Paragraph>
+          <Paragraph>خصوصی</Paragraph>
         </label>
         <Paragraph size="xs" className="!text-secondary mx-3">
           به کانال های خصوصی فقط می توان از طریق لینک ملحق شد.

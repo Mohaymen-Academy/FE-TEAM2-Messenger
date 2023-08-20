@@ -38,7 +38,7 @@ const NewContactSection = () => {
               onClick={() =>
                 dispatch(setSection({ selectedState: "conversations" }))
               }
-              className="!bg-btn-danger hover:!bg-btn-danger-hover w-full font-bold text-xl"
+              className="!bg-btn-danger !text-white hover:!bg-btn-danger-hover w-full font-bold text-xl"
             >
               انصراف
             </Button>

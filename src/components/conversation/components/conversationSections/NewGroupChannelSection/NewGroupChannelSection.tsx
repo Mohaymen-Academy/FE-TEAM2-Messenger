@@ -72,6 +72,9 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
   const [selectedUser, setSelectedUser] = useState<any>([]);
   const [step, setStep] = useState<1 | 2>(1);
   const toastify = useToastify();
+  const section = useSelector(
+    (store: StoreStateTypes) => store.conversation.section
+  );
 
   // const sendPictureMutation = useMutation(sendPicture, {
   //   onError: (error) => {
@@ -84,14 +87,14 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
     onError: () => {
       toastify.error("اطلاعات دخیره نگردید لطفا مجددا تلاش فرمایید");
     },
-    onSuccess: () => {
-      toastify.info("کانال با موفقیت ایجاد شد.");
+    onSuccess: (data) => {
+      toastify.info(
+        `${
+          data.data.chatType === "CHANNEL" ? "کانال" : "گروه"
+        } با موفقیت ایجاد شد.`
+      );
     },
   });
-
-  const section = useSelector(
-    (store: StoreStateTypes) => store.conversation.section
-  );
 
   const onUserClickHandler = (user: string | number) => {
     setSelectedUser((prev: any) => {
