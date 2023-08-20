@@ -6,6 +6,7 @@ import {
   userSliceType,
   logOutModalSliceType,
   textAreaSliceType,
+  UploadModalSliceType,
 } from "@/redux/Slices";
 
 export type StoreStateTypes = {
@@ -15,6 +16,7 @@ export type StoreStateTypes = {
   profile: profileSliceType;
   user: userSliceType;
   logOutModal: logOutModalSliceType;
+  uploadModal: UploadModalSliceType;
   textArea: textAreaSliceType;
 };
 

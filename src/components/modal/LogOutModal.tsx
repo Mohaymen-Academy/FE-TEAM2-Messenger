@@ -15,16 +15,16 @@ const LogOutModal = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const onSubmit = () => {
-    console.log('dknkdndks')
+    console.log("dknkdndks");
     dispatch(emptyUser());
     navigate("/auth/sign-in");
     window.localStorage.removeItem("access_token");
     window.localStorage.removeItem("refresh_token");
-    dispatch(onClose())
+    dispatch(onClose());
   };
   const body = (
     <>
-      <div className="bg-primary w-full py-5 px-8 rounded-xl shadow shadow-gray-400">
+      <div className="bg-primary w-full py-5 px-8 rounded-xl">
         <Paragraph className="mb-6 text-center">
           آیا از خروج مطمئن هستید؟
         </Paragraph>
