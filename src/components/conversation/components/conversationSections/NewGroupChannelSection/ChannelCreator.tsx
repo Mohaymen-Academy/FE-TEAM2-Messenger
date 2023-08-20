@@ -78,7 +78,6 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
             <Button
               onClick={() => {
                 onSubmit();
-                dispatch(setSection({ selectedState: "conversations" }));
               }}
               className="w-full font-bold text-xl"
             >

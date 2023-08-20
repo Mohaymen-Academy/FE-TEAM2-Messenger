@@ -116,14 +116,17 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
     const link = uuid4().replace(/-/g, "").substring(0, 20);
 
     if (section === "channelCreate") {
-      sendInfoMutation.mutate({
-        title: data.channelName,
-        bio: data.channelBio,
-        link: `https://chetchat/channels/${link}`,
-        chatType: "CHANNEL",
-        userIds: selectedUser,
-        public: data.public,
-      });
+      sendInfoMutation.mutate(
+        {
+          title: data.channelName,
+          bio: data.channelBio,
+          link: `${link}`,
+          chatType: "CHANNEL",
+          userIds: selectedUser,
+          public: data.public,
+        },
+        { onSuccess: () => {} }
+      );
     }
 
     if (section === "groupCreate") {

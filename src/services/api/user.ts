@@ -24,6 +24,10 @@ const getUser = async () => {
   return apiCall.get<UserTypes>("api/users/get-current-user");
 };
 
+const getUserByPhone = async (phone: string) => {
+  return apiCall.get(`api/users/by-phoneNumber/${phone}`);
+};
+
 // const forgetPasswordApi = async (email: string) => {
 //   return apiCall.post("/auth/forget-password", {
 //     email,
@@ -41,4 +45,5 @@ const getUser = async () => {
 //     refreshToken: rToken,
 //   });
 // };
-export { sendPicture, updateInfo, getUser };
+
+export { sendPicture, updateInfo, getUser, getUserByPhone };
