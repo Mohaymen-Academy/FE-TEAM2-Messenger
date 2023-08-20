@@ -7,7 +7,7 @@ import UnreadMessages from "./components/UnreadMesseges";
 import { ConversationTypes } from "@/utils/types";
 import HoverWrapper from "../wrappers/HoverWrapper";
 import { useEffect } from "react";
-import { getMessages } from "@/services/api/chat";
+import { getChat, getMessages } from "@/services/api/chat";
 import { queryClient } from "@/providers/queryClientProvider";
 import { useDispatch } from "react-redux";
 import { setSelectedConversation } from "@/redux/Slices/conversationSlice";
@@ -15,6 +15,7 @@ import parse from "html-react-parser";
 
 import { formatDateDifference } from "@/utils/fromatData";
 import { MESSAGE_PER_PAGE } from "@/utils/constants";
+import { useQuery } from "react-query";
 
 interface ConversationItemProps {
   conversation: ConversationTypes;
@@ -35,6 +36,10 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const conversationLastMessage = conversation.lastMessage || "No messages yet";
+  useQuery(["chat", conversation.chatType, conversation.chatId], () =>
+    getChat(conversation.chatId)
+  );
+
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
@@ -63,6 +68,8 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       });
       return data.reverse();
     };
+    
+    
 
     //prefetch
     queryClient.prefetchInfiniteQuery({
@@ -79,7 +86,12 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
         className={`flex justify-between cursor-pointer items-center p-4  gap-3 w-full relative rounded-3xl overflow-hidden`}
       >
         <div>
-          <Avatar isConversationList={true} imgSrc={test} />
+          <Avatar
+            chatType={conversation.chatType}
+            chatId={conversation.chatId}
+            isConversationList={true}
+            imgSrc={test}
+          />
         </div>
         <div className="w-full">
           <div className="flex items-center justify-between whitespace-nowrap w-full">

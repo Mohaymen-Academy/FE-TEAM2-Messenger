@@ -5,7 +5,7 @@ import { getMessageParamsType } from "./types";
 const getAllChat = async () => {
   return apiCall.get("/api/chats/get-all-chats");
 };
-const getChat = async (chatId: string) => {
+const getChat = async (chatId: any) => {
   return apiCall.get(`/api/chats/get-chat/${chatId}`);
 };
 const getMessages = async (getMessageParams: getMessageParamsType) => {
@@ -38,5 +38,6 @@ const createChat = async (body: CreateChannelType) => {
   console.log("called with:", body);
   return apiCall.post("/api/chats/create-chat", body);
 };
+
 
 export { getAllChat, createChat, getChat, getMessages, sendMessage };

@@ -1,3 +1,4 @@
+import { setSelectedProfile } from "@/redux/Slices/appSlice";
 import { setShow } from "@/redux/Slices/profileSlice";
 import { merge } from "@/utils/merge";
 import { HTMLAttributes } from "react";
@@ -7,6 +8,8 @@ interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   isOnline?: boolean;
   imgSrc?: string;
   isConversationList?: boolean;
+  chatType?: string; // New prop
+  chatId?: string | number; // New prop
 }
 
 const Avatar: React.FC<AvatarProps> = ({
@@ -14,15 +17,29 @@ const Avatar: React.FC<AvatarProps> = ({
   className,
   imgSrc,
   isConversationList,
+  chatType,
+  chatId,
   ...props
 }) => {
   const dispatch = useDispatch();
 
   return (
     <div
-      onClick={() =>
-        dispatch(setShow({ show: isConversationList ? false : true }))
-      }
+      onClick={() => {
+        dispatch(setShow({ show: isConversationList ? false : true }));
+
+        dispatch(
+          setSelectedProfile({
+            selectedProfile: {
+              conversationId: chatId as string,
+              conversationType: "CHANNEL",
+            },
+          })
+        );
+        // Pass the chatType and chatId to the dispatched action
+        // if (chatType && chatId) {
+        // }
+      }}
       className={merge(
         "w-16 h-16 text-center relative rounded-full bg-red-600 cursor-pointer",
         className
