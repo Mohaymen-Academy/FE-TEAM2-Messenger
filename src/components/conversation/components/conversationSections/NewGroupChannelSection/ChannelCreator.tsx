@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { setSection } from "@/redux/Slices/conversationSlice";
 import ProfileUploader from "@/components/wrappers/FileUploader";
 import { useState } from "react";
-import ChannelPrivacy from "../../ChannelPrivacy";
+import ChatPrivacy from "../../ChannelPrivacy";
 
 interface ChannelCreatorProp {
   show: boolean;
@@ -72,7 +72,7 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
             />
           </div>
 
-          <ChannelPrivacy setValue={setValue} />
+          <ChatPrivacy setValue={setValue} />
 
           <div className="flex gap-2">
             <Button

@@ -4,15 +4,15 @@ import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import React, { useState } from "react";
 import { FieldValues, UseFormSetValue } from "react-hook-form";
 
-interface channelPrivacyProps {
+interface chatPrivacyProps {
   setValue: UseFormSetValue<FieldValues>;
 }
 
-const ChannelPrivacy: React.FC<channelPrivacyProps> = ({ setValue }) => {
-  const [channelType, setChannelType] = useState("public");
+const ChatPrivacy: React.FC<chatPrivacyProps> = ({ setValue }) => {
+  const [chatType, setChatType] = useState("public");
 
   const handleChannelTypeChange = (newType: "private" | "public") => {
-    setChannelType(newType);
+    setChatType(newType);
     setValue("public", newType === "public" ? true : false);
   };
 
@@ -27,7 +27,7 @@ const ChannelPrivacy: React.FC<channelPrivacyProps> = ({ setValue }) => {
             type="radio"
             name="channelType"
             value="public"
-            checked={channelType === "public"}
+            checked={chatType === "public"}
             className="w-5 h-5"
           />
           <Paragraph>عمومی</Paragraph>
@@ -46,7 +46,7 @@ const ChannelPrivacy: React.FC<channelPrivacyProps> = ({ setValue }) => {
             type="radio"
             name="channelType"
             value="private"
-            checked={channelType === "private"}
+            checked={chatType === "private"}
             className="w-5 h-5"
           />
           <Paragraph>خصوصی</Paragraph>
@@ -59,4 +59,4 @@ const ChannelPrivacy: React.FC<channelPrivacyProps> = ({ setValue }) => {
   );
 };
 
-export default ChannelPrivacy;
+export default ChatPrivacy;

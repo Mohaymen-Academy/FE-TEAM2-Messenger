@@ -14,6 +14,7 @@ import { useMutation } from "react-query";
 import { createChat } from "@/services/api/chat";
 import useToastify from "@/hooks/useTostify";
 import { v4 as uuid4 } from "uuid";
+import { queryClient } from "@/providers/queryClientProvider";
 
 interface UserSelect {
   onUserClickHandler: (user: string | number) => void;
@@ -75,6 +76,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
   const section = useSelector(
     (store: StoreStateTypes) => store.conversation.section
   );
+  const dispatch = useDispatch();
 
   // const sendPictureMutation = useMutation(sendPicture, {
   //   onError: (error) => {
@@ -83,16 +85,32 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
   //   },
   // });
 
+  const { register, handleSubmit, setValue, reset } = useForm<FieldValues>({
+    defaultValues: {
+      channelName: "",
+      channelBio: "",
+      groupName: "",
+      public: true,
+    },
+  });
+
   const sendInfoMutation = useMutation(createChat, {
     onError: () => {
       toastify.error("اطلاعات دخیره نگردید لطفا مجددا تلاش فرمایید");
     },
     onSuccess: (data) => {
+      dispatch(setSection({ selectedState: "conversations" }));
+      queryClient.invalidateQueries({
+        queryKey: ["user", "current", "conversations"],
+      });
       toastify.info(
         `${
           data.data.chatType === "CHANNEL" ? "کانال" : "گروه"
         } با موفقیت ایجاد شد.`
       );
+    },
+    onSettled: () => {
+      reset();
     },
   });
 
@@ -103,34 +121,40 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
     });
   };
 
-  const { register, handleSubmit, setValue } = useForm<FieldValues>({
-    defaultValues: {
-      channelName: "",
-      channelBio: "",
-      groupName: "",
-      public: true,
-    },
-  });
-
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const link = uuid4().replace(/-/g, "").substring(0, 20);
 
     if (section === "channelCreate") {
-      sendInfoMutation.mutate(
-        {
-          title: data.channelName,
-          bio: data.channelBio,
-          link: `${link}`,
-          chatType: "CHANNEL",
-          userIds: selectedUser,
-          public: data.public,
-        },
-        { onSuccess: () => {} }
-      );
+      sendInfoMutation.mutate({
+        title: data.channelName,
+        bio: data.channelBio,
+        link: `${link}`,
+        chatType: "CHANNEL",
+        userIds: selectedUser,
+        public: data.public,
+      });
     }
 
     if (section === "groupCreate") {
-      /// logic to create group
+      sendInfoMutation.mutate(
+        {
+          title: data.groupName,
+          bio: "",
+          link: `${link}`,
+          chatType: "GROUP",
+          userIds: selectedUser,
+          public: data.public,
+        },
+        //TODO: get back to conversation
+        //dispatch(setSection({ selectedState: "conversations" }))
+        {
+          onSuccess: () => {},
+          onSettled: () => {
+            reset();
+          },
+          onError: () => {},
+        }
+      );
     }
   };
 
@@ -157,6 +181,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
           onSubmit={handleSubmit(onSubmit)}
           register={register}
           show={step === 2}
+          setValue={setValue}
         />
       )}
 
