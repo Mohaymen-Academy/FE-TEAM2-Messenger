@@ -22,7 +22,6 @@ const Modal: React.FC<ModalProps> = ({
   disabled,
   secondaryAction,
   secondaryActionLabel,
- 
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
 
@@ -35,9 +34,8 @@ const Modal: React.FC<ModalProps> = ({
 
     setShowModal(false);
     setTimeout(() => {
-      console.log("first");
       onClose();
-    }, 300);
+    }, 400);
   }, [onClose, disabled]);
 
   const handleSubmit = useCallback(() => {
@@ -58,19 +56,25 @@ const Modal: React.FC<ModalProps> = ({
     <>
       <div
         onClick={() => handleClose()}
-        className="
+        className={`
 					select-none
           justify-center
         	items-center
           flex
-          overflow-x-hidden
-          overflow-y-auto
+          overflow-hidden 
 				  fixed
 				  inset-0
           z-50
           outline-none
           focus:outline-none
-        bg-neutral-800/70"
+        bg-neutral-800/70
+          h-[100vh]
+          transition
+          ${
+            showModal
+              ? "backdrop-blur-sm opacity-100"
+              : "backdrop-blur-none opacity-0"
+          }`}
       >
         <div
           onClick={(e) => e.stopPropagation()}
@@ -90,7 +94,7 @@ const Modal: React.FC<ModalProps> = ({
 								translate
 								duration-300
 								h-full
-								${showModal ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
+								${showModal ? "translate-y-0 opacity-100 " : "translate-y-10 opacity-0 "}`}
           >
             <div
               className="
@@ -107,7 +111,9 @@ const Modal: React.FC<ModalProps> = ({
 							focus:outline-none"
             >
               {/* BODY */}
-              <div className="relative w-96 p-6 flex-auto self-center flex items-center ">{body}</div>
+              <div className="relative w-[400px] max-h-[90vh] bg p-6 flex-auto self-center flex items-center ">
+                {body}
+              </div>
               {/* FOOTER */}
               <div className="flex flex-col gap-2 p-6">
                 <div

@@ -7,6 +7,7 @@ import {
   userSliceReducer,
   logOutModalSliceReducer,
   textAreaSliceReducer,
+  UploadModalSliceReducer,
 } from "./Slices";
 
 const rootReducer = combineReducers({
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   profile: profileSliceReducer,
   user: userSliceReducer,
   logOutModal: logOutModalSliceReducer,
+  uploadModal: UploadModalSliceReducer,
   textArea: textAreaSliceReducer,
 });
 

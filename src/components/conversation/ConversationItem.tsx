@@ -4,22 +4,20 @@ import { useNavigate, createSearchParams } from "react-router-dom";
 import Avatar from "../ui/Avatar";
 import test from "../../assets/img/darkBg.svg";
 import UnreadMessages from "./components/UnreadMesseges";
-import { ChatItem } from "@/utils/types";
+import { ConversationTypes } from "@/utils/types";
 import HoverWrapper from "../wrappers/HoverWrapper";
 import { useEffect } from "react";
 import { getMessages } from "@/services/api/chat";
 import { queryClient } from "@/providers/queryClientProvider";
 import { useDispatch } from "react-redux";
 import { setSelectedConversation } from "@/redux/Slices/conversationSlice";
-import {
-  formatDateDifference,
-  formatDateToShamsiYear,
-  formatDateToTime,
-} from "@/utils/fromatData";
+import parse from "html-react-parser";
+
+import { formatDateDifference } from "@/utils/fromatData";
 import { MESSAGE_PER_PAGE } from "@/utils/constants";
 
 interface ConversationItemProps {
-  conversation: ChatItem;
+  conversation: ConversationTypes;
   onClickConversation: () => void;
   onDeleteConversation: () => void;
   isSelected: boolean;
@@ -101,7 +99,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
               size={"sm"}
               className="w-[30ch] text-ellipsis overflow-hidden whitespace-nowrap"
             >
-              {conversationLastMessage}
+              {parse(conversationLastMessage)}
             </Paragraph>
             {/* {true && <UnreadMessages unseen={unseenMessages} />} */}
             {unseenMessages > 0 && <UnreadMessages unseen={unseenMessages} />}

@@ -86,17 +86,19 @@ const Messages: React.FC<MessagesProps> = ({}) => {
         ) : (
           messages && (
             <>
-              {messages.map((msg) => (
-                <Message
-                  message={msg}
-                  key={msg.messageId}
-                  messageStatus="SEEN"
-                  groupMessage={true}
-                  sentByCurrentUser={msg.userId === data?.data?.userId}
-                >
-                  <Text content={msg.text} />
-                </Message>
-              ))}
+              {messages.map((msg) => {
+                return (
+                  <Message
+                    message={msg}
+                    key={msg.messageId}
+                    messageStatus="SEEN"
+                    groupMessage={true}
+                    sentByCurrentUser={msg.userId === data?.data?.userId}
+                  >
+                    <Text content={msg.text} />
+                  </Message>
+                );
+              })}
               {hasNextPage && (
                 <InView
                   as="div"

@@ -4,6 +4,7 @@ interface TextProps {
 }
 
 const Text: React.FC<TextProps> = ({ content }) => {
+  if (!content) return null;
   return <div className="text-primary">{parse(content)}</div>;
 };
 
