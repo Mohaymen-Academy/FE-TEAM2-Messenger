@@ -12,6 +12,13 @@ const FinalSkeleton = () => {
      <SkeletonConversationItem/>
      <SkeletonConversationItem/>
      <SkeletonConversationItem/>
+     <SkeletonConversationItem/>
+     <SkeletonConversationItem/>
+     <SkeletonConversationItem/>
+     <SkeletonConversationItem/>
+     <SkeletonConversationItem/>
+     <SkeletonConversationItem/>
+     <SkeletonConversationItem/>
     </div>
   );
 };

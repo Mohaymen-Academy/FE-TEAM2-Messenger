@@ -5,17 +5,30 @@ import Link from "./components/Link";
 import SectionContainer from "./components/SectionContainer";
 import { Paragraph } from "../ui";
 import { SectionHeaderWithEdit } from "./components/SectionHeader";
+import { AiOutlineClose } from "react-icons/ai";
+import { getChat } from "@/services/api/chat";
+import { useQuery } from "react-query";
+import { queryClient } from "@/providers/queryClientProvider";
 
-interface groupProfileProps {
+
+
+interface channelProfileProps {
   profileName: string;
   imgSrc?: string;
 }
 
-const GroupProfile: React.FC<groupProfileProps> = ({ profileName, imgSrc }) => {
+
+
+const ChannelProfile: React.FC<channelProfileProps> = ({ profileName, imgSrc, }) => {
+ 
+  // const channelpMember = group.data?.data
+  const chatData = queryClient.getQueryData(["chat", ])
+  
+  
   return (
     <SectionContainer>
       {/* Profile header and back button */}
-      <SectionHeaderWithEdit title="پروفایل کانال"/>
+      <SectionHeaderWithEdit withClose title="پروفایل کانال" />
 
       {/* Show even profile image or solid color */}
       {/* Also add a gradient to show profile name and subscribers */}
@@ -35,7 +48,7 @@ const GroupProfile: React.FC<groupProfileProps> = ({ profileName, imgSrc }) => {
               {profileName}
             </Paragraph>
             <Paragraph size="sm" className="select-none">
-              {"1200 عضو"}
+              1200 عضو
             </Paragraph>
           </div>
         </div>
@@ -52,4 +65,4 @@ const GroupProfile: React.FC<groupProfileProps> = ({ profileName, imgSrc }) => {
   );
 };
 
-export default GroupProfile;
+export default ChannelProfile;

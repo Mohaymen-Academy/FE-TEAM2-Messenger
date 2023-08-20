@@ -12,10 +12,11 @@ interface groupProfileProps {
 }
 
 const GroupProfile: React.FC<groupProfileProps> = ({ profileName, imgSrc }) => {
+ 
   return (
     <SectionContainer>
       {/* Profile header and back button */}
-      <SectionHeaderWithEdit title="پروفایل گروه" />
+      <SectionHeaderWithEdit withClose title="پروفایل گروه" />
 
       {/* Show even profile image or solid color */}
       {/* Also add a gradient to show profile name and subscribers */}
