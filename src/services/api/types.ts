@@ -17,3 +17,9 @@ export type getMessageParamsType = {
   floor: string | number;
   ceil: string | number;
 };
+
+export type CreateContactType = {
+  contactId: number;
+  firstName: string;
+  lastName: string;
+};

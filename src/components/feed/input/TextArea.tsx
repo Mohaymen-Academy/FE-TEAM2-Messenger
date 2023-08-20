@@ -1,4 +1,3 @@
-import { FieldValues, useForm } from "react-hook-form";
 import Button from "@/components/ui/Button";
 import { BsEmojiLaughing, BsFillSendFill } from "react-icons/bs";
 import { LegacyRef, useEffect, useRef, useState } from "react";
@@ -12,8 +11,8 @@ import { GoFileMedia, GoFile } from "react-icons/go";
 import { Paragraph } from "@/components/ui";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import Editor from "@/components/editor";
-import { withReact } from "slate-react";
-import { createEditor } from "slate";
+import { ReactEditor, withReact } from "slate-react";
+import { BaseEditor, Transforms, createEditor } from "slate";
 import { parseSlateToHtml } from "@/components/editor/serializer";
 import { useSearchParams } from "react-router-dom";
 import { useMutation } from "react-query";
@@ -116,8 +115,19 @@ const TextArea = () => {
     },
   });
 
+  const clearMessage = (editor: BaseEditor & ReactEditor) => {
+    while (editor.children.length > 0) {
+      Transforms.removeNodes(editor, {});
+    }
+    Transforms.insertNodes(editor, {
+      type: "paragraph",
+      children: [{ text: "" }],
+    } as any);
+  };
+
   const onSendClickHandler = () => {
     const text = parseSlateToHtml(textObj);
+    clearMessage(editor);
     const messageFormData = new FormData();
     messageFormData.append("text", text as string);
     messageFormData.append("chatId", selectedConversation as string);
@@ -190,7 +200,7 @@ const TextArea = () => {
           className="hover:bg-blue-100 group"
         >
           <BsFillSendFill className="w-5 h-5 text-cyan-700 dark:text-cyan-300" />
-          <span className="sr-only">Send message</span>
+          <span className="sr-only">ارسال پیام</span>
         </Button>
 
         {/* absolute positioning*/}
@@ -255,7 +265,7 @@ const TextArea = () => {
       <UploadFileModal
         onSubmit={onSendFileSubmit}
         fileType={fileType}
-        setMediaMessage={setMediaMessage}
+        // setMediaMessage={setMediaMessage}
       />
     </>
   );

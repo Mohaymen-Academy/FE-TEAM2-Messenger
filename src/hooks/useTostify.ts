@@ -23,7 +23,8 @@ const useToastify = () => {
     const errorOptions = {
       ...defaultOptions,
       ...options,
-      className: "bg-red-100 text-red-900 rounded-2xl shadow-2xl shadow-black w-11/12 max-w-[240px]",
+      className:
+        "bg-red-100 text-red-900 rounded-2xl shadow-2xl shadow-black w-11/12 max-w-[240px]",
     };
 
     toast.error(message, errorOptions);

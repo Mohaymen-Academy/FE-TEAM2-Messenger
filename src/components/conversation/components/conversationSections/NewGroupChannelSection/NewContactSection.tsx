@@ -3,33 +3,99 @@ import SectionContainer from "@/components/profile/components/SectionContainer";
 import SectionHeader from "@/components/profile/components/SectionHeader";
 import { Button } from "@/components/ui";
 import FadeMotionWrapper from "@/components/wrappers/FadeMotionWrapper";
+import useToastify from "@/hooks/useTostify";
+import { queryClient } from "@/providers/queryClientProvider";
 import { setSection } from "@/redux/Slices/conversationSlice";
+import { createContact } from "@/services/api/contact";
+import { getUserByPhone } from "@/services/api/user";
+import { convertNumberToEN } from "@/utils/convertNumberToEN";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 
-const NewContactSection = () => {
+interface newContactSectionProps {}
+
+const NewContactSection: React.FC<newContactSectionProps> = ({}) => {
   const dispatch = useDispatch();
+  const toastify = useToastify();
+  const { mutate: addContactMutation } = useMutation(createContact);
+
+  const { register, handleSubmit, setValue } = useForm<FieldValues>({
+    defaultValues: {
+      phoneNumber: "",
+      firstName: "",
+      lastName: "",
+    },
+  });
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    getUserByPhone(convertNumberToEN(data.phoneNumber))
+      .then((res) => {
+        addContactMutation(
+          {
+            contactId: res.data,
+            firstName: data.firstName,
+            lastName: data.lastName,
+          },
+          {
+            onSuccess: () => {
+              queryClient.invalidateQueries({
+                queryKey: ["user", "current", "contacts"],
+              });
+              toastify.success("مخاطب جدید اضافه شد.");
+              dispatch(setSection({ selectedState: "conversations" }));
+              console.log(
+                {
+                  contactId: res.data,
+                  firstName: data.firstName,
+                  lastName: data.lastName,
+                },
+                "successided"
+              );
+            },
+            onError: () => {
+              toastify.error("مخاطب ساخته نشد.");
+            },
+          }
+        );
+      })
+      .catch(() => {
+        toastify.error("شماره وارد شده معتبر نمی باشد.");
+        setValue("phoneNumber", "");
+      });
+  };
 
   return (
     <FadeMotionWrapper show={true}>
       <SectionContainer className="flex flex-col gap-10">
         <SectionHeader title="مخاطب جدید" />
         <div className="px-8 flex flex-col gap-4">
-          <FloatingLabelInput type="tel" label="تلفن همراه" required />
+          <FloatingLabelInput
+            type="tel"
+            label="تلفن همراه"
+            required
+            register={register}
+            formId="phoneNumber"
+          />
 
-          <FloatingLabelInput type="text" label="نام" required />
+          <FloatingLabelInput
+            type="text"
+            label="نام"
+            required
+            register={register}
+            formId="firstName"
+          />
 
           <FloatingLabelInput
             type="text"
             label="نام خانوادگی (اختیاری)"
-            required
+            register={register}
+            formId="lastName"
           />
 
           <div className="flex gap-2">
             <Button
-              onClick={() => {
-                // onSubmit();
-                dispatch(setSection({ selectedState: "conversations" }));
-              }}
+              onClick={handleSubmit(onSubmit)}
               className="w-full font-bold text-xl"
             >
               ایجاد مخاطب

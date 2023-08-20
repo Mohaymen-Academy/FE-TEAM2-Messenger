@@ -35,7 +35,6 @@ const sendMessage = async (messageFOrmData: FormData) => {
 // };
 
 const createChat = async (body: CreateChannelType) => {
-  console.log("called with:", body);
   return apiCall.post("/api/chats/create-chat", body);
 };
 
