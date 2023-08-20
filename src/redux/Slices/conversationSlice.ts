@@ -2,9 +2,14 @@ import { ConversationTypes } from "@/utils/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 export type conversationSliceType = {
-  section: "groupCreate" | "channelCreate" | "conversations" | "pvCreate";
+  section:
+    | "contactCreate"
+    | "groupCreate"
+    | "channelCreate"
+    | "conversations"
+    | "pvCreate";
   showConversations: boolean;
-  createState: "groupCreate" | "channelCreate" | "";
+  createState: "groupCreate" | "channelCreate" | "contactCreate" | "";
   selectedConversation: ConversationTypes | undefined;
 };
 
@@ -24,6 +29,7 @@ const conversationSlice = createSlice({
       actions: {
         payload: {
           selectedState:
+            | "contactCreate"
             | "groupCreate"
             | "channelCreate"
             | "pvCreate"

@@ -8,8 +8,8 @@
     --text-primary: #0f172a;
     /* slate-800 */
     --text-secondary: #1e293b;
-    /* cyan-300 */
-    --text-neon-blue: #67e8f9;
+    /* sky-600 */
+    --text-neon-blue: #0284c7;
     /* white */
     --text-white: #ffffff;
 
@@ -38,11 +38,10 @@
     --bg-msg-current: #ecfccb;
     /* gray-100 */
     --bg-msg-other: #f3f4f6;
-    
     /* black */
     --bg-skeleton-primary : #020617;
-
-
+    /* slate-200 */
+    --bg-skeleton-primary: #e2e8f0;
 
     --toastify-font-family: "vazir";
   }
@@ -52,7 +51,8 @@
     --text-primary: #e2e8f0;
     /* slate-300 */
     --text-secondary: #cbd5e1;
-
+    /* cyan-300 */
+    --text-neon-blue: #67e8f9;
     /* slate-700 */
     --bg-primary: #334155;
     /* gray-800 */
@@ -75,7 +75,6 @@
     --bg-msg-current: #581c87;
     /* slate-700 */
     --bg-msg-other: #334155;
-
     /* slate-200 */
     --bg-skeleton-primary : #e2e8f0;
   }

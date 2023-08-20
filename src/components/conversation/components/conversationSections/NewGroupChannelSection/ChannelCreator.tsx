@@ -55,7 +55,7 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
             className="mb-10 mx-auto"
           />
 
-          <div className="flex flex-col gap-4 mb-4">
+          <div className="flex flex-col gap-4 mb-6">
             <FloatingLabelInput
               type="text"
               label="نام کانال"
@@ -76,7 +76,10 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
 
           <div className="flex gap-2">
             <Button
-              onClick={() => onSubmit()}
+              onClick={() => {
+                onSubmit();
+                dispatch(setSection({ selectedState: "conversations" }));
+              }}
               className="w-full font-bold text-xl"
             >
               ساخت کانال
@@ -85,7 +88,7 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
               onClick={() =>
                 dispatch(setSection({ selectedState: "conversations" }))
               }
-              className="!bg-btn-danger hover:!bg-btn-danger-hover w-full font-bold text-xl"
+              className="!bg-btn-danger !text-white hover:!bg-btn-danger-hover w-full font-bold text-xl"
             >
               انصراف
             </Button>
