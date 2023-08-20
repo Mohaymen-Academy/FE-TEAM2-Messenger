@@ -19,6 +19,9 @@ import textAreaSliceReducer from "./textAreaSlice";
 import { logOutModalSliceType } from "./modal/logOutModalSlice";
 import logOutModalSliceReducer from "./modal/logOutModalSlice";
 
+import { UploadModalSliceType } from "./modal/UploadModalSlice";
+import UploadModalSliceReducer from "./modal/UploadModalSlice";
+
 export {
   appSliceReducer,
   conversationSliceReducer,
@@ -27,6 +30,7 @@ export {
   userSliceReducer,
   logOutModalSliceReducer,
   textAreaSliceReducer,
+  UploadModalSliceReducer,
 };
 
 export type {
@@ -37,4 +41,5 @@ export type {
   userSliceType,
   logOutModalSliceType,
   textAreaSliceType,
+  UploadModalSliceType,
 };
