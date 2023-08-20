@@ -68,12 +68,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
 
     //prefetch
     queryClient.prefetchInfiniteQuery({
-      queryKey: [
-        {
-          user: "current",
-          conversation: `${conversation.chatId}`,
-        },
-      ],
+      queryKey: ["user", "current", "conversations", `${conversation.chatId}`],
       queryFn: preFetchMessages,
     });
   }, []);

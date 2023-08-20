@@ -20,8 +20,8 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
   const [URLSearchParams] = useSearchParams();
   const toastify = useToastify();
   const conversationItemsQueryResponse = useQuery(
-    ["conversations"],
-    getAllChat,
+    ["user", "current", "conversations"],
+    getAllChat
     // { refetchInterval: 5000 }
   );
   const conversationItems = conversationItemsQueryResponse?.data?.data;
@@ -58,7 +58,7 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
               {conversationItemsQueryResponse.isLoading ? (
                 <div className="w-full h-full">
                   {/* <BounceLoader /> */}
-                  <FinalSkeleton/>
+                  <FinalSkeleton />
                 </div>
               ) : conversationItemsQueryResponse.isError ? (
                 "Conversation list fetch error"
