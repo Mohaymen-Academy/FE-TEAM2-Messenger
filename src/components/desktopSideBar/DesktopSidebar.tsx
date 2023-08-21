@@ -8,22 +8,27 @@ import { setSection } from "@/redux/Slices/conversationSlice";
 import { AnimatedButton, Avatar, Button } from "../ui";
 import { StoreStateTypes } from "@/utils/types";
 import { BiMoon, BiSun } from "react-icons/bi";
-import { toggleTheme } from "@/redux/Slices/appSlice";
-import { emptyUser } from "@/redux/Slices/userSlice";
-import { useNavigate } from "react-router-dom";
+import { setFileterBy, toggleTheme } from "@/redux/Slices/appSlice";
 import { onOpen } from "@/redux/Slices/modal/logOutModalSlice";
+import { merge } from "@/utils/merge";
 
 const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const theme = useSelector((store: StoreStateTypes) => store.app.theme);
+  const { theme, filterBy } = useSelector(
+    (store: StoreStateTypes) => store.app
+  );
   const onEditClickHandler = () => {
     dispatch(setSection({ selectedState: "pvCreate" }));
   };
+
   const onLogOutClickHandler = () => {
     dispatch(onOpen());
-   
   };
+
+  const handleToggleFilter = (filter: "PV" | "GROUP" | "CHANNEL") => {
+    dispatch(setFileterBy(filter === filterBy ? undefined : filter));
+  };
+
   return (
     <div
       style={{
@@ -36,13 +41,31 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
     >
       <div className="w-full h-full flex flex-col justify-between items-center overflow-hidden">
         <div className="flex flex-col gap-8 items-center">
-          <Button variant="ghost" className="sidebar-icon-button">
+          <Button
+            variant="ghost"
+            className={merge("sidebar-icon-button", {
+              "bg-tertiary": filterBy === "PV",
+            })}
+            onClick={() => handleToggleFilter("PV")}
+          >
             <BsFillPersonFill className="icon-button" />
           </Button>
-          <Button variant="ghost" className="sidebar-icon-button">
+          <Button
+            variant="ghost"
+            className={merge("sidebar-icon-button", {
+              "bg-tertiary": filterBy === "GROUP",
+            })}
+            onClick={() => handleToggleFilter("GROUP")}
+          >
             <BsFillPeopleFill className="icon-button" />
           </Button>
-          <Button variant="ghost" className="sidebar-icon-button">
+          <Button
+            variant="ghost"
+            className={merge("sidebar-icon-button", {
+              "bg-tertiary": filterBy === "CHANNEL",
+            })}
+            onClick={() => handleToggleFilter("CHANNEL")}
+          >
             <HiSpeakerphone className="icon-button" />
           </Button>
         </div>

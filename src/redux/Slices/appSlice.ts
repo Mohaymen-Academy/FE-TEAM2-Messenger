@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export type appSliceType = {
   theme: "light" | "dark";
@@ -8,6 +8,7 @@ export type appSliceType = {
     conversationId: string | undefined;
     conversationType: "GROUP" | "PV" | "CHANNEL" | undefined;
   };
+  filterBy: "GROUP" | "PV" | "CHANNEL" | "CONTACTS" | undefined;
 };
 
 const initialState: appSliceType = {
@@ -15,6 +16,7 @@ const initialState: appSliceType = {
   showEmoji: false,
   showUploadMenu: false,
   selectedProfile: { conversationId: undefined, conversationType: undefined },
+  filterBy: undefined,
 };
 
 const appSlice = createSlice({
@@ -47,11 +49,23 @@ const appSlice = createSlice({
         };
       }
     ) => {
-      state.selectedProfile= action.payload.selectedProfile;
+      state.selectedProfile = action.payload.selectedProfile;
+    },
+    setFileterBy: (
+      state: appSliceType,
+      action: PayloadAction<typeof state.filterBy>
+    ) => {
+      state.filterBy = action.payload;
     },
   },
 });
 
-export const { toggleTheme, onToggleEmoji, onToggleUpload, setSelectedProfile } = appSlice.actions;
+export const {
+  toggleTheme,
+  onToggleEmoji,
+  onToggleUpload,
+  setSelectedProfile,
+  setFileterBy,
+} = appSlice.actions;
 
 export default appSlice.reducer;
