@@ -1,6 +1,7 @@
 import apiCall from "../axiosInstance";
 
 const loginApi = async (phoneNumber: string) => {
+  
   return apiCall.get(`api/auth/send-activation-code`, {
     params: { phoneNumber },
   });
