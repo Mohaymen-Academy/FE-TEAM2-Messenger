@@ -32,13 +32,11 @@ const Avatar: React.FC<AvatarProps> = ({
           setSelectedProfile({
             selectedProfile: {
               conversationId: chatId as string,
-              conversationType: "CHANNEL",
+              conversationType: chatType as "PV" | "CHANNEL" | "GROUP",
             },
           })
         );
-        // Pass the chatType and chatId to the dispatched action
-        // if (chatType && chatId) {
-        // }
+        
       }}
       className={merge(
         "w-16 h-16 text-center relative rounded-full bg-red-600 cursor-pointer",

@@ -9,6 +9,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import { getChat } from "@/services/api/chat";
 import { useQuery } from "react-query";
 import { queryClient } from "@/providers/queryClientProvider";
+import { useSelector } from "react-redux";
+import { store } from "@/redux/store";
+import { StoreStateTypes } from "@/utils/types";
 
 
 
@@ -21,8 +24,19 @@ interface channelProfileProps {
 
 const ChannelProfile: React.FC<channelProfileProps> = ({ profileName, imgSrc, }) => {
  
-  // const channelpMember = group.data?.data
-  const chatData = queryClient.getQueryData(["chat", ])
+  const conversationId = useSelector((store:StoreStateTypes )=> store.app.selectedProfile.conversationId)
+  console.log(conversationId);
+  
+  const chatData = queryClient.getQueryData([
+    "chat",
+    "CHANNEL",
+    conversationId?.toString(),
+  ]);
+  console.log(chatData);
+  
+  const members = chatData
+  // console.log(members);
+  
   
   
   return (
@@ -48,7 +62,7 @@ const ChannelProfile: React.FC<channelProfileProps> = ({ profileName, imgSrc, })
               {profileName}
             </Paragraph>
             <Paragraph size="sm" className="select-none">
-              1200 عضو
+              {members} 
             </Paragraph>
           </div>
         </div>
@@ -66,3 +80,7 @@ const ChannelProfile: React.FC<channelProfileProps> = ({ profileName, imgSrc, })
 };
 
 export default ChannelProfile;
+function StoreStateType(a: unknown, b: unknown): boolean {
+  throw new Error("Function not implemented.");
+}
+
