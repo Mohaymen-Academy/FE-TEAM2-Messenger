@@ -21,7 +21,10 @@ import { queryClient } from "@/providers/queryClientProvider";
 import { v4 as uuidv4 } from "uuid";
 import UploadFileModal from "@/components/modal/UploadFileModal";
 import { onClose, onOpen } from "@/redux/Slices/modal/UploadModalSlice";
-import { setOptimisticCache } from "@/redux/Slices/messageSlice";
+import {
+  deleteOptimisticCache,
+  setOptimisticCache,
+} from "@/redux/Slices/messageSlice";
 
 const initialValue = [
   {
@@ -41,6 +44,9 @@ const TextArea = () => {
     (store: StoreStateTypes) =>
       store.message.optimisticCache[selectedConversation!]
   );
+  // const optimisticCacheObj = useSelector(
+  //   (store: StoreStateTypes) => store.message.optimisticCache
+  // );
 
   const messages = (
     queryClient.getQueryData([
@@ -84,65 +90,62 @@ const TextArea = () => {
   const { mutate: sendMessageMutate } = useMutation({
     mutationFn: (formData: FormData) => sendMessage(formData),
     onMutate: (newMessage) => {
-      start.current = Date.now();
+      start.current = Date.now(); //for send message time
+
+      //this block get the new messages data for optimistic rendering
       const text = newMessage.get("text") as string;
       const userId = queryClient.getQueryData<{ data: UserTypes }>([
         "user",
         "current",
       ])?.data.userId as string;
       const sendAt = new Date().toISOString();
+      const media = {
+        mediaId: uuidv4(),
+        filePath:
+          newMessage.get("file") &&
+          URL.createObjectURL(newMessage.get("file") as File),
+      };
+      ////////////////////////////
+
       // // Optimistic update
+
+      //create message object
       const optimisticData = {
         editedAt: new Date().toISOString(),
-        media: null,
+        media,
         messageId:
-          +messages[0].messageId +
+          +(messages[0] ? messages[0].messageId : 0) +
           0.01 +
-          (optimisticCache ? optimisticCache.length : 0 / 100),
+          (optimisticCache ? optimisticCache.length : 0) / 100,
         sendAt,
         text,
         userId,
+        isCache: true,
       };
-      if (userId) {
-        dispatch(
-          setOptimisticCache({
-            chatId: selectedConversation!,
-            message: optimisticData,
-            prevCache: optimisticCache,
-          })
-        );
-      }
 
-      // Update the cache
-      queryClient.setQueryData(
-        ["user", "current", "conversations", selectedConversation],
-        (oldData: any) => {
-          return {
-            pages: [
-              [optimisticData, ...oldData.pages[0]],
-              ...oldData.pages.slice(1),
-            ],
-            pageParams: oldData.pageParams,
-          };
-        }
+      dispatch(
+        setOptimisticCache({
+          chatId: selectedConversation!,
+          message: optimisticData,
+          prevCache: optimisticCache,
+        })
       );
 
-      // return optimisticData; // This value will be passed to onSettled
+      return optimisticData; // This value will be passed to onSettled
     },
-    onSuccess: () => {
-      console.log("sent");
-      queryClient.invalidateQueries([
-        "user",
-        "current",
-        "conversations",
-        selectedConversation,
-      ]);
+    // onSettled: (_, __, ___, context) => {
+    //   if (!context) return;
+    //   if (!selectedConversation) return;
 
-      end.current = Date.now();
-
-      const time = end.current - start.current;
-      console.log(time / 1000);
-    },
+    //   //delete optimistic message from redux on if success or error
+    //   // dispatch(
+    //   //   deleteOptimisticCache({
+    //   //     chatId: selectedConversation,
+    //   //     messageId: context.messageId,
+    //   //     prevCache: optimisticCache,
+    //   //   })
+    //   // );
+    // },
     onError: (error) => {
       console.log(error);
     },
@@ -180,6 +183,7 @@ const TextArea = () => {
 
     dispatch(onClose());
   };
+
   const onFileSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;

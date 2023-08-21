@@ -35,14 +35,34 @@ const messageSlice = createSlice({
     ) => {
       const { chatId, message, prevCache } = action.payload;
       if (prevCache) {
-        state.optimisticCache[chatId] = [message];
-      } else {
         state.optimisticCache[chatId] = [...prevCache, message];
+      } else {
+        state.optimisticCache[chatId] = [message];
+      }
+    },
+    deleteOptimisticCache: (
+      state: messageSliceType,
+      action: {
+        payload: {
+          chatId: string;
+          messageId: number;
+          prevCache: MessageTypes[];
+        };
+      }
+    ) => {
+      const { chatId, messageId, prevCache } = action.payload;
+      if (prevCache) {
+        state.optimisticCache[chatId] = state.optimisticCache[chatId].filter(
+          (msg) => msg.messageId !== messageId
+        );
+      } else {
+        state.optimisticCache[chatId] = [];
       }
     },
   },
 });
 
-export const { setIsSelected, setOptimisticCache } = messageSlice.actions;
+export const { setIsSelected, setOptimisticCache, deleteOptimisticCache } =
+  messageSlice.actions;
 
 export default messageSlice.reducer;
