@@ -61,6 +61,8 @@ const Messages: React.FC<MessagesProps> = ({}) => {
 
         return { floor, ceil };
       },
+      staleTime: 360000,
+      refetchInterval: 1500,
     }
   );
 
@@ -74,7 +76,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
   };
 
   return (
-    <div className="flex flex-col h-full justify-end overflow-hidden">
+    <div className="flex flex-col h-[40vh] justify-end overflow-hidden">
       <div
         className={clsx(
           "flex flex-col-reverse overflow-auto h-full px-2 lg:px-[5%] xl:px-[10%] custom-scrollbar transition-[padding]",

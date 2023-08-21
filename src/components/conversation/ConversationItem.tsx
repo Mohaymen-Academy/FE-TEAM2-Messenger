@@ -36,10 +36,11 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const conversationLastMessage = conversation.lastMessage || "No messages yet";
-  useQuery(["chat", conversation.chatType, conversation.chatId], () =>
-    getChat(conversation.chatId)
+  useQuery(
+    ["chat", conversation.chatType, conversation.chatId],
+    () => getChat(conversation.chatId),
+    { refetchOnWindowFocus: false, refetchOnMount: false }
   );
-
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
@@ -68,8 +69,6 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       });
       return data.reverse();
     };
-    
-    
 
     //prefetch
     queryClient.prefetchInfiniteQuery({

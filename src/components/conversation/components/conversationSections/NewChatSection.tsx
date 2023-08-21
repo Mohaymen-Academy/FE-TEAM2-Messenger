@@ -1,7 +1,7 @@
 import SearchInput from "@/components/ui/SearchInput";
 import Paragraph from "@/components/ui/Paragraph";
-import { ContactTypes } from "@/utils/types";
-import React from "react";
+import { ContactTypes, ConversationTypes } from "@/utils/types";
+import React, { useState } from "react";
 import Button from "@/components/ui/Button";
 import { BsArrowRight } from "react-icons/bs";
 import { setSection } from "@/redux/Slices/conversationSlice";
@@ -10,6 +10,11 @@ import { IconType } from "react-icons";
 import UserItem from "../../../ui/UserItem";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import { newSectionsButtonObject } from "@/utils/constants";
+import { useMutation } from "react-query";
+import { createChat } from "@/services/api/chat";
+import useToastify from "@/hooks/useTostify";
+import { queryClient } from "@/providers/queryClientProvider";
+import { useNavigate } from "react-router-dom";
 
 type NewChatButtonProps = {
   text: string;
@@ -41,6 +46,40 @@ interface CreatePvSectionProps {
 
 const CreatePvSection: React.FC<CreatePvSectionProps> = ({ contactsData }) => {
   const dispatch = useDispatch();
+  const toastify = useToastify();
+  const navigate = useNavigate();
+  const [loadingId, setLoadingId] = useState<number>();
+
+  const { mutate: createPvMutation } = useMutation(createChat, {
+    onMutate: (data) => setLoadingId(data.userIds && data.userIds[0]),
+  });
+
+  const onUserClickHandler = (cont: ContactTypes) => {
+    createPvMutation(
+      {
+        userIds: [+cont.secondUserId],
+        chatType: "PV",
+        title: cont.firstName,
+      },
+      {
+        onError: (error) => {
+          console.log(error);
+          toastify.error("ساخت چت با مشکل مواجه شد");
+        },
+        onSettled: () => {
+          setLoadingId(undefined);
+        },
+        onSuccess: (data) => {
+          const chatId = data.data.chatId;
+          queryClient.invalidateQueries(["user", "current", "conversations"]);
+          queryClient.refetchQueries(["user", "current", "conversations"]);
+
+          navigate({ pathname: "/chat", search: `conversationId=${chatId}` });
+          dispatch(setSection({ selectedState: "conversations" }));
+        },
+      }
+    );
+  };
 
   return (
     <div className="flex flex-col w-full h-full">
@@ -73,8 +112,9 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ contactsData }) => {
         {contactsData.map((cont) => (
           <UserItem
             key={cont.id}
-            onClick={() => console.log(cont.id)}
+            onClick={() => onUserClickHandler(cont)}
             user={cont}
+            isLoading={loadingId === cont.secondUserId}
           />
         ))}
       </div>
