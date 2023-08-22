@@ -177,22 +177,22 @@ const TextArea = () => {
           }}
           variant="ghost"
           size="sm"
-          className="group"
+          className="dark:hover:bg-slate-800 group"
         >
-          <AiOutlinePaperClip className="w-5 h-5" />
+          <AiOutlinePaperClip className="w-5 h-5 icon-button" />
           <span className="sr-only">Upload File</span>
         </Button>
 
         <Button
           variant="ghost"
           size="sm"
-          className="group"
+          className="dark:hover:bg-slate-800 group"
           onClick={(e) => {
             e.stopPropagation();
             dispatch(onToggleEmoji({ show: !showEmoji }));
           }}
         >
-          <BsEmojiLaughing className="w-5 h-5" />
+          <BsEmojiLaughing className="w-5 h-5 icon-button" />
           <span className="sr-only">Add emoji</span>
         </Button>
 
@@ -204,7 +204,7 @@ const TextArea = () => {
           onClick={onSendClickHandler}
           variant="ghost"
           size="sm"
-          className="hover:bg-blue-100 group"
+          className="dark:hover:bg-slate-800 group"
         >
           <BsFillSendFill className="w-5 h-5 text-cyan-700 dark:text-cyan-300" />
           <span className="sr-only">ارسال پیام</span>
@@ -243,7 +243,7 @@ const TextArea = () => {
               />
 
               <Paragraph size="xs" className="w-full flex items-center gap-3">
-                <GoFileMedia size={30} />
+                <GoFileMedia  size={30} />
                 آپلود عکس و فیلم
               </Paragraph>
             </div>
@@ -262,7 +262,7 @@ const TextArea = () => {
               />
 
               <Paragraph size="xs" className="w-full flex items-center gap-3">
-                <GoFile size={30} />
+                <GoFile  size={30} />
                 آپلود فایل
               </Paragraph>
             </div>

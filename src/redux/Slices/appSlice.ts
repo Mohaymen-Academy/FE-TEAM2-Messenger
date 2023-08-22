@@ -1,5 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
+type SearchResult = { id: number; firstName: string; lastName: string }[];
+
 export type appSliceType = {
   theme: "light" | "dark";
   showEmoji: boolean;
@@ -8,7 +10,7 @@ export type appSliceType = {
     conversationId: string | undefined;
     conversationType: "GROUP" | "PV" | "CHANNEL" | undefined;
   };
-  filterBy: "GROUP" | "PV" | "CHANNEL" | "CONTACTS" | undefined;
+  filterBy: "GROUP" | "PV" | "CHANNEL" | SearchResult | undefined;
 };
 
 const initialState: appSliceType = {

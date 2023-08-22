@@ -26,7 +26,6 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
     getAllChat,
     { refetchInterval: 370000 }
   );
-  const dispatch = useDispatch();
   const { filterBy } = useSelector((store: StoreStateTypes) => store.app);
 
   const conversationItems = conversationItemsQueryResponse?.data?.data;
@@ -38,7 +37,6 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
   }
 
   const filteredConversations = (item: ConversationTypes) => {
-    console.log(filterBy, "item", item.chatId);
     const conversation = (
       <ConversationItem
         key={item.chatId}

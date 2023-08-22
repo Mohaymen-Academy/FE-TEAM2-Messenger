@@ -2,7 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { Button, Paragraph } from "@/components/ui/";
 import FloatingLabelInput from "./input/FloatingLabelInput";
 import Dropdown from "./input/DropDown";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import {
+  FieldValues,
+  SubmitHandler,
+  useForm,
+  Controller,
+} from "react-hook-form";
 import { loginApi } from "@/services/api/authentication";
 import { toast } from "react-toastify";
 import { setEnteredPhoneNumber } from "@/redux/Slices/userSlice";
@@ -16,6 +21,31 @@ const Login = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
+  const handleKeyDown = (e, phoneNumberField) => {
+    if (
+      !(
+        (e.key >= "0" && e.key <= "9") ||
+        e.key === "Backspace" ||
+        e.key === "Delete" ||
+        e.key === "ArrowLeft" ||
+        e.key === "ArrowRight"
+      )
+    ) {
+      e.preventDefault();
+      return;
+    }
+
+  
+
+    if (
+      e.key === "0" &&
+      (phoneNumberField.value === "" || phoneNumberField.value.startsWith("0"))
+    ) {
+      e.preventDefault();
+      return;
+    }
+  };
+
   const useSignInMutation = () => {
     return useMutation((phoneNumber: string) => {
       return loginApi("0" + phoneNumber);
@@ -25,6 +55,7 @@ const Login = () => {
   const { mutate: signInMutate } = useSignInMutation();
 
   const {
+    control,
     register,
     handleSubmit,
     // formState: { errors },
@@ -33,10 +64,6 @@ const Login = () => {
       phoneNumber: "",
     },
   });
-
-  // const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-  //   const { phoneNumber } = data;
-  // };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { phoneNumber } = data;
@@ -74,15 +101,28 @@ const Login = () => {
           </Paragraph>
         </header>
         <div className="flex justify-between gap-2">
-          <FloatingLabelInput
-            type="tel"
-            label="شماره تلفن"
-            dropDown
-            register={register}
-            formId="phoneNumber"
-            required
-            className="w-full"
+          <Controller
+            name="phoneNumber"
+            control={control}
+            rules={{
+              required: true,
+              pattern: /^\d+$/,
+            }}
+            render={({ field }) => (
+              <FloatingLabelInput
+                type="tel"
+                label="شماره تلفن"
+                dropDown
+                register={register}
+                formId="phoneNumber"
+                required
+                className="w-full"
+                onKeyDown={(e) => handleKeyDown(e, field)}
+                {...field}
+              />
+            )}
           />
+
           <Dropdown items={countries} />
         </div>
 
@@ -100,3 +140,17 @@ const Login = () => {
 };
 
 export default Login;
+
+// onKeyDown={(e) => {
+//               if (
+//                 !(
+//                   (e.key >= "0" && e.key <= "9") ||
+//                   e.key === "Backspace" ||
+//                   e.key === "Delete" ||
+//                   e.key === "ArrowLeft" ||
+//                   e.key === "ArrowRight"
+//                 )
+//               ) {
+//                 e.preventDefault();
+//               }
+//             }}

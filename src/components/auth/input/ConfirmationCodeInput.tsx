@@ -12,6 +12,7 @@ const ConfirmationInput: React.FC<confirmationInputProps> = ({
 }) => {
   const [codes, setCodes] = useState<string[]>(Array(length).fill(""));
   const codeRefs = useRef<HTMLInputElement[]>([]);
+  
 
   const handleChange = (index: number, value: string) => {
     if (!length) return;
