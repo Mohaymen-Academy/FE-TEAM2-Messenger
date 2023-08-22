@@ -1,4 +1,4 @@
-import { ConversationTypes } from "@/utils/types";
+import { ConversationTypes, MessageTypes } from "@/utils/types";
 import apiCall from "../axiosInstance";
 import { CreateChannelType } from "./types";
 import { getMessageParamsType } from "./types";
@@ -10,7 +10,7 @@ const getChat = async (chatId: any) => {
   return apiCall.get(`/api/chats/get-chat/${chatId}`);
 };
 const getMessages = async (getMessageParams: getMessageParamsType) => {
-  return apiCall.get<object[]>(
+  return apiCall.get<MessageTypes[]>(
     `/api/messages/get-messages/${getMessageParams.chatId}/${getMessageParams.floor}/${getMessageParams.ceil}`
   );
 };

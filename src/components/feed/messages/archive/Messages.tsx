@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
-import { MessageTypes, StoreStateTypes, UserTypes } from "@/utils/types";
+import { StoreStateTypes, UserTypes } from "@/utils/types";
 import { useInfiniteQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
 import { getMessages } from "@/services/api/chat";
@@ -10,8 +10,9 @@ import { HAS_NEXT_PAGE_THRESHOLD, MESSAGE_PER_PAGE } from "@/utils/constants";
 import { InView } from "react-intersection-observer";
 import { BeatLoader } from "react-spinners";
 import { queryClient } from "@/providers/queryClientProvider";
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { deleteOptimisticCache } from "@/redux/Slices/messageSlice";
+import Image from "../Image";
 
 interface MessagesProps {
   userId: string;
@@ -31,7 +32,6 @@ const Messages: React.FC<MessagesProps> = ({}) => {
       (store: StoreStateTypes) =>
         store.message.optimisticCache[selectedConversation!]
     ) || [];
-
   // console.log(optimisticCache);
 
   const Loader = () => (
@@ -52,6 +52,10 @@ const Messages: React.FC<MessagesProps> = ({}) => {
     const { data } = await getMessages(getMessageParams);
     return data.reverse();
   };
+
+  // useEffect(() => {
+  //   scrollDivRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  // }, [optimisticCache]);
 
   const {
     isError,
@@ -76,54 +80,65 @@ const Messages: React.FC<MessagesProps> = ({}) => {
         return { floor, ceil };
       },
       staleTime: 360000,
-      refetchInterval: 1000,
+      refetchInterval: 2000,
     }
   );
+
+  //current user data from cache
+  const userData = queryClient.getQueryData(["user", "current"]) as {
+    data: UserTypes;
+  };
 
   const profileShow = useSelector(
     (store: StoreStateTypes) => store.profile.show
   );
 
-  if (!messageData) return null; //render nothing if no message is found
+  //extract message texts
+  const messagesTexts = useMemo(() => {
+    if (!messageData) return [];
+    return messageData.pages.flat<any>().map((msg) => msg.text);
+  }, [messageData]);
 
-  const messagesText = messageData?.pages.flat<any>().map((msg) => msg.text);
-  const messagesIds = messageData?.pages
-    .flat<any>()
-    .map((msg) => msg.messageId);
-  const messages = messageData?.pages.flat<any>();
-  const editedMessages = [...optimisticCache, ...messageData.pages.flat()].sort(
-    (a, b) => b.messageId - a.messageId
-  );
+  // extract message Ids
+  const messagesIds = useMemo(() => {
+    if (!messageData) return [];
+    return messageData.pages.flat<any>().map((msg) => msg.messageId);
+  }, [messageData]);
 
-  const toRenderMessages = editedMessages.filter((msg) => {
-    if (messagesText.includes(msg.text)) {
-      const index = messagesText.indexOf(msg.text);
-      if (messagesIds[index] > msg.messageId && msg.isCache) {
-        dispatch(
-          deleteOptimisticCache({
-            chatId: selectedConversation,
-            messageId: msg.messageId,
-            prevCache: optimisticCache,
-          })
-        );
-        return false;
+  //create a edited message array combined with redux cache and server data
+  const editedMessages = useMemo(() => {
+    if (!messageData) return [];
+
+    return [...optimisticCache, ...messageData.pages.flat()].sort(
+      (a, b) => b.messageId - a.messageId
+    );
+  }, [messageData, optimisticCache]);
+
+  //create final array of messages filter the cached messages and replace with real data if message sent successfully
+  const toRenderMessages = useMemo(() => {
+    if (!messagesTexts || !messagesIds) return [];
+    if (!selectedConversation) return;
+
+    return editedMessages.filter((msg) => {
+      if (messagesTexts.includes(msg.text)) {
+        const index = messagesTexts.indexOf(msg.text);
+        if (messagesIds[index] > msg.messageId && msg.isCache) {
+          dispatch(
+            deleteOptimisticCache({
+              chatId: selectedConversation,
+              messageId: msg.messageId,
+              prevCache: optimisticCache,
+            })
+          );
+          return false;
+        }
       }
-    }
-    return true;
-  });
-
-  console.log(toRenderMessages);
-
-  const userData = queryClient.getQueryData(["user", "current"]) as {
-    data: UserTypes;
-  };
-
-  useEffect(() => {
-    scrollDivRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [optimisticCache]);
+      return true;
+    });
+  }, [editedMessages, messagesTexts, messagesIds, selectedConversation]);
 
   return (
-    <div className="flex flex-col h-[70vh] justify-end overflow-hidden">
+    <div className="flex flex-col h-full justify-end overflow-hidden">
       <div
         className={clsx(
           "flex flex-col-reverse overflow-auto h-full px-2 lg:px-[5%] xl:px-[10%] custom-scrollbar transition-[padding]",
@@ -133,23 +148,23 @@ const Messages: React.FC<MessagesProps> = ({}) => {
         {isLoading ? (
           <Loader />
         ) : (
-          messages && (
+          toRenderMessages && (
             <>
               <div ref={scrollDivRef}></div>
 
-              {toRenderMessages.map((msg) => {
-                return (
-                  <Message
-                    message={msg}
-                    key={msg.messageId}
-                    messageStatus="SEEN"
-                    groupMessage={true}
-                    sentByCurrentUser={msg.userId === userData?.data?.userId}
-                  >
-                    <Text content={msg.text} />
-                  </Message>
-                );
-              })}
+              {toRenderMessages.map((msg) => (
+                <Message
+                  message={msg}
+                  key={msg.messageId}
+                  messageStatus="SEEN"
+                  groupMessage={true}
+                  sentByCurrentUser={msg.userId === userData?.data?.userId}
+                >
+                  {/* {msg.media && <Image src={msg.media.filePath} />} */}
+
+                  <Text content={msg.text} />
+                </Message>
+              ))}
               {hasNextPage && (
                 <InView
                   as="div"

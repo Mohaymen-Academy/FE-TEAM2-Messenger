@@ -14,7 +14,6 @@ import ClickOutsideWrapper from "@/components/wrappers/ClickOutsideWrapper";
 import { formatDateToShamsiYear, formatDateToTime } from "@/utils/fromatData";
 
 interface MessageComponent {
-  id: string;
   children?: React.ReactNode;
   message: MessageTypes;
   sentByCurrentUser?: boolean;
@@ -26,7 +25,6 @@ interface MessageComponent {
 }
 
 const Message: React.FC<MessageComponent> = ({
-  id,
   children,
   message,
   sentByCurrentUser,
@@ -172,28 +170,3 @@ const Message: React.FC<MessageComponent> = ({
 };
 
 export default Message;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
