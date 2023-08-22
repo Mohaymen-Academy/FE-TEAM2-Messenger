@@ -18,7 +18,7 @@ const Header = () => {
   );
   return (
     <div className="w-full h-[61px] bg-primary flex items-center px-2 justify-between">
-      <div className="hidden md:block lg:hidden mt-2">
+      <div className="hidden md:block  lg:hidden mt-2">
         <AnimatedButton
           FirstIcon={AiOutlineArrowLeft}
           SecondIcon={AiOutlineArrowRight}
@@ -31,24 +31,18 @@ const Header = () => {
         lastInteraction={selectedConversation?.sentAt}
         title={selectedConversation?.title}
       />
-      <div className="flex gap-4 self-center">
+      <div className="flex gap-3 self-center">
         <Button
-          variant={"ghost"}
-          className="rounded-full h-10 w-10 dark:hover:bg-slate-500"
+          variant="ghost"
+          className="p-1 dark:hover:bg-slate-600"
         >
-          <HiPhone size={23}/>
+          <LiaSearchSolid className="icon-button" size={23} />
         </Button>
         <Button
-          variant={"ghost"}
-          className="rounded-full h-10 w-10 dark:hover:bg-slate-500"
+          variant="ghost"
+          className="p-1 dark:hover:bg-slate-600"
         >
-          <LiaSearchSolid size={23}/>
-        </Button>
-        <Button
-          variant={"ghost"}
-          className="rounded-full h-10 w-10 dark:hover:bg-slate-500"
-        >
-          <BsThreeDotsVertical size={23}/>
+          <BsThreeDotsVertical className="icon-button" size={23} />
         </Button>
       </div>
     </div>
