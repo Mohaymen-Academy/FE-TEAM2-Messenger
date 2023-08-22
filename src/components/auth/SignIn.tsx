@@ -9,26 +9,27 @@ import {
   Controller,
 } from "react-hook-form";
 import { loginApi } from "@/services/api/authentication";
-import { toast } from "react-toastify";
 import { setEnteredPhoneNumber } from "@/redux/Slices/userSlice";
 import { useDispatch } from "react-redux";
 import { useMutation } from "react-query";
 import { countries } from "@/utils/constants";
 import { useState } from "react";
+import useToastify from "@/hooks/useTostify";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const toastify = useToastify()
   const [loading, setLoading] = useState(false);
 
   const handleKeyDown = (e, phoneNumberField) => {
     if (
       !(
         (e.key >= "0" && e.key <= "9") ||
-        e.key === "Backspace" ||
+        e.key === "Backspace" ||  
         e.key === "Delete" ||
         e.key === "ArrowLeft" ||
-        e.key === "ArrowRight"
+        e.key === "ArrowRight" 
       )
     ) {
       e.preventDefault();
@@ -65,23 +66,26 @@ const Login = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data ) => {
     const { phoneNumber } = data;
 
     setLoading(true);
 
+
     signInMutate(phoneNumber, {
       onSuccess(data, variables, _) {
         dispatch(setEnteredPhoneNumber({ phone: `0${variables}` }));
-        toast.success(data?.data);
+        toastify.success(data?.data);
         navigate("/auth/verification");
       },
       onError(error: any, _, __) {
-        if (error.message === "Network Error")
-          toast.error(
+        if (error.message === "Network Error"){
+          toastify.error(
             "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید"
-          );
-        toast.error("ورود ناموفق، لطفا دوباره تلاش کنید");
+          )}else {
+
+            toastify.error("ورود ناموفق، لطفا دوباره تلاش کنید");
+          }
       },
       onSettled() {
         setLoading(false);
@@ -117,7 +121,13 @@ const Login = () => {
                 formId="phoneNumber"
                 required
                 className="w-full"
-                onKeyDown={(e) => handleKeyDown(e, field)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSubmit(onSubmit)();
+                  } else {
+                    handleKeyDown(e, field);
+                  }
+                }}
                 {...field}
               />
             )}
