@@ -6,7 +6,7 @@ import { UseFormRegister, FieldValues, UseFormSetValue } from "react-hook-form";
 import FadeMotionWrapper from "@/components/wrappers/FadeMotionWrapper";
 import { setSection } from "@/redux/Slices/conversationSlice";
 import { useDispatch } from "react-redux";
-import { Dispatch, useState } from "react";
+import { useState } from "react";
 import ProfileUploader from "@/components/wrappers/FileUploader";
 import ChatPrivacy from "../../ChannelPrivacy";
 
@@ -26,7 +26,7 @@ const GroupCreator: React.FC<GroupCreatorProp> = ({
   setGroupProfileFormData,
 }) => {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState(new FormData());
+  const [_, setFormData] = useState(new FormData());
   const [pictureUrl, setPictureUrl] = useState("");
 
   const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

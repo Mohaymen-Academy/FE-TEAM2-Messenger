@@ -79,13 +79,6 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
   );
   const dispatch = useDispatch();
 
-  // const sendPictureMutation = useMutation(sendPicture, {
-  //   onError: (error) => {
-  //     console.log(error);
-  //     toastify.error("متاسفانه عکس ذخیره نگردید لطفا مجددا تلاش فرمایید");
-  //   },
-  // });
-
   const { register, handleSubmit, setValue, reset } = useForm<FieldValues>({
     defaultValues: {
       channelName: "",
@@ -94,26 +87,6 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
       public: true,
     },
   });
-
-  // const sendInfoMutation = useMutation(createChat, {
-  //   onError: () => {
-  //     toastify.error("اطلاعات دخیره نگردید لطفا مجددا تلاش فرمایید");
-  //   },
-  //   onSuccess: (data) => {
-  //     dispatch(setSection({ selectedState: "conversations" }));
-  //     queryClient.invalidateQueries({
-  //       queryKey: ["user", "current", "conversations"],
-  //     });
-  //     toastify.info(
-  //       `${
-  //         data.data.chatType === "CHANNEL" ? "کانال" : "گروه"
-  //       } با موفقیت ایجاد شد.`
-  //     );
-  //   },
-  //   onSettled: () => {
-  //     reset();
-  //   },
-  // });
 
   const onUserClickHandler = (user: string | number) => {
     setSelectedUser((prev: any) => {
@@ -180,10 +153,10 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
           userIds: selectedUser,
           public: data.public,
         },
-        //TODO: get back to conversation
-        //dispatch(setSection({ selectedState: "conversations" }))
         {
-          onSuccess: () => {},
+          onSuccess: () => {
+            dispatch(setSection({ selectedState: "conversations" }));
+          },
           onSettled: () => {
             reset();
           },
@@ -204,6 +177,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
 
       {section === "channelCreate" && (
         <ChannelCreator
+          setGroupProfileFormData={setGroupProfileFormData}
           onSubmit={handleSubmit(onSubmit)}
           register={register}
           show={step === 2}

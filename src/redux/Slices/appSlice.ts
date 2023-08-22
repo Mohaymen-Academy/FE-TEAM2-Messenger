@@ -4,15 +4,20 @@ export type appSliceType = {
   theme: "light" | "dark";
   showEmoji: boolean;
   showUploadMenu: boolean;
-  selectedProfile: {
-    conversationId?: number;
-    conversationType?: "GROUP" | "PV" | "CHANNEL";
-    userId?: number;
-  };
-  selectedConversation: {
-    conversationId?: number;
-    conversationType?: "GROUP" | "PV" | "CHANNEL";
-  };
+  selectedProfile: selectedProfileType;
+  selectedConversation: selectedConversationType;
+};
+
+type selectedConversationType = {
+  conversationId?: number;
+  conversationType?: "GROUP" | "PV" | "CHANNEL";
+};
+type selectedProfileType = {
+  conversationId?: number;
+  conversationType?: "GROUP" | "PV" | "CHANNEL";
+  userId?: number;
+  imageUrl?: string;
+  profileType?: "CHANNEL" | "CURRENT_USER" | "PV" | "GROUP";
 };
 
 const initialState: appSliceType = {
@@ -53,11 +58,7 @@ const appSlice = createSlice({
       state: appSliceType,
       action: {
         payload: {
-          selectedProfile: {
-            conversationId?: number;
-            conversationType?: "GROUP" | "PV" | "CHANNEL";
-            userId?: number;
-          };
+          selectedProfile: selectedProfileType;
         };
       }
     ) => {

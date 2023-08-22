@@ -5,8 +5,8 @@ import HoverWrapper, {
 import React, { ReactNode } from "react";
 
 interface profileItemProps extends hoverWrapperProps {
-  icon: ReactNode;
-  title: string;
+  icon?: ReactNode;
+  title?: string;
 }
 
 const ProfileItemWithIcon: React.FC<profileItemProps> = ({

@@ -24,12 +24,6 @@ const Media: React.FC<ImageProps> = ({ src, mediaType }) => {
 
   const fileUrl = useMemo(() => {
     if (!binaryData) return null;
-    <img
-      onLoad={() => console.log("loaded")}
-      src={URL.createObjectURL(binaryData?.data)}
-      loading="lazy"
-      alt="Image"
-    />;
     return URL.createObjectURL(binaryData?.data);
   }, [binaryData?.data.size]);
 

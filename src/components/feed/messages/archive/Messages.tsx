@@ -10,9 +10,8 @@ import { HAS_NEXT_PAGE_THRESHOLD, MESSAGE_PER_PAGE } from "@/utils/constants";
 import { InView } from "react-intersection-observer";
 import { BeatLoader } from "react-spinners";
 import { queryClient } from "@/providers/queryClientProvider";
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { deleteOptimisticCache } from "@/redux/Slices/messageSlice";
-import Image from "../Media";
 import Media from "../Media";
 
 interface MessagesProps {

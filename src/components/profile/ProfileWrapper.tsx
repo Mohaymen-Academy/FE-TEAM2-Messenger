@@ -1,4 +1,4 @@
-import { ConversationTypes, StoreStateTypes } from "@/utils/types";
+import { StoreStateTypes } from "@/utils/types";
 import clsx from "clsx";
 import UserProfile from "./UserProfile";
 import { useSelector } from "react-redux";
@@ -6,13 +6,9 @@ import CurrentUserProfile from "./CurrentUserProfile";
 import GroupProfile from "./GroupProfile";
 import ChannelProfile from "./ChannelProfile";
 
-interface ProfileWrapperProps {
-  profileType: "channel" | "currentUser" | "otherUser" | "group";
-}
-
-const ProfileWrapper: React.FC<ProfileWrapperProps> = ({
-  profileType
-}) => {
+const ProfileWrapper: React.FC = () => {
+  const { profileType, conversationId, conversationType, imageUrl, userId } =
+    useSelector((store: StoreStateTypes) => store.app.selectedProfile);
   const show = useSelector((store: StoreStateTypes) => store.profile.show);
   const selectedConversation = useSelector(
     (store: StoreStateTypes) => store.conversation.selectedConversation
@@ -21,6 +17,8 @@ const ProfileWrapper: React.FC<ProfileWrapperProps> = ({
     selectedConversation && "title" in selectedConversation
       ? selectedConversation.title
       : "";
+
+  console.log(profileType, conversationId, conversationType, imageUrl, userId);
   return (
     <div
       className={clsx(
@@ -28,19 +26,21 @@ const ProfileWrapper: React.FC<ProfileWrapperProps> = ({
         { "!w-0 md:!w-0 lg:!w-0 xl:!min-w-0 xl:!w-0": !show }
       )}
     >
-      {/* <UserProfile profileName="sadff" /> */}
-      {/* <GroupCreator /> */}
-
-      {/* <CurrentUserProfile profileName={profileName} /> */}
-
-      {profileType === "currentUser" ? (
-        <CurrentUserProfile profileName={profileName} />
-      ) : profileType === "otherUser" ? (
-        <UserProfile profileName={profileName} />
-      ) : profileType === "group" ? (
-        <GroupProfile profileName={profileName} />
-      ) : (
-        <ChannelProfile profileName={profileName} />
+      {profileType === "CURRENT_USER" && (
+        <CurrentUserProfile imgSrc={imageUrl} profileName={profileName} />
+      )}
+      {profileType === "PV" && (
+        <UserProfile imgSrc={imageUrl} profileName={profileName} />
+      )}
+      {profileType === "GROUP" && (
+        <GroupProfile
+          imgSrc={imageUrl}
+          chatId={conversationId}
+          profileName={profileName}
+        />
+      )}
+      {profileType === "CHANNEL" && (
+        <ChannelProfile imgSrc={imageUrl} profileName={profileName} />
       )}
     </div>
   );

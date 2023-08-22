@@ -78,6 +78,7 @@ const Register = () => {
   return (
     <div className="dark flex flex-col items-center bg-primary p-8 rounded-2xl">
       <ProfileUploader
+      
         imgUrl={pictureUrl}
         setImage={setValue}
         width={150}

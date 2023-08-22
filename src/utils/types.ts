@@ -27,17 +27,35 @@ export type UserTypes = {
   phoneNumber?: string;
   userId?: number;
   userName?: string;
+  lastSeen?: string;
 };
 
 export type ConversationTypes = {
   chatId: number;
   chatType: "CHANNEL" | "GROUP" | "PV";
   lastMessage: string;
-  media: any;
+  media: {
+    mediaId: number;
+    fileName: string;
+    fileMimeType: string;
+    filePath: string;
+  };
   sentAt: string;
   title: string;
   unSeenMessages: number;
   userFirstName: string;
+};
+
+export type ChatTypes = {
+  bio: string;
+  chatId: number;
+  chatType: "CHANNEL" | "GROUP" | "PV";
+  link: string;
+  ownerId: number;
+  profileDtoList: any[];
+  public: boolean;
+  subCount: number;
+  title: string;
 };
 
 export type MessageTypes = {

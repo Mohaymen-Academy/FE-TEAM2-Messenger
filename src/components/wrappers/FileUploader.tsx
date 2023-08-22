@@ -9,7 +9,7 @@ interface FileUploaderProps {
   setImage?: UseFormSetValue<FieldValues>;
   imageSelectHandler: (e: any) => any;
   imgUrl?: string;
-  className: string;
+  className?: string;
 }
 
 const ProfileUploader: React.FC<FileUploaderProps> = ({

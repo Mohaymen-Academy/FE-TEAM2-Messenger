@@ -4,7 +4,7 @@ export function parseSlateToHtml(node: any[]) {
     .map((paragraph) => {
       const paragraphHtml = paragraph.children
         .map((child: any) => {
-          let text = child.text;
+          let text = sanitizeInput(child.text);
 
           if (child.bold) {
             text = `<strong>${text}</strong>`;
@@ -33,4 +33,22 @@ export function parseSlateToHtml(node: any[]) {
       return `<p>${paragraphHtml}</p>`;
     })
     .join("");
+}
+
+function sanitizeInput(inputString: string) {
+  // Remove <script> tags and their contents
+  // const sanitizedStringWithoutScripts = inputString.replace(
+  //   /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+  //   ""
+  // );
+  // // Remove HTML tags using regular expression
+  // const sanitizedStringWithoutTags = sanitizedStringWithoutScripts.replace(
+  //   /<\/?[^>]+(>|$)/g,
+  //   ""
+  // );
+  // Remove < and > characters
+  const sanitizedStringWithoutAngleBrackets = inputString
+    .replace(/</g, "{")
+    .replace(/>/g, "}");
+  return sanitizedStringWithoutAngleBrackets;
 }

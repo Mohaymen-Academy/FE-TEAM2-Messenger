@@ -2,33 +2,30 @@
 import Paragraph from "../ui/Paragraph";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import Avatar from "../ui/Avatar";
-import test from "../../assets/img/darkBg.svg";
 import UnreadMessages from "./components/UnreadMesseges";
-import { ConversationTypes, StoreStateTypes } from "@/utils/types";
+import { ConversationTypes } from "@/utils/types";
 import HoverWrapper from "../wrappers/HoverWrapper";
 import { useEffect } from "react";
 import { getChat, getMessages } from "@/services/api/chat";
 import { queryClient } from "@/providers/queryClientProvider";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setSelectedConversation } from "@/redux/Slices/conversationSlice";
 import parse from "html-react-parser";
 
 import { formatDateDifference } from "@/utils/fromatData";
 import { MESSAGE_PER_PAGE } from "@/utils/constants";
-import { useQuery } from "react-query";
 import { getSubs } from "@/services/api/subs";
-import { Store } from "@reduxjs/toolkit";
 
 interface ConversationItemProps {
   conversation: ConversationTypes;
   onClickConversation: () => void;
   onDeleteConversation: () => void;
   isSelected: boolean;
-  unseenMessages?: number;
+  unseenMessages: number;
 }
 
 const ConversationItem: React.FC<ConversationItemProps> = ({
-  onClickConversation,
+  // onClickConversation,
   conversation,
   isSelected,
   unseenMessages,
@@ -39,9 +36,9 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   const dispatch = useDispatch();
   const conversationLastMessage = conversation.lastMessage || "No messages yet";
 
-  const selectedConv = useSelector(
-    (store: StoreStateTypes) => store.conversation.selectedConversation
-  );
+  // const selectedConv = useSelector(
+  //   (store: StoreStateTypes) => store.conversation.selectedConversation
+  // );
 
   const handleClick = (event: React.MouseEvent) => {
     console.log(conversation);
@@ -89,6 +86,8 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     );
   }, []);
 
+  console.log(conversationLastMessage);
+
   return (
     <HoverWrapper className="p-0" type={isSelected ? "active" : "inActive"}>
       <div
@@ -100,8 +99,9 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
           <Avatar
             chatType={conversation.chatType}
             chatId={conversation.chatId}
+            avatarType="CHAT"
             isConversationList={true}
-            imgSrc={test}
+            imgSrc={conversation.media?.filePath}
           />
         </div>
         <div className="w-full">

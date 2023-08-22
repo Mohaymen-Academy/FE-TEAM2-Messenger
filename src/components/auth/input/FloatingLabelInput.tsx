@@ -1,10 +1,11 @@
-import React, { HTMLAttributes, useState } from "react";
+import React, { HTMLAttributes } from "react";
 import Input from "./Input";
 import { merge } from "@/utils/merge";
 import { UseFormRegister, FieldValues } from "react-hook-form";
 import { Paragraph } from "@/components/ui";
 
-export interface FloatingLabelInputProps extends HTMLAttributes<HTMLDivElement> {
+export interface FloatingLabelInputProps
+  extends HTMLAttributes<HTMLDivElement> {
   type: string;
   removeBorderColor?: string;
   dropDown?: boolean;
@@ -13,7 +14,6 @@ export interface FloatingLabelInputProps extends HTMLAttributes<HTMLDivElement> 
   formId?: string;
   required?: boolean;
   patternFrom?: RegExp;
-  
 }
 
 const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
@@ -29,7 +29,6 @@ const FloatingLabelInput: React.FC<FloatingLabelInputProps> = ({
   children,
   ...props
 }) => {
-  
   return (
     <div
       className={merge("flex flex-col-reverse relative mb-3", className)}

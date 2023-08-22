@@ -5,9 +5,6 @@ import Link from "./components/Link";
 import SectionContainer from "./components/SectionContainer";
 import { Paragraph } from "../ui";
 import { SectionHeaderWithEdit } from "./components/SectionHeader";
-import { queryClient } from "@/providers/queryClientProvider";
-import { useSelector } from "react-redux";
-import { StoreStateTypes } from "@/utils/types";
 
 interface channelProfileProps {
   profileName: string;
