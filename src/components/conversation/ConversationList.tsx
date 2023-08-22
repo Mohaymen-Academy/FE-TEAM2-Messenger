@@ -21,7 +21,7 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
   const conversationItemsQueryResponse = useQuery(
     ["user", "current", "conversations"],
     getAllChat,
-    { refetchInterval: 3000 }
+    { refetchInterval: 30000 }
   );
   const conversationItems = conversationItemsQueryResponse?.data?.data;
 

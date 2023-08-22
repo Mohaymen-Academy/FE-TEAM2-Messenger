@@ -4,12 +4,12 @@ import { useNavigate, createSearchParams } from "react-router-dom";
 import Avatar from "../ui/Avatar";
 import test from "../../assets/img/darkBg.svg";
 import UnreadMessages from "./components/UnreadMesseges";
-import { ConversationTypes } from "@/utils/types";
+import { ConversationTypes, StoreStateTypes } from "@/utils/types";
 import HoverWrapper from "../wrappers/HoverWrapper";
 import { useEffect } from "react";
 import { getChat, getMessages } from "@/services/api/chat";
 import { queryClient } from "@/providers/queryClientProvider";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSelectedConversation } from "@/redux/Slices/conversationSlice";
 import parse from "html-react-parser";
 
@@ -17,6 +17,7 @@ import { formatDateDifference } from "@/utils/fromatData";
 import { MESSAGE_PER_PAGE } from "@/utils/constants";
 import { useQuery } from "react-query";
 import { getSubs } from "@/services/api/subs";
+import { Store } from "@reduxjs/toolkit";
 
 interface ConversationItemProps {
   conversation: ConversationTypes;
@@ -37,15 +38,9 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const conversationLastMessage = conversation.lastMessage || "No messages yet";
-  // useQuery(["chat", conversation.chatType, conversation.chatId],
-  useQuery(
-    ["chat", conversation.chatType, conversation.chatId.toString()],
-    () => getChat(conversation.chatId)
-  );
 
-  useQuery(
-    ["chat", conversation.chatType, conversation.chatId.toString(), "subs"],
-    () => getSubs(conversation.chatId)
+  const selectedConv = useSelector(
+    (store: StoreStateTypes) => store.conversation.selectedConversation
   );
 
   const handleClick = (event: React.MouseEvent) => {
@@ -82,6 +77,16 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       queryKey: ["user", "current", "conversations", `${conversation.chatId}`],
       queryFn: preFetchMessages,
     });
+
+    queryClient.prefetchQuery(
+      ["chat", conversation.chatType, conversation.chatId.toString()],
+      () => getChat(conversation.chatId)
+    );
+
+    queryClient.prefetchQuery(
+      ["chat", conversation.chatType, conversation.chatId.toString(), "subs"],
+      () => getSubs(conversation.chatId)
+    );
   }, []);
 
   return (

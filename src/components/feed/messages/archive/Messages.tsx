@@ -81,7 +81,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
         return { floor, ceil };
       },
       staleTime: 360000,
-      refetchInterval: 3000,
+      refetchInterval: 30000,
     }
   );
 

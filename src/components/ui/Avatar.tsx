@@ -9,6 +9,7 @@ interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   imgSrc?: string;
   isConversationList?: boolean;
   chatType?: "PV" | "CHANNEL" | "GROUP";
+  avatarType?: "USER" | "CHANNEL" | "GROUP";
   chatId?: number;
   userId?: number;
 }
@@ -21,6 +22,7 @@ const Avatar: React.FC<AvatarProps> = ({
   chatType,
   chatId,
   userId,
+  avatarType,
   ...props
 }) => {
   const dispatch = useDispatch();

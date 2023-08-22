@@ -25,4 +25,20 @@ const getBinary = async (url: string) => {
   return apiCall.get(url, { responseType: "blob" });
 };
 
-export { getAllChat, createChat, getChat, getMessages, sendMessage, getBinary };
+const sendChatPicture = async (data: { formData: any; id: string }) => {
+  return apiCall.post(`/api/profiles/chats/${data.id}`, data.formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+export {
+  getAllChat,
+  createChat,
+  getChat,
+  getMessages,
+  sendMessage,
+  getBinary,
+  sendChatPicture,
+};

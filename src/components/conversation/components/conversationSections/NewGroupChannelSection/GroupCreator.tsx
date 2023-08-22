@@ -6,7 +6,7 @@ import { UseFormRegister, FieldValues, UseFormSetValue } from "react-hook-form";
 import FadeMotionWrapper from "@/components/wrappers/FadeMotionWrapper";
 import { setSection } from "@/redux/Slices/conversationSlice";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 import ProfileUploader from "@/components/wrappers/FileUploader";
 import ChatPrivacy from "../../ChannelPrivacy";
 
@@ -15,6 +15,7 @@ interface GroupCreatorProp {
   register: UseFormRegister<FieldValues>;
   onSubmit: any;
   setValue: UseFormSetValue<FieldValues>;
+  setGroupProfileFormData: any;
 }
 
 const GroupCreator: React.FC<GroupCreatorProp> = ({
@@ -22,6 +23,7 @@ const GroupCreator: React.FC<GroupCreatorProp> = ({
   register,
   onSubmit,
   setValue,
+  setGroupProfileFormData,
 }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState(new FormData());
@@ -32,7 +34,7 @@ const GroupCreator: React.FC<GroupCreatorProp> = ({
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
-
+      setGroupProfileFormData(formData);
       setFormData(formData);
 
       const imageUrl = URL.createObjectURL(file);
