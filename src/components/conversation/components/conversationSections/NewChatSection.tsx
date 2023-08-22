@@ -55,7 +55,10 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ contactsData }) => {
           <BsArrowRight className="icon-button" size={25} />
         </Button>
         <div className="w-full">
-          <SearchInput placeHolder="با چه کسی می‌خواهید صحبت کنید" />
+          <SearchInput
+            placeHolder="با چه کسی می‌خواهید صحبت کنید"
+            searchIn="CONTACT"
+          />
         </div>
       </div>
 

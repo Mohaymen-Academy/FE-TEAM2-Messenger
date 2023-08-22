@@ -50,12 +50,10 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
 
     if (filterBy === undefined) {
       return conversation;
-    } else if (filterBy === "GROUP" && item.chatType === "GROUP") {
+    } else if (filterBy === item.chatType) {
       return conversation;
-    } else if (filterBy === "CHANNEL" && item.chatType === "CHANNEL") {
-      return conversation;
-    } else if (filterBy === "PV" && item.chatType === "PV") {
-      return conversation;
+    } else if (Array.isArray(filterBy)) {
+      console.log("hey");
     }
   };
 
@@ -78,7 +76,7 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
                 onClick={() => setShowSideBar((prev) => !prev)}
               />
               <div className="w-full">
-                <SearchInput placeHolder="جستجو" />
+                <SearchInput placeHolder="جستجو" searchIn="CONVERSATION" />
               </div>
             </div>
             <div className="h-full w-full overflow-y-auto overflow-x-hidden px-2 duration-500 custom-scrollbar scrollbar-none md:scrollbar">

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-type SearchResult = { id: number; firstName: string; lastName: string }[];
+export type SearchResult = number[];
 
 export type appSliceType = {
   theme: "light" | "dark";

@@ -13,32 +13,28 @@ import { useSelector } from "react-redux";
 import { store } from "@/redux/store";
 import { StoreStateTypes } from "@/utils/types";
 
-
-
 interface channelProfileProps {
   profileName: string;
   imgSrc?: string;
 }
 
+const ChannelProfile: React.FC<channelProfileProps> = ({
+  profileName,
+  imgSrc,
+}) => {
+  const conversationId = useSelector(
+    (store: StoreStateTypes) => store.app.selectedProfile.conversationId
+  );
 
-
-const ChannelProfile: React.FC<channelProfileProps> = ({ profileName, imgSrc, }) => {
- 
-  const conversationId = useSelector((store:StoreStateTypes )=> store.app.selectedProfile.conversationId)
-  console.log(conversationId);
-  
   const chatData = queryClient.getQueryData([
     "chat",
     "CHANNEL",
     conversationId?.toString(),
   ]);
-  console.log(chatData);
-  
-  const members = chatData
+
+  const members = chatData;
   // console.log(members);
-  
-  
-  
+
   return (
     <SectionContainer>
       {/* Profile header and back button */}
@@ -62,7 +58,7 @@ const ChannelProfile: React.FC<channelProfileProps> = ({ profileName, imgSrc, })
               {profileName}
             </Paragraph>
             <Paragraph size="sm" className="select-none">
-              {members} 
+              {members}
             </Paragraph>
           </div>
         </div>
@@ -83,4 +79,3 @@ export default ChannelProfile;
 function StoreStateType(a: unknown, b: unknown): boolean {
   throw new Error("Function not implemented.");
 }
-
