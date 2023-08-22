@@ -37,10 +37,10 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   const dispatch = useDispatch();
   const conversationLastMessage = conversation.lastMessage || "No messages yet";
   // useQuery(["chat", conversation.chatType, conversation.chatId],
-  useQuery(["chat", conversation.chatType, conversation.chatId.toString()], () =>
-    getChat(conversation.chatId)
+  useQuery(
+    ["chat", conversation.chatType, conversation.chatId.toString()],
+    () => getChat(conversation.chatId)
   );
-
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
@@ -69,8 +69,6 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       });
       return data.reverse();
     };
-    
-    
 
     //prefetch
     queryClient.prefetchInfiniteQuery({
@@ -114,8 +112,9 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
             >
               {parse(conversationLastMessage)}
             </Paragraph>
-            {/* {true && <UnreadMessages unseen={unseenMessages} />} */}
-            {unseenMessages > 0 && <UnreadMessages unseen={unseenMessages} />}
+            {(unseenMessages as number) > 0 && (
+              <UnreadMessages unseen={unseenMessages as number} />
+            )}
           </div>
         </div>
       </div>
