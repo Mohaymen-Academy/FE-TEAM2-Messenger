@@ -5,7 +5,7 @@ import Emoji from "./Emoji";
 import clsx from "clsx";
 import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreStateTypes, UserTypes } from "@/utils/types";
+import { MessageTypes, StoreStateTypes, UserTypes } from "@/utils/types";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { GoFileMedia, GoFile } from "react-icons/go";
 import { Paragraph } from "@/components/ui";
@@ -20,7 +20,11 @@ import { sendMessage } from "@/services/api/chat";
 import { queryClient } from "@/providers/queryClientProvider";
 import { v4 as uuidv4 } from "uuid";
 import UploadFileModal from "@/components/modal/UploadFileModal";
-import { onOpen } from "@/redux/Slices/modal/UploadModalSlice";
+import { onClose, onOpen } from "@/redux/Slices/modal/UploadModalSlice";
+import {
+  deleteOptimisticCache,
+  setOptimisticCache,
+} from "@/redux/Slices/messageSlice";
 
 const initialValue = [
   {
@@ -34,7 +38,28 @@ const TextArea = () => {
   const [editor] = useState(() => withReact(createEditor()));
   const [URLSearchParams] = useSearchParams();
 
-  const fileRef = useRef(new FormData());
+  const selectedConversation = URLSearchParams.get("conversationId");
+
+  const optimisticCache = useSelector(
+    (store: StoreStateTypes) =>
+      store.message.optimisticCache[selectedConversation!]
+  );
+  // const optimisticCacheObj = useSelector(
+  //   (store: StoreStateTypes) => store.message.optimisticCache
+  // );
+
+  const messages = (
+    queryClient.getQueryData([
+      "user",
+      "current",
+      "conversations",
+      selectedConversation,
+    ]) as { pages: MessageTypes[] }
+  )?.pages.flat();
+
+  console.log(optimisticCache);
+
+  const fileRef = useRef<File>();
   const mediaInputRef = useRef<HTMLInputElement>();
   const fileInputRef = useRef<HTMLInputElement>();
   const [mediaMessage, setMediaMessage] = useState("");
@@ -51,7 +76,6 @@ const TextArea = () => {
   const start = useRef(0);
   const end = useRef(0);
 
-  const selectedConversation = URLSearchParams.get("conversationId");
   const textObj = useSelector(
     (store: StoreStateTypes) => store.textArea.textObject
   );
@@ -66,52 +90,64 @@ const TextArea = () => {
   const { mutate: sendMessageMutate } = useMutation({
     mutationFn: (formData: FormData) => sendMessage(formData),
     onMutate: (newMessage) => {
-      start.current = Date.now();
-      const text = newMessage.get("text");
+      start.current = Date.now(); //for send message time
+
+      //this block get the new messages data for optimistic rendering
+      const text = newMessage.get("text") as string;
       const userId = queryClient.getQueryData<{ data: UserTypes }>([
         "user",
         "current",
-      ])?.data.userId;
+      ])?.data.userId as string;
       const sendAt = new Date().toISOString();
+      const media = {
+        mediaId: uuidv4(),
+        filePath:
+          newMessage.get("file") &&
+          URL.createObjectURL(newMessage.get("file") as File),
+      };
+      ////////////////////////////
+
       // // Optimistic update
+
+      //create message object
       const optimisticData = {
-        editedAt: null,
-        media: null,
-        messageId: uuidv4(),
+        editedAt: new Date().toISOString(),
+        media,
+        messageId:
+          +(messages[0] ? messages[0].messageId : 0) +
+          0.01 +
+          (optimisticCache ? optimisticCache.length : 0) / 100,
         sendAt,
         text,
         userId,
+        isCache: true,
       };
 
-      // Update the cache
-      queryClient.setQueryData(
-        ["user", "current", "conversations", selectedConversation],
-        (oldData: any) => {
-          return {
-            pages: [
-              [optimisticData, ...oldData.pages[0]],
-              ...oldData.pages.slice(1),
-            ],
-            pageParams: oldData.pageParams,
-          };
-        }
+      dispatch(
+        setOptimisticCache({
+          chatId: selectedConversation!,
+          message: optimisticData,
+          prevCache: optimisticCache,
+        })
       );
 
-      // return optimisticData; // This value will be passed to onSettled
+      return optimisticData; // This value will be passed to onSettled
     },
-    onSuccess: () => {
-      console.log("sent");
-      queryClient.invalidateQueries([
-        "user",
-        "current",
-        "conversations",
-        selectedConversation,
-      ]);
+    // onSettled: (_, __, ___, context) => {
+    //   if (!context) return;
+    //   if (!selectedConversation) return;
 
-      end.current = Date.now();
-
-      const time = end.current - start.current;
-      console.log(time / 1000);
+    //   //delete optimistic message from redux on if success or error
+    //   // dispatch(
+    //   //   deleteOptimisticCache({
+    //   //     chatId: selectedConversation,
+    //   //     messageId: context.messageId,
+    //   //     prevCache: optimisticCache,
+    //   //   })
+    //   // );
+    // },
+    onError: (error) => {
+      console.log(error);
     },
   });
 
@@ -134,20 +170,30 @@ const TextArea = () => {
     sendMessageMutate(messageFormData);
   };
 
-  const onSendFileSubmit = () => {};
+  const onSendFileSubmit = () => {
+    const fileSendFormData = new FormData();
+
+    if (!fileRef.current) return;
+
+    fileSendFormData.append("text", mediaMessage);
+    fileSendFormData.append("file", fileRef.current);
+    fileSendFormData.append("chatId", selectedConversation as string);
+
+    sendMessageMutate(fileSendFormData);
+
+    dispatch(onClose());
+  };
+
   const onFileSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    fileRef.current = new FormData();
-    fileRef.current.append("file", file);
+    fileRef.current = file;
 
-    const selectedFileType = (fileRef.current.get("file") as File).type.split(
-      "/"
-    )[0] as "image" | "video";
-    const selectedFileFormat = (fileRef.current.get("file") as File).type.split(
-      "/"
-    )[1];
+    const selectedFileType = fileRef.current.type.split("/")[0] as
+      | "image"
+      | "video";
+    const selectedFileFormat = fileRef.current.type.split("/")[1];
 
     const selectedFileUrl = URL.createObjectURL(file);
     setFileType({
@@ -265,7 +311,7 @@ const TextArea = () => {
       <UploadFileModal
         onSubmit={onSendFileSubmit}
         fileType={fileType}
-        // setMediaMessage={setMediaMessage}
+        setMediaMessages={setMediaMessage}
       />
     </>
   );

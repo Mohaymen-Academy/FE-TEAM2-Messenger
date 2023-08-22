@@ -41,7 +41,6 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     getChat(conversation.chatId)
   );
 
-
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
       //change url search params to selected conversationId
@@ -69,8 +68,6 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       });
       return data.reverse();
     };
-    
-    
 
     //prefetch
     queryClient.prefetchInfiniteQuery({

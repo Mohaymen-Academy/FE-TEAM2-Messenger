@@ -8,6 +8,7 @@ export type appSliceType = {
     conversationId: string | undefined;
     conversationType: "GROUP" | "PV" | "CHANNEL" | undefined;
   };
+  
 };
 
 const initialState: appSliceType = {
