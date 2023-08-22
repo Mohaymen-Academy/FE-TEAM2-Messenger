@@ -9,7 +9,7 @@ import { setSection } from "@/redux/Slices/conversationSlice";
 import { createContact } from "@/services/api/contact";
 import { getUserByPhone } from "@/services/api/user";
 import { convertNumberToEN } from "@/utils/convertNumberToEN";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm, Controller } from "react-hook-form";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 
@@ -20,13 +20,34 @@ const NewContactSection: React.FC<newContactSectionProps> = ({}) => {
   const toastify = useToastify();
   const { mutate: addContactMutation } = useMutation(createContact);
 
-  const { register, handleSubmit, setValue } = useForm<FieldValues>({
+  const { register, handleSubmit, setValue, control} = useForm<FieldValues>({
+    
     defaultValues: {
       phoneNumber: "",
       firstName: "",
       lastName: "",
     },
   });
+
+  const handleKeyDown = (e, field) => {
+    if (
+      !(
+        (e.key >= "0" && e.key <= "9") ||
+        e.key === "Backspace" ||
+        e.key === "Delete" ||
+        e.key === "ArrowLeft" ||
+        e.key === "ArrowRight"
+      )
+    ) {
+      e.preventDefault();
+      return;
+    }
+  };
+  
+  
+
+  
+  
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     getUserByPhone(convertNumberToEN(data.phoneNumber))
@@ -54,7 +75,7 @@ const NewContactSection: React.FC<newContactSectionProps> = ({}) => {
               );
             },
             onError: () => {
-              toastify.error("مخاطب ساخته نشد.");
+              toastify.error("مخاطب در لیست موجود است");
             },
           }
         );
@@ -70,12 +91,24 @@ const NewContactSection: React.FC<newContactSectionProps> = ({}) => {
       <SectionContainer className="flex flex-col gap-10">
         <SectionHeader title="مخاطب جدید" />
         <div className="px-8 flex flex-col gap-4">
-          <FloatingLabelInput
-            type="tel"
-            label="تلفن همراه"
-            required
-            register={register}
-            formId="phoneNumber"
+          <Controller
+            name="phoneNumber"
+            control={control}
+            rules={{
+              required: true,
+              pattern: /^\d+$/,
+            }}
+            render={({ field }) => (
+              <FloatingLabelInput
+                type="tel"
+                label="تلفن همراه"
+                required
+                register={register}
+                formId="phoneNumber"
+                onKeyDown={(e) => handleKeyDown(e, field)}
+                
+              />
+            )}
           />
 
           <FloatingLabelInput
