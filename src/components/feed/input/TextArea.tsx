@@ -57,8 +57,6 @@ const TextArea = () => {
     ]) as { pages: MessageTypes[] }
   )?.pages.flat();
 
-  console.log(optimisticCache);
-
   const fileRef = useRef<File>();
   const mediaInputRef = useRef<HTMLInputElement>();
   const fileInputRef = useRef<HTMLInputElement>();
@@ -282,7 +280,7 @@ const TextArea = () => {
               />
 
               <Paragraph size="xs" className="w-full flex items-center gap-3">
-                <GoFileMedia  size={30} />
+                <GoFileMedia size={30} />
                 آپلود عکس و فیلم
               </Paragraph>
             </div>
@@ -301,7 +299,7 @@ const TextArea = () => {
               />
 
               <Paragraph size="xs" className="w-full flex items-center gap-3">
-                <GoFile  size={30} />
+                <GoFile size={30} />
                 آپلود فایل
               </Paragraph>
             </div>

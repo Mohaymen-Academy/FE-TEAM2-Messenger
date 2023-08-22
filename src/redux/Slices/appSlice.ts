@@ -5,17 +5,29 @@ export type appSliceType = {
   showEmoji: boolean;
   showUploadMenu: boolean;
   selectedProfile: {
-    conversationId: string | undefined;
-    conversationType: "GROUP" | "PV" | "CHANNEL" | undefined;
+    conversationId?: number;
+    conversationType?: "GROUP" | "PV" | "CHANNEL";
+    userId?: number;
   };
-  
+  selectedConversation: {
+    conversationId?: number;
+    conversationType?: "GROUP" | "PV" | "CHANNEL";
+  };
 };
 
 const initialState: appSliceType = {
   theme: "dark",
   showEmoji: false,
   showUploadMenu: false,
-  selectedProfile: { conversationId: undefined, conversationType: undefined },
+  selectedProfile: {
+    conversationId: undefined,
+    conversationType: undefined,
+    userId: undefined,
+  },
+  selectedConversation: {
+    conversationId: undefined,
+    conversationType: undefined,
+  },
 };
 
 const appSlice = createSlice({
@@ -42,17 +54,23 @@ const appSlice = createSlice({
       action: {
         payload: {
           selectedProfile: {
-            conversationId: string | undefined;
-            conversationType: "GROUP" | "PV" | "CHANNEL" | undefined;
+            conversationId?: number;
+            conversationType?: "GROUP" | "PV" | "CHANNEL";
+            userId?: number;
           };
         };
       }
     ) => {
-      state.selectedProfile= action.payload.selectedProfile;
+      state.selectedProfile = action.payload.selectedProfile;
     },
   },
 });
 
-export const { toggleTheme, onToggleEmoji, onToggleUpload, setSelectedProfile } = appSlice.actions;
+export const {
+  toggleTheme,
+  onToggleEmoji,
+  onToggleUpload,
+  setSelectedProfile,
+} = appSlice.actions;
 
 export default appSlice.reducer;

@@ -16,6 +16,7 @@ import parse from "html-react-parser";
 import { formatDateDifference } from "@/utils/fromatData";
 import { MESSAGE_PER_PAGE } from "@/utils/constants";
 import { useQuery } from "react-query";
+import { getSubs } from "@/services/api/subs";
 
 interface ConversationItemProps {
   conversation: ConversationTypes;
@@ -26,7 +27,7 @@ interface ConversationItemProps {
 }
 
 const ConversationItem: React.FC<ConversationItemProps> = ({
-  // onClickConversation,
+  onClickConversation,
   conversation,
   isSelected,
   unseenMessages,
@@ -37,17 +38,24 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   const dispatch = useDispatch();
   const conversationLastMessage = conversation.lastMessage || "No messages yet";
   // useQuery(["chat", conversation.chatType, conversation.chatId],
-  useQuery(["chat", conversation.chatType, conversation.chatId.toString()], () =>
-    getChat(conversation.chatId)
+  useQuery(
+    ["chat", conversation.chatType, conversation.chatId.toString()],
+    () => getChat(conversation.chatId)
+  );
+
+  useQuery(
+    ["chat", conversation.chatType, conversation.chatId.toString(), "subs"],
+    () => getSubs(conversation.chatId)
   );
 
   const handleClick = (event: React.MouseEvent) => {
+    console.log(conversation);
     if (event.type === "click") {
       //change url search params to selected conversationId
       navigate({
         pathname: "/chat",
         search: createSearchParams({
-          conversationId: conversation.chatId as string,
+          conversationId: `${conversation.chatId}`,
         }).toString(),
       });
 

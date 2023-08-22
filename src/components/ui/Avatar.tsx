@@ -8,8 +8,9 @@ interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   isOnline?: boolean;
   imgSrc?: string;
   isConversationList?: boolean;
-  chatType?: string; // New prop
-  chatId?: string | number; // New prop
+  chatType?: "PV" | "CHANNEL" | "GROUP";
+  chatId?: number;
+  userId?: number;
 }
 
 const Avatar: React.FC<AvatarProps> = ({
@@ -19,6 +20,7 @@ const Avatar: React.FC<AvatarProps> = ({
   isConversationList,
   chatType,
   chatId,
+  userId,
   ...props
 }) => {
   const dispatch = useDispatch();
@@ -26,17 +28,18 @@ const Avatar: React.FC<AvatarProps> = ({
   return (
     <div
       onClick={() => {
-        dispatch(setShow({ show: isConversationList ? false : true }));
+        if (isConversationList) return;
+        dispatch(setShow({ show: true }));
 
         dispatch(
           setSelectedProfile({
             selectedProfile: {
-              conversationId: chatId as string,
-              conversationType: chatType as "PV" | "CHANNEL" | "GROUP",
+              conversationId: chatId,
+              conversationType: chatType,
+              userId,
             },
           })
         );
-        
       }}
       className={merge(
         "w-16 h-16 text-center relative rounded-full bg-red-600 cursor-pointer",

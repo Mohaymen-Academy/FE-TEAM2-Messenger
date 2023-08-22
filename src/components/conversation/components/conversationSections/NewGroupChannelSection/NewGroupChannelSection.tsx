@@ -52,8 +52,8 @@ const UserSelect: React.FC<UserSelect> = ({
             <UserItem
               key={cont.id}
               withCheck
-              checked={selectedUser.includes(cont.id as number)}
-              onClick={() => onUserClickHandler(cont.id)}
+              checked={selectedUser.includes(cont.secondUserId as number)}
+              onClick={() => onUserClickHandler(cont.secondUserId)}
               user={cont}
             />
           ))}

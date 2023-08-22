@@ -21,4 +21,8 @@ const createChat = async (body: CreateChannelType) => {
   return apiCall.post("/api/chats/create-chat", body);
 };
 
-export { getAllChat, createChat, getChat, getMessages, sendMessage };
+const getBinary = async (url: string) => {
+  return apiCall.get(url, { responseType: "blob" });
+};
+
+export { getAllChat, createChat, getChat, getMessages, sendMessage, getBinary };
