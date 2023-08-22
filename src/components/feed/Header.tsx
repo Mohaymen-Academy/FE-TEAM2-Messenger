@@ -31,16 +31,16 @@ const Header = () => {
         lastInteraction={selectedConversation?.sentAt}
         title={selectedConversation?.title}
       />
-      <div className="flex gap-3 self-center">
+      <div className="flex gap-1 self-center">
         <Button
           variant="ghost"
-          className="p-1 dark:hover:bg-slate-600"
+          className="p-2 dark:hover:bg-slate-600"
         >
           <LiaSearchSolid className="icon-button" size={23} />
         </Button>
         <Button
           variant="ghost"
-          className="p-1 dark:hover:bg-slate-600"
+          className="p-2 dark:hover:bg-slate-600"
         >
           <BsThreeDotsVertical className="icon-button" size={23} />
         </Button>

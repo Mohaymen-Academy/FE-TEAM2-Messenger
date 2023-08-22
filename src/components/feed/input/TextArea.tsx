@@ -162,7 +162,7 @@ const TextArea = () => {
 
   return (
     <>
-      <div className="relative flex max-w-full w-full bg-primary px-3 py-2 justify-center items-center gap-2 rounded-lg">
+      <div className="relative flex max-w-full w-full bg-primary px-3 py-2 justify-between items-center gap-2 rounded-lg">
         <Button
           onClick={(e) => {
             e.stopPropagation();
@@ -208,7 +208,7 @@ const TextArea = () => {
         <Emoji
           editor={editor}
           className={clsx(
-            "bottom-16 duration-300 md:absolute right-0 font-normal overflow-hidden h-0 w-full md:w-0 opacity-0",
+            "bottom-16 duration-300 md:absolute right-0 font-normal overflow-hidden h-0 w-full md:w-0 opacity-0 absolute mx-auto",
             { "h-[300px] md:h-[450px] md:w-[400px] opacity-1": showEmoji }
           )}
         />
@@ -236,7 +236,7 @@ const TextArea = () => {
               />
 
               <Paragraph size="xs" className="w-full flex items-center gap-3">
-                <GoFileMedia  size={30} />
+                <GoFileMedia size={30} />
                 آپلود عکس و فیلم
               </Paragraph>
             </div>
@@ -255,7 +255,7 @@ const TextArea = () => {
               />
 
               <Paragraph size="xs" className="w-full flex items-center gap-3">
-                <GoFile  size={30} />
+                <GoFile size={30} />
                 آپلود فایل
               </Paragraph>
             </div>
