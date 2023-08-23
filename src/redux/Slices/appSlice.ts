@@ -10,6 +10,7 @@ export type appSliceType = {
   filterBy: "GROUP" | "PV" | "CHANNEL" | SearchResult | undefined;
   selectedProfile: selectedProfileType;
   selectedConversation: selectedConversationType;
+  headerReRender: number;
 };
 
 type selectedConversationType = {
@@ -38,6 +39,7 @@ const initialState: appSliceType = {
     conversationId: undefined,
     conversationType: undefined,
   },
+  headerReRender: Date.now(),
 };
 
 const appSlice = createSlice({
@@ -75,6 +77,9 @@ const appSlice = createSlice({
     ) => {
       state.filterBy = action.payload;
     },
+    setHeaderReRender: (state: appSliceType) => {
+      state.headerReRender = Date.now();
+    },
   },
 });
 
@@ -84,6 +89,7 @@ export const {
   onToggleUpload,
   setSelectedProfile,
   setFileterBy,
+  setHeaderReRender,
 } = appSlice.actions;
 
 export default appSlice.reducer;

@@ -22,7 +22,7 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
   const conversationItemsQueryResponse = useQuery(
     ["user", "current", "conversations"],
     getAllChat,
-    { refetchInterval: 30000 }
+    { refetchInterval: 3000 }
   );
   const { filterBy } = useSelector((store: StoreStateTypes) => store.app);
 

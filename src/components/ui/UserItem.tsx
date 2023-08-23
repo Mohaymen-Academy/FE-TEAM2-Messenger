@@ -5,7 +5,7 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { getOtherUser, getUserProfile } from "@/services/api/user";
 import { useQuery } from "react-query";
-import { formatDateDifference } from "@/utils/fromatData";
+import { formatDateDifference } from "@/utils/fromatDate";
 
 type UserItemProps = {
   user: ContactTypes;
@@ -32,7 +32,10 @@ const UserItem: React.FC<UserItemProps> = ({
   );
 
   const userProfile = userProfileData?.data[0]?.media?.filePath || imageUrl;
-  const userLastSeen = userData?.data?.lastSeen;
+  const userLastSeen = formatDateDifference(
+    userData?.data?.lastSeen || user.lastSeen
+  );
+  console.log(userData?.data?.lastSeen || user.lastSeen);
 
   return (
     <div
@@ -41,7 +44,11 @@ const UserItem: React.FC<UserItemProps> = ({
     >
       <div className="flex gap-5 items-center">
         <div className="relative">
-          <Avatar imgSrc={userProfile} isConversationList={true} />
+          <Avatar
+            isOnline={userLastSeen === "Online"}
+            imgSrc={userProfile}
+            isConversationList={true}
+          />
           {withCheck && (
             <div
               style={{ transform: `scale(${checked ? 1.2 : 0})` }}
@@ -55,11 +62,7 @@ const UserItem: React.FC<UserItemProps> = ({
           <Paragraph size="lg">{`${user.firstName} ${
             user.lastName ? user.lastName : ""
           }`}</Paragraph>
-          {userLastSeen && (
-            <Paragraph size="xs">
-              {formatDateDifference(userLastSeen)}
-            </Paragraph>
-          )}
+          {userLastSeen && <Paragraph size="xs">{userLastSeen}</Paragraph>}
         </div>
       </div>
 

@@ -7,8 +7,9 @@ import GroupProfile from "./GroupProfile";
 import ChannelProfile from "./ChannelProfile";
 
 const ProfileWrapper: React.FC = () => {
-  const { profileType, conversationId, conversationType, imageUrl, userId } =
-    useSelector((store: StoreStateTypes) => store.app.selectedProfile);
+  const { profileType, conversationId, imageUrl } = useSelector(
+    (store: StoreStateTypes) => store.app.selectedProfile
+  );
   const show = useSelector((store: StoreStateTypes) => store.profile.show);
   const selectedConversation = useSelector(
     (store: StoreStateTypes) => store.conversation.selectedConversation
@@ -39,7 +40,11 @@ const ProfileWrapper: React.FC = () => {
         />
       )}
       {profileType === "CHANNEL" && (
-        <ChannelProfile imgSrc={imageUrl} profileName={profileName} />
+        <ChannelProfile
+          chatId={conversationId}
+          imgSrc={imageUrl}
+          profileName={profileName}
+        />
       )}
     </div>
   );

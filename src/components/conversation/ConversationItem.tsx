@@ -12,9 +12,10 @@ import { useDispatch } from "react-redux";
 import { setSelectedConversation } from "@/redux/Slices/conversationSlice";
 import parse from "html-react-parser";
 
-import { formatDateDifference } from "@/utils/fromatData";
+import { formatDateDifference } from "@/utils/fromatDate";
 import { MESSAGE_PER_PAGE } from "@/utils/constants";
 import { getSubs } from "@/services/api/subs";
+import { setSelectedProfile } from "@/redux/Slices/appSlice";
 
 interface ConversationItemProps {
   conversation: ConversationTypes;
@@ -36,9 +37,10 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   const dispatch = useDispatch();
   const conversationLastMessage = conversation.lastMessage || "No messages yet";
 
-  // const selectedConv = useSelector(
-  //   (store: StoreStateTypes) => store.conversation.selectedConversation
-  // );
+  const chatImageLocalSrc = queryClient.getQueryData<{ data: Blob }>([
+    "binary",
+    conversation?.media?.filePath?.split("/").at(-1),
+  ])?.data;
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
@@ -52,6 +54,17 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
 
       //save selected conversation data in redux
       dispatch(setSelectedConversation({ conversation }));
+      dispatch(
+        setSelectedProfile({
+          selectedProfile: {
+            conversationId: conversation.chatId,
+            conversationType: conversation.chatType,
+            imageUrl:
+              chatImageLocalSrc && URL.createObjectURL(chatImageLocalSrc),
+            profileType: conversation.chatType,
+          },
+        })
+      );
     } else if (event.type === "contextmenu") {
       event.preventDefault();
     }
@@ -72,16 +85,19 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     queryClient.prefetchInfiniteQuery({
       queryKey: ["user", "current", "conversations", `${conversation.chatId}`],
       queryFn: preFetchMessages,
+      cacheTime: Infinity,
     });
 
     queryClient.prefetchQuery(
       ["chat", conversation.chatType, conversation.chatId.toString()],
-      () => getChat(conversation.chatId)
+      () => getChat(conversation.chatId),
+      { cacheTime: Infinity }
     );
 
     queryClient.prefetchQuery(
       ["chat", conversation.chatType, conversation.chatId.toString(), "subs"],
-      () => getSubs(conversation.chatId)
+      () => getSubs(conversation.chatId),
+      { cacheTime: Infinity }
     );
   }, []);
 

@@ -9,7 +9,6 @@ import Notification from "./components/Notification";
 interface userProfileProps {
   profileName: string;
   imgSrc?: string;
- 
 }
 
 const UserProfile: React.FC<userProfileProps> = ({ profileName, imgSrc }) => {
@@ -25,7 +24,7 @@ const UserProfile: React.FC<userProfileProps> = ({ profileName, imgSrc }) => {
           <img
             src={imgSrc}
             alt="عکس پروفایل"
-            className="absolute w-full object-cover"
+            className="absolute w-full h-full object-cover "
           />
         ) : (
           <ProfileColor name={profileName} />

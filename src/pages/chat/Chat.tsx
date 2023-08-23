@@ -78,7 +78,9 @@ const Chat = () => {
   };
 
   //get user and save in react-query cache
-  queryClient.prefetchQuery(["user", "current"], getUser);
+  queryClient.prefetchQuery(["user", "current"], getUser, {
+    cacheTime: Infinity,
+  });
 
   useEffect(() => {
     const token = localStorage.getItem("refresh_token");

@@ -1,10 +1,12 @@
 function formatDateDifference(isoDate: string): string {
+  if (!isoDate) return "نامشخص";
   const now = new Date();
   const inputDate = new Date(isoDate);
 
   const timeDifference = now.getTime() - inputDate.getTime();
-
-  if (timeDifference < 60 * 60 * 1000) {
+  if (timeDifference < 60 * 1000) {
+    return `Online`;
+  } else if (timeDifference < 60 * 60 * 1000) {
     const minutes = Math.floor(timeDifference / (60 * 1000));
     return `${minutes} دقیقه پیش`;
   } else if (timeDifference < 24 * 60 * 60 * 1000) {
