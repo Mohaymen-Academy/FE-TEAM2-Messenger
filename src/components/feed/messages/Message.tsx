@@ -1,20 +1,28 @@
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Text from "./Text";
 import Voice from "./Audio";
 import { Avatar, Paragraph } from "@/components/ui";
-import avatar from "../../../assets/img/avatar.jpg";
 import clsx from "clsx";
 import { BsCheckAll } from "react-icons/bs";
 import { BiCheck } from "react-icons/bi";
-import { MessageStatus, MessageTypes } from "@/utils/types";
+import { MessageStatus, MessageTypes, subTypes } from "@/utils/types";
 import { ClockLoader } from "react-spinners";
 import Context from "@/components/ui/Context";
 import ClickOutsideWrapper from "@/components/wrappers/ClickOutsideWrapper";
-import { formatDateToShamsiYear, formatDateToTime } from "@/utils/fromatDate";
+import {
+  formatDateDifference,
+  formatDateToShamsiYear,
+  formatDateToTime,
+} from "@/utils/fromatDate";
+import { queryClient } from "@/providers/queryClientProvider";
 
 interface MessageComponent {
   children?: React.ReactNode;
   message: MessageTypes;
+  conversation?: {
+    id?: number;
+    type?: "PV" | "GROUP" | "CHANNEL";
+  };
   sentByCurrentUser?: boolean;
   groupMessage?: boolean;
   messageStatus?: MessageStatus;
@@ -28,6 +36,7 @@ const Message: React.FC<MessageComponent> = ({
   sentByCurrentUser,
   groupMessage,
   messageStatus,
+  conversation,
   // TextMessage,
   // ImageMessage,
   // VoiceMessage,
@@ -37,6 +46,18 @@ const Message: React.FC<MessageComponent> = ({
   const contextMenuRef = useRef(null);
   const [contextMenuX, setContextMenuX] = useState(0);
   const [contextMenuY, setContextMenuY] = useState(0);
+
+  const subs = queryClient.getQueryData<{ data: subTypes[] }>([
+    "chat",
+    conversation?.type,
+    conversation?.id?.toString(),
+    "subs",
+  ]);
+
+  const Sender = useMemo(
+    () => subs?.data?.find((sub) => sub.userId === message.userId),
+    [JSON.stringify(subs)]
+  );
 
   return (
     <div
@@ -104,7 +125,11 @@ const Message: React.FC<MessageComponent> = ({
 
       {!sentByCurrentUser && groupMessage && (
         <div className="flex justify-end self-end">
-          <Avatar imgSrc={avatar} className="-mb-1" isOnline />
+          <Avatar
+            isOnline={formatDateDifference(Sender?.lastSeen) === "Online"}
+            imgSrc={Sender?.profile.media.filePath}
+            className="-mb-1"
+          />
         </div>
       )}
       <div className="flex flex-col gap-1 w-full relative">
@@ -127,16 +152,13 @@ const Message: React.FC<MessageComponent> = ({
             )}
           >
             {!sentByCurrentUser && groupMessage && (
-              <Paragraph
-                size={"xs"}
-                className="font-bold text-left self-start m-0 text-primary"
-              >
-                [نام کاربری]
+              <Paragraph className="!text-[12px] font-bold text-left self-start mb-1 text-primary">
+                {Sender?.firstName} {Sender?.lastName}
               </Paragraph>
             )}
             {children}
             <div className="self-start items-center flex flex-row-reverse gap-1">
-              <Paragraph className="!text-xs flex gap-2">
+              <Paragraph className="!text-xs flex gap-2 mt-2">
                 <span>{formatDateToTime(message.sendAt)}</span>
                 <span>{formatDateToShamsiYear(message.sendAt)}</span>
               </Paragraph>

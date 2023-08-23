@@ -13,7 +13,6 @@ import { queryClient } from "@/providers/queryClientProvider";
 import { useEffect, useMemo, useRef } from "react";
 import { deleteOptimisticCache } from "@/redux/Slices/messageSlice";
 import Media from "../Media";
-import { store } from "@/redux/store";
 import { setHeaderReRender } from "@/redux/Slices/appSlice";
 
 interface MessagesProps {
@@ -151,8 +150,6 @@ const Messages: React.FC<MessagesProps> = ({}) => {
     scrollDivRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [optimisticCache?.length]);
 
-  console.log(toRenderMessages);
-
   return (
     <div className="flex flex-col h-full justify-end overflow-hidden">
       <div
@@ -170,6 +167,10 @@ const Messages: React.FC<MessagesProps> = ({}) => {
               {toRenderMessages.map((msg) => (
                 <Message
                   message={msg}
+                  conversation={{
+                    id: selectedConversationObj?.chatId,
+                    type: selectedConversationObj?.chatType,
+                  }}
                   key={msg.messageId}
                   messageStatus={
                     msg.isCache ? "PENDING" : msg.seen ? "SEEN" : "DELIVERED"

@@ -30,6 +30,25 @@ export type UserTypes = {
   lastSeen?: string;
 };
 
+export type subTypes = {
+  admin: boolean;
+  firstName: string;
+  lastName: string;
+  lastSeen: string;
+  profile: {
+    id: number;
+    media: {
+      mediaId: number;
+      fileName: string;
+      fileMimeType: string;
+      filePath: string;
+    };
+    setAt: string;
+  };
+
+  userId: number;
+};
+
 export type ConversationTypes = {
   chatId: number;
   chatType: "CHANNEL" | "GROUP" | "PV";
