@@ -3,17 +3,37 @@ import ProfileColor from "./components/ProfileColor";
 import Notification from "./components/Notification";
 import Link from "./components/Link";
 import SectionContainer from "./components/SectionContainer";
-import { Paragraph } from "../ui";
+import { Paragraph, UserItem } from "../ui";
 import { SectionHeaderWithEdit } from "./components/SectionHeader";
+import { queryClient } from "@/providers/queryClientProvider";
+import { useQuery } from "react-query";
+import { getSubs } from "@/services/api/subs";
 interface channelProfileProps {
   profileName: string;
   imgSrc?: string;
+  chatId?: number;
 }
 
 const ChannelProfile: React.FC<channelProfileProps> = ({
   profileName,
   imgSrc,
+  chatId,
 }) => {
+  const { data: subData } = useQuery<any>(
+    ["chat", "CHANNEL", chatId?.toString(), "subs"],
+    () => getSubs(chatId!)
+  );
+  // const subData = queryClient.getQueryData<any>([
+  //   "chat",
+  //   "CHANNEL",
+  //   chatId?.toString(),
+  //   "subs",
+  // ]);
+
+  const subs = subData?.data;
+
+  console.log(subs);
+
   return (
     <SectionContainer>
       {/* Profile header and back button */}
@@ -26,7 +46,7 @@ const ChannelProfile: React.FC<channelProfileProps> = ({
           <img
             src={imgSrc}
             alt="عکس پروفایل"
-            className="absolute w-full object-cover"
+            className="w-full h-full object-cover "
           />
         ) : (
           <ProfileColor name={profileName} />
@@ -34,10 +54,7 @@ const ChannelProfile: React.FC<channelProfileProps> = ({
         <div className="absolute bottom-0 w-full bg-gradient-to-b from-transparent dark:to-slate-700 to-white h-[80px] px-4 py-4 flex justify-between">
           <div>
             <Paragraph size="xl" className="select-none">
-              {/* {profileName} */}
-            </Paragraph>
-            <Paragraph size="sm" className="select-none">
-              {/* {members} */}
+              {profileName}
             </Paragraph>
           </div>
         </div>
@@ -49,6 +66,17 @@ const ChannelProfile: React.FC<channelProfileProps> = ({
           <Notification />
         </div>
         <div className="bg-secondary h-3 w-full rounded-b"></div>
+      </div>
+      <div className="h-full ">
+        {subs &&
+          subs.map((sub: any) => (
+            <UserItem
+              key={sub.userId}
+              imageUrl={sub?.profile?.media?.filePath}
+              user={sub}
+              onClick={() => {}}
+            />
+          ))}
       </div>
     </SectionContainer>
   );

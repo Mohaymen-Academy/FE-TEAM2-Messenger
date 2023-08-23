@@ -26,13 +26,13 @@ const GroupProfile: React.FC<groupProfileProps> = ({
   ]);
 
   const subs = subData?.data;
+  console.log(subs);
 
   return (
     <SectionContainer>
       <div className="flex flex-col">
         {/* Profile header and back button */}
         <SectionHeaderWithEdit withClose title="پروفایل گروه" />
-
         {/* Show even profile image or solid color */}
         {/* Also add a gradient to show profile name and subscribers */}
         <div className="relative h-[40vh] max-h-[400px]">
@@ -40,7 +40,7 @@ const GroupProfile: React.FC<groupProfileProps> = ({
             <img
               src={imgSrc}
               alt="عکس پروفایل"
-              className="absolute w-full object-cover h-full"
+              className="w-full h-full object-cover "
             />
           ) : (
             <ProfileColor name={profileName} />
@@ -56,7 +56,6 @@ const GroupProfile: React.FC<groupProfileProps> = ({
             </div>
           </div>
         </div>
-
         <div className="py-3 flex flex-col gap-2">
           <div className="gap-2 px-3">
             <Link href="https://emochat/group/etxYasjlkfeletsadjflasjkdlfkjk" />
@@ -68,6 +67,7 @@ const GroupProfile: React.FC<groupProfileProps> = ({
           {subs &&
             subs.map((sub: any) => (
               <UserItem
+                key={sub.userId}
                 imageUrl={sub?.profile?.media?.filePath}
                 user={sub}
                 onClick={() => {}}

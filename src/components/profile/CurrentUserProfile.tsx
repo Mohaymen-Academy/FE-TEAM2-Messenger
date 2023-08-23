@@ -25,7 +25,7 @@ const CurrentUserProfile: React.FC<currentUserProfile> = ({
     "current",
   ]);
 
-  const [, copyToClipboard] = useCopyToClipboard();
+  const [_, copyToClipboard] = useCopyToClipboard();
 
   const tostify = useToastify();
 
@@ -41,12 +41,12 @@ const CurrentUserProfile: React.FC<currentUserProfile> = ({
     <SectionContainer>
       <SectionHeader title="پروفایل کاربر" withClose={true} />
 
-      <div className="relative h-[40vh] max-h-[400px]">
+      <div className="relative h-[40vh] max-h-[400px] bg-green-300">
         {imgSrc ? (
           <img
             src={imgSrc}
             alt="عکس پروفایل"
-            className="absolute w-full object-cover"
+            className="w-full h-full object-cover "
           />
         ) : (
           <ProfileColor name={profileName} />
