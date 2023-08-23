@@ -1,17 +1,22 @@
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 import { Editable } from "slate-react";
 import DefaultElement from "./DefaultElement";
 import Leaf from "./Leaf";
 import { useDispatch } from "react-redux";
 import { setIsSelected } from "@/redux/Slices/messageSlice";
 
-const EditableTextArea = () => {
+interface editableTextAreaProps {
+  handleKeyDown: any;
+}
+
+const EditableTextArea: React.FC<editableTextAreaProps> = ({
+  handleKeyDown,
+}) => {
   const dispatch = useDispatch();
 
   const renderElement = useCallback((props: any) => {
     switch (props.element.type) {
       case "emoji":
-        console.log("emoji");
         return (
           <span className="emoji" {...props.attributes}>
             {props.children}
@@ -46,6 +51,9 @@ const EditableTextArea = () => {
         //this causes an error in react tree either fix or remove it
         placeholder="پیام ..."
         renderPlaceholder={renderPlaceholder}
+        onKeyDown={(e) => {
+          handleKeyDown(e);
+        }}
       />
     </div>
   );

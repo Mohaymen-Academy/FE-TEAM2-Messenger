@@ -68,7 +68,7 @@ const GroupProfile: React.FC<groupProfileProps> = ({
           {subs &&
             subs.map((sub: any) => (
               <UserItem
-                imageUrl={sub.profile.media.filePath}
+                imageUrl={sub?.profile?.media?.filePath}
                 user={sub}
                 onClick={() => {}}
               />

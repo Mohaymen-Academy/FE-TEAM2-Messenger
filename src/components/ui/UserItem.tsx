@@ -31,8 +31,8 @@ const UserItem: React.FC<UserItemProps> = ({
     () => getUserProfile(user.secondUserId)
   );
 
-  const userProfile = userProfileData?.data[0].media.filePath || imageUrl;
-  const userLastSeen = userData?.data.lastSeen;
+  const userProfile = userProfileData?.data[0]?.media?.filePath || imageUrl;
+  const userLastSeen = userData?.data?.lastSeen;
 
   return (
     <div

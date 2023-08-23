@@ -43,7 +43,10 @@ const UserSelect: React.FC<UserSelect> = ({
             <BsArrowRight size={25} />
           </Button>
           <div className="w-full">
-            <SearchInput placeHolder="چه کسانی را می‌خواهید اضافه نمایید" />
+            <SearchInput
+              placeHolder="چه کسانی را می‌خواهید اضافه نمایید"
+              searchIn="CONTACT"
+            />
           </div>
         </div>
 

@@ -4,13 +4,14 @@ import DesktopSidebar from "../desktopSideBar/DesktopSidebar";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
-import { AnimatedButton, SearchInput } from "../ui";
+import { AnimatedButton, Paragraph, SearchInput } from "../ui";
 import { useQuery } from "react-query";
 import { getAllChat } from "@/services/api/chat";
-import { ConversationTypes } from "@/utils/types";
+import { ConversationTypes, StoreStateTypes } from "@/utils/types";
 import { useSearchParams } from "react-router-dom";
 import useToastify from "@/hooks/useTostify";
 import FinalSkeleton from "../skeletonTest/FinalSkeleton";
+import { useSelector } from "react-redux";
 
 interface ConversationListProps {}
 
@@ -23,6 +24,8 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
     getAllChat,
     { refetchInterval: 30000 }
   );
+  const { filterBy } = useSelector((store: StoreStateTypes) => store.app);
+
   const conversationItems = conversationItemsQueryResponse?.data?.data;
 
   const selectedConversation = URLSearchParams.get("conversationId");
@@ -30,6 +33,27 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
   if (conversationItemsQueryResponse.isError) {
     toastify.error("مشکل در دریافت لیست مکالمات");
   }
+
+  const filteredConversations = (item: ConversationTypes) => {
+    const conversation = (
+      <ConversationItem
+        key={item.chatId}
+        onDeleteConversation={() => {}}
+        onClickConversation={() => {}}
+        conversation={item}
+        isSelected={selectedConversation === `${item.chatId}`}
+        unseenMessages={item.unSeenMessages}
+      />
+    );
+
+    if (filterBy === undefined) {
+      return conversation;
+    } else if (filterBy === item.chatType) {
+      return conversation;
+    } else if (Array.isArray(filterBy)) {
+      console.log("hey");
+    }
+  };
 
   return (
     <SwipeWrapper
@@ -50,7 +74,7 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
                 onClick={() => setShowSideBar((prev) => !prev)}
               />
               <div className="w-full">
-                <SearchInput placeHolder="جستجو" />
+                <SearchInput placeHolder="جستجو" searchIn="CONVERSATION" />
               </div>
             </div>
             <div className="h-full w-full overflow-y-auto overflow-x-hidden px-2 duration-500 custom-scrollbar scrollbar-none md:scrollbar">
@@ -59,18 +83,11 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
                   <FinalSkeleton />
                 </div>
               ) : conversationItemsQueryResponse.isError ? (
-                "Conversation list fetch error"
+                <Paragraph>خطا در دریافت اطلاعات</Paragraph>
               ) : (
-                conversationItems?.map((item: ConversationTypes) => (
-                  <ConversationItem
-                    key={item.chatId}
-                    onDeleteConversation={() => {}}
-                    onClickConversation={() => {}}
-                    conversation={item}
-                    isSelected={selectedConversation === `${item.chatId}`}
-                    unseenMessages={item.unSeenMessages}
-                  />
-                ))
+                conversationItems?.map((item: ConversationTypes) =>
+                  filteredConversations(item)
+                )
               )}
             </div>
           </div>

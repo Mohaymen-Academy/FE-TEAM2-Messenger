@@ -20,7 +20,7 @@ import useToastify from "@/hooks/useTostify";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const toastify = useToastify()
+  const toastify = useToastify();
   const [loading, setLoading] = useState(false);
 
   const handleKeyDown = (
@@ -30,10 +30,10 @@ const Login = () => {
     if (
       !(
         (e.key >= "0" && e.key <= "9") ||
-        e.key === "Backspace" ||  
+        e.key === "Backspace" ||
         e.key === "Delete" ||
         e.key === "ArrowLeft" ||
-        e.key === "ArrowRight" 
+        e.key === "ArrowRight"
       )
     ) {
       e.preventDefault();
@@ -68,11 +68,10 @@ const Login = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data ) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { phoneNumber } = data;
 
     setLoading(true);
-
 
     signInMutate(phoneNumber, {
       onSuccess(data, variables, _) {
@@ -81,13 +80,13 @@ const Login = () => {
         navigate("/auth/verification");
       },
       onError(error: any, _, __) {
-        if (error.message === "Network Error"){
+        if (error.message === "Network Error") {
           toastify.error(
             "مشکلی پیش آمده است، لطفا دوباره تلاش کنید یا اتصال اینترنت خود را بررسی نمایید"
-          )}else {
-
-            toastify.error("ورود ناموفق، لطفا دوباره تلاش کنید");
-          }
+          );
+        } else {
+          toastify.error("ورود ناموفق، لطفا دوباره تلاش کنید");
+        }
       },
       onSettled() {
         setLoading(false);
@@ -152,17 +151,3 @@ const Login = () => {
 };
 
 export default Login;
-
-// onKeyDown={(e) => {
-//               if (
-//                 !(
-//                   (e.key >= "0" && e.key <= "9") ||
-//                   e.key === "Backspace" ||
-//                   e.key === "Delete" ||
-//                   e.key === "ArrowLeft" ||
-//                   e.key === "ArrowRight"
-//                 )
-//               ) {
-//                 e.preventDefault();
-//               }
-//             }}

@@ -124,8 +124,9 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
             >
               {parse(conversationLastMessage)}
             </Paragraph>
-            {/* {true && <UnreadMessages unseen={unseenMessages} />} */}
-            {unseenMessages > 0 && <UnreadMessages unseen={unseenMessages} />}
+            {(unseenMessages as number) > 0 && (
+              <UnreadMessages unseen={unseenMessages as number} />
+            )}
           </div>
         </div>
       </div>

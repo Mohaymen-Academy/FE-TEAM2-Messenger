@@ -63,13 +63,4 @@ export const customEditor = {
       Editor.addMark(editor, "strike", true);
     }
   },
-  clearMessage(editor: Editor) {
-    while (editor.children.length > 0) {
-      Transforms.removeNodes(editor, {});
-    }
-    Transforms.insertNodes(editor, {
-      type: "paragraph",
-      children: [{ text: "" }],
-    });
-  },
 };

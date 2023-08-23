@@ -5,7 +5,6 @@ import Link from "./components/Link";
 import SectionContainer from "./components/SectionContainer";
 import { Paragraph } from "../ui";
 import { SectionHeaderWithEdit } from "./components/SectionHeader";
-
 interface channelProfileProps {
   profileName: string;
   imgSrc?: string;

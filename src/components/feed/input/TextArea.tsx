@@ -179,6 +179,13 @@ const TextArea = () => {
     dispatch(onClose());
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      onSendClickHandler();
+    }
+  };
+
   const onFileSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -232,7 +239,7 @@ const TextArea = () => {
 
         <Editor initialValue={initialValue} editor={editor}>
           <Editor.ToolBar />
-          <Editor.Input />
+          <Editor.Input handleKeyDown={handleKeyDown} />
         </Editor>
         <Button
           onClick={onSendClickHandler}
