@@ -123,23 +123,7 @@ const TextArea = () => {
           prevCache: optimisticCache,
         })
       );
-
-      return optimisticData; // This value will be passed to onSettled
     },
-    // onSettled: (_, __, ___, context) => {
-    //   if (!context) return;
-    //   if (!selectedConversation) return;
-
-    //   //delete optimistic message from redux on if success or error
-    //   // dispatch(
-    //   //   deleteOptimisticCache({
-    //   //     chatId: selectedConversation,
-    //   //     messageId: context.messageId,
-    //   //     prevCache: optimisticCache,
-    //   //   })
-    //   // );
-    // },
-    onError: (error) => {},
   });
 
   const clearMessage = (editor: BaseEditor & ReactEditor) => {

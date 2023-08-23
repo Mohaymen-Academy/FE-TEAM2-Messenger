@@ -18,13 +18,13 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
 
   const sendPictureMutation = useMutation(sendPicture, {
-    onError: (error) => {
+    onError: () => {
       toastify.error("متاسفانه عکس ذخیره نگردید لطفا مجددا تلاش فرمایید");
     },
   });
 
   const setInfoMutation = useMutation(updateInfo, {
-    onError: (error) => {
+    onError: () => {
       toastify.error("اطلاعات دخیره نگردید لطفا مجددا تلاش فرمایید");
     },
   });

@@ -10,8 +10,6 @@ import { getChat, getMessages } from "@/services/api/chat";
 import { queryClient } from "@/providers/queryClientProvider";
 import { useDispatch } from "react-redux";
 import { setSelectedConversation } from "@/redux/Slices/conversationSlice";
-import parse from "html-react-parser";
-
 import { formatDateDifference } from "@/utils/fromatDate";
 import { MESSAGE_PER_PAGE } from "@/utils/constants";
 import { getSubs } from "@/services/api/subs";
