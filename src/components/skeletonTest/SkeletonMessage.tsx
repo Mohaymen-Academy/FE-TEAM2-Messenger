@@ -1,4 +1,3 @@
-
 import React from "react";
 import SkeletonAvatar from "./SkeletonAvatar";
 import SkeletonReactangle from "./SkeletonReactangle";
@@ -8,7 +7,10 @@ interface SkeletonMessageProps {
   groupMessage: boolean;
 }
 
-const SkeletonMessage = ({ sentByCurrentUser, groupMessage }) => {
+const SkeletonMessage: React.FC<SkeletonMessageProps> = ({
+  sentByCurrentUser,
+  groupMessage,
+}) => {
   return (
     <div
       className={`

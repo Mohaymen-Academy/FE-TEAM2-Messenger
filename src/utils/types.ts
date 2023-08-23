@@ -25,40 +25,58 @@ export type UserTypes = {
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;
-  userId?: string | number;
+  userId?: number;
   userName?: string;
+  lastSeen?: string;
 };
 
 export type ConversationTypes = {
-  chatId: number | string;
+  chatId: number;
   chatType: "CHANNEL" | "GROUP" | "PV";
   lastMessage: string;
-  media: any;
+  media: {
+    mediaId: number;
+    fileName: string;
+    fileMimeType: string;
+    filePath: string;
+  };
   sentAt: string;
   title: string;
   unSeenMessages: number;
   userFirstName: string;
 };
 
+export type ChatTypes = {
+  bio: string;
+  chatId: number;
+  chatType: "CHANNEL" | "GROUP" | "PV";
+  link: string;
+  ownerId: number;
+  profileDtoList: any[];
+  public: boolean;
+  subCount: number;
+  title: string;
+};
+
 export type MessageTypes = {
   editedAt: string;
-  // media: {
-  //   mediaId: 24;
-  //   fileName: "dolor_id/hic.flac";
-  //   fileMimeType: "text/javascript";
-  //   filePath: "./klkom/ztytvey";
-  // };
-  media: any;
-  messageId: string | number;
+  media: {
+    mediaId: number;
+    fileName: string;
+    fileMimeType: string;
+    filePath: string;
+  };
+  messageId: number;
   sendAt: string;
   text: string;
-  userId: string | number;
+  userId: number;
+  isCache?: boolean;
 };
 
 export type ContactTypes = {
   firstName: string;
-  id: string | number;
+  id: number;
   lastName: string | null;
-  secondUserId: string | number;
+  secondUserId: number;
 };
 export type MessageStatus = "SEEN" | "DELIVERED" | "PENDING";

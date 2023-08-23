@@ -11,7 +11,7 @@ import ChannelCreator from "./ChannelCreator";
 import GroupCreator from "./GroupCreator";
 import FadeMotionWrapper from "@/components/wrappers/FadeMotionWrapper";
 import { useMutation } from "react-query";
-import { createChat } from "@/services/api/chat";
+import { createChat, sendChatPicture } from "@/services/api/chat";
 import useToastify from "@/hooks/useTostify";
 import { v4 as uuid4 } from "uuid";
 import { queryClient } from "@/providers/queryClientProvider";
@@ -55,8 +55,8 @@ const UserSelect: React.FC<UserSelect> = ({
             <UserItem
               key={cont.id}
               withCheck
-              checked={selectedUser.includes(cont.id as number)}
-              onClick={() => onUserClickHandler(cont.id)}
+              checked={selectedUser.includes(cont.secondUserId as number)}
+              onClick={() => onUserClickHandler(cont.secondUserId)}
               user={cont}
             />
           ))}
@@ -75,18 +75,12 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
 }) => {
   const [selectedUser, setSelectedUser] = useState<any>([]);
   const [step, setStep] = useState<1 | 2>(1);
+  const [groupProfileFormData, setGroupProfileFormData] = useState<FormData>();
   const toastify = useToastify();
   const section = useSelector(
     (store: StoreStateTypes) => store.conversation.section
   );
   const dispatch = useDispatch();
-
-  // const sendPictureMutation = useMutation(sendPicture, {
-  //   onError: (error) => {
-  //     console.log(error);
-  //     toastify.error("متاسفانه عکس ذخیره نگردید لطفا مجددا تلاش فرمایید");
-  //   },
-  // });
 
   const { register, handleSubmit, setValue, reset } = useForm<FieldValues>({
     defaultValues: {
@@ -97,11 +91,32 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
     },
   });
 
-  const sendInfoMutation = useMutation(createChat, {
+  const onUserClickHandler = (user: string | number) => {
+    setSelectedUser((prev: any) => {
+      if (prev.includes(user)) return prev.filter((name: any) => name !== user);
+      else return [...prev, user];
+    });
+  };
+
+  const { mutate: sendChatPictureMutation } = useMutation(sendChatPicture, {
+    onError: (error) => {
+      console.log(error);
+      toastify.error("متاسفانه عکس ذخیره نگردید لطفا مجددا تلاش فرمایید");
+    },
+  });
+
+  const setInfoMutation = useMutation(createChat, {
     onError: () => {
       toastify.error("اطلاعات دخیره نگردید لطفا مجددا تلاش فرمایید");
     },
     onSuccess: (data) => {
+      if (groupProfileFormData) {
+        sendChatPictureMutation({
+          formData: groupProfileFormData,
+          id: data.data.chatId,
+        });
+      }
+
       dispatch(setSection({ selectedState: "conversations" }));
       queryClient.invalidateQueries({
         queryKey: ["user", "current", "conversations"],
@@ -117,18 +132,11 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
     },
   });
 
-  const onUserClickHandler = (user: string | number) => {
-    setSelectedUser((prev: any) => {
-      if (prev.includes(user)) return prev.filter((name: any) => name !== user);
-      else return [...prev, user];
-    });
-  };
-
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const link = uuid4().replace(/-/g, "").substring(0, 20);
 
     if (section === "channelCreate") {
-      sendInfoMutation.mutate({
+      setInfoMutation.mutate({
         title: data.channelName,
         bio: data.channelBio,
         link: `${link}`,
@@ -139,7 +147,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
     }
 
     if (section === "groupCreate") {
-      sendInfoMutation.mutate(
+      setInfoMutation.mutate(
         {
           title: data.groupName,
           bio: "",
@@ -148,10 +156,10 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
           userIds: selectedUser,
           public: data.public,
         },
-        //TODO: get back to conversation
-        //dispatch(setSection({ selectedState: "conversations" }))
         {
-          onSuccess: () => {},
+          onSuccess: () => {
+            dispatch(setSection({ selectedState: "conversations" }));
+          },
           onSettled: () => {
             reset();
           },
@@ -172,6 +180,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
 
       {section === "channelCreate" && (
         <ChannelCreator
+          setGroupProfileFormData={setGroupProfileFormData}
           onSubmit={handleSubmit(onSubmit)}
           register={register}
           show={step === 2}
@@ -181,6 +190,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
 
       {section === "groupCreate" && (
         <GroupCreator
+          setGroupProfileFormData={setGroupProfileFormData}
           onSubmit={handleSubmit(onSubmit)}
           register={register}
           show={step === 2}

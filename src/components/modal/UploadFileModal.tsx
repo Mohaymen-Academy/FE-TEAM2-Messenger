@@ -3,7 +3,6 @@ import { Button } from "../ui";
 import Modal from "./ParentModal";
 import { StoreStateTypes } from "@/utils/types";
 import { onClose } from "@/redux/Slices/modal/UploadModalSlice";
-import Input from "../auth/input/Input";
 import FloatingLabelInput from "../auth/input/FloatingLabelInput";
 
 interface UploadFileModalType {
@@ -13,11 +12,13 @@ interface UploadFileModalType {
     format: string;
     url: string;
   };
+  setMediaMessages: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const UploadFileModal: React.FC<UploadFileModalType> = ({
   onSubmit,
   fileType,
+  setMediaMessages,
 }) => {
   const dispatch = useDispatch();
   const isOpen = useSelector(
@@ -33,7 +34,11 @@ const UploadFileModal: React.FC<UploadFileModalType> = ({
           {fileType?.type === "image" && <img src={fileType?.url} />}
         </div>
 
-        <FloatingLabelInput type="text" label="عنوان..." />
+        <FloatingLabelInput
+          onChange={(e: any) => setMediaMessages(e.target.value)}
+          type="text"
+          label="عنوان..."
+        />
         <div className="flex justify-between gap-3 mt-3">
           <Button
             onClick={onSubmit}
@@ -54,6 +59,7 @@ const UploadFileModal: React.FC<UploadFileModalType> = ({
 
   return (
     <Modal
+      onSubmit={() => {}}
       body={body}
       actionLabel="تایید"
       secondaryActionLabel="خروج"

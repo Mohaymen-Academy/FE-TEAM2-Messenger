@@ -6,7 +6,7 @@ export type UploadModalSliceType = {
 
 const UploadModalSlice = createSlice({
   name: "uploadModal",
-  initialState: { isOpen: true },
+  initialState: { isOpen: false },
   reducers: {
     onOpen: (state: UploadModalSliceType) => {
       state.isOpen = true;

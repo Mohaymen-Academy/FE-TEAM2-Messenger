@@ -11,9 +11,7 @@ import { ConversationTypes, StoreStateTypes } from "@/utils/types";
 import { useSearchParams } from "react-router-dom";
 import useToastify from "@/hooks/useTostify";
 import FinalSkeleton from "../skeletonTest/FinalSkeleton";
-import { useDispatch, useSelector } from "react-redux";
-import { setFileterBy } from "@/redux/Slices/appSlice";
-import { queryClient } from "@/providers/queryClientProvider";
+import { useSelector } from "react-redux";
 
 interface ConversationListProps {}
 
@@ -24,7 +22,7 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
   const conversationItemsQueryResponse = useQuery(
     ["user", "current", "conversations"],
     getAllChat,
-    { refetchInterval: 370000 }
+    { refetchInterval: 30000 }
   );
   const { filterBy } = useSelector((store: StoreStateTypes) => store.app);
 
@@ -87,7 +85,7 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
               ) : conversationItemsQueryResponse.isError ? (
                 <Paragraph>خطا در دریافت اطلاعات</Paragraph>
               ) : (
-                conversationItems.map((item: ConversationTypes) =>
+                conversationItems?.map((item: ConversationTypes) =>
                   filteredConversations(item)
                 )
               )}

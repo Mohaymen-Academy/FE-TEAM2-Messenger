@@ -1,24 +1,11 @@
-import React from 'react'
-import SkeletonConversationWraaper from './SkeletonConversationWraaper'
-import SkeletonMessage from './SkeletonMessage';
-import SkeletonConversationItem from './SkeletonConversationItem';
+import SkeletonConversationItem from "./SkeletonConversationItem";
 
 const FinalSkeleton = () => {
   return (
-    <div className='w-full flex flex-col'>
-     <SkeletonConversationItem/>
-     <SkeletonConversationItem/>
-     <SkeletonConversationItem/>
-     <SkeletonConversationItem/>
-     <SkeletonConversationItem/>
-     <SkeletonConversationItem/>
-     <SkeletonConversationItem/>
-     <SkeletonConversationItem/>
-     <SkeletonConversationItem/>
-     <SkeletonConversationItem/>
-     <SkeletonConversationItem/>
-     <SkeletonConversationItem/>
-     <SkeletonConversationItem/>
+    <div className="w-full flex flex-col">
+      {Array.from({ length: 10 }).map((_, i) => (
+        <SkeletonConversationItem key={i} />
+      ))}
     </div>
   );
 };

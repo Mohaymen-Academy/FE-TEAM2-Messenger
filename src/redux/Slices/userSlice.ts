@@ -1,9 +1,9 @@
-import { User } from "@/utils/types";
+import { UserTypes } from "@/utils/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 export type userSliceType = {
   enteredPhoneNumber: string;
-  user: User;
+  user: UserTypes;
 };
 
 const initialState: userSliceType = {
@@ -13,7 +13,7 @@ const initialState: userSliceType = {
     firstName: "",
     lastName: "",
     phoneNumber: "",
-    userId: "",
+    userId: 0,
     userName: "",
   },
 };
@@ -35,7 +35,7 @@ const userSlice = createSlice({
     setUser: (
       state: userSliceType,
       actions: {
-        payload: User;
+        payload: UserTypes;
       }
     ) => {
       state.user = actions.payload;
@@ -46,7 +46,7 @@ const userSlice = createSlice({
         firstName: "",
         lastName: "",
         phoneNumber: "",
-        userId: "",
+        userId: 0,
         userName: "",
       };
       state.enteredPhoneNumber = "";

@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import Text from "./Text";
-import Image from "./Image";
 import Voice from "./Audio";
 import { Avatar, Paragraph } from "@/components/ui";
 import avatar from "../../../assets/img/avatar.jpg";
@@ -14,7 +13,6 @@ import ClickOutsideWrapper from "@/components/wrappers/ClickOutsideWrapper";
 import { formatDateToShamsiYear, formatDateToTime } from "@/utils/fromatData";
 
 interface MessageComponent {
-  id: string;
   children?: React.ReactNode;
   message: MessageTypes;
   sentByCurrentUser?: boolean;
@@ -24,9 +22,7 @@ interface MessageComponent {
   ImageMessage?: typeof Image;
   VoiceMessage?: typeof Voice;
 }
-
 const Message: React.FC<MessageComponent> = ({
-  id,
   children,
   message,
   sentByCurrentUser,
@@ -121,7 +117,7 @@ const Message: React.FC<MessageComponent> = ({
         >
           <div
             className={clsx(
-              "px-3 py-3 max-w-[350px] flex break-all flex-col space-y-0 self-start gap-1 relative  rounded-t-xl",
+              "px-3 py-3 max-w-[400px] flex break-all flex-col space-y-0 self-start gap-1 relative  rounded-t-xl",
               {
                 "rounded-l-xl": sentByCurrentUser,
                 "rounded-r-xl": !sentByCurrentUser,
@@ -172,28 +168,3 @@ const Message: React.FC<MessageComponent> = ({
 };
 
 export default Message;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

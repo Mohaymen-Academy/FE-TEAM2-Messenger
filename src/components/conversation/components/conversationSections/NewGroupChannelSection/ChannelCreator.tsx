@@ -15,6 +15,7 @@ interface ChannelCreatorProp {
   register: UseFormRegister<FieldValues>;
   onSubmit: any;
   setValue: UseFormSetValue<FieldValues>;
+  setGroupProfileFormData: any;
 }
 
 const ChannelCreator: React.FC<ChannelCreatorProp> = ({
@@ -22,9 +23,10 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
   register,
   onSubmit,
   setValue,
+  setGroupProfileFormData,
 }) => {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState(new FormData());
+  const [_, setFormData] = useState(new FormData());
   const [pictureUrl, setPictureUrl] = useState("");
 
   const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +34,7 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
-
+      setGroupProfileFormData(formData);
       setFormData(formData);
 
       const imageUrl = URL.createObjectURL(file);

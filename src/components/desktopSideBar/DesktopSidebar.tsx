@@ -8,15 +8,20 @@ import { setSection } from "@/redux/Slices/conversationSlice";
 import { AnimatedButton, Avatar, Button } from "../ui";
 import { StoreStateTypes } from "@/utils/types";
 import { BiMoon, BiSun } from "react-icons/bi";
-import { setFileterBy, toggleTheme } from "@/redux/Slices/appSlice";
-import { onOpen } from "@/redux/Slices/modal/logOutModalSlice";
+import { setFileterBy } from "@/redux/Slices/appSlice";
 import { merge } from "@/utils/merge";
+import { toggleTheme } from "@/redux/Slices/appSlice";
+import { onOpen } from "@/redux/Slices/modal/logOutModalSlice";
+import { queryClient } from "@/providers/queryClientProvider";
+import { useQuery } from "react-query";
+import { getUserProfile } from "@/services/api/user";
 
 const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
   const dispatch = useDispatch();
   const { theme, filterBy } = useSelector(
     (store: StoreStateTypes) => store.app
   );
+
   const onEditClickHandler = () => {
     dispatch(setSection({ selectedState: "pvCreate" }));
   };
@@ -28,6 +33,15 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
   const handleToggleFilter = (filter: "PV" | "GROUP" | "CHANNEL") => {
     dispatch(setFileterBy(filter === filterBy ? undefined : filter));
   };
+  const currentUserIdFromCache = queryClient.getQueryData<{
+    data: { userId: number };
+  }>(["user", "current"])?.data?.userId;
+
+  const data = useQuery(["user", "current", "profile"], () =>
+    getUserProfile(currentUserIdFromCache)
+  );
+
+  const currentUserProfile = data?.data?.data[0]?.media?.filePath;
 
   return (
     <div
@@ -86,7 +100,11 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             isActive={theme === "dark"}
             onClick={() => dispatch(toggleTheme())}
           />
-          <Avatar className="w-8 h-8" isOnline={false} />
+          <Avatar
+            avatarType="USER"
+            imgSrc={currentUserProfile}
+            className="w-8 h-8 md:w-10 md:h-10"
+          />
         </div>
       </div>
     </div>
