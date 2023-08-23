@@ -10,7 +10,7 @@ import { MessageStatus, MessageTypes } from "@/utils/types";
 import { ClockLoader } from "react-spinners";
 import Context from "@/components/ui/Context";
 import ClickOutsideWrapper from "@/components/wrappers/ClickOutsideWrapper";
-import { formatDateToShamsiYear, formatDateToTime } from "@/utils/fromatData";
+import { formatDateToShamsiYear, formatDateToTime } from "@/utils/fromatDate";
 
 interface MessageComponent {
   children?: React.ReactNode;

@@ -17,16 +17,19 @@ const Header = () => {
   );
   return (
     <div className="w-full h-[70px] bg-primary flex items-center px-2 justify-between">
-      <div className="hidden md:block  lg:hidden mt-2">
-        <AnimatedButton
-          FirstIcon={AiOutlineArrowLeft}
-          SecondIcon={AiOutlineArrowRight}
-          isActive={showConversation}
-          onClick={() => dispatch(toggleShowConversations())}
-        />
+      <div className="flex justify-center items-center">
+        <div className="hidden md:block  lg:hidden mt-2 ml-4">
+          <AnimatedButton
+            FirstIcon={AiOutlineArrowLeft}
+            SecondIcon={AiOutlineArrowRight}
+            isActive={showConversation}
+            onClick={() => dispatch(toggleShowConversations())}
+          />
+        </div>
+
+        <HeaderProfile selectedConversation={selectedConversation} />
       </div>
 
-      <HeaderProfile selectedConversation={selectedConversation} />
       <div className="flex gap-3 self-center">
         <Button variant="ghost" className="p-1 dark:hover:bg-slate-600">
           <LiaSearchSolid className="icon-button" size={23} />

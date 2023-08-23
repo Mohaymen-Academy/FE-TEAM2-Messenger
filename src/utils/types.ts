@@ -78,5 +78,6 @@ export type ContactTypes = {
   id: number;
   lastName: string | null;
   secondUserId: number;
+  lastSeen: string;
 };
 export type MessageStatus = "SEEN" | "DELIVERED" | "PENDING";
