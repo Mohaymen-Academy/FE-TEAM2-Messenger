@@ -11,8 +11,8 @@ import { GoFileMedia, GoFile } from "react-icons/go";
 import { Paragraph } from "@/components/ui";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import Editor from "@/components/editor";
-import { withReact } from "slate-react";
-import { createEditor } from "slate";
+import { ReactEditor, withReact } from "slate-react";
+import { BaseEditor, Transforms, createEditor } from "slate";
 import { parseSlateToHtml } from "@/components/editor/serializer";
 import { useSearchParams } from "react-router-dom";
 import { useMutation } from "react-query";
@@ -139,30 +139,26 @@ const TextArea = () => {
     //   //   })
     //   // );
     // },
-    onError: (error) => {
-      console.log(error);
-    },
+    onError: (error) => {},
   });
 
-  // const clearMessage = (editor: BaseEditor & ReactEditor) => {
-  //   while (editor.children.length > 0) {
-  //     Transforms.removeNodes(editor, {});
-  //   }
-  //   Transforms.insertNodes(editor, {
-  //     type: "paragraph",
-  //     children: [{ text: "" }],
-  //   } as any);
-  // };
+  const clearMessage = (editor: BaseEditor & ReactEditor) => {
+    while (editor.children.length > 0) {
+      Transforms.removeNodes(editor, {});
+    }
+    Transforms.insertNodes(editor, {
+      type: "paragraph",
+      children: [{ text: "" }],
+    } as any);
+  };
 
   const onSendClickHandler = () => {
-    console.log(textObj);
     const text = parseSlateToHtml(textObj);
-    console.log(text);
-    // clearMessage(editor);
-    // const messageFormData = new FormData();
-    // messageFormData.append("text", text as string);
-    // messageFormData.append("chatId", selectedConversation as string);
-    // sendMessageMutate(messageFormData);
+    clearMessage(editor);
+    const messageFormData = new FormData();
+    messageFormData.append("text", text as string);
+    messageFormData.append("chatId", selectedConversation as string);
+    sendMessageMutate(messageFormData);
   };
 
   const onSendFileSubmit = () => {

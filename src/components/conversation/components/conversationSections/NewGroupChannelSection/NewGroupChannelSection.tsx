@@ -100,7 +100,6 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
 
   const { mutate: sendChatPictureMutation } = useMutation(sendChatPicture, {
     onError: (error) => {
-      console.log(error);
       toastify.error("متاسفانه عکس ذخیره نگردید لطفا مجددا تلاش فرمایید");
     },
   });

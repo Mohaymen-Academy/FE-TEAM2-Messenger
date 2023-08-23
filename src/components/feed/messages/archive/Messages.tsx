@@ -32,7 +32,6 @@ const Messages: React.FC<MessagesProps> = ({}) => {
       (store: StoreStateTypes) =>
         store.message.optimisticCache[selectedConversation!]
     ) || [];
-  // console.log(optimisticCache);
 
   const Loader = () => (
     <div className="flex justify-center text-green-900">

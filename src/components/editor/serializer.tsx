@@ -1,5 +1,4 @@
 export function parseSlateToHtml(node: any[]) {
-  // console.log(node);
   return node
     .map((paragraph) => {
       const paragraphHtml = paragraph.children

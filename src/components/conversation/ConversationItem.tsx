@@ -41,7 +41,6 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   // );
 
   const handleClick = (event: React.MouseEvent) => {
-    console.log(conversation);
     if (event.type === "click") {
       //change url search params to selected conversationId
       navigate({
@@ -85,8 +84,6 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       () => getSubs(conversation.chatId)
     );
   }, []);
-
-  console.log(conversationLastMessage);
 
   return (
     <HoverWrapper className="p-0" type={isSelected ? "active" : "inActive"}>

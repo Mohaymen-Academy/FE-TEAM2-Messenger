@@ -1,5 +1,5 @@
 import ConversationList from "./ConversationList";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ContactTypes, StoreStateTypes } from "@/utils/types";
 import ConversationSectionWrapper from "./components/conversationSections/ConversationSectionWrapper";
 import CreatePvSection from "./components/conversationSections/NewChatSection";
@@ -7,6 +7,7 @@ import NewGroupChannelSection from "./components/conversationSections/NewGroupCh
 import { useQuery } from "react-query";
 import { getContacts } from "@/services/api/contact";
 import NewContactSection from "./components/conversationSections/NewGroupChannelSection/NewContactSection";
+import { useEffect } from "react";
 
 interface ConversationWrapperProps {
   conversationShowCriteria?: string;
@@ -17,8 +18,13 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({
 }) => {
   //get logged in user's contacts list and save in cache
   const contactQuery = useQuery(["user", "current", "contacts"], getContacts);
+  const { filterBy } = useSelector((store: StoreStateTypes) => store.app);
 
   const contacts = contactQuery.data?.data;
+
+  useEffect(() => {
+    console.log(filterBy, "filter");
+  }, [filterBy]);
 
   const sortedContacts =
     contacts &&

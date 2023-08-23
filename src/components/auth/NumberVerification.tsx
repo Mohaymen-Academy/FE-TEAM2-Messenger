@@ -49,7 +49,6 @@ const NumberVerification = () => {
           }
         },
         onError(error: any, _, __) {
-          console.error(error);
           if (error.request.status === 403) {
             toastify.error("کد وارد شده مورد تایید نمی‌باشد");
           } else {

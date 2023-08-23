@@ -13,7 +13,6 @@ const LogOutModal = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const onSubmit = () => {
-    console.log("dknkdndks");
     dispatch(emptyUser());
     navigate("/auth/sign-in");
     window.localStorage.removeItem("access_token");

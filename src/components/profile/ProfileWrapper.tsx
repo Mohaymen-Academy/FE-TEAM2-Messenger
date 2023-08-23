@@ -18,7 +18,6 @@ const ProfileWrapper: React.FC = () => {
       ? selectedConversation.title
       : "";
 
-  console.log(profileType, conversationId, conversationType, imageUrl, userId);
   return (
     <div
       className={clsx(

@@ -9,7 +9,12 @@ import { setSection } from "@/redux/Slices/conversationSlice";
 import { createContact } from "@/services/api/contact";
 import { getUserByPhone } from "@/services/api/user";
 import { convertNumberToEN } from "@/utils/convertNumberToEN";
-import { FieldValues, SubmitHandler, useForm, Controller } from "react-hook-form";
+import {
+  FieldValues,
+  SubmitHandler,
+  useForm,
+  Controller,
+} from "react-hook-form";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 
@@ -20,8 +25,7 @@ const NewContactSection: React.FC<newContactSectionProps> = ({}) => {
   const toastify = useToastify();
   const { mutate: addContactMutation } = useMutation(createContact);
 
-  const { register, handleSubmit, setValue, control} = useForm<FieldValues>({
-    
+  const { register, handleSubmit, setValue, control } = useForm<FieldValues>({
     defaultValues: {
       phoneNumber: "",
       firstName: "",
@@ -43,11 +47,6 @@ const NewContactSection: React.FC<newContactSectionProps> = ({}) => {
       return;
     }
   };
-  
-  
-
-  
-  
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     getUserByPhone(convertNumberToEN(data.phoneNumber))
@@ -65,14 +64,6 @@ const NewContactSection: React.FC<newContactSectionProps> = ({}) => {
               });
               toastify.success("مخاطب جدید اضافه شد.");
               dispatch(setSection({ selectedState: "conversations" }));
-              console.log(
-                {
-                  contactId: res.data,
-                  firstName: data.firstName,
-                  lastName: data.lastName,
-                },
-                "successided"
-              );
             },
             onError: () => {
               toastify.error("مخاطب در لیست موجود است");
@@ -106,7 +97,6 @@ const NewContactSection: React.FC<newContactSectionProps> = ({}) => {
                 register={register}
                 formId="phoneNumber"
                 onKeyDown={(e) => handleKeyDown(e, field)}
-                
               />
             )}
           />
