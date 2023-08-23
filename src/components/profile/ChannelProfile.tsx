@@ -5,7 +5,6 @@ import Link from "./components/Link";
 import SectionContainer from "./components/SectionContainer";
 import { Paragraph, UserItem } from "../ui";
 import { SectionHeaderWithEdit } from "./components/SectionHeader";
-import { queryClient } from "@/providers/queryClientProvider";
 import { useQuery } from "react-query";
 import { getSubs } from "@/services/api/subs";
 interface channelProfileProps {
@@ -23,17 +22,10 @@ const ChannelProfile: React.FC<channelProfileProps> = ({
     ["chat", "CHANNEL", chatId?.toString(), "subs"],
     () => getSubs(chatId!)
   );
-  // const subData = queryClient.getQueryData<any>([
-  //   "chat",
-  //   "CHANNEL",
-  //   chatId?.toString(),
-  //   "subs",
-  // ]);
 
   const subs = subData?.data;
 
   console.log(subs);
-
   return (
     <SectionContainer>
       {/* Profile header and back button */}
