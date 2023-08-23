@@ -35,7 +35,7 @@ const UploadFileModal: React.FC<UploadFileModalType> = ({
         </div>
 
         <FloatingLabelInput
-          onChange={(e) => setMediaMessages(e.target.value)}
+          onChange={(e: any) => setMediaMessages(e.target.value)}
           type="text"
           label="عنوان..."
         />
@@ -59,6 +59,7 @@ const UploadFileModal: React.FC<UploadFileModalType> = ({
 
   return (
     <Modal
+      onSubmit={() => {}}
       body={body}
       actionLabel="تایید"
       secondaryActionLabel="خروج"

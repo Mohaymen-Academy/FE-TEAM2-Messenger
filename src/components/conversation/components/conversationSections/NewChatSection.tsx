@@ -1,6 +1,6 @@
 import SearchInput from "@/components/ui/SearchInput";
 import Paragraph from "@/components/ui/Paragraph";
-import { ContactTypes, ConversationTypes } from "@/utils/types";
+import { ContactTypes } from "@/utils/types";
 import React, { useState } from "react";
 import Button from "@/components/ui/Button";
 import { BsArrowRight } from "react-icons/bs";

@@ -5,40 +5,16 @@ import Link from "./components/Link";
 import SectionContainer from "./components/SectionContainer";
 import { Paragraph } from "../ui";
 import { SectionHeaderWithEdit } from "./components/SectionHeader";
-import { AiOutlineClose } from "react-icons/ai";
-import { getChat } from "@/services/api/chat";
-import { useQuery } from "react-query";
-import { queryClient } from "@/providers/queryClientProvider";
-import { useSelector } from "react-redux";
-import { store } from "@/redux/store";
-import { StoreStateTypes } from "@/utils/types";
-
-
 
 interface channelProfileProps {
   profileName: string;
   imgSrc?: string;
 }
 
-
-
-const ChannelProfile: React.FC<channelProfileProps> = ({ profileName, imgSrc, }) => {
- 
-  const conversationId = useSelector((store:StoreStateTypes )=> store.app.selectedProfile.conversationId)
-  console.log(conversationId);
-  
-  const chatData = queryClient.getQueryData([
-    "chat",
-    "CHANNEL",
-    conversationId?.toString(),
-  ]);
-  console.log(chatData);
-  
-  const members = chatData
-  // console.log(members);
-  
-  
-  
+const ChannelProfile: React.FC<channelProfileProps> = ({
+  profileName,
+  imgSrc,
+}) => {
   return (
     <SectionContainer>
       {/* Profile header and back button */}
@@ -59,10 +35,10 @@ const ChannelProfile: React.FC<channelProfileProps> = ({ profileName, imgSrc, })
         <div className="absolute bottom-0 w-full bg-gradient-to-b from-transparent dark:to-slate-700 to-white h-[80px] px-4 py-4 flex justify-between">
           <div>
             <Paragraph size="xl" className="select-none">
-              {profileName}
+              {/* {profileName} */}
             </Paragraph>
             <Paragraph size="sm" className="select-none">
-              {members} 
+              {/* {members} */}
             </Paragraph>
           </div>
         </div>
@@ -80,7 +56,3 @@ const ChannelProfile: React.FC<channelProfileProps> = ({ profileName, imgSrc, })
 };
 
 export default ChannelProfile;
-function StoreStateType(a: unknown, b: unknown): boolean {
-  throw new Error("Function not implemented.");
-}
-

@@ -12,7 +12,7 @@ import { BeatLoader } from "react-spinners";
 import { queryClient } from "@/providers/queryClientProvider";
 import { useMemo, useRef } from "react";
 import { deleteOptimisticCache } from "@/redux/Slices/messageSlice";
-import Image from "../Image";
+import Media from "../Media";
 
 interface MessagesProps {
   userId: string;
@@ -80,7 +80,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
         return { floor, ceil };
       },
       staleTime: 360000,
-      refetchInterval: 2000,
+      refetchInterval: 30000,
     }
   );
 
@@ -151,7 +151,6 @@ const Messages: React.FC<MessagesProps> = ({}) => {
           toRenderMessages && (
             <>
               <div ref={scrollDivRef}></div>
-
               {toRenderMessages.map((msg) => (
                 <Message
                   message={msg}
@@ -160,7 +159,12 @@ const Messages: React.FC<MessagesProps> = ({}) => {
                   groupMessage={true}
                   sentByCurrentUser={msg.userId === userData?.data?.userId}
                 >
-                  {/* {msg.media && <Image src={msg.media.filePath} />} */}
+                  {msg.media && msg.media.filePath && (
+                    <Media
+                      mediaType={msg.media.fileMimeType}
+                      src={msg.media.filePath}
+                    />
+                  )}
 
                   <Text content={msg.text} />
                 </Message>

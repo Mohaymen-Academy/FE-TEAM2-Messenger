@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import { toggleShowConversations } from "@/redux/Slices/conversationSlice";
 import HeaderProfile from "./messages/HeaderProfile";
-import { HiPhone } from "react-icons/hi";
 import { LiaSearchSolid } from "react-icons/lia";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
@@ -17,7 +16,7 @@ const Header = () => {
     (store: StoreStateTypes) => store.conversation.selectedConversation
   );
   return (
-    <div className="w-full h-[61px] bg-primary flex items-center px-2 justify-between">
+    <div className="w-full h-[70px] bg-primary flex items-center px-2 justify-between">
       <div className="hidden md:block  lg:hidden mt-2">
         <AnimatedButton
           FirstIcon={AiOutlineArrowLeft}
@@ -27,21 +26,12 @@ const Header = () => {
         />
       </div>
 
-      <HeaderProfile
-        lastInteraction={selectedConversation?.sentAt}
-        title={selectedConversation?.title}
-      />
-      <div className="flex gap-1 self-center">
-        <Button
-          variant="ghost"
-          className="p-2 dark:hover:bg-slate-600"
-        >
+      <HeaderProfile selectedConversation={selectedConversation} />
+      <div className="flex gap-3 self-center">
+        <Button variant="ghost" className="p-1 dark:hover:bg-slate-600">
           <LiaSearchSolid className="icon-button" size={23} />
         </Button>
-        <Button
-          variant="ghost"
-          className="p-2 dark:hover:bg-slate-600"
-        >
+        <Button variant="ghost" className="p-1 dark:hover:bg-slate-600">
           <BsThreeDotsVertical className="icon-button" size={23} />
         </Button>
       </div>

@@ -7,7 +7,6 @@ import { RxCross1 } from "react-icons/rx";
 import { AnimatedButton, SearchInput } from "../ui";
 import { useQuery } from "react-query";
 import { getAllChat } from "@/services/api/chat";
-import { BounceLoader } from "react-spinners";
 import { ConversationTypes } from "@/utils/types";
 import { useSearchParams } from "react-router-dom";
 import useToastify from "@/hooks/useTostify";
@@ -22,7 +21,7 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
   const conversationItemsQueryResponse = useQuery(
     ["user", "current", "conversations"],
     getAllChat,
-    { refetchInterval: 1700 }
+    { refetchInterval: 30000 }
   );
   const conversationItems = conversationItemsQueryResponse?.data?.data;
 
@@ -57,13 +56,12 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
             <div className="h-full w-full overflow-y-auto overflow-x-hidden px-2 duration-500 custom-scrollbar scrollbar-none md:scrollbar">
               {conversationItemsQueryResponse.isLoading ? (
                 <div className="w-full h-full">
-                  {/* <BounceLoader /> */}
                   <FinalSkeleton />
                 </div>
               ) : conversationItemsQueryResponse.isError ? (
                 "Conversation list fetch error"
               ) : (
-                conversationItems.map((item: ConversationTypes) => (
+                conversationItems?.map((item: ConversationTypes) => (
                   <ConversationItem
                     key={item.chatId}
                     onDeleteConversation={() => {}}

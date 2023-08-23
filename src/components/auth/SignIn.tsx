@@ -7,6 +7,7 @@ import {
   SubmitHandler,
   useForm,
   Controller,
+  ControllerRenderProps,
 } from "react-hook-form";
 import { loginApi } from "@/services/api/authentication";
 import { setEnteredPhoneNumber } from "@/redux/Slices/userSlice";
@@ -22,7 +23,10 @@ const Login = () => {
   const toastify = useToastify()
   const [loading, setLoading] = useState(false);
 
-  const handleKeyDown = (e, phoneNumberField) => {
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLDivElement>,
+    phoneNumberField: ControllerRenderProps<FieldValues, "phoneNumber">
+  ) => {
     if (
       !(
         (e.key >= "0" && e.key <= "9") ||
@@ -35,8 +39,6 @@ const Login = () => {
       e.preventDefault();
       return;
     }
-
-  
 
     if (
       e.key === "0" &&

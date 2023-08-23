@@ -23,6 +23,14 @@ const updateInfo = async (body: {
 const getUser = async () => {
   return apiCall.get<UserTypes>("api/users/get-current-user");
 };
+const getOtherUser = async (id?: number) => {
+  if (!id) return null;
+  return apiCall.get<UserTypes>(`api/users/${id}`);
+};
+const getUserProfile = async (id?: number) => {
+  if (!id) return null;
+  return apiCall.get(`api/profiles/users/${id}`);
+};
 
 const getUserByPhone = async (phone: string) => {
   return apiCall.get(`api/users/by-phoneNumber/${phone}`);
@@ -46,4 +54,11 @@ const getUserByPhone = async (phone: string) => {
 //   });
 // };
 
-export { sendPicture, updateInfo, getUser, getUserByPhone };
+export {
+  sendPicture,
+  updateInfo,
+  getUser,
+  getUserByPhone,
+  getUserProfile,
+  getOtherUser,
+};

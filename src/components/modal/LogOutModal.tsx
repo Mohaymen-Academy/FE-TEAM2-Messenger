@@ -3,10 +3,8 @@ import { Button, Paragraph } from "../ui";
 import Modal from "./ParentModal";
 import { StoreStateTypes } from "@/utils/types";
 import { onClose } from "@/redux/Slices/modal/logOutModalSlice";
-import ClickOutsideWrapper from "../wrappers/ClickOutsideWrapper";
 import { useNavigate } from "react-router-dom";
 import { emptyUser } from "@/redux/Slices/userSlice";
-import ParentModal from "./ParentModal";
 
 const LogOutModal = () => {
   const isOpen = useSelector(
@@ -49,6 +47,7 @@ const LogOutModal = () => {
 
   return (
     <Modal
+      onSubmit={() => {}}
       body={body}
       actionLabel="تایید"
       secondaryActionLabel="خروج"

@@ -17,16 +17,14 @@ import useViewportWidth from "@/hooks/useViewportWidth";
 import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
 import ProfileWrapper from "@/components/profile/ProfileWrapper";
 import LogOutModal from "@/components/modal/LogOutModal";
-import { useQuery } from "react-query";
 import { getUser } from "@/services/api/user";
+import { queryClient } from "@/providers/queryClientProvider";
 
 const Chat = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const viewPortWidth = useViewportWidth();
-  const logoutModalOpen = useSelector(
-    (store: StoreStateTypes) => store.logOutModal.isOpen
-  );
+
   // const userIsInMobile = (isAndroid || isIOS) && isMobile;
   const showConversation = useSelector(
     (store: StoreStateTypes) => store.conversation.showConversations
@@ -80,7 +78,7 @@ const Chat = () => {
   };
 
   //get user and save in react-query cache
-  useQuery(["user", "current"], getUser, { refetchOnWindowFocus: false });
+  queryClient.prefetchQuery(["user", "current"], getUser);
 
   useEffect(() => {
     const token = localStorage.getItem("refresh_token");

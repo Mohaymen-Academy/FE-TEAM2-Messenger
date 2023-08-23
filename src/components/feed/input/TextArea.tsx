@@ -1,6 +1,6 @@
 import Button from "@/components/ui/Button";
 import { BsEmojiLaughing, BsFillSendFill } from "react-icons/bs";
-import { LegacyRef, useEffect, useRef, useState } from "react";
+import { LegacyRef, useRef, useState } from "react";
 import Emoji from "./Emoji";
 import clsx from "clsx";
 import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
@@ -11,8 +11,8 @@ import { GoFileMedia, GoFile } from "react-icons/go";
 import { Paragraph } from "@/components/ui";
 import HoverWrapper from "@/components/wrappers/HoverWrapper";
 import Editor from "@/components/editor";
-import { ReactEditor, withReact } from "slate-react";
-import { BaseEditor, Transforms, createEditor } from "slate";
+import { withReact } from "slate-react";
+import { createEditor } from "slate";
 import { parseSlateToHtml } from "@/components/editor/serializer";
 import { useSearchParams } from "react-router-dom";
 import { useMutation } from "react-query";
@@ -22,7 +22,7 @@ import { v4 as uuidv4 } from "uuid";
 import UploadFileModal from "@/components/modal/UploadFileModal";
 import { onClose, onOpen } from "@/redux/Slices/modal/UploadModalSlice";
 import {
-  deleteOptimisticCache,
+  // deleteOptimisticCache,
   setOptimisticCache,
 } from "@/redux/Slices/messageSlice";
 
@@ -57,8 +57,6 @@ const TextArea = () => {
     ]) as { pages: MessageTypes[] }
   )?.pages.flat();
 
-  console.log(optimisticCache);
-
   const fileRef = useRef<File>();
   const mediaInputRef = useRef<HTMLInputElement>();
   const fileInputRef = useRef<HTMLInputElement>();
@@ -72,9 +70,6 @@ const TextArea = () => {
       }
     | undefined
   >();
-
-  const start = useRef(0);
-  const end = useRef(0);
 
   const textObj = useSelector(
     (store: StoreStateTypes) => store.textArea.textObject
@@ -90,14 +85,12 @@ const TextArea = () => {
   const { mutate: sendMessageMutate } = useMutation({
     mutationFn: (formData: FormData) => sendMessage(formData),
     onMutate: (newMessage) => {
-      start.current = Date.now(); //for send message time
-
       //this block get the new messages data for optimistic rendering
       const text = newMessage.get("text") as string;
       const userId = queryClient.getQueryData<{ data: UserTypes }>([
         "user",
         "current",
-      ])?.data.userId as string;
+      ])?.data.userId;
       const sendAt = new Date().toISOString();
       const media = {
         mediaId: uuidv4(),
@@ -126,7 +119,7 @@ const TextArea = () => {
       dispatch(
         setOptimisticCache({
           chatId: selectedConversation!,
-          message: optimisticData,
+          message: optimisticData as any,
           prevCache: optimisticCache,
         })
       );
@@ -151,23 +144,25 @@ const TextArea = () => {
     },
   });
 
-  const clearMessage = (editor: BaseEditor & ReactEditor) => {
-    while (editor.children.length > 0) {
-      Transforms.removeNodes(editor, {});
-    }
-    Transforms.insertNodes(editor, {
-      type: "paragraph",
-      children: [{ text: "" }],
-    } as any);
-  };
+  // const clearMessage = (editor: BaseEditor & ReactEditor) => {
+  //   while (editor.children.length > 0) {
+  //     Transforms.removeNodes(editor, {});
+  //   }
+  //   Transforms.insertNodes(editor, {
+  //     type: "paragraph",
+  //     children: [{ text: "" }],
+  //   } as any);
+  // };
 
   const onSendClickHandler = () => {
+    console.log(textObj);
     const text = parseSlateToHtml(textObj);
-    clearMessage(editor);
-    const messageFormData = new FormData();
-    messageFormData.append("text", text as string);
-    messageFormData.append("chatId", selectedConversation as string);
-    sendMessageMutate(messageFormData);
+    console.log(text);
+    // clearMessage(editor);
+    // const messageFormData = new FormData();
+    // messageFormData.append("text", text as string);
+    // messageFormData.append("chatId", selectedConversation as string);
+    // sendMessageMutate(messageFormData);
   };
 
   const onSendFileSubmit = () => {

@@ -15,8 +15,7 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
-  onSubmit,
-  title = "",
+  // onSubmit,
   body,
   footer,
   disabled,
@@ -37,12 +36,6 @@ const Modal: React.FC<ModalProps> = ({
       onClose();
     }, 400);
   }, [onClose, disabled]);
-
-  const handleSubmit = useCallback(() => {
-    if (disabled) return null;
-
-    onSubmit();
-  }, [onSubmit, disabled]);
 
   const handleSecondaryAction = useCallback(() => {
     if (disabled || !secondaryAction) return null;
