@@ -149,7 +149,9 @@ const Messages: React.FC<MessagesProps> = ({}) => {
 
   useEffect(() => {
     scrollDivRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [toRenderMessages?.length]);
+  }, [optimisticCache?.length]);
+
+  console.log(toRenderMessages);
 
   return (
     <div className="flex flex-col h-full justify-end overflow-hidden">
@@ -169,7 +171,9 @@ const Messages: React.FC<MessagesProps> = ({}) => {
                 <Message
                   message={msg}
                   key={msg.messageId}
-                  messageStatus="SEEN"
+                  messageStatus={
+                    msg.isCache ? "PENDING" : msg.seen ? "SEEN" : "DELIVERED"
+                  }
                   groupMessage={selectedConversationObj?.chatType === "GROUP"}
                   sentByCurrentUser={msg.userId === userData?.data?.userId}
                 >

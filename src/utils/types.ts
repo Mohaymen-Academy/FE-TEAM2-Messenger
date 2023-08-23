@@ -71,6 +71,7 @@ export type MessageTypes = {
   text: string;
   userId: number;
   isCache?: boolean;
+  seen?: boolean;
 };
 
 export type ContactTypes = {

@@ -140,16 +140,17 @@ const Message: React.FC<MessageComponent> = ({
                 <span>{formatDateToTime(message.sendAt)}</span>
                 <span>{formatDateToShamsiYear(message.sendAt)}</span>
               </Paragraph>
-              {messageStatus === "SEEN" ? (
-                <BsCheckAll className="text-green-300" />
-              ) : messageStatus === "DELIVERED" ? (
-                <BiCheck className="text-green-300" />
-              ) : (
-                <ClockLoader size={12} color="#36d7b7" />
-              )}
+              {sentByCurrentUser &&
+                (messageStatus === "SEEN" ? (
+                  <BsCheckAll className="text-teal-800 dark:text-teal-300" />
+                ) : messageStatus === "DELIVERED" ? (
+                  <BiCheck className="text-teal-800 dark:text-teal-300" />
+                ) : (
+                  <ClockLoader size={12} color="#36d7b7" />
+                ))}
             </div>
             {sentByCurrentUser && (
-              <div className="w-0 h-0 absolute bottom-0 border-t-[10px] border-t-transparent border-l-[10px] border-l-lime-100 dark:border-l-purple-900 -right-[10px] border-b-transparent" />
+              <div className="w-0 h-0 absolute bottom-0 border-t-[10px] border-t-transparent border-l-[10px] border-l-lime-100 dark:border-l-purple-900 -right-[8px] border-b-transparent" />
             )}
             {!sentByCurrentUser && (
               <div
@@ -157,7 +158,7 @@ const Message: React.FC<MessageComponent> = ({
                   border-t-[10px] border-t-transparent
                   border-r-[10px] border-r-gray-100
                   dark:border-r-gray-700
-                   border-b-transparent bottom-0 -left-[10px]"
+                   border-b-transparent bottom-0 -left-[8px]"
               />
             )}
           </div>
