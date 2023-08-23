@@ -43,7 +43,6 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   ])?.data;
 
   const handleClick = (event: React.MouseEvent) => {
-    console.log(conversation);
     if (event.type === "click") {
       //change url search params to selected conversationId
       navigate({

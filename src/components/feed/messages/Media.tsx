@@ -58,7 +58,6 @@ const Media: React.FC<ImageProps> = ({ src, mediaType }) => {
       {type === "video" && (
         <video
           onLoad={(e) => {
-            console.log("loaded");
             const element = e.target as HTMLImageElement;
             const placeHolderDiv =
               videoPlaceHolderRef.current as unknown as HTMLDivElement;

@@ -139,9 +139,7 @@ const TextArea = () => {
     //   //   })
     //   // );
     // },
-    onError: (error) => {
-      console.log(error);
-    },
+    onError: (error) => {},
   });
 
   const clearMessage = (editor: BaseEditor & ReactEditor) => {

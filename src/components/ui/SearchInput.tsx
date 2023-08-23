@@ -1,10 +1,12 @@
 import Input from "@/components/auth/input/Input";
 import useToastify from "@/hooks/useTostify";
 import { setFileterBy } from "@/redux/Slices/appSlice";
-import { getContactSearchResult } from "@/services/api/search";
+import {
+  getChatSearchResult,
+  getContactSearchResult,
+} from "@/services/api/search";
 import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 import { RiCloseCircleFill } from "react-icons/ri";
 
@@ -21,27 +23,48 @@ const SearchInput: React.FC<searchInputProps> = ({ placeHolder, searchIn }) => {
   const toastify = useToastify();
   const dispatch = useDispatch();
 
-  const searchContactQuery = useQuery(
-    ["search", searchIn.toLowerCase()],
-    () => getContactSearchResult(searchParam, searchIn),
-    {
-      enabled: false,
-      retry: false,
-      onSuccess: (data) => {
-        if (data.data.length === 0) {
-          toastify.warning("نتیجه ای یافت نشد.");
-        } else {
-          const matches = data.data.map(
-            (data: { id: number; title: string }) => data.id
-          );
-          dispatch(setFileterBy(matches));
-        }
-      },
-      onError: () => {
-        toastify.error("مشکلی در جستجو به وجود آمده.");
-      },
+  const searchResult = async (
+    name: string,
+    searchIn: "CONTACT" | "CONVERSATION"
+  ) => {
+    if (searchIn === "CONVERSATION") {
+      const { data: conversationData } = await getChatSearchResult(searchParam);
+      const conversationResult = conversationData.map(
+        (data: any) => data.chatId
+      );
     }
-  );
+    const { data: contactData } = await getContactSearchResult(searchParam);
+    console.log(contactData, "asd");
+    // const conversationResult = contactData.map((data: any) => data.chatId);
+  };
+
+  // const searchContactQuery = useQuery(
+  //   ["search", searchIn.toLowerCase()],
+  //   () => getContactSearchResult(searchParam, searchIn),
+  //   {
+  //     enabled: false,
+  //     retry: false,
+  //     onSuccess: (data) => {
+  //       if (data.data.length === 0) {
+  //         toastify.warning("نتیجه ای یافت نشد.");
+  //       } else {
+  //         const matches = data.data.map(
+  //           (data: {
+  //             id: number;
+  //             chatId?: number;
+  //             contactId?: number;
+  //             userId: number;
+  //             title: string;
+  //           }) => (data.chatId ? data.chatId : data.contactId)
+  //         );
+  //         dispatch(setFileterBy(matches));
+  //       }
+  //     },
+  //     onError: () => {
+  //       toastify.error("مشکلی در جستجو به وجود آمده.");
+  //     },
+  //   }
+  // );
 
   useEffect(() => {
     if (debounceTimer) {
@@ -50,9 +73,9 @@ const SearchInput: React.FC<searchInputProps> = ({ placeHolder, searchIn }) => {
 
     const timerId = setTimeout(() => {
       if (searchParam.trim()) {
-        searchContactQuery.refetch();
+        searchResult(searchParam, searchIn);
       }
-    }, 700);
+    }, 400);
 
     setDebounceTimer(timerId);
 
@@ -64,10 +87,16 @@ const SearchInput: React.FC<searchInputProps> = ({ placeHolder, searchIn }) => {
   }, [searchParam]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchParam(e.target.value);
+    if (e.target.value.trim().length > 0) {
+      setSearchParam(e.target.value);
+    } else {
+      setSearchParam("");
+      dispatch(setFileterBy(undefined));
+    }
   };
 
   const handleClearInput = () => {
+    dispatch(setFileterBy(undefined));
     setSearchParam("");
   };
 

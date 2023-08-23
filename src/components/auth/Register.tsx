@@ -19,14 +19,12 @@ const Register = () => {
 
   const sendPictureMutation = useMutation(sendPicture, {
     onError: (error) => {
-      console.log(error);
       toastify.error("متاسفانه عکس ذخیره نگردید لطفا مجددا تلاش فرمایید");
     },
   });
 
   const setInfoMutation = useMutation(updateInfo, {
     onError: (error) => {
-      console.log(error);
       toastify.error("اطلاعات دخیره نگردید لطفا مجددا تلاش فرمایید");
     },
   });
@@ -78,7 +76,6 @@ const Register = () => {
   return (
     <div className="dark flex flex-col items-center bg-primary p-8 rounded-2xl">
       <ProfileUploader
-      
         imgUrl={pictureUrl}
         setImage={setValue}
         width={150}
