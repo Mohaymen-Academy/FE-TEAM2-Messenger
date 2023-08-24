@@ -72,21 +72,21 @@ const Register = () => {
 
       const imageUrl = URL.createObjectURL(file);
       setPictureUrl(imageUrl);
-       setShowCropperModal(true);
+      //  setShowCropperModal(true);
     }
   };
 
     const cropperRef = useRef(null);
 
-    const cropImage = () => {
-      if (typeof cropperRef.current.getCroppedCanvas() === "undefined") {
-        return;
-      }
-      const croppedImageBase64 = cropperRef.current
-        .getCroppedCanvas()
-        .toDataURL();
-      // Now you can use this croppedImageBase64 as needed.
-    };
+    // const cropImage = () => {
+    //   if (typeof cropperRef.current.getCroppedCanvas() === "undefined") {
+    //     return;
+    //   }
+    //   const croppedImageBase64 = cropperRef.current
+    //     .getCroppedCanvas()
+    //     .toDataURL();
+    //   // Now you can use this croppedImageBase64 as needed.
+    // };
   return (
     <div className="dark flex flex-col items-center bg-primary p-8 rounded-2xl">
       <ProfileUploader
