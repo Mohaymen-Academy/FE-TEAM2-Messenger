@@ -105,6 +105,7 @@ const Register = () => {
         onClick={handleSubmit(onSubmit)}
         className="w-full"
       >
+        <span className="sr-only">تایید</span>
         تایید
       </Button>
     </div>

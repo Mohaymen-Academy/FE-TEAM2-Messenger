@@ -121,6 +121,7 @@ const NewContactSection: React.FC<newContactSectionProps> = ({}) => {
               onClick={handleSubmit(onSubmit)}
               className="w-full font-bold text-xl"
             >
+              <span className="sr-only">ایجاد مخاطب</span>
               ایجاد مخاطب
             </Button>
             <Button
@@ -129,6 +130,7 @@ const NewContactSection: React.FC<newContactSectionProps> = ({}) => {
               }
               className="!bg-btn-danger !text-white hover:!bg-btn-danger-hover w-full font-bold text-xl"
             >
+              <span className="sr-only">انصراف</span>
               انصراف
             </Button>
           </div>

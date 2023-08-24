@@ -217,7 +217,7 @@ const TextArea = () => {
           className="dark:hover:bg-slate-800 group"
         >
           <AiOutlinePaperClip className="w-5 h-5 icon-button" />
-          <span className="sr-only">Upload File</span>
+          <span className="sr-only">آپلود فایل</span>
         </Button>
 
         <Button
@@ -230,7 +230,7 @@ const TextArea = () => {
           }}
         >
           <BsEmojiLaughing className="w-5 h-5 icon-button" />
-          <span className="sr-only">Add emoji</span>
+          <span className="sr-only">اضافه کردن ایموجی</span>
         </Button>
 
         <Editor initialValue={initialValue} editor={editor}>

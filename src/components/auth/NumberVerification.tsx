@@ -77,6 +77,7 @@ const NumberVerification = () => {
             <ConfirmationInput submit={submit} length={5} />
           </div>
           <Button size="lg" className="text-white w-full" isLoading={loading}>
+            <span className="sr-only">تایید کد</span>
             تایید کد
           </Button>
         </div>

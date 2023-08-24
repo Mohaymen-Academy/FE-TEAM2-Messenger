@@ -20,6 +20,7 @@ const SectionHeader: React.FC<sectionHeaderProps> = ({ title, withClose }) => {
           variant="ghost"
           className="h-12 w-12 ml-4"
         >
+          <span className="sr-only">بستن این صفحه</span>
           <AiOutlineClose className="icon-button" size={25} />
         </Button>
       )}
@@ -37,6 +38,7 @@ const withEdit = (WrappedComponent: ComponentType<sectionHeaderProps>) => {
           variant="ghost"
           className="h-12 w-12 ml-4 z-10 left-2 absolute top-2"
         >
+          <span className="sr-only">ویرایش </span>
           <FiEdit2 className="icon-button" size={25} />
         </Button>
       </div>

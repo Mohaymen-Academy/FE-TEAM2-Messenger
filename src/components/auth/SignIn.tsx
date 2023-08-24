@@ -143,6 +143,7 @@ const Login = () => {
           size="lg"
           className="text-white"
         >
+          <span className="sr-only">دریافت کد تایید</span>
           دریافت کد تایید
         </Button>
       </div>

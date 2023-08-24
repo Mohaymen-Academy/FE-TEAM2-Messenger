@@ -34,7 +34,7 @@ const Dropdown = ({ items }) => {
   };
 
   return (
-    <ClickOutsideWrapper onOutsideClick={()=> setIsOpen(false)}>
+    <ClickOutsideWrapper onOutsideClick={() => setIsOpen(false)}>
       <div className="relative inline-block text-left">
         <div>
           <Button
@@ -44,7 +44,7 @@ const Dropdown = ({ items }) => {
           >
             <Paragraph className="mb-0">{activeItem.dialCode}+</Paragraph>
             <CountryFlag svg countryCode={activeItem.country} />
-
+            <span className="sr-only">انتخاب کشور</span>
             <MdArrowDropDown size={30} className="dark:text-gray-200" />
           </Button>
         </div>
