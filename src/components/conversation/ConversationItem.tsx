@@ -9,12 +9,16 @@ import { useEffect } from "react";
 import { getChat, getMessages } from "@/services/api/chat";
 import { queryClient } from "@/providers/queryClientProvider";
 import { useDispatch } from "react-redux";
-import { setSelectedConversation } from "@/redux/Slices/conversationSlice";
+import {
+  setSelectedConversation,
+  setSelectedConversationUserPermission,
+} from "@/redux/Slices/conversationSlice";
 import { formatDateDifference } from "@/utils/fromatDate";
 import { MESSAGE_PER_PAGE } from "@/utils/constants";
 import { getSubs } from "@/services/api/subs";
 import { setSelectedProfile } from "@/redux/Slices/appSlice";
 import { deleteHtmlTags } from "../editor/serializer";
+import { useQuery } from "react-query";
 
 interface ConversationItemProps {
   conversation: ConversationTypes;
@@ -35,18 +39,30 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const conversationLastMessage = conversation.lastMessage || "No messages yet";
+  const { data: chatData } = useQuery(
+    ["chat", conversation.chatType, conversation.chatId.toString()],
+    () => getChat(conversation.chatId),
+    {
+      cacheTime: Infinity,
+      refetchInterval: 60 * 1000,
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  const { data: subs } = useQuery(
+    ["chat", conversation.chatType, conversation.chatId.toString(), "subs"],
+    () => getSubs(conversation.chatId),
+    {
+      cacheTime: Infinity,
+      refetchInterval: 60 * 1000,
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const currentUserId = queryClient.getQueryData<{ data: UserTypes }>([
     "user",
     "current",
   ])?.data?.userId;
-
-  const subs = queryClient.getQueryData<{ data: subTypes[] }>([
-    "chat",
-    conversation.chatType,
-    conversation.chatId.toString(),
-    "subs",
-  ]);
 
   const otherUserId = subs?.data.find(
     (subs) => subs.userId !== currentUserId
@@ -68,10 +84,13 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
         }).toString(),
       });
 
-      console.log(conversation);
-
       //save selected conversation data in redux
       dispatch(setSelectedConversation({ conversation }));
+      dispatch(
+        setSelectedConversationUserPermission({
+          permissions: chatData?.data.permissions,
+        })
+      );
       dispatch(
         setSelectedProfile({
           selectedProfile: {
@@ -91,33 +110,19 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
 
   //effect to prefetch first page of conversation's messages on mount
   useEffect(() => {
-    const preFetchMessages = async () => {
-      const { data } = await getMessages({
-        chatId: `${conversation.chatId}`,
-        floor: 0,
-        ceil: MESSAGE_PER_PAGE,
-      });
-      return data.reverse();
-    };
-
     //prefetch
     queryClient.prefetchInfiniteQuery({
       queryKey: ["user", "current", "conversations", `${conversation.chatId}`],
-      queryFn: preFetchMessages,
+      queryFn: async () => {
+        const { data } = await getMessages({
+          chatId: `${conversation.chatId}`,
+          floor: 0,
+          ceil: MESSAGE_PER_PAGE,
+        });
+        return data.reverse();
+      },
       cacheTime: Infinity,
     });
-
-    queryClient.prefetchQuery(
-      ["chat", conversation.chatType, conversation.chatId.toString()],
-      () => getChat(conversation.chatId),
-      { cacheTime: Infinity }
-    );
-
-    queryClient.prefetchQuery(
-      ["chat", conversation.chatType, conversation.chatId.toString(), "subs"],
-      () => getSubs(conversation.chatId),
-      { cacheTime: Infinity }
-    );
   }, []);
 
   const sentLastMessageText =

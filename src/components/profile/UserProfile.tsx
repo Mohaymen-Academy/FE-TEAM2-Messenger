@@ -1,6 +1,5 @@
 import React from "react";
 import ProfileColor from "./components/ProfileColor";
-import { Paragraph } from "../ui/";
 import SectionContainer from "./components/SectionContainer";
 import SectionHeader from "./components/SectionHeader";
 import ProfileItemWithIcon from "./components/ProfileItemWithIcon";

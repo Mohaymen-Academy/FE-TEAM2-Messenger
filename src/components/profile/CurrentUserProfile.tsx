@@ -1,7 +1,6 @@
 import React from "react";
 import SectionContainer from "./components/SectionContainer";
 import { SectionHeaderWithEdit } from "./components/SectionHeader";
-import { Paragraph } from "../ui";
 import { queryClient } from "@/providers/queryClientProvider";
 import ProfileItemWithIcon from "./components/ProfileItemWithIcon";
 import { TbCameraPlus, TbPhone } from "react-icons/tb";

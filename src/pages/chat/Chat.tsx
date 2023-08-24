@@ -76,16 +76,16 @@ const Chat = () => {
     dispatch(onToggleUpload({ show: false }));
   };
 
-  //get user and save in react-query cache
-  queryClient.prefetchQuery(["user", "current"], getUser, {
-    cacheTime: Infinity,
-  });
-
   useEffect(() => {
     const token = localStorage.getItem("refresh_token");
     if (!token) {
       navigate("/auth/sign-in");
     }
+
+    //get user and save in react-query cache
+    queryClient.prefetchQuery(["user", "current"], getUser, {
+      cacheTime: Infinity,
+    });
   }, []);
 
   return (

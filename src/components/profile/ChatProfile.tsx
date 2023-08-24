@@ -82,25 +82,25 @@ const ChatProfile: React.FC<ChatProfileProps> = ({
                 chatData?.data.permissions.map((per) => (
                   <>
                     {per === "ADD_USER" && (
-                      <div className="flex gap-2 bg-red-200 rounded-xl px-2 justify-center items-center">
+                      <div className="flex gap-2 bg-cyan-200 rounded-xl px-2 justify-center items-center">
                         <GrUserAdd />
                         اضافه کردن کاربر
                       </div>
                     )}
                     {per === "CHANGE_CHAT_INFO" && (
-                      <div className="flex gap-2 bg-red-200 rounded-xl px-2 justify-center items-center">
+                      <div className="flex gap-2 bg-indigo-300 rounded-xl px-2 justify-center items-center">
                         <GrEdit />
                         تغییر اطلاعات
                       </div>
                     )}
                     {per === "PIN_MESSAGE" && (
-                      <div className="flex gap-2 bg-red-200 rounded-xl px-2 justify-center items-center">
+                      <div className="flex gap-2 bg-violet-200 rounded-xl px-2 justify-center items-center">
                         <GrPin />
                         پین کردن پیام
                       </div>
                     )}
                     {per === "SEND_MESSAGE" && (
-                      <div className="flex gap-2 bg-red-200 rounded-xl px-2 justify-center items-center">
+                      <div className="flex gap-2 bg-amber-200 rounded-xl px-2 justify-center items-center">
                         <GrSend />
                         ارسال پیام
                       </div>
