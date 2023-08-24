@@ -7,20 +7,18 @@ import { StoreStateTypes } from "@/utils/types";
 import patternLight from "../../assets/img/bgPatternLight.png";
 import patternDark from "../../assets/img/bgPatternDark.png";
 import Header from "./Header";
-
 interface FeedWrapperProps {
-  userId: string;
   feedShowCriteria?: string;
 }
 
-const FeedWrapper: React.FC<FeedWrapperProps> = ({
-  userId,
-  feedShowCriteria,
-}) => {
+const FeedWrapper: React.FC<FeedWrapperProps> = ({ feedShowCriteria }) => {
   const navigate = useNavigate();
   const theme = useSelector((store: StoreStateTypes) => store.app.theme);
   const [URLSearchParams] = useSearchParams();
   const selectedConversation = URLSearchParams.get("conversationId");
+  const selectedConversationObj = useSelector(
+    (store: StoreStateTypes) => store.conversation.selectedConversation
+  );
 
   return (
     <div
@@ -55,7 +53,7 @@ const FeedWrapper: React.FC<FeedWrapperProps> = ({
                 <div className="h-[calc(100vh-61px)] w-full">
                   <div className="flex flex-col h-full gap-1 w-full">
                     <>
-                      <Messages conversationId="12" userId={userId} />
+                      <Messages />
                       <MessageInput />
                     </>
                   </div>
@@ -65,7 +63,7 @@ const FeedWrapper: React.FC<FeedWrapperProps> = ({
           </div>
         ) : (
           <div className="w-full h-full text-primary text-4xl grid place-content-center">
-            پیام‌رسان آیریس
+            {/* پیام‌رسان آیریس */}
           </div>
         )}
       </div>

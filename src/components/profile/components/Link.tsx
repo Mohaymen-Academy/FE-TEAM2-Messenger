@@ -23,10 +23,7 @@ const Link: React.FC<linkProps> = ({ href }) => {
       <div className="flex items-center">
         <AiOutlineLink className="icon-button ml-4 round" size={25} />
         <div>
-          <Paragraph className="break-all">{href}</Paragraph>
-          <Paragraph size="xs" className="text-secondary font-bold">
-            لینک
-          </Paragraph>
+          <Paragraph className="break-all text-left">{href}</Paragraph>
         </div>
       </div>
     </HoverWrapper>

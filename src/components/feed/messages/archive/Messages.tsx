@@ -16,11 +16,7 @@ import Media from "../Media";
 import { setHeaderReRender } from "@/redux/Slices/appSlice";
 import { setLastMessageSeen } from "@/services/api/subs";
 
-interface MessagesProps {
-  userId: string;
-  conversationId: string;
-}
-const Messages: React.FC<MessagesProps> = ({}) => {
+const Messages: React.FC = () => {
   const [URLSearchParams] = useSearchParams();
   const dispatch = useDispatch();
 

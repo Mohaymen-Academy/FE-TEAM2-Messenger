@@ -230,65 +230,64 @@ const TextArea = () => {
           <BsFillSendFill className="w-5 h-5 text-cyan-700 dark:text-cyan-300" />
           <span className="sr-only">ارسال پیام</span>
         </Button>
+      </div>
+      {/* absolute positioning*/}
+      {/* Emoji menu */}
+      <Emoji
+        editor={editor}
+        className={clsx(
+          " duration-300 md:absolute bottom-16 right-0 font-normal overflow-hidden h-0 w-full md:w-0 opacity-0 mx-auto",
+          { "h-[300px] md:h-[450px] md:w-[400px] opacity-100": showEmoji }
+        )}
+      />
+      {/* upload menu */}
+      <div
+        className={clsx(
+          "bg-secondary flex flex-col gap-2 absolute bottom-[4.4rem] rounded-lg right-2 px-2 py-3 overflow-hidden opacity-0 transition duration-300 scale-0 origin-bottom-right",
+          {
+            "scale-100 opacity-100": showUploadMenu,
+          }
+        )}
+      >
+        <HoverWrapper className="px-2 py-1">
+          <div
+            onClick={() => mediaInputRef.current?.click()}
+            className="w-full items-center gap-2 cursor-pointer px-2"
+          >
+            <input
+              ref={mediaInputRef as LegacyRef<HTMLInputElement>}
+              onChange={onFileSelectHandler}
+              className="hidden"
+              type="file"
+              accept="image/*, video/*"
+              onClick={(e: any) => (e.target.value = "")}
+            />
 
-        {/* absolute positioning*/}
-        {/* Emoji menu */}
-        <Emoji
-          editor={editor}
-          className={clsx(
-            "bottom-16 duration-300 md:absolute right-0 font-normal overflow-hidden h-0 w-full md:w-0 opacity-0 absolute mx-auto",
-            { "h-[300px] md:h-[450px] md:w-[400px] opacity-1": showEmoji }
-          )}
-        />
-        {/* upload menu */}
-        <div
-          className={clsx(
-            "bg-secondary flex flex-col gap-2 absolute bottom-[4.4rem] rounded-lg right-2 px-2 py-3 overflow-hidden opacity-0 transition duration-300 scale-0 origin-bottom-right",
-            {
-              "scale-100 opacity-100": showUploadMenu,
-            }
-          )}
-        >
-          <HoverWrapper className="px-2 py-1">
-            <div
-              onClick={() => mediaInputRef.current?.click()}
-              className="w-full items-center gap-2 cursor-pointer px-2"
-            >
-              <input
-                ref={mediaInputRef as LegacyRef<HTMLInputElement>}
-                onChange={onFileSelectHandler}
-                className="hidden"
-                type="file"
-                accept="image/*, video/*"
-                onClick={(e: any) => (e.target.value = "")}
-              />
+            <Paragraph size="xs" className="w-full flex items-center gap-3">
+              <GoFileMedia size={30} />
+              آپلود عکس و فیلم
+            </Paragraph>
+          </div>
+        </HoverWrapper>
+        <HoverWrapper className="px-2 py-1">
+          <div
+            onClick={() => fileInputRef.current?.click()}
+            className="w-full items-center gap-2 cursor-pointer px-2"
+          >
+            <input
+              ref={fileInputRef as LegacyRef<HTMLInputElement>}
+              className="hidden"
+              type="file"
+              onChange={onFileSelectHandler}
+              onClick={(e: any) => (e.target.value = "")}
+            />
 
-              <Paragraph size="xs" className="w-full flex items-center gap-3">
-                <GoFileMedia size={30} />
-                آپلود عکس و فیلم
-              </Paragraph>
-            </div>
-          </HoverWrapper>
-          <HoverWrapper className="px-2 py-1">
-            <div
-              onClick={() => fileInputRef.current?.click()}
-              className="w-full items-center gap-2 cursor-pointer px-2"
-            >
-              <input
-                ref={fileInputRef as LegacyRef<HTMLInputElement>}
-                className="hidden"
-                type="file"
-                onChange={onFileSelectHandler}
-                onClick={(e: any) => (e.target.value = "")}
-              />
-
-              <Paragraph size="xs" className="w-full flex items-center gap-3">
-                <GoFile size={30} />
-                آپلود فایل
-              </Paragraph>
-            </div>
-          </HoverWrapper>
-        </div>
+            <Paragraph size="xs" className="w-full flex items-center gap-3">
+              <GoFile size={30} />
+              آپلود فایل
+            </Paragraph>
+          </div>
+        </HoverWrapper>
       </div>
       <UploadFileModal
         onSubmit={onSendFileSubmit}

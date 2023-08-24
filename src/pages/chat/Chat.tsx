@@ -98,7 +98,7 @@ const Chat = () => {
           <ConversationWrapper
             conversationShowCriteria={conversationShowCriteria}
           />
-          <FeedWrapper feedShowCriteria={feedShowCriteria} userId="232" />
+          <FeedWrapper feedShowCriteria={feedShowCriteria} />
           <ProfileWrapper />
         </div>
       </div>

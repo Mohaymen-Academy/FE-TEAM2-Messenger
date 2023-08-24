@@ -4,9 +4,13 @@ import Notification from "./components/Notification";
 import Link from "./components/Link";
 import SectionContainer from "./components/SectionContainer";
 import { Paragraph, UserItem } from "../ui";
-import { SectionHeaderWithEdit } from "./components/SectionHeader";
+import SectionHeader, {
+  SectionHeaderWithEdit,
+} from "./components/SectionHeader";
 import { useQuery } from "react-query";
 import { getSubs } from "@/services/api/subs";
+import { queryClient } from "@/providers/queryClientProvider";
+import { ChatTypes, UserTypes } from "@/utils/types";
 interface channelProfileProps {
   profileName: string;
   imgSrc?: string;
@@ -18,17 +22,37 @@ const ChannelProfile: React.FC<channelProfileProps> = ({
   imgSrc,
   chatId,
 }) => {
-  const { data: subData } = useQuery<any>(
+  const { data: subData } = useQuery(
     ["chat", "CHANNEL", chatId?.toString(), "subs"],
     () => getSubs(chatId!)
   );
+  const channelData = queryClient.getQueryData<{ data: ChatTypes }>([
+    "chat",
+    "CHANNEL",
+    chatId?.toString(),
+  ]);
+
+  const currentUserId = queryClient.getQueryData<{ data: UserTypes }>([
+    "user",
+    "current",
+  ])?.data.userId;
 
   const subs = subData?.data;
+
+  console.log(subs);
+
+  const currentUserIsAdmin = !!subs?.find(
+    (sub) => sub.userId === currentUserId && sub.admin
+  );
 
   return (
     <SectionContainer>
       {/* Profile header and back button */}
-      <SectionHeaderWithEdit withClose title="پروفایل کانال" />
+      {currentUserIsAdmin ? (
+        <SectionHeaderWithEdit withClose title="پروفایل کانال" />
+      ) : (
+        <SectionHeader withClose title="پروفایل کانال" />
+      )}
 
       {/* Show even profile image or solid color */}
       {/* Also add a gradient to show profile name and subscribers */}
@@ -53,8 +77,8 @@ const ChannelProfile: React.FC<channelProfileProps> = ({
 
       <div className="py-3 flex flex-col gap-2">
         <div className="gap-2 px-3">
-          <Link href="https://emochat/group/etxYasjlkfeletsadjflasjkdlfkjk" />
-          <Notification />
+          <Link href={`https://iris.me/channel/${channelData?.data.link}`} />
+          {/* <Notification /> */}
         </div>
         <div className="bg-secondary h-3 w-full rounded-b"></div>
       </div>
