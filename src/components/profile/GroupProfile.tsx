@@ -26,7 +26,6 @@ const GroupProfile: React.FC<groupProfileProps> = ({
   ]);
 
   const subs = subData?.data;
-  console.log(subs);
 
   return (
     <SectionContainer>

@@ -16,6 +16,7 @@ import { formatDateDifference } from "@/utils/fromatDate";
 import { MESSAGE_PER_PAGE } from "@/utils/constants";
 import { getSubs } from "@/services/api/subs";
 import { setSelectedProfile } from "@/redux/Slices/appSlice";
+import { deleteHtmlTags } from "../editor/serializer";
 
 interface ConversationItemProps {
   conversation: ConversationTypes;
@@ -101,6 +102,11 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     );
   }, []);
 
+  const sentLastMessageText =
+    formatDateDifference(conversation.sentAt) === "Online"
+      ? "به تازگی"
+      : formatDateDifference(conversation.sentAt);
+
   return (
     <HoverWrapper className="p-0" type={isSelected ? "active" : "inActive"}>
       <div
@@ -122,20 +128,20 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
             <Paragraph className=" overflow-hidden font-extrabold text-ellipsis dark:!text-white !text-slate-800 ml-2">
               {conversation.title}
             </Paragraph>
-            <Paragraph
-              size={"xs"}
-              className="text-sm text-bg-btn whitespace-nowrap"
-            >
-              {formatDateDifference(conversation.sentAt)}
+            <Paragraph className="!text-[12px] text-bg-btn whitespace-nowrap text-center bg-green-500/20 rounded-full px-2">
+              {sentLastMessageText}
             </Paragraph>
           </div>
 
           <div className="flex justify-between items-center">
             <Paragraph
-              size={"sm"}
-              className="w-[30ch] text-ellipsis overflow-hidden whitespace-nowrap"
+              size={"xs"}
+              className="w-[120px] xs:w-[40vw] md:w-[200px] text-ellipsis overflow-hidden whitespace-nowrap"
             >
-              {parse(conversationLastMessage)}
+              {conversation.chatType === "GROUP" &&
+                conversation.userFirstName &&
+                conversation.userFirstName + ": "}
+              {deleteHtmlTags(conversationLastMessage)}
             </Paragraph>
             {(unseenMessages as number) > 0 && (
               <UnreadMessages unseen={unseenMessages as number} />

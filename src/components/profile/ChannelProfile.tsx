@@ -25,7 +25,6 @@ const ChannelProfile: React.FC<channelProfileProps> = ({
 
   const subs = subData?.data;
 
-  console.log(subs);
   return (
     <SectionContainer>
       {/* Profile header and back button */}
