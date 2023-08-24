@@ -26,47 +26,27 @@ const LogOutModal = () => {
     dispatch(onClose());
   };
   const body = (
-    <div className="w-full flex flex-col self-center gap-8 items-center my-auto">
-      <div className="w-full">
+
+    <div className="bg-primary w-50% md:w-[40%] py-5 px-8 rounded-xl">
+      <Paragraph className="mb-6 text-center">
+        آیا از خروج مطمئن هستید؟
+      </Paragraph>
+      <div className="flex justify-between gap-3">
+        <Button
+          onClick={onSubmit}
+          className="w-full  transition-all duration-200 hover:bg-red-500 !bg-btn-danger dark:hover:bg-red-600 !text-white"
+        >
+          بله
+        </Button>
+
         <Button
           onClick={() => dispatch(onClose())}
-          variant="ghost"
-          className="p-3 hover:bg-slate-400/20"
+          className="w-full transition-all duration-200"
         >
-          <RxCross1 className="text-white" size={30} />
-        </Button>
-      </div>
-      <div className="w-[20%]">
-        <img className="" src={img} alt="" />
-      </div>
-
-      <div className="w-full">
-        <Button variant="ghost" className="p-3 hover:bg-slate-400/20">
-          <BsDownload className="text-white" size={30} />
+          خیر
         </Button>
       </div>
     </div>
-
-    // <div className="bg-primary w-full py-5 px-8 rounded-xl">
-    //   <Paragraph className="mb-6 text-center">
-    //     آیا از خروج مطمئن هستید؟
-    //   </Paragraph>
-    //   <div className="flex justify-between gap-3">
-    //     <Button
-    //       onClick={onSubmit}
-    //       className="w-full  transition-all duration-200 hover:bg-red-500 !bg-btn-danger dark:hover:bg-red-600 !text-white"
-    //     >
-    //       بله
-    //     </Button>
-
-    //     <Button
-    //       onClick={() => dispatch(onClose())}
-    //       className="w-full transition-all duration-200"
-    //     >
-    //       خیر
-    //     </Button>
-    //   </div>
-    // </div>
   );
 
   return (
