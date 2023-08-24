@@ -48,21 +48,16 @@ const UserProfile: React.FC<userProfileProps> = ({
 
       {/* Show either profile image or solid color */}
       {/* Also add a gradient to show profile name and subscribers */}
-      <div className="relative h-[40vh] max-h-[400px]">
+      <div className="w-[300px] h-[300px] rounded-full m-auto overflow-hidden mb-4 mt-8">
         {imgSrc ? (
           <img
             src={imgSrc}
             alt="عکس پروفایل"
-            className="absolute w-full h-full object-cover "
+            className="w-full h-full object-cover rounded-full"
           />
         ) : (
           <ProfileColor name={profileName} />
         )}
-        <div className="absolute bottom-0 w-full bg-gradient-to-b from-transparent dark:to-slate-700 to-white h-[80px] px-4 py-4 flex justify-between items-center">
-          <Paragraph size="xl" className="select-none">
-            {profileName}
-          </Paragraph>
-        </div>
       </div>
 
       <>

@@ -8,28 +8,31 @@ import { queryClient } from "@/providers/queryClientProvider";
 import { ChatTypes } from "@/utils/types";
 
 import { GrUserAdmin, GrUserAdd, GrEdit, GrPin, GrSend } from "react-icons/gr";
+import { AiOutlineEye } from "react-icons/ai";
 
-interface groupProfileProps {
+interface ChatProfileProps {
   profileName: string;
   imgSrc?: string;
   chatId?: number;
+  chatType?: "GROUP" | "CHANNEL" | "PV";
 }
 
-const GroupProfile: React.FC<groupProfileProps> = ({
+const ChatProfile: React.FC<ChatProfileProps> = ({
   profileName,
   imgSrc,
   chatId,
+  chatType,
 }) => {
   const subData = queryClient.getQueryData<any>([
     "chat",
-    "GROUP",
+    chatType,
     chatId?.toString(),
     "subs",
   ]);
 
   const chatData = queryClient.getQueryData<{ data: ChatTypes }>([
     "chat",
-    "GROUP",
+    chatType,
     chatId?.toString(),
   ]);
 
@@ -37,31 +40,24 @@ const GroupProfile: React.FC<groupProfileProps> = ({
 
   return (
     <SectionContainer>
-      <div className="flex flex-col h-full">
+      <div className="h-full">
         {/* Profile header and back button */}
-        <SectionHeaderWithEdit withClose title="پروفایل گروه" />
+        <SectionHeaderWithEdit
+          withClose
+          title={`پروفایل ${chatType === "CHANNEL" ? "کانال" : "گروه"}`}
+        />
         {/* Show even profile image or solid color */}
         {/* Also add a gradient to show profile name and subscribers */}
-        <div className="relative h-[600px]">
+        <div className="w-[300px] h-[300px] rounded-full m-auto overflow-hidden mb-4 mt-8">
           {imgSrc ? (
             <img
               src={imgSrc}
               alt="عکس پروفایل"
-              className="w-full h-full object-cover "
+              className="w-full h-full object-cover rounded-full"
             />
           ) : (
             <ProfileColor name={profileName} />
           )}
-          <div className="absolute bottom-0 w-full bg-gradient-to-b from-transparent dark:to-slate-700 to-white h-[80px] px-4 py-4 flex justify-between">
-            <div>
-              <Paragraph size="xl" className="select-none">
-                {profileName}
-              </Paragraph>
-              <Paragraph size="sm" className="select-none">
-                {subs.length} عضو
-              </Paragraph>
-            </div>
-          </div>
         </div>
         <div className="py-3 flex flex-col gap-2">
           <div className="gap-2 px-3">
@@ -72,8 +68,13 @@ const GroupProfile: React.FC<groupProfileProps> = ({
               <Paragraph size="sm" className="">
                 دسترسی‌ها‌:
               </Paragraph>
-              {chatData?.data.permissions.includes("ADMIN") ? (
-                <div className="flex gap-2 bg-red-200 rounded-xl px-2 justify-center items-center">
+              {chatData?.data.permissions.length === 0 ? (
+                <div className="flex gap-2 bg-blue-200 rounded-xl px-2 justify-center items-center">
+                  <AiOutlineEye />
+                  عمومی
+                </div>
+              ) : chatData?.data.permissions.includes("ADMIN") ? (
+                <div className="flex gap-2 bg-green-200 rounded-xl px-2 justify-center items-center">
                   <GrUserAdmin />
                   ادمین
                 </div>
@@ -109,7 +110,6 @@ const GroupProfile: React.FC<groupProfileProps> = ({
               )}
             </div>
           </div>
-          {/* <div className="bg-secondary h-2 w-full rounded-b"></div> */}
         </div>
         <div className="h-full overflow-y-auto custom-scrollbar">
           {subs &&
@@ -127,4 +127,28 @@ const GroupProfile: React.FC<groupProfileProps> = ({
   );
 };
 
-export default GroupProfile;
+export default ChatProfile;
+
+{
+  /* <div className="relative h-[300px] bg-green-300 rounded-full">
+{imgSrc ? (
+  <img
+    src={imgSrc}
+    alt="عکس پروفایل"
+    className="w-full h-full object-cover rounded-full"
+  />
+) : (
+  <ProfileColor name={profileName} />
+)}
+<div className="absolute bottom-0 w-full bg-gradient-to-b from-transparent dark:to-slate-700 to-white h-[80px] px-4 py-4 flex justify-between">
+  <div>
+    <Paragraph size="xl" className="select-none">
+      {profileName}
+    </Paragraph>
+    <Paragraph size="sm" className="select-none">
+      {subs.length} عضو
+    </Paragraph>
+  </div>
+</div>
+</div> */
+}
