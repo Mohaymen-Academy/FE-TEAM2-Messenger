@@ -5,10 +5,12 @@ import ProfileUploader from "../wrappers/FileUploader";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { sendPicture, updateInfo } from "@/services/api/user";
 import useToastify from "@/hooks/useTostify";
 import { useMutation } from "react-query";
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -70,9 +72,21 @@ const Register = () => {
 
       const imageUrl = URL.createObjectURL(file);
       setPictureUrl(imageUrl);
+       setShowCropperModal(true);
     }
   };
 
+    const cropperRef = useRef(null);
+
+    const cropImage = () => {
+      if (typeof cropperRef.current.getCroppedCanvas() === "undefined") {
+        return;
+      }
+      const croppedImageBase64 = cropperRef.current
+        .getCroppedCanvas()
+        .toDataURL();
+      // Now you can use this croppedImageBase64 as needed.
+    };
   return (
     <div className="dark flex flex-col items-center bg-primary p-8 rounded-2xl">
       <ProfileUploader
@@ -82,6 +96,13 @@ const Register = () => {
         accept="image/*"
         imageSelectHandler={imageSelectHandler}
       />
+      {pictureUrl && (
+        <Cropper
+          className="aspect-square w-[100%] h-[270px] mt-2"
+          ref={cropperRef}
+          src={pictureUrl}
+        />
+      )}
 
       <div className="grid grid-cols-1 xs:grid-cols-2 xs:gap-5 my-6">
         <FloatingLabelInput
@@ -105,6 +126,7 @@ const Register = () => {
         onClick={handleSubmit(onSubmit)}
         className="w-full"
       >
+        <span className="sr-only">تایید</span>
         تایید
       </Button>
     </div>

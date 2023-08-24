@@ -90,6 +90,7 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ contactsData }) => {
           variant="ghost"
           className="w-12 h-12 "
         >
+          <span className="sr-only">بازگشت به منوی قبل</span>
           <BsArrowRight className="icon-button" size={25} />
         </Button>
         <div className="w-full">

@@ -26,7 +26,6 @@ const LogOutModal = () => {
     dispatch(onClose());
   };
   const body = (
-
     <div className="bg-primary w-50% md:w-[40%] py-5 px-8 rounded-xl">
       <Paragraph className="mb-6 text-center">
         آیا از خروج مطمئن هستید؟
@@ -36,6 +35,7 @@ const LogOutModal = () => {
           onClick={onSubmit}
           className="w-full  transition-all duration-200 hover:bg-red-500 !bg-btn-danger dark:hover:bg-red-600 !text-white"
         >
+          <span className="sr-only">بله</span>
           بله
         </Button>
 
@@ -43,6 +43,7 @@ const LogOutModal = () => {
           onClick={() => dispatch(onClose())}
           className="w-full transition-all duration-200"
         >
+          <span className="sr-only">خیر</span>
           خیر
         </Button>
       </div>

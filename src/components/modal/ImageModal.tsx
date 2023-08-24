@@ -21,16 +21,18 @@ const ImageModal = () => {
           variant="ghost"
           className="p-3 hover:bg-slate-400/20"
         >
+          <span className="sr-only">بستن این صفحه</span>
           <RxCross1 className="text-white" size={30} />
         </Button>
       </div>
       <div className="w-[20%]">
-        <img className="" src={img} alt="" />
+        <img className="" src={img} alt="ImageModal" />
       </div>
 
       <div className="w-full">
         <Button variant="ghost" className="p-3 hover:bg-slate-400/20">
           <BsDownload className="text-white" size={30} />
+          <span className="sr-only">دانلود عکس</span>
         </Button>
       </div>
     </div>

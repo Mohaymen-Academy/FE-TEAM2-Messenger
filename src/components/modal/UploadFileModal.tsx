@@ -44,12 +44,14 @@ const UploadFileModal: React.FC<UploadFileModalType> = ({
             onClick={onSubmit}
             className="w-full  transition-all duration-200 hover:bg-red-500 !bg-btn-danger dark:hover:bg-red-600 !text-white"
           >
+            <span className="sr-only">ارسال</span>
             ارسال
           </Button>
           <Button
             onClick={() => dispatch(onClose())}
             className="w-full transition-all duration-200"
           >
+            <span className="sr-only">انصراف</span>
             انصراف
           </Button>
         </div>
