@@ -1,7 +1,7 @@
 FROM node:18-alpine as build
 WORKDIR /app
 COPY . .
-RUN npm install -g yarn
+# RUN npm install -g yarn
 RUN yarn
 RUN yarn run build
 
