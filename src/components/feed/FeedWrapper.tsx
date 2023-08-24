@@ -3,12 +3,10 @@ import MessageInput from "./messages/archive/MessageInput";
 import Messages from "./messages/archive/Messages";
 import SwipeWrapper from "@/components/ui/SwipeWrapper";
 import { useSelector } from "react-redux";
-import { ChatTypes, StoreStateTypes } from "@/utils/types";
+import { StoreStateTypes } from "@/utils/types";
 import patternLight from "../../assets/img/bgPatternLight.png";
 import patternDark from "../../assets/img/bgPatternDark.png";
 import Header from "./Header";
-import { queryClient } from "@/providers/queryClientProvider";
-import { store } from "@/redux/store";
 interface FeedWrapperProps {
   feedShowCriteria?: string;
 }

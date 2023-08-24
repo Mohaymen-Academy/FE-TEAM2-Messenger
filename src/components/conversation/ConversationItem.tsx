@@ -3,7 +3,7 @@ import Paragraph from "../ui/Paragraph";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import Avatar from "../ui/Avatar";
 import UnreadMessages from "./components/UnreadMesseges";
-import { ConversationTypes, UserTypes, subTypes } from "@/utils/types";
+import { ConversationTypes, UserTypes } from "@/utils/types";
 import HoverWrapper from "../wrappers/HoverWrapper";
 import { useEffect } from "react";
 import { getChat, getMessages } from "@/services/api/chat";
