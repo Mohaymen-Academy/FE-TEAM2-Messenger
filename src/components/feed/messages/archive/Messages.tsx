@@ -29,6 +29,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
     (store: StoreStateTypes) => store.conversation.selectedConversation
   );
   const scrollDivRef = useRef<HTMLDivElement>(null);
+  const messageDivRef = useRef<HTMLDivElement>(null);
 
   const theme = useSelector((store: StoreStateTypes) => store.app.theme);
 
@@ -79,7 +80,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
 
         return { floor, ceil };
       },
-      staleTime: 360000,
+      staleTime: 1000,
       refetchInterval: 1000,
       onSuccess: () => {
         queryClient.refetchQueries([
@@ -127,7 +128,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
   //create final array of messages filter the cached messages and replace with real data if message sent successfully
   const toRenderMessages = useMemo(() => {
     if (!messagesTexts || !messagesIds) return [];
-    if (!selectedConversation) return;
+    if (!selectedConversation) return [];
 
     return editedMessages.filter((msg) => {
       if (messagesTexts.includes(msg.text)) {
@@ -148,18 +149,26 @@ const Messages: React.FC<MessagesProps> = ({}) => {
   }, [editedMessages, messagesTexts, messagesIds, selectedConversation]);
 
   useEffect(() => {
+    if (Math.abs(messageDivRef.current!.scrollTop) > 1000) {
+      return;
+    }
     scrollDivRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [optimisticCache?.length]);
+  }, [toRenderMessages[0]?.messageId]);
 
   useEffect(() => {
     setLastMessageSeen(messagesIds[0]);
   }, [selectedConversation, messagesIds[0]]);
 
+  useEffect(() => {
+    messageDivRef.current?.scrollTo({ top: 0 });
+  }, [selectedConversation]);
+
   return (
     <div className="flex flex-col h-full justify-end overflow-hidden">
       <div
+        ref={messageDivRef}
         className={clsx(
-          "flex flex-col-reverse overflow-auto h-full px-2 lg:px-[5%] xl:px-[10%] custom-scrollbar transition-[padding]",
+          "flex flex-col-reverse overflow-y-auto h-full px-2 lg:px-[5%] xl:px-[10%] custom-scrollbar transition-[padding]",
           { "xl:!px-2": profileShow }
         )}
       >

@@ -7,7 +7,7 @@ import GroupProfile from "./GroupProfile";
 import ChannelProfile from "./ChannelProfile";
 
 const ProfileWrapper: React.FC = () => {
-  const { profileType, conversationId, imageUrl } = useSelector(
+  const { profileType, conversationId, imageUrl, userId } = useSelector(
     (store: StoreStateTypes) => store.app.selectedProfile
   );
   const show = useSelector((store: StoreStateTypes) => store.profile.show);
@@ -30,7 +30,11 @@ const ProfileWrapper: React.FC = () => {
         <CurrentUserProfile imgSrc={imageUrl} profileName={profileName} />
       )}
       {profileType === "PV" && (
-        <UserProfile imgSrc={imageUrl} profileName={profileName} />
+        <UserProfile
+          userId={userId}
+          imgSrc={imageUrl}
+          profileName={profileName}
+        />
       )}
       {profileType === "GROUP" && (
         <GroupProfile

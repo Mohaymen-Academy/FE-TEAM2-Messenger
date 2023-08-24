@@ -3,7 +3,7 @@ import Paragraph from "../ui/Paragraph";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import Avatar from "../ui/Avatar";
 import UnreadMessages from "./components/UnreadMesseges";
-import { ConversationTypes } from "@/utils/types";
+import { ConversationTypes, UserTypes, subTypes } from "@/utils/types";
 import HoverWrapper from "../wrappers/HoverWrapper";
 import { useEffect } from "react";
 import { getChat, getMessages } from "@/services/api/chat";
@@ -36,20 +36,27 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   const dispatch = useDispatch();
   const conversationLastMessage = conversation.lastMessage || "No messages yet";
 
+  const currentUserId = queryClient.getQueryData<{ data: UserTypes }>([
+    "user",
+    "current",
+  ])?.data?.userId;
+
+  const subs = queryClient.getQueryData<{ data: subTypes[] }>([
+    "chat",
+    conversation.chatType,
+    conversation.chatId.toString(),
+    "subs",
+  ]);
+
+  const otherUserId = subs?.data.find(
+    (subs) => subs.userId !== currentUserId
+  )?.userId;
+
+  //get chat image blob from query cache
   const chatImageLocalSrc = queryClient.getQueryData<{ data: Blob }>([
     "binary",
-    //@ts-ignore
     conversation?.media?.filePath?.split("/").at(-1),
   ])?.data;
-
-  // const lastMessage = queryClient.getQueryData<{ pages: MessageTypes[][] }>([
-  //   "user",
-  //   "current",
-  //   "conversations",
-  //   conversation.chatId.toString(),
-  // ]);
-
-  // console.log(lastMessage?.pages[0][0]);
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
@@ -71,12 +78,10 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
             imageUrl:
               chatImageLocalSrc && URL.createObjectURL(chatImageLocalSrc),
             profileType: conversation.chatType,
+            userId: otherUserId,
           },
         })
       );
-
-      //remove unseen notification by requesting the server
-      // apiCall.
     } else if (event.type === "contextmenu") {
       event.preventDefault();
     }
@@ -132,6 +137,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
             avatarType="CHAT"
             isConversationList={true}
             imgSrc={conversation.media?.filePath}
+            userId={otherUserId}
           />
         </div>
         <div className="w-full">

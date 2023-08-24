@@ -1,6 +1,6 @@
 import React from "react";
 import SectionContainer from "./components/SectionContainer";
-import SectionHeader from "./components/SectionHeader";
+import { SectionHeaderWithEdit } from "./components/SectionHeader";
 import { Paragraph } from "../ui";
 import { queryClient } from "@/providers/queryClientProvider";
 import ProfileItemWithIcon from "./components/ProfileItemWithIcon";
@@ -20,10 +20,12 @@ const CurrentUserProfile: React.FC<currentUserProfile> = ({
   imgSrc,
   profileName,
 }) => {
-  const currentUser = queryClient.getQueryData<{ data: UserTypes }>([
+  const currentUserData = queryClient.getQueryData<{ data: UserTypes }>([
     "user",
     "current",
   ]);
+
+  const currentUser = currentUserData?.data;
 
   const [_, copyToClipboard] = useCopyToClipboard();
 
@@ -35,11 +37,13 @@ const CurrentUserProfile: React.FC<currentUserProfile> = ({
     tostify.info("نام کاربری کپی شد.");
   };
 
+  console.log(currentUser);
+
   if (!currentUser) return null;
 
   return (
     <SectionContainer>
-      <SectionHeader title="پروفایل کاربر" withClose={true} />
+      <SectionHeaderWithEdit title="پروفایل کاربر" withClose={true} />
 
       <div className="relative h-[40vh] max-h-[400px] bg-green-300">
         {imgSrc ? (
@@ -61,31 +65,24 @@ const CurrentUserProfile: React.FC<currentUserProfile> = ({
       <div className="p-4 gap-2 flex flex-col overflow-y-auto">
         <ProfileItemWithIcon
           icon={<TbCameraPlus size={24} className="text-primary ml-4" />}
-          title="افزودن عکس پروفایل"
+          title="تغییر عکس پروفایل"
         />
 
         <ProfileItemWithIcon
           icon={<TbPhone size={24} className="text-primary ml-4" />}
-          title={currentUser.data.phoneNumber}
+          title={currentUser.phoneNumber}
         />
 
         <ProfileItemWithIcon
           icon={<FiAtSign size={24} className="text-primary ml-4" />}
-          title={currentUser?.data.userName}
-          onClick={() => handleCopy(currentUser?.data.userName)}
+          title={currentUser.userName ? currentUser.userName : "-"}
+          onClick={() => handleCopy(currentUser.userName)}
         />
 
         <ProfileItemWithIcon
           icon={<span className="text-primary ml-4 font-bold">BIO</span>}
-          title={currentUser?.data.bio}
+          title={currentUser.bio ? currentUser.bio : "-"}
         />
-
-        {/* <div>
-          <Paragraph className="break-all"></Paragraph>
-          <Paragraph size="xs" className="text-secondary font-bold">
-            تلفن
-          </Paragraph>
-        </div> */}
       </div>
     </SectionContainer>
   );

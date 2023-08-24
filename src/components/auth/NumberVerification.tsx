@@ -34,6 +34,7 @@ const NumberVerification = () => {
       { code, phoneNumber },
       {
         onSuccess(data, _, __) {
+          console.log(data.data);
           const { registered, access_token, refresh_token, user } = data.data;
           queryClient.setQueryData([{ user: "current" }], user);
           dispatch(setUser(user));
