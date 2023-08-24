@@ -2,19 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Paragraph } from "../ui";
 import Modal from "./ParentModal";
 import { StoreStateTypes } from "@/utils/types";
-import { onClose } from "@/redux/Slices/modal/logOutModalSlice";
+import { onSignOutClose } from "@/redux/Slices/modalSlice";
 import { useNavigate } from "react-router-dom";
 import { emptyUser } from "@/redux/Slices/userSlice";
-import ParentModal from "./ParentModal";
-import img from "@/assets/img/avatar.jpg";
-import { RxCross1 } from "react-icons/rx";
-import { BsDownload } from "react-icons/bs";
-
-
 
 const LogOutModal = () => {
   const isOpen = useSelector(
-    (store: StoreStateTypes) => store.logOutModal.isOpen
+    (store: StoreStateTypes) => store.modal.isSignOutOpen
   );
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,7 +17,7 @@ const LogOutModal = () => {
     navigate("/auth/sign-in");
     window.localStorage.removeItem("access_token");
     window.localStorage.removeItem("refresh_token");
-    dispatch(onClose());
+    dispatch(onSignOutClose());
   };
   const body = (
     <div className="bg-primary w-50% md:w-[40%] py-5 px-8 rounded-xl">
@@ -40,7 +34,7 @@ const LogOutModal = () => {
         </Button>
 
         <Button
-          onClick={() => dispatch(onClose())}
+          onClick={() => dispatch(onSignOutClose())}
           className="w-full transition-all duration-200"
         >
           <span className="sr-only">خیر</span>
@@ -57,7 +51,7 @@ const LogOutModal = () => {
       actionLabel="تایید"
       secondaryActionLabel="خروج"
       isOpen={isOpen}
-      onClose={() => dispatch(onClose())}
+      onClose={() => dispatch(onSignOutClose())}
     />
   );
 };
@@ -67,24 +61,3 @@ const LogOutModal = () => {
 // };
 
 export default LogOutModal;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-

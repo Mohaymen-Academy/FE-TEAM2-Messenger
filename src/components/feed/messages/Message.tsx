@@ -82,6 +82,7 @@ const Message: React.FC<MessageComponent> = ({
         );
         setShowContextMenu(true);
       }}
+      onClick={() => console.log(message)}
     >
       {showContextMenu && sentByCurrentUser && (
         <div

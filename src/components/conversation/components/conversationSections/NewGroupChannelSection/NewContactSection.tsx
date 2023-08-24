@@ -33,7 +33,7 @@ const NewContactSection: React.FC<newContactSectionProps> = ({}) => {
     },
   });
 
-  const handleKeyDown = (e, field) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (
       !(
         (e.key >= "0" && e.key <= "9") ||
@@ -89,14 +89,14 @@ const NewContactSection: React.FC<newContactSectionProps> = ({}) => {
               required: true,
               pattern: /^\d+$/,
             }}
-            render={({ field }) => (
+            render={() => (
               <FloatingLabelInput
                 type="tel"
                 label="تلفن همراه"
                 required
                 register={register}
                 formId="phoneNumber"
-                onKeyDown={(e) => handleKeyDown(e, field)}
+                onKeyDown={(e) => handleKeyDown(e)}
               />
             )}
           />

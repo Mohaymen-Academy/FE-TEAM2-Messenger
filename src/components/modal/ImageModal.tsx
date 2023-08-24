@@ -1,50 +1,65 @@
-import React from "react";
 import Modal from "./ParentModal";
 import { Button } from "../ui";
 import { RxCross1 } from "react-icons/rx";
 import { BsDownload } from "react-icons/bs";
-import { onClose } from "@/redux/Slices/modal/logOutModalSlice";
-import img from "@/assets/img/avatar.jpg";
+import { onMediaClose } from "@/redux/Slices/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 
 const ImageModal = () => {
   const isOpen = useSelector(
-    (store: StoreStateTypes) => store.logOutModal.isOpen
+    (store: StoreStateTypes) => store.modal.isMediaOpen
+  );
+  const imageUrl = useSelector(
+    (store: StoreStateTypes) => store.modal.mediaUrl
   );
   const dispatch = useDispatch();
   const body = (
-    <div className="w-full flex flex-col self-center gap-8 items-center my-auto">
-      <div className="w-full">
+    <div className="w-full flex flex-col items-center justify-center h-[90vh]">
+      <div className="flex absolute gap-2 top-0 right-4">
         <Button
-          onClick={() => dispatch(onClose())}
+          onClick={() => dispatch(onMediaClose())}
           variant="ghost"
-          className="p-3 hover:bg-slate-400/20"
+          className="p-5 py-9 hover:bg-slate-400/20"
         >
-          <span className="sr-only">بستن این صفحه</span>
-          <RxCross1 className="text-white" size={30} />
+          <RxCross1 className="text-white" size={40} />
         </Button>
-      </div>
-      <div className="w-[20%]">
-        <img className="" src={img} alt="ImageModal" />
+        <Button
+          onClick={() => {
+            const linkElement = document.createElement("a");
+            linkElement.href = imageUrl.url;
+            linkElement.setAttribute("download", imageUrl.name);
+
+            linkElement.style.display = "none";
+            document.body.appendChild(linkElement);
+
+            linkElement.click();
+
+            document.body.removeChild(linkElement);
+          }}
+          variant="ghost"
+          className="p-5 py-9 hover:bg-slate-400/20"
+        >
+          <BsDownload className="text-white" size={40} />
+        </Button>
       </div>
 
-      <div className="w-full">
-        <Button variant="ghost" className="p-3 hover:bg-slate-400/20">
-          <BsDownload className="text-white" size={30} />
-          <span className="sr-only">دانلود عکس</span>
-        </Button>
-      </div>
+      {!!imageUrl.url.length && (
+        <div className=" rounded-lg max-h-[80vh] overflow-hidden shadow-lg ">
+          <img className="w-full h-full" src={imageUrl.url} alt="عکس مودال" />
+        </div>
+      )}
     </div>
   );
 
   return (
     <Modal
+      onSubmit={() => {}}
       body={body}
       actionLabel="تایید"
       secondaryActionLabel="خروج"
       isOpen={isOpen}
-      onClose={() => dispatch(onClose())}
+      onClose={() => dispatch(onMediaClose())}
     />
   );
 };

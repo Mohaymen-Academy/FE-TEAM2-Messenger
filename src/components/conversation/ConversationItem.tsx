@@ -10,8 +10,6 @@ import { getChat, getMessages } from "@/services/api/chat";
 import { queryClient } from "@/providers/queryClientProvider";
 import { useDispatch } from "react-redux";
 import { setSelectedConversation } from "@/redux/Slices/conversationSlice";
-import parse from "html-react-parser";
-
 import { formatDateDifference } from "@/utils/fromatDate";
 import { MESSAGE_PER_PAGE } from "@/utils/constants";
 import { getSubs } from "@/services/api/subs";
@@ -40,8 +38,18 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
 
   const chatImageLocalSrc = queryClient.getQueryData<{ data: Blob }>([
     "binary",
+    //@ts-ignore
     conversation?.media?.filePath?.split("/").at(-1),
   ])?.data;
+
+  // const lastMessage = queryClient.getQueryData<{ pages: MessageTypes[][] }>([
+  //   "user",
+  //   "current",
+  //   "conversations",
+  //   conversation.chatId.toString(),
+  // ]);
+
+  // console.log(lastMessage?.pages[0][0]);
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
@@ -66,6 +74,9 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
           },
         })
       );
+
+      //remove unseen notification by requesting the server
+      // apiCall.
     } else if (event.type === "contextmenu") {
       event.preventDefault();
     }

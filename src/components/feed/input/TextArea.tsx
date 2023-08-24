@@ -20,7 +20,7 @@ import { sendMessage } from "@/services/api/chat";
 import { queryClient } from "@/providers/queryClientProvider";
 import { v4 as uuidv4 } from "uuid";
 import UploadFileModal from "@/components/modal/UploadFileModal";
-import { onClose, onOpen } from "@/redux/Slices/modal/UploadModalSlice";
+import { onUploadClose, onUploadOpen } from "@/redux/Slices/modalSlice";
 import {
   // deleteOptimisticCache,
   setOptimisticCache,
@@ -123,23 +123,7 @@ const TextArea = () => {
           prevCache: optimisticCache,
         })
       );
-
-      return optimisticData; // This value will be passed to onSettled
     },
-    // onSettled: (_, __, ___, context) => {
-    //   if (!context) return;
-    //   if (!selectedConversation) return;
-
-    //   //delete optimistic message from redux on if success or error
-    //   // dispatch(
-    //   //   deleteOptimisticCache({
-    //   //     chatId: selectedConversation,
-    //   //     messageId: context.messageId,
-    //   //     prevCache: optimisticCache,
-    //   //   })
-    //   // );
-    // },
-    onError: (error) => {},
   });
 
   const clearMessage = (editor: BaseEditor & ReactEditor) => {
@@ -172,7 +156,7 @@ const TextArea = () => {
 
     sendMessageMutate(fileSendFormData);
 
-    dispatch(onClose());
+    dispatch(onUploadClose());
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -201,7 +185,7 @@ const TextArea = () => {
       format: selectedFileFormat,
       url: selectedFileUrl,
     });
-    dispatch(onOpen());
+    dispatch(onUploadOpen());
   };
 
   return (

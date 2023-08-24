@@ -62,7 +62,7 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ contactsData }) => {
         title: cont.firstName,
       },
       {
-        onError: (error) => {
+        onError: () => {
           toastify.error("ساخت چت با مشکل مواجه شد");
         },
         onSettled: () => {

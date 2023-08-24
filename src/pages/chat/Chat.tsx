@@ -16,7 +16,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import useViewportWidth from "@/hooks/useViewportWidth";
 import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
 import ProfileWrapper from "@/components/profile/ProfileWrapper";
-import LogOutModal from "@/components/modal/LogOutModal";
 import { getUser } from "@/services/api/user";
 import { queryClient } from "@/providers/queryClientProvider";
 
@@ -91,7 +90,6 @@ const Chat = () => {
 
   return (
     <>
-      <LogOutModal />
       <div
         onClick={onChatClickHandler}
         className="flex transition-all m-auto rounded-none flex-col relative max-w-[1920px] bg-repeat h-full overflow-hidden"

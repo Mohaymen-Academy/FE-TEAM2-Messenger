@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../ui";
 import Modal from "./ParentModal";
 import { StoreStateTypes } from "@/utils/types";
-import { onClose } from "@/redux/Slices/modal/UploadModalSlice";
+import { onUploadClose } from "@/redux/Slices/modalSlice";
 import FloatingLabelInput from "../auth/input/FloatingLabelInput";
 
 interface UploadFileModalType {
@@ -22,12 +22,12 @@ const UploadFileModal: React.FC<UploadFileModalType> = ({
 }) => {
   const dispatch = useDispatch();
   const isOpen = useSelector(
-    (store: StoreStateTypes) => store.uploadModal.isOpen
+    (store: StoreStateTypes) => store.modal.isUploadOpen
   );
 
   const body = (
     <>
-      <div className="bg-primary w-[60vw] py-5 px-8 rounded-xl max-h-[100%] overflow-y-auto flex flex-col ">
+      <div className="bg-primary w-full sm:w-[400px] md:w-[500px] lg:w-[600px]  py-5 px-8 rounded-xl max-h-[100%] overflow-y-auto flex flex-col ">
         <div className="mb-6 rounded-xl overflow-hidden">
           {fileType?.type === "file" && "FILE"}
           {fileType?.type === "video" && <video src={fileType?.url} controls />}
@@ -48,7 +48,7 @@ const UploadFileModal: React.FC<UploadFileModalType> = ({
             ارسال
           </Button>
           <Button
-            onClick={() => dispatch(onClose())}
+            onClick={() => dispatch(onUploadClose())}
             className="w-full transition-all duration-200"
           >
             <span className="sr-only">انصراف</span>
@@ -66,7 +66,7 @@ const UploadFileModal: React.FC<UploadFileModalType> = ({
       actionLabel="تایید"
       secondaryActionLabel="خروج"
       isOpen={isOpen}
-      onClose={() => dispatch(onClose())}
+      onClose={() => dispatch(onUploadClose())}
     />
   );
 };
