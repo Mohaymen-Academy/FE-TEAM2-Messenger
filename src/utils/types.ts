@@ -4,9 +4,8 @@ import {
   profileSliceType,
   messageSliceType,
   userSliceType,
-  logOutModalSliceType,
   textAreaSliceType,
-  UploadModalSliceType,
+  ModalSliceType,
 } from "@/redux/Slices";
 
 export type StoreStateTypes = {
@@ -15,9 +14,8 @@ export type StoreStateTypes = {
   message: messageSliceType;
   profile: profileSliceType;
   user: userSliceType;
-  logOutModal: logOutModalSliceType;
-  uploadModal: UploadModalSliceType;
   textArea: textAreaSliceType;
+  modal: ModalSliceType;
 };
 
 export type UserTypes = {

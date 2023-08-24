@@ -91,7 +91,6 @@ const Chat = () => {
 
   return (
     <>
-      <LogOutModal />
       <div
         onClick={onChatClickHandler}
         className="flex transition-all m-auto rounded-none flex-col relative max-w-[1920px] bg-repeat h-full overflow-hidden"

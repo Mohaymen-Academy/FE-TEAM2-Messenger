@@ -11,7 +11,7 @@ import { BiMoon, BiSun } from "react-icons/bi";
 import { setFileterBy } from "@/redux/Slices/appSlice";
 import { merge } from "@/utils/merge";
 import { toggleTheme } from "@/redux/Slices/appSlice";
-import { onOpen } from "@/redux/Slices/modal/logOutModalSlice";
+import { onSignOutOpen } from "@/redux/Slices/modalSlice";
 import { queryClient } from "@/providers/queryClientProvider";
 import { useQuery } from "react-query";
 import { getUserProfile } from "@/services/api/user";
@@ -27,7 +27,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
   };
 
   const onLogOutClickHandler = () => {
-    dispatch(onOpen());
+    dispatch(onSignOutOpen());
   };
 
   const handleToggleFilter = (filter: "PV" | "GROUP" | "CHANNEL") => {

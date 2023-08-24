@@ -14,6 +14,8 @@ import { useEffect, useMemo, useRef } from "react";
 import { deleteOptimisticCache } from "@/redux/Slices/messageSlice";
 import Media from "../Media";
 import { setHeaderReRender } from "@/redux/Slices/appSlice";
+import apiCall from "@/services/axiosInstance";
+import { setLastMessageSeen } from "@/services/api/subs";
 
 interface MessagesProps {
   userId: string;
@@ -150,6 +152,10 @@ const Messages: React.FC<MessagesProps> = ({}) => {
     scrollDivRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [optimisticCache?.length]);
 
+  useEffect(() => {
+    setLastMessageSeen(messagesIds[0]);
+  }, [selectedConversation, messagesIds[0]]);
+
   return (
     <div className="flex flex-col h-full justify-end overflow-hidden">
       <div
@@ -182,6 +188,7 @@ const Messages: React.FC<MessagesProps> = ({}) => {
                     <Media
                       mediaType={msg.media.fileMimeType}
                       src={msg.media.filePath}
+                      name={msg.media.fileName}
                     />
                   )}
 

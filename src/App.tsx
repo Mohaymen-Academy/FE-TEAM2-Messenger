@@ -12,11 +12,16 @@ import "react-toastify/dist/ReactToastify.css";
 import Playground from "./pages/playground";
 import ProtectedRoutes from "./pages/protected/ProtectedRoutes";
 import FinalSkeleton from "./components/skeletonTest/FinalSkeleton";
+import ImageModal from "./components/modal/ImageModal";
+import LogOutModal from "./components/modal/LogOutModal";
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
 
   return (
     <div className={`${theme} h-full`}>
+      <ImageModal />
+      <LogOutModal />
+      
       <Routes>
         <Route
           path=""

@@ -3,7 +3,7 @@ import Paragraph from "../ui/Paragraph";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import Avatar from "../ui/Avatar";
 import UnreadMessages from "./components/UnreadMesseges";
-import { ConversationTypes } from "@/utils/types";
+import { ConversationTypes, MessageTypes } from "@/utils/types";
 import HoverWrapper from "../wrappers/HoverWrapper";
 import { useEffect } from "react";
 import { getChat, getMessages } from "@/services/api/chat";
@@ -15,6 +15,7 @@ import { MESSAGE_PER_PAGE } from "@/utils/constants";
 import { getSubs } from "@/services/api/subs";
 import { setSelectedProfile } from "@/redux/Slices/appSlice";
 import { deleteHtmlTags } from "../editor/serializer";
+import apiCall from "@/services/axiosInstance";
 
 interface ConversationItemProps {
   conversation: ConversationTypes;
@@ -41,6 +42,15 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     conversation?.media?.filePath?.split("/").at(-1),
   ])?.data;
 
+  // const lastMessage = queryClient.getQueryData<{ pages: MessageTypes[][] }>([
+  //   "user",
+  //   "current",
+  //   "conversations",
+  //   conversation.chatId.toString(),
+  // ]);
+
+  // console.log(lastMessage?.pages[0][0]);
+
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
       //change url search params to selected conversationId
@@ -64,6 +74,9 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
           },
         })
       );
+
+      //remove unseen notification by requesting the server
+      // apiCall.
     } else if (event.type === "contextmenu") {
       event.preventDefault();
     }

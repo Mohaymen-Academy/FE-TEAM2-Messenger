@@ -20,7 +20,7 @@ import { sendMessage } from "@/services/api/chat";
 import { queryClient } from "@/providers/queryClientProvider";
 import { v4 as uuidv4 } from "uuid";
 import UploadFileModal from "@/components/modal/UploadFileModal";
-import { onClose, onOpen } from "@/redux/Slices/modal/UploadModalSlice";
+import { onUploadClose, onUploadOpen } from "@/redux/Slices/modalSlice";
 import {
   // deleteOptimisticCache,
   setOptimisticCache,
@@ -156,7 +156,7 @@ const TextArea = () => {
 
     sendMessageMutate(fileSendFormData);
 
-    dispatch(onClose());
+    dispatch(onUploadClose());
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -185,7 +185,7 @@ const TextArea = () => {
       format: selectedFileFormat,
       url: selectedFileUrl,
     });
-    dispatch(onOpen());
+    dispatch(onUploadOpen());
   };
 
   return (

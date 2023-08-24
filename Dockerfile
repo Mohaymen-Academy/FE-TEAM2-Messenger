@@ -1,8 +1,9 @@
 FROM node:18-alpine as build
 WORKDIR /app
 COPY . .
-RUN npm install
-RUN npm run build
+RUN npm install -g pnpm
+RUN pnpm install
+RUN pnpm run build
 
 FROM nginx:alpine
 
