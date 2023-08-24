@@ -40,6 +40,7 @@ const UserSelect: React.FC<UserSelect> = ({
             variant="ghost"
             className="w-12 h-12 "
           >
+            <span className="sr-only">بازگشت به منوی قبل</span>
             <BsArrowRight size={25} />
           </Button>
           <div className="w-full">

@@ -62,7 +62,7 @@ const Media: React.FC<ImageProps> = ({ src, mediaType, name }) => {
             ref={placeHolderRef as LegacyRef<HTMLDivElement>}
             className="bg-white w-full h-full"
           >
-            <img src={placeHolder} className=" animate-pulse w-full h-full" />
+            <img src={placeHolder} alt="Media" className=" animate-pulse w-full h-full" />
           </div>
         </div>
       )}

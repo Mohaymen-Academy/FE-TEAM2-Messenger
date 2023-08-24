@@ -190,7 +190,7 @@ const TextArea = () => {
 
   return (
     <>
-      <div className="relative flex max-w-full w-full bg-primary px-3 py-2 justify-between items-center gap-2 rounded-lg">
+      <div className="relative flex max-w-full break-all w-full bg-primary px-3 py-2 justify-between items-center gap-2 rounded-lg">
         <Button
           onClick={(e) => {
             e.stopPropagation();
@@ -201,7 +201,7 @@ const TextArea = () => {
           className="dark:hover:bg-slate-800 group"
         >
           <AiOutlinePaperClip className="w-5 h-5 icon-button" />
-          <span className="sr-only">Upload File</span>
+          <span className="sr-only">آپلود فایل</span>
         </Button>
 
         <Button
@@ -214,7 +214,7 @@ const TextArea = () => {
           }}
         >
           <BsEmojiLaughing className="w-5 h-5 icon-button" />
-          <span className="sr-only">Add emoji</span>
+          <span className="sr-only">اضافه کردن ایموجی</span>
         </Button>
 
         <Editor initialValue={initialValue} editor={editor}>

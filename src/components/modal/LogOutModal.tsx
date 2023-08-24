@@ -29,6 +29,7 @@ const LogOutModal = () => {
           onClick={onSubmit}
           className="w-full  transition-all duration-200 hover:bg-red-500 !bg-btn-danger dark:hover:bg-red-600 !text-white"
         >
+          <span className="sr-only">بله</span>
           بله
         </Button>
 
@@ -36,6 +37,7 @@ const LogOutModal = () => {
           onClick={() => dispatch(onSignOutClose())}
           className="w-full transition-all duration-200"
         >
+          <span className="sr-only">خیر</span>
           خیر
         </Button>
       </div>

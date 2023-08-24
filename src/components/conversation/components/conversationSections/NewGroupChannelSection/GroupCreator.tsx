@@ -72,6 +72,7 @@ const GroupCreator: React.FC<GroupCreatorProp> = ({
               onClick={() => onSubmit()}
               className="w-full font-bold text-xl"
             >
+              <span className="sr-only">ساخت گروه</span>
               ساخت گروه
             </Button>
             <Button
@@ -80,6 +81,7 @@ const GroupCreator: React.FC<GroupCreatorProp> = ({
               }
               className="!bg-btn-danger hover:!bg-btn-danger-hover !text-white w-full font-bold text-xl"
             >
+              <span className="sr-only">انصراف</span>
               انصراف
             </Button>
           </div>
