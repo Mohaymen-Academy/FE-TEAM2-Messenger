@@ -16,7 +16,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import useViewportWidth from "@/hooks/useViewportWidth";
 import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
 import ProfileWrapper from "@/components/profile/ProfileWrapper";
-import LogOutModal from "@/components/modal/LogOutModal";
 import { getUser } from "@/services/api/user";
 import { queryClient } from "@/providers/queryClientProvider";
 

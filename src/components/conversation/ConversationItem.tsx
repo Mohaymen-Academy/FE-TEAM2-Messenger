@@ -3,7 +3,7 @@ import Paragraph from "../ui/Paragraph";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import Avatar from "../ui/Avatar";
 import UnreadMessages from "./components/UnreadMesseges";
-import { ConversationTypes, MessageTypes } from "@/utils/types";
+import { ConversationTypes } from "@/utils/types";
 import HoverWrapper from "../wrappers/HoverWrapper";
 import { useEffect } from "react";
 import { getChat, getMessages } from "@/services/api/chat";
@@ -15,7 +15,6 @@ import { MESSAGE_PER_PAGE } from "@/utils/constants";
 import { getSubs } from "@/services/api/subs";
 import { setSelectedProfile } from "@/redux/Slices/appSlice";
 import { deleteHtmlTags } from "../editor/serializer";
-import apiCall from "@/services/axiosInstance";
 
 interface ConversationItemProps {
   conversation: ConversationTypes;
@@ -39,6 +38,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
 
   const chatImageLocalSrc = queryClient.getQueryData<{ data: Blob }>([
     "binary",
+    //@ts-ignore
     conversation?.media?.filePath?.split("/").at(-1),
   ])?.data;
 

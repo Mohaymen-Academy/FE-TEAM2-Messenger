@@ -14,7 +14,6 @@ import { useEffect, useMemo, useRef } from "react";
 import { deleteOptimisticCache } from "@/redux/Slices/messageSlice";
 import Media from "../Media";
 import { setHeaderReRender } from "@/redux/Slices/appSlice";
-import apiCall from "@/services/axiosInstance";
 import { setLastMessageSeen } from "@/services/api/subs";
 
 interface MessagesProps {
