@@ -29,6 +29,7 @@ export default {
       backgroundColor: {
         primary: "var(--bg-primary)",
         secondary: "var(--bg-secondary)",
+        tertiary: "var(--bg-tertiary)",
         online: "var(--bg-online)",
         btn: "var(--bg-btn)",
         "btn-danger": "var(--bg-btn-danger)",
@@ -40,7 +41,6 @@ export default {
         "msg-other": "var(--bg-msg-other)",
         toast: "var(--toastify-toast-background)",
         "skeleton-primary": "var(--bg-skeleton-primary)",
-        
       },
     },
   },

@@ -8,22 +8,41 @@ import { setSection } from "@/redux/Slices/conversationSlice";
 import { AnimatedButton, Avatar, Button } from "../ui";
 import { StoreStateTypes } from "@/utils/types";
 import { BiMoon, BiSun } from "react-icons/bi";
+import { setFileterBy } from "@/redux/Slices/appSlice";
+import { merge } from "@/utils/merge";
 import { toggleTheme } from "@/redux/Slices/appSlice";
-import { emptyUser } from "@/redux/Slices/userSlice";
-import { useNavigate } from "react-router-dom";
 import { onOpen } from "@/redux/Slices/modal/logOutModalSlice";
+import { queryClient } from "@/providers/queryClientProvider";
+import { useQuery } from "react-query";
+import { getUserProfile } from "@/services/api/user";
 
 const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const theme = useSelector((store: StoreStateTypes) => store.app.theme);
+  const { theme, filterBy } = useSelector(
+    (store: StoreStateTypes) => store.app
+  );
+
   const onEditClickHandler = () => {
     dispatch(setSection({ selectedState: "pvCreate" }));
   };
+
   const onLogOutClickHandler = () => {
     dispatch(onOpen());
-   
   };
+
+  const handleToggleFilter = (filter: "PV" | "GROUP" | "CHANNEL") => {
+    dispatch(setFileterBy(filter === filterBy ? undefined : filter));
+  };
+  const currentUserIdFromCache = queryClient.getQueryData<{
+    data: { userId: number };
+  }>(["user", "current"])?.data?.userId;
+
+  const data = useQuery(["user", "current", "profile"], () =>
+    getUserProfile(currentUserIdFromCache)
+  );
+
+  const currentUserProfile = data?.data?.data[0]?.media?.filePath;
+
   return (
     <div
       style={{
@@ -36,13 +55,31 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
     >
       <div className="w-full h-full flex flex-col justify-between items-center overflow-hidden">
         <div className="flex flex-col gap-8 items-center">
-          <Button variant="ghost" className="sidebar-icon-button">
+          <Button
+            variant="ghost"
+            className={merge("sidebar-icon-button", {
+              "bg-tertiary": filterBy === "PV",
+            })}
+            onClick={() => handleToggleFilter("PV")}
+          >
             <BsFillPersonFill className="icon-button" />
           </Button>
-          <Button variant="ghost" className="sidebar-icon-button">
+          <Button
+            variant="ghost"
+            className={merge("sidebar-icon-button", {
+              "bg-tertiary": filterBy === "GROUP",
+            })}
+            onClick={() => handleToggleFilter("GROUP")}
+          >
             <BsFillPeopleFill className="icon-button" />
           </Button>
-          <Button variant="ghost" className="sidebar-icon-button">
+          <Button
+            variant="ghost"
+            className={merge("sidebar-icon-button", {
+              "bg-tertiary": filterBy === "CHANNEL",
+            })}
+            onClick={() => handleToggleFilter("CHANNEL")}
+          >
             <HiSpeakerphone className="icon-button" />
           </Button>
         </div>
@@ -63,7 +100,11 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             isActive={theme === "dark"}
             onClick={() => dispatch(toggleTheme())}
           />
-          <Avatar className="w-8 h-8" isOnline={false} />
+          <Avatar
+            avatarType="USER"
+            imgSrc={currentUserProfile}
+            className="w-8 h-8 md:w-10 md:h-10"
+          />
         </div>
       </div>
     </div>

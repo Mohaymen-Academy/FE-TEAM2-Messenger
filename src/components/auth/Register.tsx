@@ -19,14 +19,12 @@ const Register = () => {
 
   const sendPictureMutation = useMutation(sendPicture, {
     onError: (error) => {
-      console.log(error);
       toastify.error("متاسفانه عکس ذخیره نگردید لطفا مجددا تلاش فرمایید");
     },
   });
 
   const setInfoMutation = useMutation(updateInfo, {
     onError: (error) => {
-      console.log(error);
       toastify.error("اطلاعات دخیره نگردید لطفا مجددا تلاش فرمایید");
     },
   });

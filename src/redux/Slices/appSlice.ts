@@ -1,20 +1,45 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
+export type SearchResult = number[];
 
 export type appSliceType = {
   theme: "light" | "dark";
   showEmoji: boolean;
   showUploadMenu: boolean;
-  selectedProfile: {
-    conversationId: string | undefined;
-    conversationType: "GROUP" | "PV" | "CHANNEL" | undefined;
-  };
+
+  filterBy: "GROUP" | "PV" | "CHANNEL" | SearchResult | undefined;
+  selectedProfile: selectedProfileType;
+  selectedConversation: selectedConversationType;
+  headerReRender: number;
+};
+
+type selectedConversationType = {
+  conversationId?: number;
+  conversationType?: "GROUP" | "PV" | "CHANNEL";
+};
+type selectedProfileType = {
+  conversationId?: number;
+  conversationType?: "GROUP" | "PV" | "CHANNEL";
+  userId?: number;
+  imageUrl?: string;
+  profileType?: "CHANNEL" | "CURRENT_USER" | "PV" | "GROUP";
 };
 
 const initialState: appSliceType = {
   theme: "dark",
   showEmoji: false,
   showUploadMenu: false,
-  selectedProfile: { conversationId: undefined, conversationType: undefined },
+  filterBy: undefined,
+  selectedProfile: {
+    conversationId: undefined,
+    conversationType: undefined,
+    userId: undefined,
+  },
+  selectedConversation: {
+    conversationId: undefined,
+    conversationType: undefined,
+  },
+  headerReRender: Date.now(),
 };
 
 const appSlice = createSlice({
@@ -40,18 +65,31 @@ const appSlice = createSlice({
       state: appSliceType,
       action: {
         payload: {
-          selectedProfile: {
-            conversationId: string | undefined;
-            conversationType: "GROUP" | "PV" | "CHANNEL" | undefined;
-          };
+          selectedProfile: selectedProfileType;
         };
       }
     ) => {
-      state.selectedProfile= action.payload.selectedProfile;
+      state.selectedProfile = action.payload.selectedProfile;
+    },
+    setFileterBy: (
+      state: appSliceType,
+      action: PayloadAction<typeof state.filterBy>
+    ) => {
+      state.filterBy = action.payload;
+    },
+    setHeaderReRender: (state: appSliceType) => {
+      state.headerReRender = Date.now();
     },
   },
 });
 
-export const { toggleTheme, onToggleEmoji, onToggleUpload, setSelectedProfile } = appSlice.actions;
+export const {
+  toggleTheme,
+  onToggleEmoji,
+  onToggleUpload,
+  setSelectedProfile,
+  setFileterBy,
+  setHeaderReRender,
+} = appSlice.actions;
 
 export default appSlice.reducer;

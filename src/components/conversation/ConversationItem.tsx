@@ -2,7 +2,6 @@
 import Paragraph from "../ui/Paragraph";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import Avatar from "../ui/Avatar";
-import test from "../../assets/img/darkBg.svg";
 import UnreadMessages from "./components/UnreadMesseges";
 import { ConversationTypes } from "@/utils/types";
 import HoverWrapper from "../wrappers/HoverWrapper";
@@ -13,16 +12,18 @@ import { useDispatch } from "react-redux";
 import { setSelectedConversation } from "@/redux/Slices/conversationSlice";
 import parse from "html-react-parser";
 
-import { formatDateDifference } from "@/utils/fromatData";
+import { formatDateDifference } from "@/utils/fromatDate";
 import { MESSAGE_PER_PAGE } from "@/utils/constants";
-import { useQuery } from "react-query";
+import { getSubs } from "@/services/api/subs";
+import { setSelectedProfile } from "@/redux/Slices/appSlice";
+import { deleteHtmlTags } from "../editor/serializer";
 
 interface ConversationItemProps {
   conversation: ConversationTypes;
   onClickConversation: () => void;
   onDeleteConversation: () => void;
   isSelected: boolean;
-  unseenMessages?: number;
+  unseenMessages: number;
 }
 
 const ConversationItem: React.FC<ConversationItemProps> = ({
@@ -36,11 +37,11 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const conversationLastMessage = conversation.lastMessage || "No messages yet";
-  // useQuery(["chat", conversation.chatType, conversation.chatId],
-  useQuery(["chat", conversation.chatType, conversation.chatId.toString()], () =>
-    getChat(conversation.chatId)
-  );
 
+  const chatImageLocalSrc = queryClient.getQueryData<{ data: Blob }>([
+    "binary",
+    conversation?.media?.filePath?.split("/").at(-1),
+  ])?.data;
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.type === "click") {
@@ -48,12 +49,23 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       navigate({
         pathname: "/chat",
         search: createSearchParams({
-          conversationId: conversation.chatId as string,
+          conversationId: `${conversation.chatId}`,
         }).toString(),
       });
 
       //save selected conversation data in redux
       dispatch(setSelectedConversation({ conversation }));
+      dispatch(
+        setSelectedProfile({
+          selectedProfile: {
+            conversationId: conversation.chatId,
+            conversationType: conversation.chatType,
+            imageUrl:
+              chatImageLocalSrc && URL.createObjectURL(chatImageLocalSrc),
+            profileType: conversation.chatType,
+          },
+        })
+      );
     } else if (event.type === "contextmenu") {
       event.preventDefault();
     }
@@ -69,15 +81,31 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
       });
       return data.reverse();
     };
-    
-    
 
     //prefetch
     queryClient.prefetchInfiniteQuery({
       queryKey: ["user", "current", "conversations", `${conversation.chatId}`],
       queryFn: preFetchMessages,
+      cacheTime: Infinity,
     });
+
+    queryClient.prefetchQuery(
+      ["chat", conversation.chatType, conversation.chatId.toString()],
+      () => getChat(conversation.chatId),
+      { cacheTime: Infinity }
+    );
+
+    queryClient.prefetchQuery(
+      ["chat", conversation.chatType, conversation.chatId.toString(), "subs"],
+      () => getSubs(conversation.chatId),
+      { cacheTime: Infinity }
+    );
   }, []);
+
+  const sentLastMessageText =
+    formatDateDifference(conversation.sentAt) === "Online"
+      ? "به تازگی"
+      : formatDateDifference(conversation.sentAt);
 
   return (
     <HoverWrapper className="p-0" type={isSelected ? "active" : "inActive"}>
@@ -90,8 +118,9 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
           <Avatar
             chatType={conversation.chatType}
             chatId={conversation.chatId}
+            avatarType="CHAT"
             isConversationList={true}
-            imgSrc={test}
+            imgSrc={conversation.media?.filePath}
           />
         </div>
         <div className="w-full">
@@ -99,23 +128,24 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
             <Paragraph className=" overflow-hidden font-extrabold text-ellipsis dark:!text-white !text-slate-800 ml-2">
               {conversation.title}
             </Paragraph>
-            <Paragraph
-              size={"xs"}
-              className="text-sm text-bg-btn whitespace-nowrap"
-            >
-              {formatDateDifference(conversation.sentAt)}
+            <Paragraph className="!text-[12px] text-bg-btn whitespace-nowrap text-center bg-green-500/20 rounded-full px-2">
+              {sentLastMessageText}
             </Paragraph>
           </div>
 
           <div className="flex justify-between items-center">
             <Paragraph
-              size={"sm"}
-              className="w-[30ch] text-ellipsis overflow-hidden whitespace-nowrap"
+              size={"xs"}
+              className="w-[120px] xs:w-[40vw] md:w-[200px] text-ellipsis overflow-hidden whitespace-nowrap"
             >
-              {parse(conversationLastMessage)}
+              {conversation.chatType === "GROUP" &&
+                conversation.userFirstName &&
+                conversation.userFirstName + ": "}
+              {deleteHtmlTags(conversationLastMessage)}
             </Paragraph>
-            {/* {true && <UnreadMessages unseen={unseenMessages} />} */}
-            {unseenMessages > 0 && <UnreadMessages unseen={unseenMessages} />}
+            {(unseenMessages as number) > 0 && (
+              <UnreadMessages unseen={unseenMessages as number} />
+            )}
           </div>
         </div>
       </div>

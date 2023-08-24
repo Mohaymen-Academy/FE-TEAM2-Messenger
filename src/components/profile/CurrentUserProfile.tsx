@@ -1,7 +1,7 @@
 import React from "react";
 import SectionContainer from "./components/SectionContainer";
 import SectionHeader from "./components/SectionHeader";
-import { Avatar, Paragraph } from "../ui";
+import { Paragraph } from "../ui";
 import { queryClient } from "@/providers/queryClientProvider";
 import ProfileItemWithIcon from "./components/ProfileItemWithIcon";
 import { TbCameraPlus, TbPhone } from "react-icons/tb";
@@ -9,6 +9,7 @@ import ProfileColor from "./components/ProfileColor";
 import { FiAtSign } from "react-icons/fi";
 import useToastify from "@/hooks/useTostify";
 import { useCopyToClipboard } from "react-use";
+import { UserTypes } from "@/utils/types";
 
 interface currentUserProfile {
   imgSrc?: string;
@@ -19,27 +20,33 @@ const CurrentUserProfile: React.FC<currentUserProfile> = ({
   imgSrc,
   profileName,
 }) => {
-  const currentUser = queryClient.getQueryData(["user", "current"]);
+  const currentUser = queryClient.getQueryData<{ data: UserTypes }>([
+    "user",
+    "current",
+  ]);
 
-  const [, copyToClipboard] = useCopyToClipboard();
+  const [_, copyToClipboard] = useCopyToClipboard();
 
   const tostify = useToastify();
 
-  const handleCopy = (text: string) => {
+  const handleCopy = (text?: string) => {
+    if (!text) return;
     copyToClipboard(text);
     tostify.info("نام کاربری کپی شد.");
   };
+
+  if (!currentUser) return null;
 
   return (
     <SectionContainer>
       <SectionHeader title="پروفایل کاربر" withClose={true} />
 
-      <div className="relative h-[40vh] max-h-[400px]">
+      <div className="relative h-[40vh] max-h-[400px] bg-green-300">
         {imgSrc ? (
           <img
             src={imgSrc}
             alt="عکس پروفایل"
-            className="absolute w-full object-cover"
+            className="w-full h-full object-cover "
           />
         ) : (
           <ProfileColor name={profileName} />
@@ -59,7 +66,7 @@ const CurrentUserProfile: React.FC<currentUserProfile> = ({
 
         <ProfileItemWithIcon
           icon={<TbPhone size={24} className="text-primary ml-4" />}
-          title={currentUser?.data.phoneNumber}
+          title={currentUser.data.phoneNumber}
         />
 
         <ProfileItemWithIcon
@@ -69,11 +76,7 @@ const CurrentUserProfile: React.FC<currentUserProfile> = ({
         />
 
         <ProfileItemWithIcon
-          icon={
-            <span size={24} className="text-primary ml-4 font-bold">
-              BIO
-            </span>
-          }
+          icon={<span className="text-primary ml-4 font-bold">BIO</span>}
           title={currentUser?.data.bio}
         />
 

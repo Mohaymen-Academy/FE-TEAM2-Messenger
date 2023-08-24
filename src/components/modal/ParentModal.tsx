@@ -15,8 +15,7 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
-  onSubmit,
-  title = "",
+  // onSubmit,
   body,
   footer,
   disabled,
@@ -37,12 +36,6 @@ const Modal: React.FC<ModalProps> = ({
       onClose();
     }, 400);
   }, [onClose, disabled]);
-
-  const handleSubmit = useCallback(() => {
-    if (disabled) return null;
-
-    onSubmit();
-  }, [onSubmit, disabled]);
 
   const handleSecondaryAction = useCallback(() => {
     if (disabled || !secondaryAction) return null;
@@ -110,7 +103,7 @@ const Modal: React.FC<ModalProps> = ({
 							focus:outline-none"
             >
               {/* BODY */}
-              <div className="relative w-screen max-h-[90vh] bg p-6 flex-auto self-center flex items-center  ">
+              <div className="relative w-screen max-h-[90vh] bg p-6 flex-auto self-center flex items-center justify-center">
                 {body}
               </div>
               {/* FOOTER */}

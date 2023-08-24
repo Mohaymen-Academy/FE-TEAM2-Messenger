@@ -3,42 +3,28 @@ import ProfileColor from "./components/ProfileColor";
 import Notification from "./components/Notification";
 import Link from "./components/Link";
 import SectionContainer from "./components/SectionContainer";
-import { Paragraph } from "../ui";
+import { Paragraph, UserItem } from "../ui";
 import { SectionHeaderWithEdit } from "./components/SectionHeader";
-import { AiOutlineClose } from "react-icons/ai";
-import { getChat } from "@/services/api/chat";
 import { useQuery } from "react-query";
-import { queryClient } from "@/providers/queryClientProvider";
-import { useSelector } from "react-redux";
-import { store } from "@/redux/store";
-import { StoreStateTypes } from "@/utils/types";
-
-
-
+import { getSubs } from "@/services/api/subs";
 interface channelProfileProps {
   profileName: string;
   imgSrc?: string;
+  chatId?: number;
 }
 
+const ChannelProfile: React.FC<channelProfileProps> = ({
+  profileName,
+  imgSrc,
+  chatId,
+}) => {
+  const { data: subData } = useQuery<any>(
+    ["chat", "CHANNEL", chatId?.toString(), "subs"],
+    () => getSubs(chatId!)
+  );
 
+  const subs = subData?.data;
 
-const ChannelProfile: React.FC<channelProfileProps> = ({ profileName, imgSrc, }) => {
- 
-  const conversationId = useSelector((store:StoreStateTypes )=> store.app.selectedProfile.conversationId)
-  console.log(conversationId);
-  
-  const chatData = queryClient.getQueryData([
-    "chat",
-    "CHANNEL",
-    conversationId?.toString(),
-  ]);
-  console.log(chatData);
-  
-  const members = chatData
-  // console.log(members);
-  
-  
-  
   return (
     <SectionContainer>
       {/* Profile header and back button */}
@@ -51,7 +37,7 @@ const ChannelProfile: React.FC<channelProfileProps> = ({ profileName, imgSrc, })
           <img
             src={imgSrc}
             alt="عکس پروفایل"
-            className="absolute w-full object-cover"
+            className="w-full h-full object-cover "
           />
         ) : (
           <ProfileColor name={profileName} />
@@ -60,9 +46,6 @@ const ChannelProfile: React.FC<channelProfileProps> = ({ profileName, imgSrc, })
           <div>
             <Paragraph size="xl" className="select-none">
               {profileName}
-            </Paragraph>
-            <Paragraph size="sm" className="select-none">
-              {members} 
             </Paragraph>
           </div>
         </div>
@@ -75,12 +58,19 @@ const ChannelProfile: React.FC<channelProfileProps> = ({ profileName, imgSrc, })
         </div>
         <div className="bg-secondary h-3 w-full rounded-b"></div>
       </div>
+      <div className="h-full ">
+        {subs &&
+          subs.map((sub: any) => (
+            <UserItem
+              key={sub.userId}
+              imageUrl={sub?.profile?.media?.filePath}
+              user={sub}
+              onClick={() => {}}
+            />
+          ))}
+      </div>
     </SectionContainer>
   );
 };
 
 export default ChannelProfile;
-function StoreStateType(a: unknown, b: unknown): boolean {
-  throw new Error("Function not implemented.");
-}
-
