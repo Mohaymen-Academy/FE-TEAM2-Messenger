@@ -99,12 +99,11 @@ const Modal: React.FC<ModalProps> = ({
 							rounded-lg
 							relative
 							flex flex-col
-							w-full
 							outline-none
 							focus:outline-none"
             >
               {/* BODY */}
-              <div className="relative w-[400px] max-h-[90vh] bg p-6 flex-auto self-center flex items-center ">
+              <div className="relative w-screen max-h-[90vh] bg p-6 flex-auto self-center flex items-center justify-center">
                 {body}
               </div>
               {/* FOOTER */}
