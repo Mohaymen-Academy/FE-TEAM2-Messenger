@@ -68,6 +68,8 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
         }).toString(),
       });
 
+      console.log(conversation);
+
       //save selected conversation data in redux
       dispatch(setSelectedConversation({ conversation }));
       dispatch(
