@@ -26,7 +26,7 @@ const ImageModal = () => {
         </Button>
       </div>
       <div className="w-[20%]">
-        <img className="" src={img} alt="" />
+        <img className="" src={img} alt="ImageModal" />
       </div>
 
       <div className="w-full">

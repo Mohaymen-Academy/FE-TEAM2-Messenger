@@ -75,7 +75,7 @@ const Avatar: React.FC<AvatarProps> = ({
       )}
 
       {fileUrl ? (
-        <img className="rounded-full w-full h-full " src={fileUrl} />
+        <img className="rounded-full w-full h-full" alt="Avatar" src={fileUrl} />
       ) : (
         <>
           {avatarType === "CHAT" && (
@@ -93,7 +93,7 @@ const Avatar: React.FC<AvatarProps> = ({
           )}
           {avatarType === "USER" && (
             <div className="w-full h-full bg-secondary rounded-full">
-              <BsFillPersonFill className="w-full h-full text-4xl text-slate-800" />
+              <BsFillPersonFill className="w-full h-full text-4xl text-slate-800 dark:text-white" />
             </div>
           )}
         </>

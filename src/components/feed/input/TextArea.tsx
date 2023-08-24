@@ -206,7 +206,7 @@ const TextArea = () => {
 
   return (
     <>
-      <div className="relative flex max-w-full w-full bg-primary px-3 py-2 justify-between items-center gap-2 rounded-lg">
+      <div className="relative flex max-w-full break-all w-full bg-primary px-3 py-2 justify-between items-center gap-2 rounded-lg">
         <Button
           onClick={(e) => {
             e.stopPropagation();
