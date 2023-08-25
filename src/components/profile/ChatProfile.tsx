@@ -128,27 +128,3 @@ const ChatProfile: React.FC<ChatProfileProps> = ({
 };
 
 export default ChatProfile;
-
-{
-  /* <div className="relative h-[300px] bg-green-300 rounded-full">
-{imgSrc ? (
-  <img
-    src={imgSrc}
-    alt="عکس پروفایل"
-    className="w-full h-full object-cover rounded-full"
-  />
-) : (
-  <ProfileColor name={profileName} />
-)}
-<div className="absolute bottom-0 w-full bg-gradient-to-b from-transparent dark:to-slate-700 to-white h-[80px] px-4 py-4 flex justify-between">
-  <div>
-    <Paragraph size="xl" className="select-none">
-      {profileName}
-    </Paragraph>
-    <Paragraph size="sm" className="select-none">
-      {subs.length} عضو
-    </Paragraph>
-  </div>
-</div>
-</div> */
-}
