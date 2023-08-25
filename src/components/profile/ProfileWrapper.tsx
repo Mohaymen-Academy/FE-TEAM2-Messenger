@@ -3,11 +3,10 @@ import clsx from "clsx";
 import UserProfile from "./UserProfile";
 import { useSelector } from "react-redux";
 import CurrentUserProfile from "./CurrentUserProfile";
-import GroupProfile from "./GroupProfile";
-import ChannelProfile from "./ChannelProfile";
+import ChatProfile from "./ChatProfile";
 
 const ProfileWrapper: React.FC = () => {
-  const { profileType, conversationId, imageUrl } = useSelector(
+  const { profileType, conversationId, imageUrl, userId } = useSelector(
     (store: StoreStateTypes) => store.app.selectedProfile
   );
   const show = useSelector((store: StoreStateTypes) => store.profile.show);
@@ -19,6 +18,7 @@ const ProfileWrapper: React.FC = () => {
       ? selectedConversation.title
       : "";
 
+  if (!profileType) return null;
   return (
     <div
       className={clsx(
@@ -30,20 +30,18 @@ const ProfileWrapper: React.FC = () => {
         <CurrentUserProfile imgSrc={imageUrl} profileName={profileName} />
       )}
       {profileType === "PV" && (
-        <UserProfile imgSrc={imageUrl} profileName={profileName} />
-      )}
-      {profileType === "GROUP" && (
-        <GroupProfile
+        <UserProfile
+          userId={userId}
           imgSrc={imageUrl}
-          chatId={conversationId}
           profileName={profileName}
         />
       )}
-      {profileType === "CHANNEL" && (
-        <ChannelProfile
-          chatId={conversationId}
+      {["GROUP", "CHANNEL"].includes(profileType) && (
+        <ChatProfile
           imgSrc={imageUrl}
+          chatId={conversationId}
           profileName={profileName}
+          chatType={profileType as "GROUP" | "CHANNEL"}
         />
       )}
     </div>
