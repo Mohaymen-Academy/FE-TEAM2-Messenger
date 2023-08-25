@@ -1,3 +1,4 @@
+import { ConversationTypes, chatType } from "@/utils/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export type SearchResult = number[];
@@ -19,10 +20,10 @@ type selectedConversationType = {
 };
 type selectedProfileType = {
   conversationId?: number;
-  conversationType?: "GROUP" | "PV" | "CHANNEL";
+  conversationType?: chatType;
   userId?: number;
   imageUrl?: string;
-  profileType?: "CHANNEL" | "CURRENT_USER" | "PV" | "GROUP";
+  profileType?: "CHANNEL" | "CURRENT_USER" | "PV" | "GROUP" | "SAVED_MESSAGE";
 };
 
 const initialState: appSliceType = {

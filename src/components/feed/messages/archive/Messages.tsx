@@ -34,6 +34,10 @@ const Messages: React.FC = () => {
       (store: StoreStateTypes) =>
         store.message.optimisticCache[selectedConversation!]
     ) || [];
+  const deletedMessages =
+    useSelector(
+      (store: StoreStateTypes) => store.message.optimisticCacheDeletedMessages
+    ) || [];
 
   const Loader = () => (
     <div className="flex justify-center text-green-900">
@@ -99,18 +103,25 @@ const Messages: React.FC = () => {
   const profileShow = useSelector(
     (store: StoreStateTypes) => store.profile.show
   );
+  // console.log(messageData);
+  const memoKey = [
+    messageData?.pages.map((page) => page.length).join("-"),
+    messageData?.pageParams
+      .map((page: any) => (page ? `${page.floor}-${page.ceil}` : "0-50"))
+      .join("-"),
+  ].join("-");
 
   //extract message texts
   const messagesTexts = useMemo(() => {
     if (!messageData) return [];
     return messageData.pages.flat<any>().map((msg) => msg.text);
-  }, [messageData]);
+  }, [memoKey]);
 
   // extract message Ids
   const messagesIds = useMemo(() => {
     if (!messageData) return [];
     return messageData.pages.flat<any>().map((msg) => msg.messageId);
-  }, [messageData]);
+  }, [memoKey]);
 
   //create a edited message array combined with redux cache and server data
   const editedMessages = useMemo(() => {
@@ -119,7 +130,7 @@ const Messages: React.FC = () => {
     return [...optimisticCache, ...messageData.pages.flat()].sort(
       (a, b) => b.messageId - a.messageId
     );
-  }, [messageData, optimisticCache]);
+  }, [memoKey, optimisticCache, deletedMessages]);
 
   //create final array of messages filter the cached messages and replace with real data if message sent successfully
   const toRenderMessages = useMemo(() => {
@@ -127,6 +138,10 @@ const Messages: React.FC = () => {
     if (!selectedConversation) return [];
 
     return editedMessages.filter((msg) => {
+      //if msg is in deletedMessages array (from redux) don't render it
+      if (deletedMessages.includes(msg.messageId)) return false;
+
+      //if msg and optimistic cache is equal delete optimistic cache msg
       if (messagesTexts.includes(msg.text)) {
         const index = messagesTexts.indexOf(msg.text);
         if (messagesIds[index] > msg.messageId && msg.isCache) {
@@ -142,7 +157,13 @@ const Messages: React.FC = () => {
       }
       return true;
     });
-  }, [editedMessages, messagesTexts, messagesIds, selectedConversation]);
+  }, [
+    JSON.stringify(editedMessages),
+    JSON.stringify(messagesTexts),
+    JSON.stringify(messagesIds),
+    selectedConversation,
+    deletedMessages.length,
+  ]);
 
   useEffect(() => {
     if (Math.abs(messageDivRef.current!.scrollTop) > 1000) {
@@ -152,7 +173,7 @@ const Messages: React.FC = () => {
   }, [toRenderMessages[0]?.messageId]);
 
   useEffect(() => {
-    setLastMessageSeen(messagesIds[0]);
+    if (messagesIds[0]) setLastMessageSeen(messagesIds[0]);
   }, [selectedConversation, messagesIds[0]]);
 
   useEffect(() => {

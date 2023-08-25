@@ -22,7 +22,6 @@ const FeedWrapper: React.FC<FeedWrapperProps> = ({ feedShowCriteria }) => {
       store.conversation.selectedConversationUserPermission
   );
 
-  console.log(userPermissions);
   const bgStyle = {
     height: false
       ? "calc(100vh - 92px)"
@@ -59,9 +58,8 @@ const FeedWrapper: React.FC<FeedWrapperProps> = ({ feedShowCriteria }) => {
                   <div className="flex flex-col h-full gap-1 w-full">
                     <>
                       <Messages />
-                      {userPermissions?.includes("SEND_MESSAGE") && (
-                        <MessageInput />
-                      )}
+                      {(userPermissions?.includes("SEND_MESSAGE") ||
+                        userPermissions?.includes("ADMIN")) && <MessageInput />}
                     </>
                   </div>
                 </div>

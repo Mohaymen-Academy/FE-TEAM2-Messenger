@@ -80,7 +80,7 @@ const ChatProfile: React.FC<ChatProfileProps> = ({
                 </div>
               ) : (
                 chatData?.data.permissions.map((per) => (
-                  <>
+                  <div key={per}>
                     {per === "ADD_USER" && (
                       <div className="flex gap-2 bg-cyan-200 rounded-xl px-2 justify-center items-center">
                         <GrUserAdd />
@@ -105,7 +105,7 @@ const ChatProfile: React.FC<ChatProfileProps> = ({
                         ارسال پیام
                       </div>
                     )}
-                  </>
+                  </div>
                 ))
               )}
             </div>

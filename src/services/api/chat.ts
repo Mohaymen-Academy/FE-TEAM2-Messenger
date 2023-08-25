@@ -17,8 +17,14 @@ const getMessages = async (getMessageParams: getMessageParamsType) => {
 const sendMessage = async (messageFOrmData: FormData) => {
   return apiCall.post(`/api/messages/send-message`, messageFOrmData);
 };
+const deleteMessage = async (id: number) => {
+  return apiCall.delete(`/api/messages/delete-message/${id}`);
+};
 const createChat = async (body: CreateChannelType) => {
   return apiCall.post("/api/chats/create-chat", body);
+};
+const deleteChat = async (id: number) => {
+  return apiCall.delete(`/api/chats/delete-chat/${id}`);
 };
 
 const getBinary = async (url?: string) => {
@@ -42,4 +48,6 @@ export {
   sendMessage,
   getBinary,
   sendChatPicture,
+  deleteMessage,
+  deleteChat,
 };
