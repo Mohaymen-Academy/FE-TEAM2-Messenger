@@ -15,6 +15,7 @@ import { createChat, sendChatPicture } from "@/services/api/chat";
 import useToastify from "@/hooks/useTostify";
 import { v4 as uuid4 } from "uuid";
 import { queryClient } from "@/providers/queryClientProvider";
+import { setProfileImageURL } from "@/redux/Slices/appSlice";
 
 interface UserSelect {
   onUserClickHandler: (user: string | number) => void;
@@ -122,8 +123,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
         queryKey: ["user", "current", "conversations"],
       });
       toastify.info(
-        `${
-          data.data.chatType === "CHANNEL" ? "کانال" : "گروه"
+        `${data.data.chatType === "CHANNEL" ? "کانال" : "گروه"
         } با موفقیت ایجاد شد.`
       );
     },
@@ -163,10 +163,11 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
           onSettled: () => {
             reset();
           },
-          onError: () => {},
+          onError: () => { },
         }
       );
     }
+    dispatch(setProfileImageURL(""))
   };
 
   return (

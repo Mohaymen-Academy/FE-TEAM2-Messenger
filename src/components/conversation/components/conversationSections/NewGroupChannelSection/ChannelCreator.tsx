@@ -36,7 +36,6 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
   );
 
   const [_, setFormData] = useState(new FormData());
-  const [pictureUrl, setPictureUrl] = useState("");
 
   const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -47,7 +46,7 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
       setFormData(formData);
 
       const imageUrl = URL.createObjectURL(file);
-      setPictureUrl(imageUrl);
+      dispatch(setProfileImageURL(imageUrl))
       dispatch(onCropperOpen());
     }
   };
@@ -66,9 +65,6 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
             imageSelectHandler={imageSelectHandler}
             className="mb-10 mx-auto"
           />
-
-          <CropperModal imgURL={profileImageURL} />
-
           <div className="flex flex-col gap-4 mb-6">
             <FloatingLabelInput
               type="text"
@@ -92,7 +88,6 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
             <Button
               onClick={() => {
                 onSubmit();
-                dispatch(setProfileImageURL(""));
               }}
               className="w-full font-bold text-xl"
             >

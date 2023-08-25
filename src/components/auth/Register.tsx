@@ -82,43 +82,44 @@ const Register = () => {
       dispatch(onCropperOpen());
     }
   };
-  <div className="dark flex flex-col items-center bg-primary p-8 rounded-2xl">
-    <ProfileUploader
-      imgUrl={profileImageURL}
-      setImage={setValue}
-      width={150}
-      accept="image/*"
-      imageSelectHandler={imageSelectHandler}
-    />
-
-    <CropperModal imgURL={profileImageURL} />
-
-    <div className="grid grid-cols-1 xs:grid-cols-2 xs:gap-5 my-6">
-      <FloatingLabelInput
-        type="text"
-        register={register}
-        required
-        formId="fName"
-        label="نام"
+  return (
+    <div className="dark flex flex-col items-center bg-primary p-8 rounded-2xl">
+      <ProfileUploader
+        imgUrl={profileImageURL}
+        setImage={setValue}
+        width={150}
+        accept="image/*"
+        imageSelectHandler={imageSelectHandler}
       />
 
-      <FloatingLabelInput
-        register={register}
-        type="text"
-        formId="lName"
-        label="نام خانوادگی"
-      />
-    </div>
+      <CropperModal imgURL={profileImageURL} />
 
-    <Button
-      isLoading={loading}
-      onClick={handleSubmit(onSubmit)}
-      className="w-full"
-    >
-      <span className="sr-only">تایید</span>
-      تایید
-    </Button>
-  </div>;
+      <div className="grid grid-cols-1 xs:grid-cols-2 xs:gap-5 my-6">
+        <FloatingLabelInput
+          type="text"
+          register={register}
+          required
+          formId="fName"
+          label="نام"
+        />
+
+        <FloatingLabelInput
+          register={register}
+          type="text"
+          formId="lName"
+          label="نام خانوادگی"
+        />
+      </div>
+
+      <Button
+        isLoading={loading}
+        onClick={handleSubmit(onSubmit)}
+        className="w-full"
+      >
+        <span className="sr-only">تایید</span>
+        تایید
+      </Button>
+    </div>);
 };
 
 export default Register;
