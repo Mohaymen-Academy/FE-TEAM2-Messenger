@@ -54,25 +54,25 @@ export default defineConfig({
             type: 'image/png',
             purpose: 'maskable'
           },
+        ]      
+    },
+    workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => {
+              return url.pathname.startsWith("/api");
+            },
+            handler: "NetworkFirst" as const,
+            options: {
+              cacheName: "api-cache",
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
         ],
       },
-      // workbox: {
-      //   runtimeCaching: [
-      //     {
-      //       urlPattern: ({ url }) => {
-      //         return url.pathname.startsWith("/api");
-      //       },
-      //       handler: "CacheFirst" as const,
-      //       options: {
-      //         cacheName: "api-cache",
-      //         cacheableResponse: {
-      //           statuses: [0, 200],
-      //         },
-      //       },
-      //     },
-      //   ],
-      // },
-    }),
+  }),
   ],
   server: { port: 3000, host: true },
 });
