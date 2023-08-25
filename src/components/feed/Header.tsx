@@ -33,8 +33,10 @@ const Header = () => {
       <div className="flex gap-3 self-center">
         <Button variant="ghost" className="p-1 dark:hover:bg-slate-600">
           <LiaSearchSolid className="icon-button" size={23} />
+          <span className="sr-only">جست و جو در چت</span>
         </Button>
         <Button variant="ghost" className="p-1 dark:hover:bg-slate-600">
+          <span className="sr-only">نمایش گزینه های بیشتر</span>
           <BsThreeDotsVertical className="icon-button" size={23} />
         </Button>
       </div>

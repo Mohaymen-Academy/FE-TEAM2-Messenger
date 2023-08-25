@@ -11,12 +11,16 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Playground from "./pages/playground";
 import ProtectedRoutes from "./pages/protected/ProtectedRoutes";
-import FinalSkeleton from "./components/skeletonTest/FinalSkeleton";
+import ImageModal from "./components/modal/ImageModal";
+import LogOutModal from "./components/modal/LogOutModal";
+import NoMatch from "./pages/NoMatch";
 function App() {
   const { theme } = useSelector((store: StoreStateTypes) => store.app);
 
   return (
     <div className={`${theme} h-full`}>
+      <ImageModal />
+      <LogOutModal />
       <Routes>
         <Route
           path=""
@@ -38,7 +42,7 @@ function App() {
           <Route path="register" element={<Register />} />
         </Route>
 
-        <Route path="*" element={<FinalSkeleton />} />
+        <Route path="*" element={<NoMatch />} />
       </Routes>
       <ToastContainer theme={theme} rtl={true} closeButton={<></>} />
     </div>

@@ -40,6 +40,7 @@ const UserSelect: React.FC<UserSelect> = ({
             variant="ghost"
             className="w-12 h-12 "
           >
+            <span className="sr-only">بازگشت به منوی قبل</span>
             <BsArrowRight size={25} />
           </Button>
           <div className="w-full">
@@ -99,7 +100,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
   };
 
   const { mutate: sendChatPictureMutation } = useMutation(sendChatPicture, {
-    onError: (error) => {
+    onError: () => {
       toastify.error("متاسفانه عکس ذخیره نگردید لطفا مجددا تلاش فرمایید");
     },
   });

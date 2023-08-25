@@ -1,4 +1,4 @@
-import { ConversationTypes } from "@/utils/types";
+import { ConversationTypes, permissionType } from "@/utils/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 export type conversationSliceType = {
@@ -11,6 +11,7 @@ export type conversationSliceType = {
   showConversations: boolean;
   createState: "groupCreate" | "channelCreate" | "contactCreate" | "";
   selectedConversation: ConversationTypes | undefined;
+  selectedConversationUserPermission: permissionType[] | undefined;
 };
 
 const initialState: conversationSliceType = {
@@ -18,6 +19,7 @@ const initialState: conversationSliceType = {
   showConversations: true,
   createState: "",
   selectedConversation: undefined,
+  selectedConversationUserPermission: [],
 };
 
 const conversationSlice = createSlice({
@@ -54,6 +56,12 @@ const conversationSlice = createSlice({
     ) => {
       state.selectedConversation = action.payload.conversation;
     },
+    setSelectedConversationUserPermission: (
+      state: conversationSliceType,
+      action: { payload: { permissions?: permissionType[] } }
+    ) => {
+      state.selectedConversationUserPermission = action.payload.permissions;
+    },
   },
 });
 
@@ -62,6 +70,7 @@ export const {
   toggleShowConversations,
   setCreateState,
   setSelectedConversation,
+  setSelectedConversationUserPermission,
 } = conversationSlice.actions;
 
 export default conversationSlice.reducer;

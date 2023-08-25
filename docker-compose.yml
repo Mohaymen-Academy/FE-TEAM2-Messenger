@@ -4,5 +4,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    dns:
+    - "10.202.10.202"
+    - "10.202.10.102"
     ports:
     - 80:80

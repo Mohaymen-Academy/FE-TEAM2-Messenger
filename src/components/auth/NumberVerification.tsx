@@ -34,6 +34,7 @@ const NumberVerification = () => {
       { code, phoneNumber },
       {
         onSuccess(data, _, __) {
+          console.log(data.data);
           const { registered, access_token, refresh_token, user } = data.data;
           queryClient.setQueryData([{ user: "current" }], user);
           dispatch(setUser(user));
@@ -77,6 +78,7 @@ const NumberVerification = () => {
             <ConfirmationInput submit={submit} length={5} />
           </div>
           <Button size="lg" className="text-white w-full" isLoading={loading}>
+            <span className="sr-only">تایید کد</span>
             تایید کد
           </Button>
         </div>

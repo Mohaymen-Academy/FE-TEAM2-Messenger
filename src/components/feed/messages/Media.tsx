@@ -2,13 +2,17 @@ import placeHolder from "../../../assets/img/imagePlaceHolder.webp";
 import React, { LegacyRef, useMemo, useRef } from "react";
 import { useQuery } from "react-query";
 import { getBinary } from "@/services/api/chat";
+import { useDispatch } from "react-redux";
+import { onMediaOpen, setMediaUrl } from "@/redux/Slices/modalSlice";
 
 interface ImageProps {
   src: string;
   mediaType: string;
+  name: string;
 }
 
-const Media: React.FC<ImageProps> = ({ src, mediaType }) => {
+const Media: React.FC<ImageProps> = ({ src, mediaType, name }) => {
+  const dispatch = useDispatch();
   const fileId = src?.split("/")?.at(-1);
   const placeHolderRef = useRef<LegacyRef<HTMLDivElement>>();
   const videoPlaceHolderRef = useRef<LegacyRef<HTMLDivElement>>();
@@ -27,10 +31,17 @@ const Media: React.FC<ImageProps> = ({ src, mediaType }) => {
     return URL.createObjectURL(binaryData?.data);
   }, [binaryData?.data.size]);
 
+  const onImageClickHandler = () => {
+    if (!fileUrl) return;
+
+    dispatch(setMediaUrl({ url: fileUrl, name }));
+    dispatch(onMediaOpen());
+  };
+
   return (
     <div className="image-message rounded-xl overflow-hidden relative">
       {type === "image" && (
-        <>
+        <div onClick={onImageClickHandler}>
           <img
             onLoad={(e) => {
               const element = e.target as HTMLImageElement;
@@ -51,9 +62,9 @@ const Media: React.FC<ImageProps> = ({ src, mediaType }) => {
             ref={placeHolderRef as LegacyRef<HTMLDivElement>}
             className="bg-white w-full h-full"
           >
-            <img src={placeHolder} className=" animate-pulse w-full h-full" />
+            <img src={placeHolder} alt="Media" className=" animate-pulse w-full h-full" />
           </div>
-        </>
+        </div>
       )}
       {type === "video" && (
         <video

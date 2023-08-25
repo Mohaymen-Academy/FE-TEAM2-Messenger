@@ -32,9 +32,10 @@ const UserItem: React.FC<UserItemProps> = ({
   );
 
   const userProfile = userProfileData?.data[0]?.media?.filePath || imageUrl;
-  const userLastSeen = formatDateDifference(
-    userData?.data?.lastSeen || user.lastSeen
-  );
+  const userLastSeen =
+    formatDateDifference(userData?.data?.lastSeen || user.lastSeen) === "Online"
+      ? "آنلاین"
+      : formatDateDifference(userData?.data?.lastSeen || user.lastSeen);
 
   return (
     <div
@@ -44,7 +45,7 @@ const UserItem: React.FC<UserItemProps> = ({
       <div className="flex gap-5 items-center">
         <div className="relative">
           <Avatar
-            isOnline={userLastSeen === "Online"}
+            isOnline={userLastSeen === "آنلاین"}
             imgSrc={userProfile}
             isConversationList={true}
           />

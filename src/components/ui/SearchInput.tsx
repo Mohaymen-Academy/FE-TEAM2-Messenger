@@ -1,10 +1,6 @@
 import Input from "@/components/auth/input/Input";
-import useToastify from "@/hooks/useTostify";
 import { setFileterBy } from "@/redux/Slices/appSlice";
-import {
-  getChatSearchResult,
-  getContactSearchResult,
-} from "@/services/api/search";
+import { getContactSearchResult } from "@/services/api/search";
 import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useDispatch } from "react-redux";
@@ -20,7 +16,6 @@ const SearchInput: React.FC<searchInputProps> = ({ placeHolder, searchIn }) => {
   const [debounceTimer, setDebounceTimer] = useState<NodeJS.Timeout | null>(
     null
   );
-  const toastify = useToastify();
   const dispatch = useDispatch();
 
   const searchResult = async (
@@ -28,13 +23,13 @@ const SearchInput: React.FC<searchInputProps> = ({ placeHolder, searchIn }) => {
     searchIn: "CONTACT" | "CONVERSATION"
   ) => {
     if (searchIn === "CONVERSATION") {
-      const { data: conversationData } = await getChatSearchResult(searchParam);
-      const conversationResult = conversationData.map(
-        (data: any) => data.chatId
-      );
+      // const { data: conversationData } = await getChatSearchResult(searchParam);
+      // const conversationResult = conversationData.map(
+      //   (data: any) => data.chatId
+      // );
     }
     const { data: contactData } = await getContactSearchResult(searchParam);
-    console.log(contactData, "asd");
+    console.log(contactData, "asd", name);
     // const conversationResult = contactData.map((data: any) => data.chatId);
   };
 

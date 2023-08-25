@@ -83,6 +83,7 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
               }}
               className="w-full font-bold text-xl"
             >
+              <span className="sr-only">ساخت کانال</span>
               ساخت کانال
             </Button>
             <Button
@@ -91,6 +92,7 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
               }
               className="!bg-btn-danger !text-white hover:!bg-btn-danger-hover w-full font-bold text-xl"
             >
+              <span className="sr-only">انصراف</span>
               انصراف
             </Button>
           </div>

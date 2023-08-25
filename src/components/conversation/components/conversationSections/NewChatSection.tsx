@@ -62,7 +62,7 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ contactsData }) => {
         title: cont.firstName,
       },
       {
-        onError: (error) => {
+        onError: () => {
           toastify.error("ساخت چت با مشکل مواجه شد");
         },
         onSettled: () => {
@@ -90,6 +90,7 @@ const CreatePvSection: React.FC<CreatePvSectionProps> = ({ contactsData }) => {
           variant="ghost"
           className="w-12 h-12 "
         >
+          <span className="sr-only">بازگشت به منوی قبل</span>
           <BsArrowRight className="icon-button" size={25} />
         </Button>
         <div className="w-full">

@@ -82,6 +82,7 @@ const Message: React.FC<MessageComponent> = ({
         );
         setShowContextMenu(true);
       }}
+      onClick={() => console.log(message)}
     >
       {showContextMenu && sentByCurrentUser && (
         <div
@@ -166,9 +167,9 @@ const Message: React.FC<MessageComponent> = ({
                 (messageStatus === "SEEN" ? (
                   <BsCheckAll className="text-teal-800 dark:text-teal-300" />
                 ) : messageStatus === "DELIVERED" ? (
-                  <BiCheck className="text-teal-800 dark:text-teal-300" />
+                  <BiCheck className="text-teal-800 dark:text-teal-300 mt-2" />
                 ) : (
-                  <ClockLoader size={12} color="#36d7b7" />
+                  <ClockLoader className="mt-2" size={12} color="#36d7b7" />
                 ))}
             </div>
             {sentByCurrentUser && (
