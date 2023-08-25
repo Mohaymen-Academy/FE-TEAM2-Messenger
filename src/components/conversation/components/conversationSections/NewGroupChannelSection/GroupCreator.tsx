@@ -12,6 +12,7 @@ import ChatPrivacy from "../../ChannelPrivacy";
 import { setProfileImageURL } from "@/redux/Slices/appSlice";
 import CropperModal from "@/components/modal/CropperModal";
 import { StoreStateTypes } from "@/utils/types";
+import { onCropperOpen } from "@/redux/Slices/modalSlice";
 
 interface GroupCreatorProp {
   show: boolean;
@@ -42,6 +43,7 @@ const GroupCreator: React.FC<GroupCreatorProp> = ({
 
       const imageUrl = URL.createObjectURL(file);
       setPictureUrl(imageUrl);
+      dispatch(onCropperOpen());
     }
   };
 

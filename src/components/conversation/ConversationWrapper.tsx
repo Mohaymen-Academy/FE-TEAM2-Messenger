@@ -8,7 +8,6 @@ import { useQuery } from "react-query";
 import { getContacts } from "@/services/api/contact";
 import NewContactSection from "./components/conversationSections/NewGroupChannelSection/NewContactSection";
 import { useEffect } from "react";
-import { queryClient } from "@/providers/queryClientProvider";
 
 interface ConversationWrapperProps {
   conversationShowCriteria?: string;
