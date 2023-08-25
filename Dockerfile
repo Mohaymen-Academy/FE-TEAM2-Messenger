@@ -1,8 +1,10 @@
 FROM node:18-alpine as build
 WORKDIR /app
-COPY . .
-# RUN npm install -g yarn
+
+COPY ./package.json ./
 RUN yarn
+
+COPY . .
 RUN yarn run build
 
 FROM nginx:alpine
