@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ProfileColor from "./components/ProfileColor";
 import Link from "./components/Link";
 import SectionContainer from "./components/SectionContainer";

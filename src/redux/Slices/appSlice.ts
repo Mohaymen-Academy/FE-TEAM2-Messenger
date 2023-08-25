@@ -1,4 +1,4 @@
-import { ConversationTypes, chatType } from "@/utils/types";
+import { chatType } from "@/utils/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export type SearchResult = number[];
