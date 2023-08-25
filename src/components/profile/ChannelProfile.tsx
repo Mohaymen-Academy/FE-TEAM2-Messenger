@@ -24,6 +24,7 @@ const ChannelProfile: React.FC<channelProfileProps> = ({
   );
 
   const subs = subData?.data;
+  console.log(subs, "subs")
 
   return (
     <SectionContainer>
@@ -53,7 +54,7 @@ const ChannelProfile: React.FC<channelProfileProps> = ({
 
       <div className="py-3 flex flex-col gap-2">
         <div className="gap-2 px-3">
-          <Link href="https://emochat/group/etxYasjlkfeletsadjflasjkdlfkjk" />
+          <Link href="https://iris/etxYasjlkfeletsadjflasjkdlfkjk" />
           <Notification />
         </div>
         <div className="bg-secondary h-3 w-full rounded-b"></div>
@@ -65,7 +66,7 @@ const ChannelProfile: React.FC<channelProfileProps> = ({
               key={sub.userId}
               imageUrl={sub?.profile?.media?.filePath}
               user={sub}
-              onClick={() => {}}
+              onClick={() => { }}
             />
           ))}
       </div>

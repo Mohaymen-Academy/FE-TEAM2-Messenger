@@ -54,7 +54,7 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
         />
         <div className="flex flex-col gap-1">
           <Paragraph size={"lg"}>{selectedConversation?.title}</Paragraph>
-          <Paragraph size={"sm"}>{subText}</Paragraph>
+          <Paragraph size={"sm"}>{subText} {subText && "عضو"}</Paragraph>
         </div>
       </div>
     </div>
