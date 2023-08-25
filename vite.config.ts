@@ -9,9 +9,9 @@ export default defineConfig({
     react(),
     tsconfigPaths(),
     VitePWA({
-      devOptions: {
-        enabled: true,
-      },
+      // devOptions: {
+      //   enabled: true,
+      // },
       registerType: "autoUpdate",
       manifest: {
         name: "Iris Messenger",
