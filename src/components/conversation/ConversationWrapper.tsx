@@ -7,6 +7,7 @@ import NewGroupChannelSection from "./components/conversationSections/NewGroupCh
 import { useQuery } from "react-query";
 import { getContacts } from "@/services/api/contact";
 import NewContactSection from "./components/conversationSections/NewGroupChannelSection/NewContactSection";
+import { useEffect } from "react";
 
 interface ConversationWrapperProps {
   conversationShowCriteria?: string;
@@ -16,9 +17,14 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({
   conversationShowCriteria,
 }) => {
   //get logged in user's contacts list and save in cache
-  const contactQuery = useQuery(["user", "current", "contacts"], getContacts);
+  const contactQuery = useQuery(["user", "current", "contacts"], getContacts, {
+    enabled: true,
+  });
+  const { filterBy } = useSelector((store: StoreStateTypes) => store.app);
+  const contacts = contactQuery.data?.data
 
-  const contacts = contactQuery.data?.data;
+
+  console.log(contacts, "chat contacts out");
 
   const sortedContacts =
     contacts &&

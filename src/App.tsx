@@ -14,13 +14,15 @@ import ProtectedRoutes from "./pages/protected/ProtectedRoutes";
 import ImageModal from "./components/modal/ImageModal";
 import LogOutModal from "./components/modal/LogOutModal";
 import NoMatch from "./pages/NoMatch";
+import CropperModal from "./components/modal/CropperModal";
 function App() {
-  const { theme } = useSelector((store: StoreStateTypes) => store.app);
+  const { theme, profileImageURL } = useSelector((store: StoreStateTypes) => store.app);
 
   return (
     <div className={`${theme} h-full`}>
       <ImageModal />
       <LogOutModal />
+      <CropperModal imgURL={profileImageURL} />
       <Routes>
         <Route
           path=""
@@ -44,7 +46,7 @@ function App() {
 
         <Route path="*" element={<NoMatch />} />
       </Routes>
-      <ToastContainer theme={theme} rtl={true} closeButton={<></>} />
+      <ToastContainer theme={theme} rtl={true} />
     </div>
   );
 }

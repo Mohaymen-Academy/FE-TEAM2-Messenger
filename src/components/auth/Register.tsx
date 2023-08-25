@@ -1,23 +1,29 @@
 import FloatingLabelInput from "./input/FloatingLabelInput";
-import { Button } from "../ui";
+import { Button, Paragraph } from "../ui";
 import { useNavigate } from "react-router-dom";
 import ProfileUploader from "../wrappers/FileUploader";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import { useState, useRef } from "react";
 import { sendPicture, updateInfo } from "@/services/api/user";
 import useToastify from "@/hooks/useTostify";
 import { useMutation } from "react-query";
-import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
+import CropperModal from "../modal/CropperModal";
+import { onCropperOpen } from "@/redux/Slices/modalSlice";
+import { setProfileImageURL } from "@/redux/Slices/appSlice";
 
 const Register = () => {
   const navigate = useNavigate();
+  const { profileImageURL } = useSelector(
+    (store: StoreStateTypes) => store.app
+  );
   const toastify = useToastify();
   const [formData, setFormData] = useState(new FormData());
-  const [pictureUrl, setPictureUrl] = useState("");
+  // const [pictureUrl, setPictureUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const sendPictureMutation = useMutation(sendPicture, {
     onError: () => {
@@ -60,6 +66,7 @@ const Register = () => {
     navigate("/chat");
 
     setLoading(false);
+    dispatch(setProfileImageURL(""));
   };
 
   const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,38 +78,21 @@ const Register = () => {
       setFormData(formData);
 
       const imageUrl = URL.createObjectURL(file);
-      setPictureUrl(imageUrl);
-      //  setShowCropperModal(true);
+      dispatch(setProfileImageURL(imageUrl));
+      dispatch(onCropperOpen());
     }
   };
-
-    const cropperRef = useRef(null);
-
-    // const cropImage = () => {
-    //   if (typeof cropperRef.current.getCroppedCanvas() === "undefined") {
-    //     return;
-    //   }
-    //   const croppedImageBase64 = cropperRef.current
-    //     .getCroppedCanvas()
-    //     .toDataURL();
-    //   // Now you can use this croppedImageBase64 as needed.
-    // };
   return (
     <div className="dark flex flex-col items-center bg-primary p-8 rounded-2xl">
       <ProfileUploader
-        imgUrl={pictureUrl}
+        imgUrl={profileImageURL}
         setImage={setValue}
         width={150}
         accept="image/*"
         imageSelectHandler={imageSelectHandler}
       />
-      {pictureUrl && (
-        <Cropper
-          className="aspect-square w-[100%] h-[270px] mt-2"
-          ref={cropperRef}
-          src={pictureUrl}
-        />
-      )}
+
+      <CropperModal imgURL={profileImageURL} />
 
       <div className="grid grid-cols-1 xs:grid-cols-2 xs:gap-5 my-6">
         <FloatingLabelInput
@@ -129,8 +119,7 @@ const Register = () => {
         <span className="sr-only">تایید</span>
         تایید
       </Button>
-    </div>
-  );
+    </div>);
 };
 
 export default Register;

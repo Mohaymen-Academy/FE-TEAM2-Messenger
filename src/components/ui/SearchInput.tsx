@@ -1,10 +1,14 @@
 import Input from "@/components/auth/input/Input";
 import { setFileterBy } from "@/redux/Slices/appSlice";
-import { getContactSearchResult } from "@/services/api/search";
+import {
+  getChatSearchResult,
+  getContactSearchResult,
+} from "@/services/api/search";
 import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useDispatch } from "react-redux";
 import { RiCloseCircleFill } from "react-icons/ri";
+import useToastify from "@/hooks/useTostify";
 
 interface searchInputProps {
   placeHolder: string;
@@ -17,20 +21,25 @@ const SearchInput: React.FC<searchInputProps> = ({ placeHolder, searchIn }) => {
     null
   );
   const dispatch = useDispatch();
+  const toastify = useToastify();
 
-  const searchResult = async (
-    name: string,
-    searchIn: "CONTACT" | "CONVERSATION"
-  ) => {
+  const searchResult = async () => {
+    let conversationResult = [];
     if (searchIn === "CONVERSATION") {
-      // const { data: conversationData } = await getChatSearchResult(searchParam);
-      // const conversationResult = conversationData.map(
-      //   (data: any) => data.chatId
-      // );
+      const { data: conversationData } = await getChatSearchResult(searchParam);
+      conversationResult = conversationData.map((data: any) => data.chatId);
     }
     const { data: contactData } = await getContactSearchResult(searchParam);
-    console.log(contactData, "asd", name);
-    // const conversationResult = contactData.map((data: any) => data.chatId);
+    const contactResult = contactData.map((data: any) => data.contactId);
+
+    const searchResult = [...contactResult, ...conversationResult];
+    console.log(searchResult, "chat result");
+    if (searchResult.length === 0) {
+      toastify.warning("نتیجه ای یافت نشد.");
+      dispatch(setFileterBy([]));
+    } else {
+      dispatch(setFileterBy(searchResult));
+    }
   };
 
   // const searchContactQuery = useQuery(
@@ -68,7 +77,7 @@ const SearchInput: React.FC<searchInputProps> = ({ placeHolder, searchIn }) => {
 
     const timerId = setTimeout(() => {
       if (searchParam.trim()) {
-        searchResult(searchParam, searchIn);
+        searchResult();
       }
     }, 400);
 

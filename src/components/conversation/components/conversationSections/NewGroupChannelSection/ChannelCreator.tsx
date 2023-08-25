@@ -4,11 +4,15 @@ import FloatingLabelInput from "@/components/auth/input/FloatingLabelInput";
 import FadeMotionWrapper from "@/components/wrappers/FadeMotionWrapper";
 import { Button } from "@/components/ui";
 import { UseFormRegister, FieldValues, UseFormSetValue } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSection } from "@/redux/Slices/conversationSlice";
 import ProfileUploader from "@/components/wrappers/FileUploader";
 import { useState } from "react";
 import ChatPrivacy from "../../ChannelPrivacy";
+import CropperModal from "@/components/modal/CropperModal";
+import { StoreStateTypes } from "@/utils/types";
+import { setProfileImageURL } from "@/redux/Slices/appSlice";
+import { onCropperOpen } from "@/redux/Slices/modalSlice";
 
 interface ChannelCreatorProp {
   show: boolean;
@@ -26,8 +30,12 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
   setGroupProfileFormData,
 }) => {
   const dispatch = useDispatch();
+
+  const { profileImageURL } = useSelector(
+    (store: StoreStateTypes) => store.app
+  );
+
   const [_, setFormData] = useState(new FormData());
-  const [pictureUrl, setPictureUrl] = useState("");
 
   const imageSelectHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -38,7 +46,8 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
       setFormData(formData);
 
       const imageUrl = URL.createObjectURL(file);
-      setPictureUrl(imageUrl);
+      dispatch(setProfileImageURL(imageUrl))
+      dispatch(onCropperOpen());
     }
   };
 
@@ -50,13 +59,12 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
         {/* Camera and Upload section */}
         <div className="px-8 flex flex-col">
           <ProfileUploader
-            imgUrl={pictureUrl}
+            imgUrl={profileImageURL}
             width={150}
             accept="image/*"
             imageSelectHandler={imageSelectHandler}
             className="mb-10 mx-auto"
           />
-
           <div className="flex flex-col gap-4 mb-6">
             <FloatingLabelInput
               type="text"
@@ -87,9 +95,10 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
               ساخت کانال
             </Button>
             <Button
-              onClick={() =>
-                dispatch(setSection({ selectedState: "conversations" }))
-              }
+              onClick={() => {
+                dispatch(setSection({ selectedState: "conversations" }));
+                dispatch(setProfileImageURL(""));
+              }}
               className="!bg-btn-danger !text-white hover:!bg-btn-danger-hover w-full font-bold text-xl"
             >
               <span className="sr-only">انصراف</span>
