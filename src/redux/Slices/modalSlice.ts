@@ -4,6 +4,7 @@ export type ModalSliceType = {
   isUploadOpen: boolean;
   isSignOutOpen: boolean;
   isMediaOpen: boolean;
+  isCropperOpen: boolean;
   mediaUrl: { url: string; name: string };
 };
 
@@ -13,6 +14,7 @@ const ModalSlice = createSlice({
     isUploadOpen: false,
     isSignOutOpen: false,
     isMediaOpen: false,
+    isCropperOpen: false,
     mediaUrl: { url: "", name: "" },
   },
   reducers: {
@@ -27,6 +29,12 @@ const ModalSlice = createSlice({
     },
     onSignOutClose: (state: ModalSliceType) => {
       state.isSignOutOpen = false;
+    },
+    onCropperOpen: (state: ModalSliceType) => {
+      state.isCropperOpen = true;
+    },
+    onCropperClose: (state: ModalSliceType) => {
+      state.isCropperOpen = false;
     },
     onMediaOpen: (state: ModalSliceType) => {
       state.isMediaOpen = true;
@@ -48,6 +56,8 @@ export const {
   onUploadClose,
   onSignOutOpen,
   onSignOutClose,
+  onCropperOpen,
+  onCropperClose,
   onMediaOpen,
   onMediaClose,
   setMediaUrl,
