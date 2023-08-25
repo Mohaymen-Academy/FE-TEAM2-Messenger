@@ -11,6 +11,7 @@ export type appSliceType = {
   selectedProfile: selectedProfileType;
   selectedConversation: selectedConversationType;
   headerReRender: number;
+  profileImageURL: string;
 };
 
 type selectedConversationType = {
@@ -40,6 +41,7 @@ const initialState: appSliceType = {
     conversationType: undefined,
   },
   headerReRender: Date.now(),
+  profileImageURL: "",
 };
 
 const appSlice = createSlice({
@@ -80,6 +82,12 @@ const appSlice = createSlice({
     setHeaderReRender: (state: appSliceType) => {
       state.headerReRender = Date.now();
     },
+    setProfileImageURL: (
+      state: appSliceType,
+      action: PayloadAction<string>
+    ) => {
+      state.profileImageURL = action.payload;
+    },
   },
 });
 
@@ -90,6 +98,7 @@ export const {
   setSelectedProfile,
   setFileterBy,
   setHeaderReRender,
+  setProfileImageURL,
 } = appSlice.actions;
 
 export default appSlice.reducer;

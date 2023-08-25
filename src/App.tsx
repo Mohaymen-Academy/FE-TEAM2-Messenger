@@ -44,7 +44,7 @@ function App() {
 
         <Route path="*" element={<NoMatch />} />
       </Routes>
-      <ToastContainer theme={theme} rtl={true} closeButton={<></>} />
+      <ToastContainer theme={theme} rtl={true} />
     </div>
   );
 }

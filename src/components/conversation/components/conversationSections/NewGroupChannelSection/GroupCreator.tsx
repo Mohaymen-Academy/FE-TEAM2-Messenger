@@ -5,10 +5,14 @@ import { Button } from "@/components/ui";
 import { UseFormRegister, FieldValues, UseFormSetValue } from "react-hook-form";
 import FadeMotionWrapper from "@/components/wrappers/FadeMotionWrapper";
 import { setSection } from "@/redux/Slices/conversationSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import ProfileUploader from "@/components/wrappers/FileUploader";
 import ChatPrivacy from "../../ChannelPrivacy";
+import { setProfileImageURL } from "@/redux/Slices/appSlice";
+import CropperModal from "@/components/modal/CropperModal";
+import { StoreStateTypes } from "@/utils/types";
+import { onCropperOpen } from "@/redux/Slices/modalSlice";
 
 interface GroupCreatorProp {
   show: boolean;
@@ -39,8 +43,13 @@ const GroupCreator: React.FC<GroupCreatorProp> = ({
 
       const imageUrl = URL.createObjectURL(file);
       setPictureUrl(imageUrl);
+      dispatch(onCropperOpen());
     }
   };
+
+  const { profileImageURL } = useSelector(
+    (store: StoreStateTypes) => store.app
+  );
 
   return (
     <FadeMotionWrapper show={show}>
@@ -50,12 +59,14 @@ const GroupCreator: React.FC<GroupCreatorProp> = ({
         {/* Camera and Upload section */}
         <div className="px-8 flex flex-col">
           <ProfileUploader
-            imgUrl={pictureUrl}
+            imgUrl={profileImageURL}
             width={150}
             accept="image/*"
             imageSelectHandler={imageSelectHandler}
             className="mb-10 mx-auto"
           />
+
+          <CropperModal imgURL={profileImageURL} />
 
           <FloatingLabelInput
             type="text"
@@ -69,16 +80,20 @@ const GroupCreator: React.FC<GroupCreatorProp> = ({
 
           <div className="flex gap-2">
             <Button
-              onClick={() => onSubmit()}
+              onClick={() => {
+                onSubmit();
+                dispatch(setProfileImageURL(""));
+              }}
               className="w-full font-bold text-xl"
             >
               <span className="sr-only">ساخت گروه</span>
               ساخت گروه
             </Button>
             <Button
-              onClick={() =>
-                dispatch(setSection({ selectedState: "conversations" }))
-              }
+              onClick={() => {
+                dispatch(setSection({ selectedState: "conversations" }));
+                dispatch(setProfileImageURL(""));
+              }}
               className="!bg-btn-danger hover:!bg-btn-danger-hover !text-white w-full font-bold text-xl"
             >
               <span className="sr-only">انصراف</span>
