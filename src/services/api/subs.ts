@@ -8,4 +8,8 @@ const setLastMessageSeen = (id: number) => {
   return apiCall.put(`/api/subs/set-last-seen/${id}`);
 };
 
-export { getSubs, setLastMessageSeen };
+const removeUserFromChat = async (subId: number) => {
+  return apiCall.delete(`/api/subs/delete-sub/${subId}`);
+};
+
+export { getSubs, setLastMessageSeen, removeUserFromChat };

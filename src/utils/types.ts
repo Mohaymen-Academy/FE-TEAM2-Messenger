@@ -29,6 +29,7 @@ export type UserTypes = {
 };
 
 export type subTypes = {
+  subId: number;
   admin: boolean;
   firstName: string;
   lastName: string;

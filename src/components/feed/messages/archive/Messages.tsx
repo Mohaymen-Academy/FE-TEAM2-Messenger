@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreStateTypes, UserTypes } from "@/utils/types";
+import { ConversationTypes, StoreStateTypes, UserTypes } from "@/utils/types";
 import { useInfiniteQuery } from "react-query";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { getMessages } from "@/services/api/chat";
 import Message from "../Message";
 import Text from "../Text";
@@ -19,6 +19,7 @@ import { setLastMessageSeen } from "@/services/api/subs";
 const Messages: React.FC = () => {
   const [URLSearchParams] = useSearchParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const selectedConversation = URLSearchParams.get("conversationId");
   const selectedConversationObj = useSelector(
@@ -82,6 +83,7 @@ const Messages: React.FC = () => {
       },
       staleTime: 1000,
       refetchInterval: 1000,
+      retry: false,
       onSuccess: () => {
         queryClient.refetchQueries([
           "chat",
@@ -91,6 +93,16 @@ const Messages: React.FC = () => {
         ]);
 
         dispatch(setHeaderReRender());
+      },
+      onError: () => {
+        const conversationsIds = queryClient
+          .getQueryData<{
+            data: ConversationTypes[];
+          }>(["user", "current", "conversations"])
+          ?.data.map((conv) => conv.chatId);
+        if (!conversationsIds?.includes(+selectedConversation!)) {
+          navigate("/chat");
+        }
       },
     }
   );
