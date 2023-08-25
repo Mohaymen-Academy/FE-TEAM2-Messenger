@@ -40,7 +40,7 @@ function App() {
 
         <Route path="*" element={<FinalSkeleton />} />
       </Routes>
-      <ToastContainer theme={theme} rtl={true} closeButton={<></>} />
+      <ToastContainer theme={theme} rtl={true} />
     </div>
   );
 }

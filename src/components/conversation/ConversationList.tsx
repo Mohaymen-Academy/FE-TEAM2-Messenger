@@ -51,6 +51,8 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
     } else if (filterBy === item.chatType) {
       return conversation;
     } else if (Array.isArray(filterBy) && filterBy.includes(item.chatId)) {
+      console.log(item.chatId, "chat id");
+      console.log(filterBy, "chat filter");
       return conversation;
     }
   };

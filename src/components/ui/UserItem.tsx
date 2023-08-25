@@ -35,7 +35,6 @@ const UserItem: React.FC<UserItemProps> = ({
   const userLastSeen = formatDateDifference(
     userData?.data?.lastSeen || user.lastSeen
   );
-  console.log(userData?.data?.lastSeen || user.lastSeen);
 
   return (
     <div

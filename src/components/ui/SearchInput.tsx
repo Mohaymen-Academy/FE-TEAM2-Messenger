@@ -23,19 +23,23 @@ const SearchInput: React.FC<searchInputProps> = ({ placeHolder, searchIn }) => {
   const toastify = useToastify();
   const dispatch = useDispatch();
 
-  const searchResult = async (
-    name: string,
-    searchIn: "CONTACT" | "CONVERSATION"
-  ) => {
+  const searchResult = async () => {
+    let conversationResult = [];
     if (searchIn === "CONVERSATION") {
       const { data: conversationData } = await getChatSearchResult(searchParam);
-      const conversationResult = conversationData.map(
-        (data: any) => data.chatId
-      );
+      conversationResult = conversationData.map((data: any) => data.chatId);
     }
     const { data: contactData } = await getContactSearchResult(searchParam);
-    console.log(contactData, "asd");
-    // const conversationResult = contactData.map((data: any) => data.chatId);
+    const contactResult = contactData.map((data: any) => data.contactId);
+
+    const searchResult = [...contactResult, ...conversationResult];
+    console.log(searchResult, "chat result");
+    if (searchResult.length === 0) {
+      toastify.warning("نتیجه ای یافت نشد.");
+      dispatch(setFileterBy([]));
+    } else {
+      dispatch(setFileterBy(searchResult));
+    }
   };
 
   // const searchContactQuery = useQuery(
@@ -73,7 +77,7 @@ const SearchInput: React.FC<searchInputProps> = ({ placeHolder, searchIn }) => {
 
     const timerId = setTimeout(() => {
       if (searchParam.trim()) {
-        searchResult(searchParam, searchIn);
+        searchResult();
       }
     }, 400);
 

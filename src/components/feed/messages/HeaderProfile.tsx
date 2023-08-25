@@ -13,7 +13,6 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
   selectedConversation,
 }) => {
   useSelector((store: StoreStateTypes) => store.app.headerReRender);
-  // console.log("HEADER RE RENDER");
   const subs = queryClient.getQueryData<{ data: any[] }>([
     "chat",
     selectedConversation?.chatType,
@@ -25,14 +24,10 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
     "user",
     "current",
   ])?.data?.userId;
-  console.log("subs", subs);
   const subCount = subs?.data.length;
   const otherUser = subs?.data.find((subs) => {
-    console.log("subUser", subs.userId);
-    console.log("curr User in find", currentUserId);
     return subs.userId !== currentUserId;
   });
-  console.log("curr User in code", currentUserId);
   const lastSeenTime = formatDateDifference(otherUser?.lastSeen);
   const subText = useMemo(() => {
     if (selectedConversation?.chatType === "PV") {
