@@ -1,7 +1,12 @@
 import { Avatar, Paragraph } from "@/components/ui";
 import { queryClient } from "@/providers/queryClientProvider";
 import { formatDateDifference } from "@/utils/fromatDate";
-import { ConversationTypes, StoreStateTypes, UserTypes } from "@/utils/types";
+import {
+  ConversationTypes,
+  StoreStateTypes,
+  UserTypes,
+  subTypes,
+} from "@/utils/types";
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 
@@ -13,7 +18,7 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
   selectedConversation,
 }) => {
   useSelector((store: StoreStateTypes) => store.app.headerReRender);
-  const subs = queryClient.getQueryData<{ data: any[] }>([
+  const subs = queryClient.getQueryData<{ data: subTypes[] }>([
     "chat",
     selectedConversation?.chatType,
     selectedConversation?.chatId.toString(),
@@ -24,11 +29,11 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
     "user",
     "current",
   ])?.data?.userId;
+
   const subCount = subs?.data.length;
-  const otherUser = subs?.data.find((subs) => {
-    return subs.userId !== currentUserId;
-  });
+  const otherUser = subs?.data.find((subs) => subs.userId !== currentUserId);
   const lastSeenTime = formatDateDifference(otherUser?.lastSeen);
+
   const subText = useMemo(() => {
     if (selectedConversation?.chatType === "PV") {
       if (lastSeenTime === "Online") {
@@ -37,7 +42,7 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
         return `آخرین بازدید در ${lastSeenTime}`;
       }
     } else {
-      return subCount;
+      return subCount + " عضو";
     }
   }, [subCount, otherUser, currentUserId, subs]);
 
@@ -50,7 +55,10 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
           chatType={selectedConversation?.chatType}
           className="w-12 h-12"
           chatId={selectedConversation?.chatId}
-          isOnline={lastSeenTime === "Online"}
+          isOnline={
+            lastSeenTime === "Online" && selectedConversation?.chatType === "PV"
+          }
+          userId={otherUser?.userId}
         />
         <div className="flex flex-col gap-1">
           <Paragraph size={"lg"}>{selectedConversation?.title}</Paragraph>

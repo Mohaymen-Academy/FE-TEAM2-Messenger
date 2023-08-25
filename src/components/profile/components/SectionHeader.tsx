@@ -13,13 +13,14 @@ interface sectionHeaderProps {
 const SectionHeader: React.FC<sectionHeaderProps> = ({ title, withClose }) => {
   const dispatch = useDispatch();
   return (
-    <div className="flex items-center py-2 px-4 h-[70px] ">
+    <div className="flex items-center py-2 px-4 h-[71px] ">
       {withClose && (
         <Button
           onClick={() => dispatch(setShow({ show: false }))}
           variant="ghost"
           className="h-12 w-12 ml-4"
         >
+          <span className="sr-only">بستن این صفحه</span>
           <AiOutlineClose className="icon-button" size={25} />
         </Button>
       )}
@@ -31,12 +32,13 @@ const SectionHeader: React.FC<sectionHeaderProps> = ({ title, withClose }) => {
 const withEdit = (WrappedComponent: ComponentType<sectionHeaderProps>) => {
   return ({ title, withClose }: sectionHeaderProps) => {
     return (
-      <div className="relative h-[70px]">
+      <div className="relative h-[71px]">
         <WrappedComponent withClose={withClose} title={title} />
         <Button
           variant="ghost"
           className="h-12 w-12 ml-4 z-10 left-2 absolute top-2"
         >
+          <span className="sr-only">ویرایش </span>
           <FiEdit2 className="icon-button" size={25} />
         </Button>
       </div>

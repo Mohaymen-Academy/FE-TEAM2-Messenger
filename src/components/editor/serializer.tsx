@@ -34,19 +34,25 @@ export function parseSlateToHtml(node: any[]) {
     .join("");
 }
 
-function sanitizeInput(inputString: string) {
-  // Remove <script> tags and their contents
-  // const sanitizedStringWithoutScripts = inputString.replace(
-  //   /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
-  //   ""
-  // );
-  // // Remove HTML tags using regular expression
-  // const sanitizedStringWithoutTags = sanitizedStringWithoutScripts.replace(
-  //   /<\/?[^>]+(>|$)/g,
-  //   ""
-  // );
-  // Remove < and > characters
+export function sanitizeInput(inputString: string) {
   const sanitizedStringWithoutAngleBrackets = inputString
+    .replace(/</g, "{")
+    .replace(/>/g, "}");
+  return sanitizedStringWithoutAngleBrackets;
+}
+export function deleteHtmlTags(inputString: string) {
+  // Remove <script> tags and their contents
+  const sanitizedStringWithoutScripts = inputString.replace(
+    /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+    ""
+  );
+  // // Remove HTML tags using regular expression
+  const sanitizedStringWithoutTags = sanitizedStringWithoutScripts.replace(
+    /<\/?[^>]+(>|$)/g,
+    ""
+  );
+  // Remove < and > characters
+  const sanitizedStringWithoutAngleBrackets = sanitizedStringWithoutTags
     .replace(/</g, "{")
     .replace(/>/g, "}");
   return sanitizedStringWithoutAngleBrackets;

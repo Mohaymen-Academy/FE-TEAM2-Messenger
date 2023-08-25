@@ -41,6 +41,7 @@ const Tools = ({ editor }: { editor?: any }) => {
                   customEditor.toggleBoldMark(editor);
                 }}
               >
+                <span className="sr-only">برجسته کردن متن</span>
                 <FaBold size={18} className="text-primary" />
               </Button>
               <Button
@@ -50,6 +51,7 @@ const Tools = ({ editor }: { editor?: any }) => {
                   customEditor.toggleItalicMark(editor);
                 }}
               >
+                <span className="sr-only">ایتالیک کردن متن</span>
                 <FaItalic size={18} className="text-primary" />
               </Button>
               <Button
@@ -59,6 +61,7 @@ const Tools = ({ editor }: { editor?: any }) => {
                   customEditor.toggleUnderlineMark(editor);
                 }}
               >
+                <span className="sr-only">کشیدن زیرخط برای متن</span>
                 <FaUnderline size={18} className="text-primary" />
               </Button>
               <Button
@@ -68,6 +71,7 @@ const Tools = ({ editor }: { editor?: any }) => {
                   customEditor.toggleStrikeThroughMark(editor);
                 }}
               >
+                <span className="sr-only">خط کشیدن روی متن </span>
                 <FaStrikethrough size={18} className="text-primary" />
               </Button>
             </div>
@@ -89,6 +93,7 @@ const Tools = ({ editor }: { editor?: any }) => {
                   }
                 }}
               >
+                <span className="sr-only">کپی کردن متن</span>
                 <FaCopy size={18} className="text-primary" />
               </Button>
 
@@ -101,6 +106,7 @@ const Tools = ({ editor }: { editor?: any }) => {
                   }
                 }}
               >
+                <span className="sr-only">جای گذاری متن</span>
                 <FaPaste size={18} className="text-primary" />
               </Button>
 
@@ -123,6 +129,7 @@ const Tools = ({ editor }: { editor?: any }) => {
                   }
                 }}
               >
+                <span className="sr-only">برش متن</span>
                 <FaCut size={18} className="text-primary" />
               </Button>
             </div>
@@ -134,6 +141,7 @@ const Tools = ({ editor }: { editor?: any }) => {
                 customEditor.toggleSpoilerMark(editor);
               }}
             >
+              <span className="sr-only">پنهان کردن متن</span>
               <FaEyeSlash size={18} className="text-primary" />
             </Button>
           </div>

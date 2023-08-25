@@ -1,5 +1,4 @@
 import Input from "@/components/auth/input/Input";
-import useToastify from "@/hooks/useTostify";
 import { setFileterBy } from "@/redux/Slices/appSlice";
 import {
   getChatSearchResult,
@@ -9,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useDispatch } from "react-redux";
 import { RiCloseCircleFill } from "react-icons/ri";
+import useToastify from "@/hooks/useTostify";
 
 interface searchInputProps {
   placeHolder: string;
@@ -20,8 +20,8 @@ const SearchInput: React.FC<searchInputProps> = ({ placeHolder, searchIn }) => {
   const [debounceTimer, setDebounceTimer] = useState<NodeJS.Timeout | null>(
     null
   );
-  const toastify = useToastify();
   const dispatch = useDispatch();
+  const toastify = useToastify();
 
   const searchResult = async () => {
     let conversationResult = [];

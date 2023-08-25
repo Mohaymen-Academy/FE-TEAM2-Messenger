@@ -2,13 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Paragraph } from "../ui";
 import Modal from "./ParentModal";
 import { StoreStateTypes } from "@/utils/types";
-import { onClose } from "@/redux/Slices/modal/logOutModalSlice";
+import { onSignOutClose } from "@/redux/Slices/modalSlice";
 import { useNavigate } from "react-router-dom";
 import { emptyUser } from "@/redux/Slices/userSlice";
 
 const LogOutModal = () => {
   const isOpen = useSelector(
-    (store: StoreStateTypes) => store.logOutModal.isOpen
+    (store: StoreStateTypes) => store.modal.isSignOutOpen
   );
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -17,31 +17,31 @@ const LogOutModal = () => {
     navigate("/auth/sign-in");
     window.localStorage.removeItem("access_token");
     window.localStorage.removeItem("refresh_token");
-    dispatch(onClose());
+    dispatch(onSignOutClose());
   };
   const body = (
-    <>
-      <div className="bg-primary w-full py-5 px-8 rounded-xl">
-        <Paragraph className="mb-6 text-center">
-          آیا از خروج مطمئن هستید؟
-        </Paragraph>
-        <div className="flex justify-between gap-3">
-          <Button
-            onClick={onSubmit}
-            className="w-full  transition-all duration-200 hover:bg-red-500 !bg-btn-danger dark:hover:bg-red-600 !text-white"
-          >
-            بله
-          </Button>
+    <div className="bg-primary w-50% md:w-[40%] py-5 px-8 rounded-xl">
+      <Paragraph className="mb-6 text-center">
+        آیا از خروج مطمئن هستید؟
+      </Paragraph>
+      <div className="flex justify-between gap-3">
+        <Button
+          onClick={onSubmit}
+          className="w-full  transition-all duration-200 hover:bg-red-500 !bg-btn-danger dark:hover:bg-red-600 !text-white"
+        >
+          <span className="sr-only">بله</span>
+          بله
+        </Button>
 
-          <Button
-            onClick={() => dispatch(onClose())}
-            className="w-full transition-all duration-200"
-          >
-            خیر
-          </Button>
-        </div>
+        <Button
+          onClick={() => dispatch(onSignOutClose())}
+          className="w-full transition-all duration-200"
+        >
+          <span className="sr-only">خیر</span>
+          خیر
+        </Button>
       </div>
-    </>
+    </div>
   );
 
   return (
@@ -51,7 +51,7 @@ const LogOutModal = () => {
       actionLabel="تایید"
       secondaryActionLabel="خروج"
       isOpen={isOpen}
-      onClose={() => dispatch(onClose())}
+      onClose={() => dispatch(onSignOutClose())}
     />
   );
 };

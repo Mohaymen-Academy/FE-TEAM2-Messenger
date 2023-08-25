@@ -1,5 +1,5 @@
 import ConversationList from "./ConversationList";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { ContactTypes, StoreStateTypes } from "@/utils/types";
 import ConversationSectionWrapper from "./components/conversationSections/ConversationSectionWrapper";
 import CreatePvSection from "./components/conversationSections/NewChatSection";
@@ -22,6 +22,7 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({
     enabled: false,
   });
   const { filterBy } = useSelector((store: StoreStateTypes) => store.app);
+  let contacts = contactQuery.data?.data;
 
   useEffect(() => {
     console.log(filterBy, "chat filterby");
@@ -57,21 +58,31 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({
       }}
       className="h-full w-screen md:w-auto md:min-w-[480px] lg:static absolute right-0 transition-[right] z-10 rounded-2xl shadow-2xl"
     >
-      <div className="w-full h-full bg-white dark:bg-slate-700 backdrop-blur-[5px] flex flex-col relative dark:shadow-neutral-800/50 rounded-l-none ">
-        <ConversationSectionWrapper show={section === "pvCreate"}>
+      <div className="w-full h-full bg-primary backdrop-blur-[5px] flex flex-col relative dark:shadow-neutral-800/50 rounded-l-none ">
+        <ConversationSectionWrapper
+          section="pvCreate"
+          show={section === "pvCreate"}
+        >
           <CreatePvSection contactsData={sortedContacts} />
         </ConversationSectionWrapper>
         <ConversationSectionWrapper
+          section="publicCreate"
           show={section === "channelCreate" || section === "groupCreate"}
         >
           <NewGroupChannelSection contactsData={sortedContacts} />
         </ConversationSectionWrapper>
 
-        <ConversationSectionWrapper show={section === "conversations"}>
+        <ConversationSectionWrapper
+          section={"conversations"}
+          show={section === "conversations"}
+        >
           <ConversationList />
         </ConversationSectionWrapper>
 
-        <ConversationSectionWrapper show={section === "contactCreate"}>
+        <ConversationSectionWrapper
+          section="contactCreate"
+          show={section === "contactCreate"}
+        >
           <NewContactSection />
         </ConversationSectionWrapper>
       </div>

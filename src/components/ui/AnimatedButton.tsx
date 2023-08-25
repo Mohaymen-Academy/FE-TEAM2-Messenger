@@ -44,7 +44,7 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({
             "rotate-90": !isActive,
           })}
         />
-        <span className="sr-only">Toggle Button</span>
+        <span className="sr-only">دکمه تغییر وضعیت</span>
       </Button>
     </>
   );

@@ -79,7 +79,7 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
                 <SearchInput placeHolder="جستجو" searchIn="CONVERSATION" />
               </div>
             </div>
-            <div className="h-full w-full overflow-y-auto overflow-x-hidden px-2 duration-500 custom-scrollbar scrollbar-none md:scrollbar">
+            <div className="h-full w-full overflow-y-auto overflow-x-hidden px-2 duration-500 custom-scrollbar scrollbar-none md:scrollbar flex flex-col gap-1">
               {conversationItemsQueryResponse.isLoading ? (
                 <div className="w-full h-full">
                   <FinalSkeleton />

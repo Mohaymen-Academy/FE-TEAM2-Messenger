@@ -7,39 +7,42 @@ import { StoreStateTypes } from "@/utils/types";
 import patternLight from "../../assets/img/bgPatternLight.png";
 import patternDark from "../../assets/img/bgPatternDark.png";
 import Header from "./Header";
-
 interface FeedWrapperProps {
-  userId: string;
   feedShowCriteria?: string;
 }
 
-const FeedWrapper: React.FC<FeedWrapperProps> = ({
-  userId,
-  feedShowCriteria,
-}) => {
+const FeedWrapper: React.FC<FeedWrapperProps> = ({ feedShowCriteria }) => {
   const navigate = useNavigate();
   const theme = useSelector((store: StoreStateTypes) => store.app.theme);
   const [URLSearchParams] = useSearchParams();
   const selectedConversation = URLSearchParams.get("conversationId");
 
+  const userPermissions = useSelector(
+    (store: StoreStateTypes) =>
+      store.conversation.selectedConversationUserPermission
+  );
+
+  console.log(userPermissions);
+  const bgStyle = {
+    height: false
+      ? "calc(100vh - 92px)"
+      : false
+      ? "calc(100vh - 52px)"
+      : "100%",
+    background: `url(${
+      theme === "dark" ? patternDark : patternLight
+    }), linear-gradient(-40deg, ${
+      theme === "dark"
+        ? "rgba(15, 23, 42, 1), rgba(15, 23, 42, 1)"
+        : "rgba(119, 172, 140, 1), rgba(215, 219, 185, 1)"
+    })`,
+    backgroundBlendMode: "overlay",
+    right: feedShowCriteria,
+  };
+
   return (
     <div
-      style={{
-        height: false
-          ? "calc(100vh - 92px)"
-          : false
-          ? "calc(100vh - 52px)"
-          : "100%",
-        background: `url(${
-          theme === "dark" ? patternDark : patternLight
-        }), linear-gradient(-40deg, ${
-          theme === "dark"
-            ? "rgba(15, 23, 42, 1), rgba(15, 23, 42, 1)"
-            : "rgba(119, 172, 140, 1), rgba(215, 219, 185, 1)"
-        })`,
-        backgroundBlendMode: "overlay",
-        right: feedShowCriteria,
-      }}
+      style={bgStyle}
       className="h-full w-screen absolute lg:static right-0 transition-[right] z-30"
     >
       <div className="bg h-full m-auto">
@@ -55,8 +58,10 @@ const FeedWrapper: React.FC<FeedWrapperProps> = ({
                 <div className="h-[calc(100vh-61px)] w-full">
                   <div className="flex flex-col h-full gap-1 w-full">
                     <>
-                      <Messages conversationId="12" userId={userId} />
-                      <MessageInput />
+                      <Messages />
+                      {userPermissions?.includes("SEND_MESSAGE") && (
+                        <MessageInput />
+                      )}
                     </>
                   </div>
                 </div>
@@ -65,7 +70,7 @@ const FeedWrapper: React.FC<FeedWrapperProps> = ({
           </div>
         ) : (
           <div className="w-full h-full text-primary text-4xl grid place-content-center">
-            پیام‌رسان آیریس
+            {/* پیام‌رسان آیریس */}
           </div>
         )}
       </div>

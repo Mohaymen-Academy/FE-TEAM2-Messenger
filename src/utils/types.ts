@@ -4,9 +4,8 @@ import {
   profileSliceType,
   messageSliceType,
   userSliceType,
-  logOutModalSliceType,
   textAreaSliceType,
-  UploadModalSliceType,
+  ModalSliceType,
 } from "@/redux/Slices";
 
 export type StoreStateTypes = {
@@ -15,9 +14,8 @@ export type StoreStateTypes = {
   message: messageSliceType;
   profile: profileSliceType;
   user: userSliceType;
-  logOutModal: logOutModalSliceType;
-  uploadModal: UploadModalSliceType;
   textArea: textAreaSliceType;
+  modal: ModalSliceType;
 };
 
 export type UserTypes = {
@@ -30,16 +28,25 @@ export type UserTypes = {
   lastSeen?: string;
 };
 
+export type subTypes = {
+  admin: boolean;
+  firstName: string;
+  lastName: string;
+  lastSeen: string;
+  profile: {
+    id: number;
+    media: media;
+    setAt: string;
+  };
+
+  userId: number;
+};
+
 export type ConversationTypes = {
   chatId: number;
-  chatType: "CHANNEL" | "GROUP" | "PV";
+  chatType: chatType;
   lastMessage: string;
-  media: {
-    mediaId: number;
-    fileName: string;
-    fileMimeType: string;
-    filePath: string;
-  };
+  media: media;
   sentAt: string;
   title: string;
   unSeenMessages: number;
@@ -49,28 +56,48 @@ export type ConversationTypes = {
 export type ChatTypes = {
   bio: string;
   chatId: number;
-  chatType: "CHANNEL" | "GROUP" | "PV";
+  chatType: chatType;
   link: string;
   ownerId: number;
-  profileDtoList: any[];
+  permissions: permissionType[];
+  profileDtoList: {
+    id: number;
+    media: media;
+    setAt: string;
+  };
+
   public: boolean;
   subCount: number;
   title: string;
 };
 
+// export type FullChatTypes = {
+//   bio: string;
+//   chatId: number;
+//   chatType: chatType;
+//   link: string;
+//   ownerId: number;
+//   permissions: permissionType;
+//   profileDtoList: {
+//     id: number;
+//     media: media;
+//     setAt: string;
+//   };
+
+//   public: boolean;
+//   subCount: number;
+//   title: string;
+// };
+
 export type MessageTypes = {
   editedAt: string;
-  media: {
-    mediaId: number;
-    fileName: string;
-    fileMimeType: string;
-    filePath: string;
-  };
+  media: media;
   messageId: number;
   sendAt: string;
   text: string;
   userId: number;
   isCache?: boolean;
+  seen?: boolean;
 };
 
 export type ContactTypes = {
@@ -80,4 +107,18 @@ export type ContactTypes = {
   secondUserId: number;
   lastSeen: string;
 };
+
+export type media = {
+  mediaId: number;
+  fileName: string;
+  fileMimeType: string;
+  filePath: string;
+};
+export type chatType = "CHANNEL" | "GROUP" | "PV";
 export type MessageStatus = "SEEN" | "DELIVERED" | "PENDING";
+export type permissionType =
+  | "PIN_MESSAGE"
+  | "CHANGE_CHAT_INFO"
+  | "ADMIN"
+  | "SEND_MESSAGE"
+  | "ADD_USER";

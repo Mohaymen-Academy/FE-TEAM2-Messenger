@@ -10,7 +10,10 @@ const NoMatch = () => {
         <div className="flex flex-col gap-8 items-center">
           <Paragraph className="!text-4xl">صفحه مورد نظر پیدا نشد</Paragraph>
           <Paragraph className="!text-4xl">Page Not Found</Paragraph>
-          <Button className="p-2">بازگشت به خانه</Button>
+          <Button className="p-2">
+            <span className="sr-only">بازگشت به خانه</span>
+            بازگشت به خانه
+          </Button>
         </div>
       </div>
     </div>

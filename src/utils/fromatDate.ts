@@ -1,4 +1,4 @@
-function formatDateDifference(isoDate: string): string {
+function formatDateDifference(isoDate?: string): string {
   if (!isoDate) return "نامشخص";
   const now = new Date();
   const inputDate = new Date(isoDate);

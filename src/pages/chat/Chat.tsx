@@ -16,7 +16,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import useViewportWidth from "@/hooks/useViewportWidth";
 import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
 import ProfileWrapper from "@/components/profile/ProfileWrapper";
-import LogOutModal from "@/components/modal/LogOutModal";
 import { getUser } from "@/services/api/user";
 import { queryClient } from "@/providers/queryClientProvider";
 
@@ -77,30 +76,29 @@ const Chat = () => {
     dispatch(onToggleUpload({ show: false }));
   };
 
-  //get user and save in react-query cache
-  queryClient.prefetchQuery(["user", "current"], getUser, {
-    cacheTime: Infinity,
-  });
-
   useEffect(() => {
     const token = localStorage.getItem("refresh_token");
     if (!token) {
       navigate("/auth/sign-in");
     }
+
+    //get user and save in react-query cache
+    queryClient.prefetchQuery(["user", "current"], getUser, {
+      cacheTime: Infinity,
+    });
   }, []);
 
   return (
     <>
-      <LogOutModal />
       <div
         onClick={onChatClickHandler}
-        className="flex transition-all m-auto rounded-none flex-col relative max-w-[1920px] bg-repeat h-full"
+        className="flex transition-all m-auto rounded-none flex-col relative max-w-[1920px] bg-repeat h-full overflow-hidden"
       >
         <div className="flex w-full h-full relative">
           <ConversationWrapper
             conversationShowCriteria={conversationShowCriteria}
           />
-          <FeedWrapper feedShowCriteria={feedShowCriteria} userId="232" />
+          <FeedWrapper feedShowCriteria={feedShowCriteria} />
           <ProfileWrapper />
         </div>
       </div>

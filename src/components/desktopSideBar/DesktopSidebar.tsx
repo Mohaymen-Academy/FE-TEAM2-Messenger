@@ -11,7 +11,7 @@ import { BiMoon, BiSun } from "react-icons/bi";
 import { setFileterBy } from "@/redux/Slices/appSlice";
 import { merge } from "@/utils/merge";
 import { toggleTheme } from "@/redux/Slices/appSlice";
-import { onOpen } from "@/redux/Slices/modal/logOutModalSlice";
+import { onSignOutOpen } from "@/redux/Slices/modalSlice";
 import { queryClient } from "@/providers/queryClientProvider";
 import { useQuery } from "react-query";
 import { getUserProfile } from "@/services/api/user";
@@ -27,7 +27,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
   };
 
   const onLogOutClickHandler = () => {
-    dispatch(onOpen());
+    dispatch(onSignOutOpen());
   };
 
   const handleToggleFilter = (filter: "PV" | "GROUP" | "CHANNEL") => {
@@ -62,6 +62,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             })}
             onClick={() => handleToggleFilter("PV")}
           >
+            <span className="sr-only">فیلتر کردن بر اساس مخاطب</span>
             <BsFillPersonFill className="icon-button" />
           </Button>
           <Button
@@ -71,6 +72,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             })}
             onClick={() => handleToggleFilter("GROUP")}
           >
+            <span className="sr-only">فیتر کردن بر اساس گروه</span>
             <BsFillPeopleFill className="icon-button" />
           </Button>
           <Button
@@ -80,6 +82,7 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             })}
             onClick={() => handleToggleFilter("CHANNEL")}
           >
+            <span className="sr-only">فیتر کردن بر اساس کانال</span>
             <HiSpeakerphone className="icon-button" />
           </Button>
         </div>
@@ -89,10 +92,12 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
             variant="ghost"
             className="sidebar-icon-button"
           >
+            <span className="sr-only">ایجاد مخاطب یا گروه جدید</span>
             <FiEdit2 className="icon-button" />
           </Button>
           <Button variant="ghost" className="sidebar-icon-button">
             <MdLogout onClick={onLogOutClickHandler} className="icon-button" />
+            <span className="sr-only">خروج از حساب کاربری</span>
           </Button>
           <AnimatedButton
             FirstIcon={BiSun}
