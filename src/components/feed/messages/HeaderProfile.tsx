@@ -32,6 +32,8 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
 
   const subCount = subs?.data.length;
   const otherUser = subs?.data.find((subs) => subs.userId !== currentUserId);
+  console.log(otherUser?.lastSeen);
+  console.log(formatDateDifference(otherUser?.lastSeen));
   const lastSeenTime = formatDateDifference(otherUser?.lastSeen);
 
   const subText = useMemo(() => {
@@ -50,7 +52,7 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
     <div>
       <div className="flex gap-5 w-full justify-center items-center">
         <Avatar
-          imgSrc={selectedConversation?.media?.filePath}
+          imgSrc={selectedConversation?.media?.filePath as string}
           avatarType="CHAT"
           chatType={selectedConversation?.chatType}
           className="w-12 h-12"

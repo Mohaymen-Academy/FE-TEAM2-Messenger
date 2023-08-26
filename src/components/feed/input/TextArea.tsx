@@ -5,7 +5,7 @@ import Emoji from "./Emoji";
 import clsx from "clsx";
 import { onToggleEmoji, onToggleUpload } from "@/redux/Slices/appSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { MessageTypes, StoreStateTypes, UserTypes } from "@/utils/types";
+import { MessageTypes, StoreStateTypes, UserTypes, media } from "@/utils/types";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { GoFileMedia, GoFile } from "react-icons/go";
 import { Paragraph } from "@/components/ui";
@@ -85,6 +85,7 @@ const TextArea = () => {
   const { mutate: sendMessageMutate } = useMutation({
     mutationFn: (formData: FormData) => sendMessage(formData),
     onMutate: (newMessage) => {
+      console.log(newMessage);
       //this block get the new messages data for optimistic rendering
       const text = newMessage.get("text") as string;
       const userId = queryClient.getQueryData<{ data: UserTypes }>([
@@ -92,11 +93,14 @@ const TextArea = () => {
         "current",
       ])?.data.userId;
       const sendAt = new Date().toISOString();
-      const media = {
+      console.log(newMessage.get("file"));
+      const media: media = {
         mediaId: uuidv4(),
         filePath:
           newMessage.get("file") &&
           URL.createObjectURL(newMessage.get("file") as File),
+        fileMimeType: (newMessage.get("file") as File)?.type,
+        fileName: (newMessage.get("file") as File)?.name,
       };
       ////////////////////////////
 

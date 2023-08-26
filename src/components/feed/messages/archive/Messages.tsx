@@ -11,7 +11,6 @@ import { InView } from "react-intersection-observer";
 import { BeatLoader } from "react-spinners";
 import { queryClient } from "@/providers/queryClientProvider";
 import { useEffect, useMemo, useRef } from "react";
-import { deleteOptimisticCache } from "@/redux/Slices/messageSlice";
 import Media from "../Media";
 import { setHeaderReRender } from "@/redux/Slices/appSlice";
 import { setLastMessageSeen } from "@/services/api/subs";
@@ -157,13 +156,13 @@ const Messages: React.FC = () => {
       if (messagesTexts.includes(msg.text)) {
         const index = messagesTexts.indexOf(msg.text);
         if (messagesIds[index] > msg.messageId && msg.isCache) {
-          dispatch(
-            deleteOptimisticCache({
-              chatId: selectedConversation,
-              messageId: msg.messageId,
-              prevCache: optimisticCache,
-            })
-          );
+          // dispatch(
+          //   deleteOptimisticCache({
+          //     chatId: selectedConversation,
+          //     messageId: msg.messageId,
+          //     prevCache: optimisticCache,
+          //   })
+          // );
           return false;
         }
       }
@@ -207,31 +206,39 @@ const Messages: React.FC = () => {
           toRenderMessages && (
             <>
               <div ref={scrollDivRef}></div>
-              {toRenderMessages.map((msg) => (
-                <Message
-                  message={msg}
-                  conversation={{
-                    id: selectedConversationObj?.chatId,
-                    type: selectedConversationObj?.chatType,
-                  }}
-                  key={msg.messageId}
-                  messageStatus={
-                    msg.isCache ? "PENDING" : msg.seen ? "SEEN" : "DELIVERED"
-                  }
-                  groupMessage={selectedConversationObj?.chatType === "GROUP"}
-                  sentByCurrentUser={msg.userId === userData?.data?.userId}
-                >
-                  {msg.media && msg.media.filePath && (
-                    <Media
-                      mediaType={msg.media.fileMimeType}
-                      src={msg.media.filePath}
-                      name={msg.media.fileName}
-                    />
-                  )}
+              {toRenderMessages.map((msg) => {
+                // console.log(msg?.media, msg.media?.filePath);
+                if (msg.isCache) {
+                  console.log(msg);
+                  console.log(!!msg.media, !!msg.media.filePath);
+                }
+                return (
+                  <Message
+                    message={msg}
+                    conversation={{
+                      id: selectedConversationObj?.chatId,
+                      type: selectedConversationObj?.chatType,
+                    }}
+                    key={msg.messageId}
+                    messageStatus={
+                      msg.isCache ? "PENDING" : msg.seen ? "SEEN" : "DELIVERED"
+                    }
+                    groupMessage={selectedConversationObj?.chatType === "GROUP"}
+                    sentByCurrentUser={msg.userId === userData?.data?.userId}
+                  >
+                    {msg.media && msg.media.filePath && (
+                      <Media
+                        mediaType={msg.media.fileMimeType}
+                        src={msg.media.filePath}
+                        name={msg.media.fileName}
+                        isCache={msg.isCache}
+                      />
+                    )}
 
-                  <Text content={msg.text} />
-                </Message>
-              ))}
+                    <Text content={msg.text} />
+                  </Message>
+                );
+              })}
               {hasNextPage && (
                 <InView
                   as="div"

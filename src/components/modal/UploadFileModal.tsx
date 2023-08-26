@@ -30,8 +30,12 @@ const UploadFileModal: React.FC<UploadFileModalType> = ({
       <div className="bg-primary w-full sm:w-[400px] md:w-[500px] lg:w-[600px]  py-5 px-8 rounded-xl max-h-[100%] overflow-y-auto flex flex-col ">
         <div className="mb-6 rounded-xl overflow-hidden">
           {fileType?.type === "file" && "FILE"}
-          {fileType?.type === "video" && <video src={fileType?.url} controls />}
-          {fileType?.type === "image" && <img src={fileType?.url} />}
+          {fileType?.type === "video" && (
+            <video className="w-full" src={fileType?.url} controls />
+          )}
+          {fileType?.type === "image" && (
+            <img className="max-h-[500px] m-auto rounded-2xl" src={fileType?.url} />
+          )}
         </div>
 
         <FloatingLabelInput

@@ -151,7 +151,7 @@ const Message: React.FC<MessageComponent> = ({
         <div className="flex justify-end self-end">
           <Avatar
             isOnline={formatDateDifference(Sender?.lastSeen) === "Online"}
-            imgSrc={Sender?.profile.media.filePath}
+            imgSrc={Sender?.profile.media.filePath!}
             className="-mb-1"
           />
         </div>

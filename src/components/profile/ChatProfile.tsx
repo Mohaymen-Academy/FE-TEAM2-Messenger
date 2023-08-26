@@ -142,7 +142,7 @@ const ChatProfile: React.FC<ChatProfileProps> = ({
             subs.map((sub: subTypes) => (
               <UserItem
                 key={sub.userId}
-                imageUrl={sub?.profile?.media?.filePath}
+                imageUrl={sub?.profile?.media?.filePath as string}
                 user={sub as any}
                 onClick={() => {}}
                 onDeleteClickHandler={() => onSubDeleteHandler(sub.subId)}
