@@ -1,6 +1,8 @@
 import { Button, Paragraph } from "@/components/ui";
+import { useNavigate } from "react-router-dom";
 
 const NoMatch = () => {
+  const navigate = useNavigate()
   return (
     <div className="h-full w-full bg-primary grid place-items-center min-h-screen">
       <div className="rounded-lg flex items-center gap-2 p-2">
@@ -10,7 +12,7 @@ const NoMatch = () => {
         <div className="flex flex-col gap-8 items-center">
           <Paragraph className="!text-4xl">صفحه مورد نظر پیدا نشد</Paragraph>
           <Paragraph className="!text-4xl">Page Not Found</Paragraph>
-          <Button className="p-2">
+          <Button onClick={()=> navigate("/chat")} className="p-2">
             <span className="sr-only">بازگشت به خانه</span>
             بازگشت به خانه
           </Button>

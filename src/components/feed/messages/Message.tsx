@@ -22,6 +22,9 @@ import {
   removeDeletedMessage,
   setDeletedMessages,
 } from "@/redux/Slices/messageSlice";
+import { useCopyToClipboard } from "react-use";
+import { deleteHtmlTags } from "@/components/editor/serializer";
+import useToastify from "@/hooks/useTostify";
 
 interface MessageComponent {
   children?: React.ReactNode;
@@ -48,7 +51,9 @@ const Message: React.FC<MessageComponent> = ({
   // ImageMessage,
   // VoiceMessage,
 }) => {
+  const [_, copyToClipboard] = useCopyToClipboard();
   const dispatch = useDispatch();
+  const toastify = useToastify()
   const [showContextMenu, setShowContextMenu] = useState(false);
   const containerRef = useRef(null);
   const contextMenuRef = useRef(null);
@@ -77,6 +82,13 @@ const Message: React.FC<MessageComponent> = ({
 
   const onDeleteMessageHandler = () => {
     deleteMessageMutate(message.messageId);
+  };
+
+  const onCopyClickHandler = () => {
+    const plainText = deleteHtmlTags(message.text);
+    copyToClipboard(plainText);
+    setShowContextMenu(false);
+    toastify.info("متن پیام کپی شد");
   };
 
   return (
@@ -108,9 +120,9 @@ const Message: React.FC<MessageComponent> = ({
           ref={contextMenuRef}
           className="absolute"
           style={{
-            top: contextMenuY - 150,
+            top: contextMenuY - 80,
             left: contextMenuX,
-            zIndex: 10,
+            zIndex: 20,
           }}
         >
           <ClickOutsideWrapper
@@ -119,6 +131,7 @@ const Message: React.FC<MessageComponent> = ({
             }}
           >
             <MessageContextMenu
+              onCopyMessageHandler={onCopyClickHandler}
               onDeleteMessageHandler={onDeleteMessageHandler}
             />
           </ClickOutsideWrapper>
@@ -130,9 +143,9 @@ const Message: React.FC<MessageComponent> = ({
           ref={contextMenuRef}
           className="absolute"
           style={{
-            top: contextMenuY - 100,
+            top: contextMenuY - 50,
             left: contextMenuX,
-            zIndex: 10,
+            zIndex: 20,
           }}
         >
           <ClickOutsideWrapper
@@ -141,6 +154,7 @@ const Message: React.FC<MessageComponent> = ({
             }}
           >
             <MessageContextMenu
+              onCopyMessageHandler={onCopyClickHandler}
               onDeleteMessageHandler={onDeleteMessageHandler}
             />
           </ClickOutsideWrapper>

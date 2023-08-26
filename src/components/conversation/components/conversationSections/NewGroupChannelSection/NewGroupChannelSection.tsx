@@ -206,7 +206,7 @@ const NewGroupChannelSection: React.FC<NewGroupChannelSectionProps> = ({
             "dark:text-cyan-400 text-blue-600 cursor-pointer drop-shadow-lg self-end mb-2 ml-2 scale-100 transition absolute left-0 "
           )}
         >
-          <AiFillCheckCircle size={70} />
+          <AiFillCheckCircle  size={70} />
         </div>
       )}
     </>
