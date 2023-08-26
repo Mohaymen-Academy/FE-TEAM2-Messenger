@@ -1,6 +1,5 @@
 import React, { ComponentType } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { FiEdit2 } from "react-icons/fi";
 import { Button, Paragraph } from "@/components/ui";
 import { setShow } from "@/redux/Slices/profileSlice";
 import { useDispatch } from "react-redux";

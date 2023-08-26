@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes, UserTypes, subTypes } from "@/utils/types";
 import { toggleShowConversations } from "@/redux/Slices/conversationSlice";
 import HeaderProfile from "./messages/HeaderProfile";
-import { LiaSearchSolid } from "react-icons/lia";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useState } from "react";
 import ClickOutsideWrapper from "../wrappers/ClickOutsideWrapper";
