@@ -1,7 +1,5 @@
 import { ContextItem, ContextMenu } from "@/components/ui/";
-import { HiOutlinePencil } from "react-icons/hi";
 import { MdDelete, MdOutlineContentCopy } from "react-icons/md";
-import { AiOutlineCheckCircle } from "react-icons/ai";
 import React from "react";
 
 interface MessageContextMenuProps {

@@ -7,7 +7,7 @@ import { UseFormRegister, FieldValues, UseFormSetValue } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { setSection } from "@/redux/Slices/conversationSlice";
 import ProfileUploader from "@/components/wrappers/FileUploader";
-import { useRef, useState } from "react";
+import {  useState } from "react";
 import ChatPrivacy from "../../ChannelPrivacy";
 import { StoreStateTypes } from "@/utils/types";
 import { setProfileImageURL } from "@/redux/Slices/appSlice";
