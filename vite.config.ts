@@ -31,38 +31,38 @@ export default defineConfig({
             type: "image/png",
           },
           {
-            src: '/android-chrome-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'maskable'
+            src: "/android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable",
           },
           {
-            src: '/android-chrome-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'any'
+            src: "/android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any",
           },
           {
-            src: '/android-chrome-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any'
+            src: "/android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any",
           },
           {
-            src: '/android-chrome-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable'
+            src: "/android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
           },
-        ]      
-    },
-    workbox: {
+        ],
+      },
+      workbox: {
         runtimeCaching: [
           {
             urlPattern: ({ url }) => {
-              return url.pathname.startsWith("/api");
+              return url.pathname.startsWith("/api/media");
             },
-            handler: "NetworkFirst" as const,
+            handler: "CacheFirst" as const,
             options: {
               cacheName: "api-cache",
               cacheableResponse: {
@@ -72,7 +72,7 @@ export default defineConfig({
           },
         ],
       },
-  }),
+    }),
   ],
   server: { port: 3000, host: true },
 });

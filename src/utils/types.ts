@@ -29,6 +29,7 @@ export type UserTypes = {
 };
 
 export type subTypes = {
+  subId: number;
   admin: boolean;
   firstName: string;
   lastName: string;
@@ -114,7 +115,7 @@ export type media = {
   fileMimeType: string;
   filePath: string;
 };
-export type chatType = "CHANNEL" | "GROUP" | "PV";
+export type chatType = "CHANNEL" | "GROUP" | "PV" | "SAVED_MESSAGE" | undefined;
 export type MessageStatus = "SEEN" | "DELIVERED" | "PENDING";
 export type permissionType =
   | "PIN_MESSAGE"

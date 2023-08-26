@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import ProfileColor from "./components/ProfileColor";
 import Link from "./components/Link";
 import SectionContainer from "./components/SectionContainer";
 import { Paragraph, UserItem } from "../ui";
 import { SectionHeaderWithEdit } from "./components/SectionHeader";
 import { queryClient } from "@/providers/queryClientProvider";
-import { ChatTypes } from "@/utils/types";
+import { ChatTypes, UserTypes, subTypes } from "@/utils/types";
 
 import { GrUserAdmin, GrUserAdd, GrEdit, GrPin, GrSend } from "react-icons/gr";
 import { AiOutlineEye } from "react-icons/ai";
+import { useMutation } from "react-query";
+import { removeUserFromChat } from "@/services/api/subs";
 
 interface ChatProfileProps {
   profileName: string;
@@ -23,6 +25,25 @@ const ChatProfile: React.FC<ChatProfileProps> = ({
   chatId,
   chatType,
 }) => {
+  const [deletedSubs, setDeletedSubs] = useState<number[]>([]);
+
+  const { mutate: deleteUserMutation } = useMutation(removeUserFromChat, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([
+        "chat",
+        chatType,
+        chatId?.toString(),
+        "subs",
+      ]);
+    },
+    onError: () => {},
+  });
+
+  const currentUserId = queryClient.getQueryData<{ data: UserTypes }>([
+    "user",
+    "current",
+  ])?.data.userId;
+
   const subData = queryClient.getQueryData<any>([
     "chat",
     chatType,
@@ -37,6 +58,11 @@ const ChatProfile: React.FC<ChatProfileProps> = ({
   ]);
 
   const subs = subData?.data;
+
+  const onSubDeleteHandler = (subId: number) => {
+    setDeletedSubs((prev) => [...prev, subId]);
+    deleteUserMutation(subId);
+  };
 
   return (
     <SectionContainer>
@@ -80,7 +106,7 @@ const ChatProfile: React.FC<ChatProfileProps> = ({
                 </div>
               ) : (
                 chatData?.data.permissions.map((per) => (
-                  <>
+                  <div key={per}>
                     {per === "ADD_USER" && (
                       <div className="flex gap-2 bg-cyan-200 rounded-xl px-2 justify-center items-center">
                         <GrUserAdd />
@@ -105,7 +131,7 @@ const ChatProfile: React.FC<ChatProfileProps> = ({
                         ارسال پیام
                       </div>
                     )}
-                  </>
+                  </div>
                 ))
               )}
             </div>
@@ -113,12 +139,19 @@ const ChatProfile: React.FC<ChatProfileProps> = ({
         </div>
         <div className="h-full overflow-y-auto custom-scrollbar">
           {subs &&
-            subs.map((sub: any) => (
+            subs.map((sub: subTypes) => (
               <UserItem
                 key={sub.userId}
                 imageUrl={sub?.profile?.media?.filePath}
-                user={sub}
+                user={sub as any}
                 onClick={() => {}}
+                onDeleteClickHandler={() => onSubDeleteHandler(sub.subId)}
+                haveDeleteButton={
+                  !sub.admin &&
+                  sub.userId !== chatData?.data.ownerId &&
+                  sub.userId !== currentUserId
+                }
+                isLoading={deletedSubs.includes(sub.subId)}
               />
             ))}
         </div>

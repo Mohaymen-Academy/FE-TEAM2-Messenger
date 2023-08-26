@@ -9,7 +9,6 @@ import { setSection } from "@/redux/Slices/conversationSlice";
 import ProfileUploader from "@/components/wrappers/FileUploader";
 import { useState } from "react";
 import ChatPrivacy from "../../ChannelPrivacy";
-import CropperModal from "@/components/modal/CropperModal";
 import { StoreStateTypes } from "@/utils/types";
 import { setProfileImageURL } from "@/redux/Slices/appSlice";
 import { onCropperOpen } from "@/redux/Slices/modalSlice";

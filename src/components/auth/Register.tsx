@@ -1,11 +1,11 @@
 import FloatingLabelInput from "./input/FloatingLabelInput";
-import { Button, Paragraph } from "../ui";
+import { Button } from "../ui";
 import { useNavigate } from "react-router-dom";
 import ProfileUploader from "../wrappers/FileUploader";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { sendPicture, updateInfo } from "@/services/api/user";
 import useToastify from "@/hooks/useTostify";
 import { useMutation } from "react-query";
@@ -119,7 +119,8 @@ const Register = () => {
         <span className="sr-only">تایید</span>
         تایید
       </Button>
-    </div>);
+    </div>
+  );
 };
 
 export default Register;

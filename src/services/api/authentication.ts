@@ -1,8 +1,7 @@
 import apiCall from "../axiosInstance";
 
 const loginApi = async (phoneNumber: string) => {
-  
-  return apiCall.get(`api/auth/send-activation-code`, {
+  return apiCall.get(`/api/auth/send-activation-code`, {
     params: { phoneNumber },
   });
 };
@@ -10,7 +9,7 @@ const numberConfirmation = async (
   activationCode: string,
   phoneNumber: string
 ) => {
-  return apiCall.post(`api/auth/login`, {
+  return apiCall.post(`/api/auth/login`, {
     phoneNumber,
     activationCode,
   });

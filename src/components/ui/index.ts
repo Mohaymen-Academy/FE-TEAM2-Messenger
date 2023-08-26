@@ -6,6 +6,8 @@ import IconButton from "./IconButton";
 import Button from "./Button";
 import Avatar from "./Avatar";
 import UserItem from "./UserItem";
+import ContextItem from "./ContextItem";
+import ContextMenu from "./ContextMenu";
 
 export {
   SearchInput,
@@ -16,4 +18,6 @@ export {
   Button,
   Avatar,
   UserItem,
+  ContextItem,
+  ContextMenu,
 };

@@ -62,7 +62,9 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({
         />
         <div className="flex flex-col gap-1">
           <Paragraph size={"lg"}>{selectedConversation?.title}</Paragraph>
-          <Paragraph size={"sm"}>{subText}</Paragraph>
+          {selectedConversation?.chatType !== "SAVED_MESSAGE" && (
+            <Paragraph size={"sm"}>{subText}</Paragraph>
+          )}
         </div>
       </div>
     </div>

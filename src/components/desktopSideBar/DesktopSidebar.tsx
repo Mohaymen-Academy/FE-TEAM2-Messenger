@@ -3,10 +3,14 @@ import { clsx } from "clsx";
 import { BsFillPeopleFill, BsFillPersonFill } from "react-icons/bs";
 import { HiSpeakerphone } from "react-icons/hi";
 import { MdLogout } from "react-icons/md";
-import { FiEdit2 } from "react-icons/fi";
-import { setSection } from "@/redux/Slices/conversationSlice";
+import { FiEdit2, FiSave } from "react-icons/fi";
+import {
+  setSection,
+  setSelectedConversation,
+  setSelectedConversationUserPermission,
+} from "@/redux/Slices/conversationSlice";
 import { AnimatedButton, Avatar, Button } from "../ui";
-import { StoreStateTypes } from "@/utils/types";
+import { ConversationTypes, StoreStateTypes } from "@/utils/types";
 import { BiMoon, BiSun } from "react-icons/bi";
 import { setFileterBy } from "@/redux/Slices/appSlice";
 import { merge } from "@/utils/merge";
@@ -15,12 +19,30 @@ import { onSignOutOpen } from "@/redux/Slices/modalSlice";
 import { queryClient } from "@/providers/queryClientProvider";
 import { useQuery } from "react-query";
 import { getUserProfile } from "@/services/api/user";
+import { useNavigate } from "react-router-dom";
 
 const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { theme, filterBy } = useSelector(
     (store: StoreStateTypes) => store.app
   );
+
+  const currentUserIdFromCache = queryClient.getQueryData<{
+    data: { userId: number };
+  }>(["user", "current"])?.data?.userId;
+
+  const savedMessagesChatFromCache = queryClient
+    .getQueryData<{
+      data: ConversationTypes[];
+    }>(["user", "current", "conversations"])
+    ?.data.find((conv) => conv.chatType === "SAVED_MESSAGE");
+
+  const data = useQuery(["user", "current", "profile"], () =>
+    getUserProfile(currentUserIdFromCache)
+  );
+
+  const currentUserProfile = data?.data?.data[0]?.media?.filePath;
 
   const onEditClickHandler = () => {
     dispatch(setSection({ selectedState: "pvCreate" }));
@@ -33,15 +55,17 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
   const handleToggleFilter = (filter: "PV" | "GROUP" | "CHANNEL") => {
     dispatch(setFileterBy(filter === filterBy ? undefined : filter));
   };
-  const currentUserIdFromCache = queryClient.getQueryData<{
-    data: { userId: number };
-  }>(["user", "current"])?.data?.userId;
 
-  const data = useQuery(["user", "current", "profile"], () =>
-    getUserProfile(currentUserIdFromCache)
-  );
-
-  const currentUserProfile = data?.data?.data[0]?.media?.filePath;
+  const onSavedMessagesClickHandler = () => {
+    navigate({
+      pathname: "/chat",
+      search: `?conversationId=${savedMessagesChatFromCache?.chatId}`,
+    });
+    dispatch(
+      setSelectedConversation({ conversation: savedMessagesChatFromCache })
+    );
+    dispatch(setSelectedConversationUserPermission({ permissions: ["ADMIN"] }));
+  };
 
   return (
     <div
@@ -87,6 +111,14 @@ const DesktopSidebar = ({ showSideBar }: { showSideBar: boolean }) => {
           </Button>
         </div>
         <div className="flex flex-col gap-8 items-center">
+          <Button
+            onClick={onSavedMessagesClickHandler}
+            variant="ghost"
+            className="sidebar-icon-button"
+          >
+            <span className="sr-only">پیام‌های ذخیره‌ شده</span>
+            <FiSave className="icon-button" />
+          </Button>
           <Button
             onClick={onEditClickHandler}
             variant="ghost"

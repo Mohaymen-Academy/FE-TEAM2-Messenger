@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import Modal from "./ParentModal";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreStateTypes } from "@/utils/types";
 import { onCropperClose } from "@/redux/Slices/modalSlice";
 import { Button } from "../ui";
-import Cropper, { ReactCropperElement } from "react-cropper";
+import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { setProfileImageURL } from "@/redux/Slices/appSlice";
 
@@ -17,9 +17,6 @@ const CropperModal: React.FC<cropperModalProps> = ({ imgURL }) => {
   const isOpen = useSelector(
     (store: StoreStateTypes) => store.modal.isCropperOpen
   );
-
-  const [data, setData] = useState();
-  console.log(data);
 
   const onSubmit = () => {
     getCropData();

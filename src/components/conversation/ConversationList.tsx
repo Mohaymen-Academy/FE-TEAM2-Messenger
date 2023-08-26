@@ -51,8 +51,6 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
     } else if (filterBy === item.chatType) {
       return conversation;
     } else if (Array.isArray(filterBy) && filterBy.includes(item.chatId)) {
-      console.log(item.chatId, "chat id");
-      console.log(filterBy, "chat filter");
       return conversation;
     }
   };
@@ -87,9 +85,10 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
               ) : conversationItemsQueryResponse.isError ? (
                 <Paragraph>خطا در دریافت اطلاعات</Paragraph>
               ) : (
-                conversationItems?.map((item: ConversationTypes) =>
-                  filteredConversations(item)
-                )
+                conversationItems?.map((item: ConversationTypes) => {
+                  if (item.chatType === "SAVED_MESSAGE") return null;
+                  return filteredConversations(item);
+                })
               )}
             </div>
           </div>

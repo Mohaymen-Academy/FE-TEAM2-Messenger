@@ -1,4 +1,4 @@
-import { Avatar, Paragraph } from "@/components/ui";
+import { Avatar, Button, Paragraph } from "@/components/ui";
 import React from "react";
 import { ContactTypes } from "@/utils/types";
 import { BsFillCheckCircleFill } from "react-icons/bs";
@@ -6,6 +6,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { getOtherUser, getUserProfile } from "@/services/api/user";
 import { useQuery } from "react-query";
 import { formatDateDifference } from "@/utils/fromatDate";
+import { BiTrash } from "react-icons/bi";
 
 type UserItemProps = {
   user: ContactTypes;
@@ -14,6 +15,8 @@ type UserItemProps = {
   checked?: boolean;
   isLoading?: boolean;
   imageUrl?: string;
+  haveDeleteButton?: boolean;
+  onDeleteClickHandler?: () => void;
 };
 const UserItem: React.FC<UserItemProps> = ({
   user,
@@ -22,6 +25,8 @@ const UserItem: React.FC<UserItemProps> = ({
   checked,
   isLoading,
   imageUrl,
+  haveDeleteButton,
+  onDeleteClickHandler,
 }) => {
   const { data: userData } = useQuery(["user", user.secondUserId], () =>
     getOtherUser(user.secondUserId)
@@ -39,7 +44,7 @@ const UserItem: React.FC<UserItemProps> = ({
 
   return (
     <div
-      className="hover:bg-slate-300 dark:hover:bg-slate-800 p-2 flex gap-4 cursor-pointer mx-2 rounded-lg items-center justify-between"
+      className="hover:bg-slate-300 dark:hover:bg-slate-800 p-2 flex gap-4 cursor-pointer mx-2 rounded-lg items-center justify-between group"
       onClick={onClick}
     >
       <div className="flex gap-5 items-center">
@@ -70,6 +75,15 @@ const UserItem: React.FC<UserItemProps> = ({
         <Paragraph className="animate-spin ml-6">
           <AiOutlineLoading3Quarters size={30} />
         </Paragraph>
+      )}
+      {haveDeleteButton && !isLoading && (
+        <Button
+          onClick={onDeleteClickHandler}
+          variant="ghost"
+          className="opacity-0 group-hover:opacity-100 ml-2"
+        >
+          <BiTrash color="red" size={30} />
+        </Button>
       )}
     </div>
   );

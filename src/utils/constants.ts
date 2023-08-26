@@ -30,6 +30,7 @@ export const newSectionsButtonObject: {
 // Hossein
 // export const BASE_URL = "http://192.168.70.233:8080/";
 // export const BASE_URL = "http://localhost:8080/";
+// export const BASE_URL = "";
 export const BASE_URL = "http://94.101.185.145:8080/";
 
 export const MESSAGE_PER_PAGE = 50;

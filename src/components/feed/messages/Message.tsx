@@ -5,9 +5,9 @@ import { Avatar, Paragraph } from "@/components/ui";
 import clsx from "clsx";
 import { BsCheckAll } from "react-icons/bs";
 import { BiCheck } from "react-icons/bi";
-import { MessageStatus, MessageTypes, subTypes } from "@/utils/types";
+import { MessageStatus, MessageTypes, chatType, subTypes } from "@/utils/types";
 import { ClockLoader } from "react-spinners";
-import Context from "@/components/ui/Context";
+import MessageContextMenu from "@/components/feed/messages/MessageContextMenu";
 import ClickOutsideWrapper from "@/components/wrappers/ClickOutsideWrapper";
 import {
   formatDateDifference,
@@ -15,13 +15,20 @@ import {
   formatDateToTime,
 } from "@/utils/fromatDate";
 import { queryClient } from "@/providers/queryClientProvider";
+import { useMutation } from "react-query";
+import { deleteMessage } from "@/services/api/chat";
+import { useDispatch } from "react-redux";
+import {
+  removeDeletedMessage,
+  setDeletedMessages,
+} from "@/redux/Slices/messageSlice";
 
 interface MessageComponent {
   children?: React.ReactNode;
   message: MessageTypes;
   conversation?: {
     id?: number;
-    type?: "PV" | "GROUP" | "CHANNEL";
+    type?: chatType;
   };
   sentByCurrentUser?: boolean;
   groupMessage?: boolean;
@@ -41,11 +48,20 @@ const Message: React.FC<MessageComponent> = ({
   // ImageMessage,
   // VoiceMessage,
 }) => {
+  const dispatch = useDispatch();
   const [showContextMenu, setShowContextMenu] = useState(false);
   const containerRef = useRef(null);
   const contextMenuRef = useRef(null);
   const [contextMenuX, setContextMenuX] = useState(0);
   const [contextMenuY, setContextMenuY] = useState(0);
+  const { mutate: deleteMessageMutate } = useMutation(deleteMessage, {
+    onMutate() {
+      dispatch(setDeletedMessages({ messageId: message.messageId }));
+    },
+    onError() {
+      dispatch(removeDeletedMessage({ messageId: message.messageId }));
+    },
+  });
 
   const subs = queryClient.getQueryData<{ data: subTypes[] }>([
     "chat",
@@ -58,6 +74,10 @@ const Message: React.FC<MessageComponent> = ({
     () => subs?.data?.find((sub) => sub.userId === message.userId),
     [JSON.stringify(subs)]
   );
+
+  const onDeleteMessageHandler = () => {
+    deleteMessageMutate(message.messageId);
+  };
 
   return (
     <div
@@ -82,7 +102,6 @@ const Message: React.FC<MessageComponent> = ({
         );
         setShowContextMenu(true);
       }}
-      onClick={() => console.log(message)}
     >
       {showContextMenu && sentByCurrentUser && (
         <div
@@ -99,7 +118,9 @@ const Message: React.FC<MessageComponent> = ({
               setShowContextMenu(false);
             }}
           >
-            <Context />
+            <MessageContextMenu
+              onDeleteMessageHandler={onDeleteMessageHandler}
+            />
           </ClickOutsideWrapper>
         </div>
       )}
@@ -119,7 +140,9 @@ const Message: React.FC<MessageComponent> = ({
               setShowContextMenu(false);
             }}
           >
-            <Context />
+            <MessageContextMenu
+              onDeleteMessageHandler={onDeleteMessageHandler}
+            />
           </ClickOutsideWrapper>
         </div>
       )}
