@@ -149,7 +149,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
         </div>
         <div className="w-full">
           <div className="flex items-center justify-between whitespace-nowrap w-full">
-            <Paragraph className=" overflow-hidden font-extrabold text-ellipsis dark:!text-white !text-slate-800 ml-2">
+            <Paragraph className=" overflow-hidden font-extrabold dark:!text-white  !text-slate-800 ml-2 max-w-[20ch] text-ellipsis">
               {conversation.title}
             </Paragraph>
             <Paragraph className="!text-[12px] text-bg-btn whitespace-nowrap text-center bg-green-500/20 rounded-full px-2">

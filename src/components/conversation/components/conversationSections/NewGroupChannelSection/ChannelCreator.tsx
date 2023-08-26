@@ -7,7 +7,7 @@ import { UseFormRegister, FieldValues, UseFormSetValue } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { setSection } from "@/redux/Slices/conversationSlice";
 import ProfileUploader from "@/components/wrappers/FileUploader";
-import { useState } from "react";
+import {  useState } from "react";
 import ChatPrivacy from "../../ChannelPrivacy";
 import { StoreStateTypes } from "@/utils/types";
 import { setProfileImageURL } from "@/redux/Slices/appSlice";
@@ -29,6 +29,7 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
   setGroupProfileFormData,
 }) => {
   const dispatch = useDispatch();
+ 
 
   const { profileImageURL } = useSelector(
     (store: StoreStateTypes) => store.app
@@ -49,6 +50,8 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
       dispatch(onCropperOpen());
     }
   };
+
+  
 
   return (
     <FadeMotionWrapper show={show}>
@@ -71,6 +74,7 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
               formId="channelName"
               required
               register={register}
+              onKeyDown={(e) => (e.key === "Enter" ? onSubmit() : "")}
             />
 
             <FloatingLabelInput
@@ -78,6 +82,7 @@ const ChannelCreator: React.FC<ChannelCreatorProp> = ({
               type="text"
               formId="channelBio"
               register={register}
+              onKeyDown={(e) => (e.key === "Enter" ? onSubmit() : "")}
             />
           </div>
 
