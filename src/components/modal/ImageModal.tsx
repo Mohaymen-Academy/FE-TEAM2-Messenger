@@ -22,6 +22,7 @@ const ImageModal = () => {
           variant="ghost"
           className="p-5 py-9 hover:bg-slate-400/20"
         >
+        
           <RxCross1 className="text-white" size={40} />
         </Button>
         <Button
