@@ -57,7 +57,7 @@ const UserItem: React.FC<UserItemProps> = ({
           {withCheck && (
             <div
               style={{ transform: `scale(${checked ? 1.2 : 0})` }}
-              className="absolute left-0 bottom-0 text-green-500 bg-black rounded-full transition-all"
+              className="absolute left-0 bottom-0 text-blue-600 dark:text-cyan-400 bg-black rounded-full transition-all"
             >
               <BsFillCheckCircleFill size={18} />
             </div>
