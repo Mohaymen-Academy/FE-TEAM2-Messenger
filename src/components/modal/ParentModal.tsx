@@ -103,7 +103,7 @@ const Modal: React.FC<ModalProps> = ({
 							focus:outline-none"
             >
               {/* BODY */}
-              <div className="relative w-screen max-h-[90vh] bg p-6 flex-auto self-center flex items-center justify-center">
+              <div className="relative w-screen h-[1000px] max-h-[90vh] bg p-6 flex-auto self-center flex items-center justify-center">
                 {body}
               </div>
               {/* FOOTER */}

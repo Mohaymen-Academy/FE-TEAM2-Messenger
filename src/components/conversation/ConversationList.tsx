@@ -85,9 +85,10 @@ const ConversationList: React.FC<ConversationListProps> = ({}) => {
               ) : conversationItemsQueryResponse.isError ? (
                 <Paragraph>خطا در دریافت اطلاعات</Paragraph>
               ) : (
-                conversationItems?.map((item: ConversationTypes) =>
-                  filteredConversations(item)
-                )
+                conversationItems?.map((item: ConversationTypes) => {
+                  if (item.chatType === "SAVED_MESSAGE") return null;
+                  return filteredConversations(item);
+                })
               )}
             </div>
           </div>

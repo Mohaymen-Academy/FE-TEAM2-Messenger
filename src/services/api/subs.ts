@@ -5,7 +5,11 @@ const getSubs = (id: number) => {
   return apiCall.get<subTypes[]>(`/api/subs/chat-subs/${id}`);
 };
 const setLastMessageSeen = (id: number) => {
-  return apiCall.put(`api/subs/set-last-seen/${id}`);
+  return apiCall.put(`/api/subs/set-last-seen/${id}`);
 };
 
-export { getSubs, setLastMessageSeen };
+const removeUserFromChat = async (subId: number) => {
+  return apiCall.delete(`/api/subs/delete-sub/${subId}`);
+};
+
+export { getSubs, setLastMessageSeen, removeUserFromChat };

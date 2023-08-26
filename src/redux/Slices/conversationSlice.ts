@@ -52,7 +52,7 @@ const conversationSlice = createSlice({
     },
     setSelectedConversation: (
       state: conversationSliceType,
-      action: { payload: { conversation: ConversationTypes } }
+      action: { payload: { conversation?: ConversationTypes } }
     ) => {
       state.selectedConversation = action.payload.conversation;
     },

@@ -22,7 +22,7 @@ const ImageModal = () => {
           variant="ghost"
           className="p-5 py-9 hover:bg-slate-400/20"
         >
-        
+        <span className="sr-only">بستن این صفحه</span>
           <RxCross1 className="text-white" size={40} />
         </Button>
         <Button
@@ -42,6 +42,7 @@ const ImageModal = () => {
           className="p-5 py-9 hover:bg-slate-400/20"
         >
           <BsDownload className="text-white" size={40} />
+          <span className="sr-only">دانلود عکس</span>
         </Button>
       </div>
 

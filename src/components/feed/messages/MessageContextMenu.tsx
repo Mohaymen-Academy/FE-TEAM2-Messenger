@@ -1,11 +1,18 @@
-import ContextItem from "./ContextItem";
+import { ContextItem, ContextMenu } from "@/components/ui/";
 import { HiOutlinePencil } from "react-icons/hi";
 import { MdDelete, MdOutlineContentCopy } from "react-icons/md";
 import { AiOutlineCheckCircle } from "react-icons/ai";
+import React from "react";
 
-const Context = () => {
+interface MessageContextMenuProps {
+  onDeleteMessageHandler: () => void;
+}
+
+const MessageContextMenu: React.FC<MessageContextMenuProps> = ({
+  onDeleteMessageHandler,
+}) => {
   return (
-    <div className="bg-primary w-full flex flex-col items-center p-1 rounded-xl">
+    <ContextMenu>
       <ContextItem text="ویرایش">
         <HiOutlinePencil className="text-primary" />
       </ContextItem>
@@ -18,11 +25,11 @@ const Context = () => {
         <AiOutlineCheckCircle className="text-primary" />
       </ContextItem>
 
-      <ContextItem color="danger" text="حذف">
+      <ContextItem onCLick={onDeleteMessageHandler} color="danger" text="حذف">
         <MdDelete className="text-red-500" />
       </ContextItem>
-    </div>
+    </ContextMenu>
   );
 };
 
-export default Context;
+export default MessageContextMenu;

@@ -14,12 +14,45 @@ export default defineConfig({
       // },
       registerType: "autoUpdate",
       manifest: {
+        name: "Iris Messenger",
+        short_name: "Iris",
+        description: "Iris Iranian Messenger",
+        categories: ["messenger", "communication"],
+        theme_color: "#0d3a60",
         icons: [
           {
-            src: "/icons/512.png",
+            src: "/android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "/android-chrome-512x512.png",
             sizes: "512x512",
             type: "image/png",
-            purpose: "any maskable",
+          },
+          {
+            src: "/android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable",
+          },
+          {
+            src: "/android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any",
+          },
+          {
+            src: "/android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any",
+          },
+          {
+            src: "/android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
           },
         ],
       },
@@ -27,7 +60,7 @@ export default defineConfig({
         runtimeCaching: [
           {
             urlPattern: ({ url }) => {
-              return url.pathname.startsWith("/api");
+              return url.pathname.startsWith("/api/media");
             },
             handler: "CacheFirst" as const,
             options: {

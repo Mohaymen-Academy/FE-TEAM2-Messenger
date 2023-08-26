@@ -16,8 +16,9 @@ const ConversationWrapper: React.FC<ConversationWrapperProps> = ({
   conversationShowCriteria,
 }) => {
   //get logged in user's contacts list and save in cache
-  const contactQuery = useQuery(["user", "current", "contacts"], getContacts);
-
+  const contactQuery = useQuery(["user", "current", "contacts"], getContacts, {
+    enabled: true,
+  });
   const contacts = contactQuery.data?.data;
 
   const sortedContacts =

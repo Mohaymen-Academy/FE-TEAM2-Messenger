@@ -8,12 +8,14 @@ import { useDispatch } from "react-redux";
 
 import { BsFillPeopleFill, BsFillPersonFill } from "react-icons/bs";
 import { HiSpeakerphone } from "react-icons/hi";
+import { chatType } from "@/utils/types";
+import { FiSave } from "react-icons/fi";
 
 interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   isOnline?: boolean;
   imgSrc?: string;
   isConversationList?: boolean;
-  chatType?: "PV" | "CHANNEL" | "GROUP";
+  chatType?: chatType;
   avatarType?: "USER" | "CHAT";
   chatId?: number;
   userId?: number;
@@ -46,24 +48,28 @@ const Avatar: React.FC<AvatarProps> = ({
     return URL.createObjectURL(binaryData?.data);
   }, [binaryData?.data.size]);
 
+  const onClickHandler = () => {
+    if (chatType === "SAVED_MESSAGE") return;
+    
+    if (isConversationList) return;
+    dispatch(setShow({ show: true }));
+
+    dispatch(
+      setSelectedProfile({
+        selectedProfile: {
+          conversationId: chatId,
+          conversationType: chatType,
+          userId,
+          imageUrl: fileUrl,
+          profileType: avatarType === "CHAT" ? chatType : "CURRENT_USER",
+        },
+      })
+    );
+  };
+
   return (
     <div
-      onClick={() => {
-        if (isConversationList) return;
-        dispatch(setShow({ show: true }));
-
-        dispatch(
-          setSelectedProfile({
-            selectedProfile: {
-              conversationId: chatId,
-              conversationType: chatType,
-              userId,
-              imageUrl: fileUrl,
-              profileType: avatarType === "CHAT" ? chatType : "CURRENT_USER",
-            },
-          })
-        );
-      }}
+      onClick={onClickHandler}
       className={merge(
         "w-16 h-16 text-center relative rounded-full cursor-pointer",
         className
@@ -75,7 +81,11 @@ const Avatar: React.FC<AvatarProps> = ({
       )}
 
       {fileUrl ? (
-        <img className="rounded-full w-full h-full" alt="Avatar" src={fileUrl} />
+        <img
+          className="rounded-full w-full h-full"
+          alt="Avatar"
+          src={fileUrl}
+        />
       ) : (
         <>
           {avatarType === "CHAT" && (
@@ -88,6 +98,9 @@ const Avatar: React.FC<AvatarProps> = ({
               )}
               {chatType === "PV" && (
                 <BsFillPersonFill className="w-full h-full text-3xl text-primary" />
+              )}
+              {chatType === "SAVED_MESSAGE" && (
+                <FiSave className="w-full h-full text-3xl text-primary" />
               )}
             </div>
           )}

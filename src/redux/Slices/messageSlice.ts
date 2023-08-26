@@ -5,12 +5,14 @@ export type messageSliceType = {
   message: string;
   isSelected: boolean;
   optimisticCache: Record<string, MessageTypes[]>;
+  optimisticCacheDeletedMessages: number[];
 };
 
 const initialState: messageSliceType = {
   message: "",
   isSelected: false,
   optimisticCache: {},
+  optimisticCacheDeletedMessages: [],
 };
 
 const messageSlice = createSlice({
@@ -59,10 +61,38 @@ const messageSlice = createSlice({
         state.optimisticCache[chatId] = [];
       }
     },
+    setDeletedMessages: (
+      state: messageSliceType,
+      action: {
+        payload: {
+          messageId: number;
+        };
+      }
+    ) => {
+      state.optimisticCacheDeletedMessages.push(action.payload.messageId);
+    },
+    removeDeletedMessage: (
+      state: messageSliceType,
+      action: {
+        payload: {
+          messageId: number;
+        };
+      }
+    ) => {
+      state.optimisticCacheDeletedMessages =
+        state.optimisticCacheDeletedMessages.filter(
+          (id) => id !== action.payload.messageId
+        );
+    },
   },
 });
 
-export const { setIsSelected, setOptimisticCache, deleteOptimisticCache } =
-  messageSlice.actions;
+export const {
+  setIsSelected,
+  setOptimisticCache,
+  deleteOptimisticCache,
+  setDeletedMessages,
+  removeDeletedMessage,
+} = messageSlice.actions;
 
 export default messageSlice.reducer;
