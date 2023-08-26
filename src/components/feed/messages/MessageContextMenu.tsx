@@ -6,23 +6,17 @@ import React from "react";
 
 interface MessageContextMenuProps {
   onDeleteMessageHandler: () => void;
+  onCopyMessageHandler: ()=> void;
 }
 
 const MessageContextMenu: React.FC<MessageContextMenuProps> = ({
   onDeleteMessageHandler,
+  onCopyMessageHandler,
 }) => {
   return (
     <ContextMenu>
-      <ContextItem text="ویرایش">
-        <HiOutlinePencil className="text-primary" />
-      </ContextItem>
-
-      <ContextItem text="کپی">
+      <ContextItem onCLick={onCopyMessageHandler} text="کپی">
         <MdOutlineContentCopy className="text-primary" />
-      </ContextItem>
-
-      <ContextItem text="انتخاب">
-        <AiOutlineCheckCircle className="text-primary" />
       </ContextItem>
 
       <ContextItem onCLick={onDeleteMessageHandler} color="danger" text="حذف">
