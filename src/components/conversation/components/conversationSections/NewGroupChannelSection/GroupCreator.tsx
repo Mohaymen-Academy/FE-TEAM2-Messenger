@@ -65,13 +65,13 @@ const GroupCreator: React.FC<GroupCreatorProp> = ({
               className="mb-10 mx-auto"
             />
 
-
             <FloatingLabelInput
               type="text"
               label="نام گروه"
               register={register}
               required
               formId="groupName"
+              onKeyDown={(e) => (e.key === "Enter" ? onSubmit() : "")}
             />
 
             <ChatPrivacy setValue={setValue} />
