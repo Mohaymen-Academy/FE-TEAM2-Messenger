@@ -110,10 +110,10 @@ export type ContactTypes = {
 };
 
 export type media = {
-  mediaId: number;
+  mediaId: number | string;
   fileName: string;
   fileMimeType: string;
-  filePath: string;
+  filePath: string | null;
 };
 export type chatType = "CHANNEL" | "GROUP" | "PV" | "SAVED_MESSAGE" | undefined;
 export type MessageStatus = "SEEN" | "DELIVERED" | "PENDING";

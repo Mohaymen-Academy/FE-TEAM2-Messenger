@@ -143,7 +143,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
             chatId={conversation.chatId}
             avatarType="CHAT"
             isConversationList={true}
-            imgSrc={conversation.media?.filePath}
+            imgSrc={conversation.media?.filePath as string}
             userId={otherUserId}
           />
         </div>
